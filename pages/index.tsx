@@ -117,7 +117,7 @@ const SearchFormWrapper = styled.form`
 const SearchInput = styled.input`
   width: 440px;
   height: 56px;
-  padding-left: 20px;
+  padding: 0 20px;
   border-radius: ${(props) => props.theme.borderRadius.border16}px;
   background-color: ${(props) => props.theme.colors.white};
 `
