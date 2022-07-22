@@ -23,6 +23,18 @@ declare module 'styled-components' {
       font13: int
       font12: int
     }
+    borderRadius: {
+      border8: int
+      border12: int
+      border16: int
+    }
+    widthes: {
+      maxWidth: int
+    }
+    marginTop: {
+      margin40: int
+      margin30: int
+    }
     buttons: {
       whiteButton: string
       orangeButton: string

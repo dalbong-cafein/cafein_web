@@ -10,6 +10,10 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 600;
     color: ${(props) => props.theme.colors.grey900};
     min-width: 320px;
+    background-color: ${(props) => props.theme.colors.grey50};
+  }
+  h1,h2,h3,h4,h5 {
+    margin: 0
   }
   a { cursor: pointer; text-decoration: none; }
   ol, ul {

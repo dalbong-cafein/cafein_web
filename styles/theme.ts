@@ -1,4 +1,4 @@
-import { css, DefaultTheme } from 'styled-components'
+import { DefaultTheme } from 'styled-components'
 
 const colors = {
   orange500: '#fc6406',
@@ -23,22 +23,38 @@ const fontsizes = {
   font12: 0.75
 }
 
+const widthes = {
+  maxWidth: 1386
+}
+
+const marginTop = {
+  margin40: 40,
+  margin30: 30
+}
+
+const borderRadius = {
+  border8: 8,
+  border12: 12,
+  border16: 16
+}
+
 const buttons = {
   whiteButton: `
     color: ${colors.orange400};
     background-color: transparent;
     border: 1px solid ${colors.grey300};
-    border-radius: 12px;
   `,
   orangeButton: `
     color: ${colors.white};
     background-color: ${colors.orange400};
-    border-radius: 12px;
   `
 }
 
 export const theme: DefaultTheme = {
   colors,
   fontsizes,
+  widthes,
+  marginTop,
+  borderRadius,
   buttons
 }
