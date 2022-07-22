@@ -5,6 +5,7 @@ import Document, {
   Main,
   NextScript
 } from 'next/document'
+import Script from 'next/script'
 import { ServerStyleSheet } from 'styled-components'
 
 export default class MyDocument extends Document {
@@ -45,6 +46,11 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             type="text/css"
             href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+          />
+
+          <Script
+            strategy="beforeInteractive"
+            src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NAVER_PUBLIC_KEY}`}
           />
         </Head>
         <body>

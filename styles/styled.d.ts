@@ -17,23 +17,23 @@ declare module 'styled-components' {
       blue: string
     }
     fontsizes: {
-      font28: int
-      font15: int
-      font14: int
-      font13: int
-      font12: int
+      font28: number
+      font15: number
+      font14: number
+      font13: number
+      font12: number
     }
     borderRadius: {
-      border8: int
-      border12: int
-      border16: int
+      border8: number
+      border12: number
+      border16: number
     }
     widthes: {
-      maxWidth: int
+      maxWidth: number
     }
     marginTop: {
-      margin40: int
-      margin30: int
+      margin40: number
+      margin30: number
     }
     buttons: {
       whiteButton: string
