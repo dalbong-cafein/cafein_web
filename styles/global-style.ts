@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
     min-width: 320px;
     background-color: ${(props) => props.theme.colors.grey50};
   }
-  h1,h2,h3,h4,h5 {
+  h1,h2,h3,h4,h5,p,div {
     margin: 0
   }
   a { cursor: pointer; text-decoration: none; }
@@ -24,5 +24,8 @@ export const GlobalStyle = createGlobalStyle`
   button {
     border: none;
     cursor: pointer;
+  }
+  input, div {
+    box-sizing: border-box;
   }
 `

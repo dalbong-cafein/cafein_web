@@ -9,6 +9,7 @@ const colors = {
   grey500: '#8b8b8b',
   grey400: '#acacac',
   grey300: '#d1d1d1',
+  grey100: '#efefef',
   grey50: '#f7f7f7',
   white: '#fff',
   black: '000',
@@ -17,6 +18,7 @@ const colors = {
 
 const fontsizes = {
   font28: 1.75,
+  font19: 1.1875,
   font15: 0.9375,
   font14: 0.875,
   font13: 0.8125,
@@ -24,7 +26,9 @@ const fontsizes = {
 }
 
 const widthes = {
-  maxWidth: 1386
+  maxWidth: 1386,
+  maxBarList: 680,
+  minBarList: 300
 }
 
 const marginTop = {
@@ -33,6 +37,7 @@ const marginTop = {
 }
 
 const borderRadius = {
+  border4: 4,
   border8: 8,
   border12: 12,
   border16: 16
@@ -50,11 +55,30 @@ const buttons = {
   `
 }
 
+const mixins = {
+  scroll_x: `
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none; // IE 스크롤바 감추기
+    scrollbar-width: none; // Firefox 스크롤바 감추기
+    &::-webkit-scrollbar {
+    display: none; // Chrome 스크롤바 감추기
+  `,
+  ellipse: `
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  `
+}
+
 export const theme: DefaultTheme = {
   colors,
   fontsizes,
   widthes,
   marginTop,
   borderRadius,
-  buttons
+  buttons,
+  mixins
 }
