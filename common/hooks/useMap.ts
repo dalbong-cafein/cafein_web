@@ -26,15 +26,19 @@ const useMap = () => {
       // Naver Map 생성
       mapRef.current = new naver.maps.Map('map', {
         center: new naver.maps.LatLng(currentPosition[0], currentPosition[1]),
-        zzoomControl: true,
+        zoomControl: true,
         zoomControlOptions: {
           style: naver.maps.ZoomControlStyle.SMALL,
           position: naver.maps.Position.BOTTOM_RIGHT
         },
         scaleControl: true,
         scaleControlOptions: {
-          position: naver.maps.Position.RIGHT_CENTER
-        }
+            position: naver.maps.Position.RIGHT_CENTER
+        },
+        logoControl: true,
+        logoControlOptions: {
+            position: naver.maps.Position.TOP_LEFT
+        },
       })
     }
   }, [myLocation])
