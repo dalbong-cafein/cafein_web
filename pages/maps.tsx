@@ -1,6 +1,5 @@
 import { NextPage } from 'next'
-import Image from 'next/image'
-import Link from 'next/link'
+import Head from 'next/head'
 import styled from 'styled-components'
 import CurrentPopularLists from '../common/components/Maps/CurrentPopularLists'
 import RegionLists from '../common/components/Maps/RegionLists'
@@ -10,6 +9,9 @@ const MapPage: NextPage = () => {
   useMap()
   return (
     <>
+      <Head>
+        <title>카페인|지도</title>
+      </Head>
       <MainWrapper>
         <SearchWrapper>
           <SearchInput placeholder="카페 이름이나 지하철역을 검색해보세요" />
