@@ -1,12 +1,48 @@
-import { NextPage } from 'next'
+import { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import styled from 'styled-components'
 import CurrentPopularLists from '../common/components/Maps/CurrentPopularLists'
 import RegionLists from '../common/components/Maps/RegionLists'
 import useMap from '../common/hooks/useMap'
+import CryptoJS from 'crypto-js'
 
-const MapPage: NextPage = () => {
-  useMap()
+interface SortedSet {
+  [key: string]: string
+}
+
+interface StoreImageDtoList {
+  imageId: number
+  imageUrl: string
+}
+
+interface Store {
+  storeId: number
+  storeName: string
+  recommendPercent: number
+  businessHoursInfoDto: {
+    isOpen: null | boolean
+    closed: null | string
+    tmrOpen: null | string
+  }
+  lngX: number
+  latY: number
+  heartCnt: number
+  congestionScoreAvg: number
+  storeImageDtoList: StoreImageDtoList[]
+}
+
+interface Props {
+  stores?: {
+    code: number
+    data: Store[]
+    message: string
+  }
+  ip: string
+}
+
+const MapPage: NextPage<Props> = ({ ip }) => {
+  // useMap()
+  console.log('hello', ip)
   return (
     <>
       <Head>
@@ -23,6 +59,20 @@ const MapPage: NextPage = () => {
       <MapBox id="map"></MapBox>
     </>
   )
+}
+
+MapPage.getInitialProps = async (ctx) => {
+  const response = await fetch('https://api.ip.pe.kr/json/')
+  if (response.ok) {
+    const { ip } = await response.json()
+    return { ip }
+  }
+
+  // const res = await fetch(`${process.env.API_DOMAIN}/stores`)
+  // const stores: Store = await res.json()
+  // return {
+  //   props: { stores, data }
+  // }
 }
 
 const MainWrapper = styled.div`
