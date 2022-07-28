@@ -7,7 +7,7 @@ export default function RegionLists() {
     <RegionWrapper>
       <RegionTitle>지역별 카공하기 좋은 카페</RegionTitle>
       <RegionList role={'tablist'}>
-        <Link href="/map">
+        <Link href="/maps/1">
           <RegionItem role={'tab'}>
             <RegionItemImage
               src={'https://nextjs.org/static/images/learn.png'}
@@ -19,7 +19,7 @@ export default function RegionLists() {
             <RegionItemTitle>사당</RegionItemTitle>
           </RegionItem>
         </Link>
-        <Link href="/map">
+        <Link href="/maps/2">
           <RegionItem role={'tab'}>
             <RegionItemImage
               src={'https://nextjs.org/static/images/learn.png'}
@@ -31,7 +31,7 @@ export default function RegionLists() {
             <RegionItemTitle>사당</RegionItemTitle>
           </RegionItem>
         </Link>
-        <Link href="/map">
+        <Link href="/maps/3">
           <RegionItem role={'tab'}>
             <RegionItemImage
               src={'https://nextjs.org/static/images/learn.png'}
@@ -43,7 +43,7 @@ export default function RegionLists() {
             <RegionItemTitle>사당</RegionItemTitle>
           </RegionItem>
         </Link>
-        <Link href="/map">
+        <Link href="/maps">
           <RegionItem role={'tab'}>
             <RegionItemImage
               src={'https://nextjs.org/static/images/learn.png'}
@@ -55,7 +55,7 @@ export default function RegionLists() {
             <RegionItemTitle>사당</RegionItemTitle>
           </RegionItem>
         </Link>
-        <Link href="/map">
+        <Link href="/maps">
           <RegionItem role={'tab'}>
             <RegionItemImage
               src={'https://nextjs.org/static/images/learn.png'}
