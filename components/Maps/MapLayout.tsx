@@ -1,5 +1,7 @@
+import Head from 'next/head'
 import React, { ReactNode } from 'react'
 import Map from './Map'
+import { MainWrapper } from './styles/styles'
 
 interface MayLayoutInterface {
   children: ReactNode
@@ -8,7 +10,10 @@ interface MayLayoutInterface {
 const MapLayout = ({ children }: MayLayoutInterface) => {
   return (
     <>
-      {children}
+      <Head>
+        <title>카페인| 지도</title>
+      </Head>
+      <MainWrapper>{children}</MainWrapper>
       <Map />
     </>
   )

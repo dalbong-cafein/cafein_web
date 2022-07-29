@@ -4,7 +4,6 @@ import { userIpAtom } from '../../store'
 import { MapBox } from './styles/styles'
 
 const Map = () => {
-  console.log('Hrrloo')
   //   const userIp = useAtomValue(userIpAtom)
   //   console.log(userIp)
   useEffect(() => {
