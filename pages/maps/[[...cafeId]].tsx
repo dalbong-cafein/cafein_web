@@ -121,7 +121,32 @@ const MapPage: NextPageWithLayout = () => {
               <WrapperTitle>카공 정보</WrapperTitle>
             </CafeInfoWrapper>
             <CafeInfoWrapper>
-              <WrapperTitle>투썸 플레이스 합정역점</WrapperTitle>
+              <WrapperTitle>
+                <StrongWrapperTitle>{cafeInfo.storeName}</StrongWrapperTitle>
+                카공 카페로 어떤가요?
+              </WrapperTitle>
+              <ButtonOutterWrapper>
+                <ButtonInnerWrapper>
+                  <Image
+                    src={'/images/bad.svg'}
+                    width={60}
+                    height={82}
+                    alt="bad badge"
+                  />
+                  <Image
+                    src={'/images/soso.svg'}
+                    width={60}
+                    height={82}
+                    alt="soso badge"
+                  />
+                  <Image
+                    src={'/images/good.svg'}
+                    width={60}
+                    height={82}
+                    alt="good badge"
+                  />
+                </ButtonInnerWrapper>
+              </ButtonOutterWrapper>
             </CafeInfoWrapper>
             <CafeInfoWrapper>
               <WrapperTitle>혼잡도</WrapperTitle>
@@ -259,6 +284,27 @@ const EditDateDesc = styled.p`
 
 const WrapperTitle = styled(Description)`
   font-weight: 600;
+  margin-left: 0;
+  & span {
+    margin-right: 6px;
+  }
+`
+
+const StrongWrapperTitle = styled(StrongSpan)`
+  margin-left: 0;
+`
+
+const ButtonOutterWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+`
+
+const ButtonInnerWrapper = styled.div`
+  display: flex;
+  width: 340px;
+  justify-content: space-between;
 `
 
 export default MapPage
