@@ -7,7 +7,7 @@ import {
   SearchButton,
   SearchInput,
   SearchWrapper
-} from '../../components/Maps/styles'
+} from '../../components/Maps/styles/styles'
 
 const MapPage = () => {
   // console.log(userInfo)

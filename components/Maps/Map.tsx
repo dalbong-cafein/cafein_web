@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { atom, useAtom, useAtomValue } from 'jotai'
 import { userIpAtom } from '../../store'
-import { MapBox } from './styles'
+import { MapBox } from './styles/styles'
 
 const Map = () => {
   console.log('Hrrloo')

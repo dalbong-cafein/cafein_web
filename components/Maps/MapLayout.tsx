@@ -1,7 +1,11 @@
-import { Props } from 'next/script'
+import React, { ReactNode } from 'react'
 import Map from './Map'
 
-const MapLayout = ({ children }: Props) => {
+interface MayLayoutInterface {
+  children: ReactNode
+}
+
+const MapLayout = ({ children }: MayLayoutInterface) => {
   return (
     <>
       {children}
