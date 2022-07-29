@@ -1,83 +1,21 @@
 import axios from 'axios'
 import { useAtom } from 'jotai'
 import Head from 'next/head'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { ReactElement, useEffect } from 'react'
+import styled from 'styled-components'
 import { HomeTitle } from '../../components/Home/styles/FormStyles'
 import CurrentPopularLists from '../../components/Maps/CurrentPopularLists'
 import MapLayout from '../../components/Maps/MapLayout'
 import RegionLists from '../../components/Maps/RegionLists'
 import {
-  MainWrapper,
   SearchButton,
   SearchInput,
   SearchWrapper
 } from '../../components/Maps/styles/styles'
-import { cafeInfoAtom } from '../../store'
+import { cafeInfoAtom, CafeInfoInterface } from '../../store'
 import { NextPageWithLayout } from '../_app'
-
-interface ImageListInterface {
-  imageId: number
-  imageUrl: string
-}
-
-interface CafeInfoInterface {
-  storeId: number
-  storeName: string
-  nicknameOfModMember: string
-  memberImageDto: {
-    imageId: number
-    imageUrl: string
-  }
-  address: {
-    siNm: string
-    sggNm: string
-    detail: string
-    fullAddress: string
-    rnum: string
-    rnm: string
-  }
-  wifiPassword: string
-  heartCnt: number
-  isHeart: false
-  businessHoursInfoDto: {
-    isOpen: false
-    closed: string
-    tmrOpen: string
-  }
-  totalBusinessHoursResDto: {
-    onMon: {
-      open: string
-      closed: string
-    }
-    onTue: {
-      open: string
-      closed: string
-    }
-    onWed: {
-      open: string
-      closed: string
-    }
-    onThu: {
-      open: string
-      closed: string
-    }
-    onFri: {
-      open: string
-      closed: string
-    }
-    onSat: {
-      open: string
-      closed: string
-    }
-    onSun: null
-    etcTime: string
-  }
-  lngX: number
-  latY: number
-  reviewImageList: ImageListInterface[]
-  storeImageList: ImageListInterface[]
-}
 
 const MapPage: NextPageWithLayout = () => {
   // 주소창에 cafeId가 있으면 Detail Map을 보여줌
@@ -118,8 +56,22 @@ const MapPage: NextPageWithLayout = () => {
         <Head>
           <title>카페인| 지도 {cafeId}</title>
         </Head>
-        {cafeId && <div>hello</div>}
-        {cafeInfo && <div>{cafeInfo.nicknameOfModMember}</div>}
+        {cafeInfo && (
+          <>
+            <ImageWrappers>
+              {cafeInfo.storeImageList.slice(0, 5).map((imgData, idx) => (
+                <Image
+                  src={imgData.imageUrl}
+                  alt="카페 사진"
+                  key={cafeInfo.storeId + idx}
+                  width={392}
+                  height={284}
+                />
+              ))}
+            </ImageWrappers>
+            <CafeInfoHeader>나는 천재야!!</CafeInfoHeader>
+          </>
+        )}
         <HomeTitle>나는 바보</HomeTitle>
       </>
     )
@@ -132,25 +84,22 @@ MapPage.getLayout = function getLayout(page: ReactElement) {
   return <MapLayout>{page}</MapLayout>
 }
 
-// interface UserInfo {
-//   city: string
-//   country: string
-//   ip: string
-//   loc: string
-//   org: string
-//   postal: string
-//   region: string
-//   timezone: string
-// }
+const ImageWrappers = styled.div`
+  display: grid;
+  width: 680px;
+  height: 284px;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: 392px 1fr 1fr;
+  grid-gap: 4px;
 
-// export const getServerSideProps = async () => {
-//   const request = await fetch('https://ipinfo.io/json?token=5a0c6e1cf47970')
-//   const userInfo: UserInfo = await request.json()
-//   return {
-//     props: {
-//       userInfo
-//     }
-//   }
-// }
+  span:nth-child(1) {
+    grid-row: 1 / 3;
+  }
+`
+
+const CafeInfoHeader = styled.div`
+  display: flex;
+  padding: 30px 30px 24px;
+`
 
 export default MapPage

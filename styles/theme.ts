@@ -4,7 +4,7 @@ const colors = {
   orange500: '#fc6406',
   orange400: '#fc7521',
   grey900: '#131313',
-  grey800: '333',
+  grey800: '#333',
   grey600: '#646464',
   grey500: '#8b8b8b',
   grey400: '#acacac',
@@ -12,7 +12,7 @@ const colors = {
   grey100: '#efefef',
   grey50: '#f7f7f7',
   white: '#fff',
-  black: '000',
+  black: '#000',
   blue: '#2563Eb'
 }
 
