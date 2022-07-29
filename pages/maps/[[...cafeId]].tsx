@@ -1,10 +1,11 @@
 import axios from 'axios'
-import { useAtom } from 'jotai'
+import { useAtom, useAtomValue } from 'jotai'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { ReactElement, useEffect } from 'react'
 import styled from 'styled-components'
+import { Ddabong } from '../../components/common/Common'
 import { HomeTitle } from '../../components/Home/styles/FormStyles'
 import CurrentPopularLists from '../../components/Maps/CurrentPopularLists'
 import MapLayout from '../../components/Maps/MapLayout'
@@ -14,7 +15,7 @@ import {
   SearchInput,
   SearchWrapper
 } from '../../components/Maps/styles/styles'
-import { cafeInfoAtom, CafeInfoInterface } from '../../store'
+import { cafeInfoAtom, CafeInfoInterface, is_running_atom } from '../../store'
 import { NextPageWithLayout } from '../_app'
 
 const MapPage: NextPageWithLayout = () => {
@@ -22,6 +23,7 @@ const MapPage: NextPageWithLayout = () => {
   const router = useRouter()
   const { cafeId } = router.query
   const [cafeInfo, setCafeInfo] = useAtom(cafeInfoAtom)
+  const [isRunning, closeTime] = useAtomValue(is_running_atom)
 
   useEffect(() => {
     if (!router.isReady || !cafeId) return
@@ -69,7 +71,20 @@ const MapPage: NextPageWithLayout = () => {
                 />
               ))}
             </ImageWrappers>
-            <CafeInfoHeader>나는 천재야!!</CafeInfoHeader>
+            <CafeInfoHeader>
+              <TitleWrapper>
+                <HeaderTitle>{cafeInfo.storeName}</HeaderTitle>
+                {cafeInfo.heartCnt && <>{Ddabong} n% (계산해야함 + 디자인)</>}
+              </TitleWrapper>
+              <SubTitle>{cafeInfo.address.fullAddress}</SubTitle>
+            </CafeInfoHeader>
+            <OpenInfoWrapper>
+              <ClockIcon>{/* <Image src="/public/images/" /> */}</ClockIcon>
+              <Description>
+                <StrongSpan>{isRunning ? '영업 중' : '영업 종료'}</StrongSpan>
+                오후 11:30에 영업 종료
+              </Description>
+            </OpenInfoWrapper>
           </>
         )}
         <HomeTitle>나는 바보</HomeTitle>
@@ -99,7 +114,43 @@ const ImageWrappers = styled.div`
 
 const CafeInfoHeader = styled.div`
   display: flex;
+  flex-direction: column;
   padding: 30px 30px 24px;
+`
+
+const TitleWrapper = styled.div`
+  display: flex;
+`
+
+const HeaderTitle = styled.h1`
+  font-weight: 600;
+  font-size: ${(props) => props.theme.fontsizes.font16}rem;
+`
+
+const SubTitle = styled.h2`
+  font-weight: 400;
+  font-size: ${(props) => props.theme.fontsizes.font13}rem;
+  color: ${(props) => props.theme.colors.grey600};
+  margin-top: 10px;
+`
+
+const OpenInfoWrapper = styled.div`
+  display: flex;
+`
+
+const ClockIcon = styled.span`
+  width: 20px;
+  height: 20px;
+`
+
+const Description = styled.p`
+  font-size: ${(props) => props.theme.fontsizes.font15}rem;
+`
+
+const StrongSpan = styled.span`
+  color: ${(props) => props.theme.colors.orange500};
+  font-weight: 600;
+  font-size: ${(props) => props.theme.fontsizes.font15}rem;
 `
 
 export default MapPage

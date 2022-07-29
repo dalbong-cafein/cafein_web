@@ -20,6 +20,7 @@ declare module 'styled-components' {
     fontsizes: {
       font28: number
       font19: number
+      font16: number
       font15: number
       font14: number
       font13: number

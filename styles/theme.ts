@@ -19,6 +19,7 @@ const colors = {
 const fontsizes = {
   font28: 1.75,
   font19: 1.1875,
+  font16: 1,
   font15: 0.9375,
   font14: 0.875,
   font13: 0.8125,

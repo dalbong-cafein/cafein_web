@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styled from 'styled-components'
+import { Ddabong } from '../common/Common'
 import {
   CurrentPopularItem,
   CurrentPopularItemImage,
@@ -17,7 +18,6 @@ import {
 } from './styles/styles'
 
 export default function CurrentPopularLists() {
-  const ddabong = '/images/ddabong.svg'
   return (
     <CurrentPopularWrapper>
       <CurrentPopularTitle>최근 인기 있는 카페</CurrentPopularTitle>
@@ -43,15 +43,7 @@ export default function CurrentPopularLists() {
               <OnAirBadge>영업중</OnAirBadge>
               <OpeningTime>오전 11:30 에 영업 종료</OpeningTime>
             </OnAirWrapper>
-            <DdabongWrap>
-              <Image
-                src={ddabong}
-                width={16}
-                height={16}
-                alt="엄지척뱃지"
-                layout="fixed"
-              />
-            </DdabongWrap>
+            <DdabongWrap>{Ddabong}</DdabongWrap>
           </CurrentPopularItem>
         </Link>
       </CurrentPopularList>

@@ -83,9 +83,15 @@ export const is_running_atom = atom((get) => {
     console.log(totalBusinessHoursResDto_array, onDay)
     const { open, cloesd } = totalBusinessHoursResDto[onDay]
     console.log(open, cloesd)
-    if (!open) return false
+    let time
+    if (cloesd) {
+      time = cloesd.split(':').slice(2)
+      console.log(time)
+    }
+    if (!open) return [false, closed]
     if (open && cloesd && open < today.getHours() && today.getHours() < cloesd)
-      return true
-    else return false
+      return [true, closed]
+    else return [false, closed]
   }
+  return [false, null]
 })
