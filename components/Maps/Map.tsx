@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { atom, useAtom, useAtomValue } from 'jotai'
-import { userIpAtom } from '../../../store'
+import { userIpAtom } from '../../store'
 import { MapBox } from './styles'
 
 const Map = () => {

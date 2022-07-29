@@ -1,15 +1,13 @@
-// import useMap from '../../common/hooks/useMap'
-
 import Head from 'next/head'
-import CurrentPopularLists from '../../common/components/Maps/CurrentPopularLists'
-import MapLayout from '../../common/components/Maps/MapLayout'
-import RegionLists from '../../common/components/Maps/RegionLists'
+import CurrentPopularLists from '../../components/Maps/CurrentPopularLists'
+import MapLayout from '../../components/Maps/MapLayout'
+import RegionLists from '../../components/Maps/RegionLists'
 import {
   MainWrapper,
   SearchButton,
   SearchInput,
   SearchWrapper
-} from '../../common/components/Maps/styles'
+} from '../../components/Maps/styles'
 
 const MapPage = () => {
   // console.log(userInfo)
