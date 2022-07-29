@@ -74,17 +74,22 @@ const MapPage: NextPageWithLayout = () => {
             <CafeInfoHeader>
               <TitleWrapper>
                 <HeaderTitle>{cafeInfo.storeName}</HeaderTitle>
-                {cafeInfo.heartCnt && <>{Ddabong} n% (계산해야함 + 디자인)</>}
+                {cafeInfo.heartCnt > 0 && (
+                  <>{Ddabong} n% (계산해야함 + 디자인)</>
+                )}
               </TitleWrapper>
               <SubTitle>{cafeInfo.address.fullAddress}</SubTitle>
-            </CafeInfoHeader>
-            <OpenInfoWrapper>
-              <ClockIcon>{/* <Image src="/public/images/" /> */}</ClockIcon>
-              <Description>
+              <OpenInfoWrapper>
+                <ClockIcon>{/* <Image src="/public/images/" /> */}</ClockIcon>
                 <StrongSpan>{isRunning ? '영업 중' : '영업 종료'}</StrongSpan>
-                오후 11:30에 영업 종료
-              </Description>
-            </OpenInfoWrapper>
+                <Description>{closeTime}에 영업 종료</Description>
+              </OpenInfoWrapper>
+              <EditInfoWrapper>
+                <EditInfoButton>정보수정</EditInfoButton>
+                <EditDesc>잘못된 정보가 있다면 알려주세요</EditDesc>
+                <EditDateDesc>마지막 수정일 </EditDateDesc>
+              </EditInfoWrapper>
+            </CafeInfoHeader>
           </>
         )}
         <HomeTitle>나는 바보</HomeTitle>
@@ -136,6 +141,7 @@ const SubTitle = styled.h2`
 
 const OpenInfoWrapper = styled.div`
   display: flex;
+  margin-top: 12px;
 `
 
 const ClockIcon = styled.span`
@@ -145,12 +151,47 @@ const ClockIcon = styled.span`
 
 const Description = styled.p`
   font-size: ${(props) => props.theme.fontsizes.font15}rem;
+  color: ${(props) => props.theme.colors.grey800};
+  margin-left: 4px;
+  font-weight: 400;
 `
 
 const StrongSpan = styled.span`
   color: ${(props) => props.theme.colors.orange500};
   font-weight: 600;
   font-size: ${(props) => props.theme.fontsizes.font15}rem;
+`
+
+const EditInfoWrapper = styled.div`
+  display: flex;
+  height: 30px;
+  align-items: center;
+`
+
+const EditInfoButton = styled.button`
+  width: 74px;
+  height: 30px;
+  border: 1px solid ${(props) => props.theme.colors.grey400};
+  border-radius: 8px;
+  font-size: ${(props) => props.theme.fontsizes.font13}rem;
+  color: ${(props) => props.theme.colors.grey600};
+  font-weight: 500;
+  background-color: transparent;
+`
+
+const EditDesc = styled.p`
+  font-size: ${(props) => props.theme.fontsizes.font13}rem;
+  color: ${(props) => props.theme.colors.grey600};
+  margin-left: 14px;
+  font-weight: 400;
+`
+
+const EditDateDesc = styled.p`
+  font-size: ${(props) => props.theme.fontsizes.font12}rem;
+  color: ${(props) => props.theme.colors.grey500};
+  opacity: 0.4;
+  margin-left: 12px;
+  font-weight: 400;
 `
 
 export default MapPage

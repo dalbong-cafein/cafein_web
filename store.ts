@@ -60,7 +60,6 @@ export interface CafeInfoInterface {
     }
     onSun: null | { open: string; closed: string }
     etcTime: string
-    [key: string]: any
   }
   lngX: number
   latY: number
@@ -74,24 +73,38 @@ export const cafeInfoAtom = atom<CafeInfoInterface | null>(null)
 
 export const is_running_atom = atom((get) => {
   const today = new Date()
-  const totalBusinessHoursResDto = get(cafeInfoAtom)?.totalBusinessHoursResDto
-  if (totalBusinessHoursResDto) {
-    const totalBusinessHoursResDto_array = Object.keys(totalBusinessHoursResDto)
-    let day = today.getDay() - 1
-    if (day < 0) day += 6
-    const onDay = totalBusinessHoursResDto_array[day]
-    console.log(totalBusinessHoursResDto_array, onDay)
-    const { open, cloesd } = totalBusinessHoursResDto[onDay]
-    console.log(open, cloesd)
-    let time
-    if (cloesd) {
-      time = cloesd.split(':').slice(2)
-      console.log(time)
+  const businessHoursInfoDto = get(cafeInfoAtom)?.businessHoursInfoDto
+  if (businessHoursInfoDto) {
+    const { isOpen, closed } = businessHoursInfoDto
+    if (closed) {
+      const times = closed.split(':')
+      let hour: string | number = Number(times[0])
+      if (hour >= 12) {
+        if (hour > 12) {
+          hour -= 12
+          hour = '0' + String(hour)
+        } else {
+          hour = String(hour)
+        }
+        return [isOpen, '오후 ' + hour + ':' + times[1]]
+      }
     }
-    if (!open) return [false, closed]
-    if (open && cloesd && open < today.getHours() && today.getHours() < cloesd)
-      return [true, closed]
-    else return [false, closed]
+    // const totalBusinessHoursResDto_array = Object.keys(totalBusinessHoursResDto)
+    // let day = today.getDay() - 1
+    // if (day < 0) day += 6
+    // const onDay = totalBusinessHoursResDto_array[day]
+    // console.log(totalBusinessHoursResDto_array, onDay)
+    // const { open, cloesd } = totalBusinessHoursResDto[onDay]
+    // console.log(open, cloesd)
+    // let time
+    // if (cloesd) {
+    //   time = cloesd.split(':').slice(2)
+    //   console.log(time)
+    // }
+    // if (!open) return [false, closed]
+    // if (open && cloesd && open < today.getHours() && today.getHours() < cloesd)
+    //   return [true, closed]
+    // else return [false, closed]
   }
   return [false, null]
 })
