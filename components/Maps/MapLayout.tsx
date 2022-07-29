@@ -1,13 +1,14 @@
 import Head from 'next/head'
 import React, { ReactNode } from 'react'
+import { CafeInfoInterface } from '../../store'
 import Map from './Map'
 import { MainWrapper } from './styles/styles'
 
-interface MayLayoutInterface {
+interface MapLayoutProps {
   children: ReactNode
 }
 
-const MapLayout = ({ children }: MayLayoutInterface) => {
+const MapLayout = ({ children }: MapLayoutProps) => {
   return (
     <>
       <Head>
