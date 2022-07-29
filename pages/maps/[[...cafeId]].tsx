@@ -71,7 +71,7 @@ const MapPage: NextPageWithLayout = () => {
                 />
               ))}
             </ImageWrappers>
-            <CafeInfoHeader>
+            <CafeInfoWrapper>
               <TitleWrapper>
                 <HeaderTitle>{cafeInfo.storeName}</HeaderTitle>
                 {cafeInfo.heartCnt > 0 && (
@@ -80,16 +80,52 @@ const MapPage: NextPageWithLayout = () => {
               </TitleWrapper>
               <SubTitle>{cafeInfo.address.fullAddress}</SubTitle>
               <OpenInfoWrapper>
-                <ClockIcon>{/* <Image src="/public/images/" /> */}</ClockIcon>
+                <ClockIcon>
+                  <Image
+                    src="/images/clock.svg"
+                    width={20}
+                    height={20}
+                    alt="시계 이모지"
+                  />
+                </ClockIcon>
                 <StrongSpan>{isRunning ? '영업 중' : '영업 종료'}</StrongSpan>
                 <Description>{closeTime}에 영업 종료</Description>
+              </OpenInfoWrapper>
+              <OpenInfoWrapper>
+                <Image
+                  src="/images/call.svg"
+                  width={20}
+                  height={20}
+                  alt="전화 이모지"
+                />
+                <CallDescription href={`tel:010`}>
+                  02-123-456 전화번호가 없음
+                </CallDescription>
+              </OpenInfoWrapper>
+              <OpenInfoWrapper>
+                <Image
+                  src="/images/url.svg"
+                  width={20}
+                  height={20}
+                  alt="인터넷 이모지"
+                />
+                <URLDescription href={`/`}>http;eiofjoasjfj</URLDescription>
               </OpenInfoWrapper>
               <EditInfoWrapper>
                 <EditInfoButton>정보수정</EditInfoButton>
                 <EditDesc>잘못된 정보가 있다면 알려주세요</EditDesc>
                 <EditDateDesc>마지막 수정일 </EditDateDesc>
               </EditInfoWrapper>
-            </CafeInfoHeader>
+            </CafeInfoWrapper>
+            <CafeInfoWrapper>
+              <WrapperTitle>카공 정보</WrapperTitle>
+            </CafeInfoWrapper>
+            <CafeInfoWrapper>
+              <WrapperTitle>투썸 플레이스 합정역점</WrapperTitle>
+            </CafeInfoWrapper>
+            <CafeInfoWrapper>
+              <WrapperTitle>혼잡도</WrapperTitle>
+            </CafeInfoWrapper>
           </>
         )}
         <HomeTitle>나는 바보</HomeTitle>
@@ -117,10 +153,23 @@ const ImageWrappers = styled.div`
   }
 `
 
-const CafeInfoHeader = styled.div`
+const CafeInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 30px 30px 24px;
+  position: relative;
+
+  &:not(first-child) {
+    &::before {
+      content: '';
+      height: 2px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: ${(props) => props.theme.colors.grey100};
+    }
+  }
 `
 
 const TitleWrapper = styled.div`
@@ -142,6 +191,7 @@ const SubTitle = styled.h2`
 const OpenInfoWrapper = styled.div`
   display: flex;
   margin-top: 12px;
+  align-items: center;
 `
 
 const ClockIcon = styled.span`
@@ -156,16 +206,29 @@ const Description = styled.p`
   font-weight: 400;
 `
 
+const CallDescription = styled.a`
+  color: ${(props) => props.theme.colors.blue};
+  font-size: ${(props) => props.theme.fontsizes.font15}rem;
+  font-weight: 400;
+  margin-left: 8px;
+`
+
+const URLDescription = styled(CallDescription)`
+  color: ${(props) => props.theme.colors.grey800};
+`
+
 const StrongSpan = styled.span`
   color: ${(props) => props.theme.colors.orange500};
   font-weight: 600;
   font-size: ${(props) => props.theme.fontsizes.font15}rem;
+  margin-left: 8px;
 `
 
 const EditInfoWrapper = styled.div`
   display: flex;
   height: 30px;
   align-items: center;
+  margin-top: 12px;
 `
 
 const EditInfoButton = styled.button`
@@ -192,6 +255,10 @@ const EditDateDesc = styled.p`
   opacity: 0.4;
   margin-left: 12px;
   font-weight: 400;
+`
+
+const WrapperTitle = styled(Description)`
+  font-weight: 600;
 `
 
 export default MapPage
