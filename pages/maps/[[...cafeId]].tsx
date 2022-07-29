@@ -1,5 +1,7 @@
+import axios from 'axios'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import CurrentPopularLists from '../../components/Maps/CurrentPopularLists'
 import MapLayout from '../../components/Maps/MapLayout'
 import RegionLists from '../../components/Maps/RegionLists'
@@ -11,8 +13,21 @@ import {
 } from '../../components/Maps/styles/styles'
 
 const MapPage = () => {
+  // 주소창에 cafeId가 있으면 Detail Map을 보여줌
   const router = useRouter()
   const { cafeId } = router.query
+  useEffect(() => {
+    if (!router.isReady) return
+    async function getDetailStore() {
+      try {
+        const response = await axios.get('/api/stores/41')
+        console.log(response)
+      } catch (error) {
+        console.log(`GET 요청 에러 : ${error}`)
+      }
+    }
+    getDetailStore()
+  })
   let MapContent
   if (!cafeId) {
     MapContent = (
