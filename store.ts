@@ -34,32 +34,33 @@ export interface CafeInfoInterface {
     tmrOpen: string
   }
   totalBusinessHoursResDto: {
-    onMon: {
+    onMon: null | {
       open: string
       closed: string
     }
-    onTue: {
+    onTue: null | {
       open: string
       closed: string
     }
-    onWed: {
+    onWed: null | {
       open: string
       closed: string
     }
-    onThu: {
+    onThu: null | {
       open: string
       closed: string
     }
-    onFri: {
+    onFri: null | {
       open: string
       closed: string
     }
-    onSat: {
+    onSat: null | {
       open: string
       closed: string
     }
-    onSun: null
+    onSun: null | { open: string; closed: string }
     etcTime: string
+    [key: string]: any
   }
   lngX: number
   latY: number
@@ -70,3 +71,20 @@ export interface CafeInfoInterface {
 export const userIpAtom = atom<UserIpAtom | null>(null)
 
 export const cafeInfoAtom = atom<CafeInfoInterface | null>(null)
+
+export const is_running_atom = atom((get) => {
+  const today = new Date()
+  const totalBusinessHoursResDto = get(cafeInfoAtom)?.totalBusinessHoursResDto
+  if (totalBusinessHoursResDto) {
+    const totalBusinessHoursResDto_array = Object.keys(totalBusinessHoursResDto)
+    let day = today.getDay() - 1
+    if (day < 0) day += 6
+    const onDay = totalBusinessHoursResDto_array[day]
+    console.log(totalBusinessHoursResDto_array, onDay)
+    const { open, cloesd } = totalBusinessHoursResDto[onDay]
+    console.log(open, cloesd)
+
+    // const onDay = totalBusinessHoursResDto_array[day]
+    // const { open, closed } = totalBusinessHoursResDto.
+  }
+})
