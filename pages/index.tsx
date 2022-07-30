@@ -8,8 +8,6 @@ import {
   HomeTitle,
   HomeWrapper,
   NavWrapper,
-  OrangeButton,
-  OrangeButtonWrapper,
   SearchButton,
   SearchByMap,
   SearchFormWrapper,
