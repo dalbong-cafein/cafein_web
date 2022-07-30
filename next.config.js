@@ -11,6 +11,10 @@ const nextConfig = {
       {
         source: '/api/stores/:id',
         destination: `${process.env.API_DOMAIN}/stores/:id`
+      },
+      {
+        source: '/api/stores/:id/detail-review-score',
+        destination: `${process.env.API_DOMAIN}/stores/:id/detail-review-score`
       }
     ]
   }
