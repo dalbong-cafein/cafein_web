@@ -94,7 +94,9 @@ export const is_running_atom = atom((get) => {
       if (hour >= 12) {
         if (hour > 12) {
           hour -= 12
-          hour = '0' + String(hour)
+          if (hour < 10) {
+            hour = '0' + String(hour)
+          }
         } else {
           hour = String(hour)
         }

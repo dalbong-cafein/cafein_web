@@ -278,10 +278,10 @@ MapPage.getLayout = function getLayout(page: ReactElement) {
 
 const ImageWrappers = styled.div`
   display: grid;
-  width: 680px;
+  max-width: 680px;
   height: 284px;
   grid-template-rows: repeat(2, 1fr);
-  grid-template-columns: 392px 1fr 1fr;
+  grid-template-columns: 2.8fr 1fr 1fr;
   grid-gap: 4px;
 
   span:nth-child(1) {
