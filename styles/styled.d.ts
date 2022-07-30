@@ -40,6 +40,7 @@ declare module 'styled-components' {
     marginTop: {
       margin40: number
       margin30: number
+      navHeight: number
     }
     buttons: {
       whiteButton: string

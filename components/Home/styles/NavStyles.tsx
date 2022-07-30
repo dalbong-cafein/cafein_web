@@ -6,10 +6,12 @@ const Wrapper = styled.div`
   align-items: center;
 `
 
-const NavWrapper = styled.nav`
-  max-width: ${(props) => props.theme.widthes.maxWidth}px;
+const NavWrapper = styled.nav<{ main?: boolean }>`
+  max-width: ${(props) =>
+    props.main ? props.theme.widthes.maxWidth + 'px' : ''};
+  padding: ${(props) => (props.main ? '' : `0 190px 0 24px`)};
   width: 100%;
-  height: 117px;
+  height: ${(props) => props.theme.marginTop.navHeight}px;
   display: flex;
   justify-content: space-between;
   align-items: center;

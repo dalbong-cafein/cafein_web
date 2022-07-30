@@ -34,7 +34,8 @@ const widthes = {
 
 const marginTop = {
   margin40: 40,
-  margin30: 30
+  margin30: 30,
+  navHeight: 68
 }
 
 const borderRadius = {

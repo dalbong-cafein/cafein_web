@@ -19,7 +19,6 @@ import {
   WhiteLinkWrapper,
   Wrapper
 } from '../components/Home/styles/styles'
-import logoImg from '../public/images/logo_black.svg'
 
 const Home: NextPage = () => {
   return (
@@ -27,10 +26,15 @@ const Home: NextPage = () => {
       <Head>
         <title>카공인을 위한 커페 추천 서비스 카페인</title>
       </Head>
-      <NavWrapper>
+      <NavWrapper main={true}>
         <Link href="/">
           <a>
-            <Image src={logoImg} alt="카페인 로고" width={120} height={57} />
+            <Image
+              src={'/images/logo_black.svg'}
+              alt="카페인 로고"
+              width={80}
+              height={21.5}
+            />
           </a>
         </Link>
         <ButtonsWrapper>
@@ -39,9 +43,9 @@ const Home: NextPage = () => {
               <WhiteLink>의견 보내기</WhiteLink>
             </Link>
           </WhiteLinkWrapper>
-          <OrangeButtonWrapper>
+          {/* <OrangeButtonWrapper>
             <OrangeButton>카페 등록하기</OrangeButton>
-          </OrangeButtonWrapper>
+          </OrangeButtonWrapper> */}
         </ButtonsWrapper>
       </NavWrapper>
       <HomeWrapper>

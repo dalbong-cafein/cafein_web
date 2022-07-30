@@ -25,7 +25,7 @@ export const GlobalStyle = createGlobalStyle`
     border: none;
     cursor: pointer;
   }
-  input, div {
+  input, div, nav {
     box-sizing: border-box;
   }
 `

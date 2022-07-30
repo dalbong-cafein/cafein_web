@@ -1,13 +1,8 @@
 import { useEffect } from 'react'
-import { atom, useAtom, useAtomValue } from 'jotai'
-import { userIpAtom } from '../../store'
 import { MapBox } from './styles/styles'
 
 const Map = () => {
-  //   const userIp = useAtomValue(userIpAtom)
-  //   console.log(userIp)
   useEffect(() => {
-    // if (userIp != null) {
     const initMap = () => {
       const map = new naver.maps.Map('map', {
         center: new naver.maps.LatLng(37.566, 126.9784),
@@ -22,13 +17,12 @@ const Map = () => {
         },
         logoControl: true,
         logoControlOptions: {
-          position: naver.maps.Position.TOP_LEFT
+          position: naver.maps.Position.BOTTOM_LEFT
         }
       })
       console.log(map)
     }
     initMap()
-    // }
   }, [])
   return <MapBox id="map"></MapBox>
 }
