@@ -6,7 +6,7 @@ const MainWrapper = styled.div`
   bottom: 0;
   top: 117px;
   width: 100%;
-  background-color: ${(props) => props.theme.colors.grey50};
+  background-color: ${(props) => props.theme.colors.white};
   max-width: ${(props) => props.theme.widthes.maxBarList}px;
   min-width: ${(props) => props.theme.widthes.minBarList}px;
   z-index: 1;

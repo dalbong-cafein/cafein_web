@@ -15,7 +15,13 @@ import {
   SearchInput,
   SearchWrapper
 } from '../../components/Maps/styles/styles'
-import { cafeInfoAtom, CafeInfoInterface, is_running_atom } from '../../store'
+import {
+  cafeInfoAtom,
+  CafeInfoInterface,
+  cafeReviewPonitAtom,
+  CafeRewviewPointInterface,
+  is_running_atom
+} from '../../store'
 import { NextPageWithLayout } from '../_app'
 
 const MapPage: NextPageWithLayout = () => {
@@ -24,6 +30,36 @@ const MapPage: NextPageWithLayout = () => {
   const { cafeId } = router.query
   const [cafeInfo, setCafeInfo] = useAtom(cafeInfoAtom)
   const [isRunning, closeTime] = useAtomValue(is_running_atom)
+  const [cafePoints, setCafePoints] = useAtom(cafeReviewPonitAtom)
+
+  const getStars = (cnt: string) => {
+    return (
+      <StartWrapper>
+        {[1, 2, 3, 4].map((num) => {
+          if (num <= +cnt) {
+            return (
+              <Image
+                key={num}
+                src={'/images/star.svg'}
+                width={16}
+                height={16}
+                alt="star icon"
+              />
+            )
+          }
+          return (
+            <Image
+              key={num}
+              src={'/images/empty_star.svg'}
+              width={16}
+              height={16}
+              alt="star icon"
+            />
+          )
+        })}
+      </StartWrapper>
+    )
+  }
 
   useEffect(() => {
     if (!router.isReady || !cafeId) return
@@ -34,12 +70,23 @@ const MapPage: NextPageWithLayout = () => {
         const data: CafeInfoInterface = response.data.data
         setCafeInfo(data)
       } catch (error) {
-        console.log(`GET 요청 에러 : ${error}`)
+        console.log(`Cafe Info data GET 요청 에러 : ${error}`)
       }
     }
-    getDetailStore()
-  })
-  console.log(cafeInfo)
+    async function getCafePoints() {
+      try {
+        if (cafeInfo?.storeId == cafeId) return
+        const res = await axios.get(`/api/stores/${cafeId}/detail-review-score`)
+        console.log(res)
+        const data: CafeRewviewPointInterface = res.data.data
+        setCafePoints(data)
+      } catch (error) {
+        console.log(`Cafe Points data GET 요청 에러 : ${error}`)
+      }
+    }
+    Promise.all([getDetailStore(), getCafePoints()])
+  }, [router, cafeId, cafeInfo, setCafeInfo, setCafePoints])
+
   let MapContent
   if (!cafeId) {
     MapContent = (
@@ -58,7 +105,7 @@ const MapPage: NextPageWithLayout = () => {
         <Head>
           <title>카페인| 지도 {cafeId}</title>
         </Head>
-        {cafeInfo && (
+        {cafeInfo && cafePoints && (
           <>
             <ImageWrappers>
               {cafeInfo.storeImageList.slice(0, 5).map((imgData, idx) => (
@@ -119,6 +166,70 @@ const MapPage: NextPageWithLayout = () => {
             </CafeInfoWrapper>
             <CafeInfoWrapper>
               <WrapperTitle>카공 정보</WrapperTitle>
+              <CafeInfoList>
+                <CafeInfoItemWrapper>
+                  <Image
+                    src={'/images/plug.svg'}
+                    width={40}
+                    height={40}
+                    alt="plug badge"
+                  />
+                  <CafeInfoItemDescsWrapper>
+                    <CafeInfoItemDescWrapper>
+                      <CafeInfoItemTitle>콘센트</CafeInfoItemTitle>
+                      {getStars(cafePoints.socket)}
+                    </CafeInfoItemDescWrapper>
+                    <CafeInfoItemDesc>바닥을 기어봐도 없어요</CafeInfoItemDesc>
+                  </CafeInfoItemDescsWrapper>
+                </CafeInfoItemWrapper>
+                <CafeInfoItemWrapper>
+                  <Image
+                    src={'/images/restroom.svg'}
+                    width={40}
+                    height={40}
+                    alt="restroom badge"
+                  />
+                  <CafeInfoItemDescsWrapper>
+                    <CafeInfoItemDescWrapper>
+                      <CafeInfoItemTitle>화장실</CafeInfoItemTitle>
+                      {getStars(cafePoints.restroom)}
+                    </CafeInfoItemDescWrapper>
+                    <CafeInfoItemDesc>다시 가고싶지 않아요</CafeInfoItemDesc>
+                  </CafeInfoItemDescsWrapper>
+                </CafeInfoItemWrapper>
+                <CafeInfoItemWrapper>
+                  <Image
+                    src={'/images/table.svg'}
+                    width={40}
+                    height={40}
+                    alt="table badge"
+                  />
+                  <CafeInfoItemDescsWrapper>
+                    <CafeInfoItemDescWrapper>
+                      <CafeInfoItemTitle>테이블</CafeInfoItemTitle>
+                      {getStars(cafePoints.tableSize)}
+                    </CafeInfoItemDescWrapper>
+                    <CafeInfoItemDesc>
+                      매우 편하게 사용 가능해요
+                    </CafeInfoItemDesc>
+                  </CafeInfoItemDescsWrapper>
+                </CafeInfoItemWrapper>
+                <CafeInfoItemWrapper>
+                  <Image
+                    src={'/images/wifi.svg'}
+                    width={40}
+                    height={40}
+                    alt="wifi badge"
+                  />
+                  <CafeInfoItemDescsWrapper>
+                    <CafeInfoItemDescWrapper>
+                      <CafeInfoItemTitle>와이파이</CafeInfoItemTitle>
+                      {getStars(cafePoints.wifi)}
+                    </CafeInfoItemDescWrapper>
+                    <CafeInfoItemDesc>자주 끊겨서 화나요</CafeInfoItemDesc>
+                  </CafeInfoItemDescsWrapper>
+                </CafeInfoItemWrapper>
+              </CafeInfoList>
             </CafeInfoWrapper>
             <CafeInfoWrapper>
               <WrapperTitle>
@@ -288,6 +399,47 @@ const WrapperTitle = styled(Description)`
   & span {
     margin-right: 6px;
   }
+`
+
+const CafeInfoList = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-left: 8px;
+  gap: 16px;
+  margin-top: 20px;
+`
+
+const CafeInfoItemWrapper = styled.div`
+  display: flex;
+  gap: 16px;
+  align-items: center;
+`
+
+const CafeInfoItemDescsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`
+
+const CafeInfoItemDescWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+`
+
+const CafeInfoItemTitle = styled.p`
+  font-weight: 500;
+  font-size: ${(props) => props.theme.fontsizes.font12}rem;
+  color: ${(props) => props.theme.colors.grey600};
+`
+
+const StartWrapper = styled.div`
+  display: flex;
+`
+
+const CafeInfoItemDesc = styled(CafeInfoItemTitle)`
+  font-size: ${(props) => props.theme.fontsizes.font14}rem;
+  color: ${(props) => props.theme.colors.grey800};
 `
 
 const StrongWrapperTitle = styled(StrongSpan)`

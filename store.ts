@@ -67,7 +67,7 @@ export interface CafeInfoInterface {
   storeImageList: ImageListInterface[]
 }
 
-interface CafeRewviewPointInterface {
+export interface CafeRewviewPointInterface {
   reviewCnt: number
   recommendPercent: number
   socket: string
@@ -105,4 +105,4 @@ export const is_running_atom = atom((get) => {
   return [false, null]
 })
 
-export const cafeReviewPontAtom = atom<CafeRewviewPointInterface | null>(null)
+export const cafeReviewPonitAtom = atom<CafeRewviewPointInterface | null>(null)
