@@ -15,7 +15,10 @@ export default function RegionLists() {
     <RegionWrapper>
       <RegionTitle>지역별 카공하기 좋은 카페</RegionTitle>
       <RegionList role={'tablist'}>
-        <Link href="/maps/1">
+        <Link
+          href={{ pathname: '/maps/1', query: { title: '카페 1번', id: 1 } }}
+          as="/maps/1"
+        >
           <RegionItem role={'tab'}>
             <RegionItemImage
               src={'https://nextjs.org/static/images/learn.png'}

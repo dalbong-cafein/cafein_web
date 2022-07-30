@@ -10,7 +10,6 @@ const MainWrapper = styled.div`
   max-width: ${(props) => props.theme.widthes.maxBarList}px;
   min-width: ${(props) => props.theme.widthes.minBarList}px;
   z-index: 1;
-  padding: 16px 24px;
 `
 
 export { MainWrapper }

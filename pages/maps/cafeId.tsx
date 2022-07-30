@@ -20,16 +20,16 @@ import {
   CafeInfoInterface,
   cafeReviewPonitAtom,
   CafeRewviewPointInterface,
-  is_running_atom
+  isRunningAtom
 } from '../../store'
 import { NextPageWithLayout } from '../_app'
 
-const MapPage: NextPageWithLayout = () => {
+const MapPage: NextPageWithLayout<any> = () => {
   // 주소창에 cafeId가 있으면 Detail Map을 보여줌
   const router = useRouter()
   const { cafeId } = router.query
   const [cafeInfo, setCafeInfo] = useAtom(cafeInfoAtom)
-  const [isRunning, closeTime] = useAtomValue(is_running_atom)
+  const [isRunning, closeTime] = useAtomValue(isRunningAtom)
   const [cafePoints, setCafePoints] = useAtom(cafeReviewPonitAtom)
 
   const getStars = (cnt: string) => {

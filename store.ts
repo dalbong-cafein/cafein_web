@@ -84,7 +84,7 @@ export const userIpAtom = atom<UserIpInterface | null>(null)
 
 export const cafeInfoAtom = atom<CafeInfoInterface | null>(null)
 
-export const is_running_atom = atom((get) => {
+export const isRunningAtom = atom((get) => {
   const businessHoursInfoDto = get(cafeInfoAtom)?.businessHoursInfoDto
   if (businessHoursInfoDto) {
     const { isOpen, closed } = businessHoursInfoDto

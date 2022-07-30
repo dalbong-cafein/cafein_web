@@ -5,12 +5,12 @@ import { ThemeProvider } from 'styled-components'
 import { GlobalStyle } from '../styles/global-style'
 import { theme } from '../styles/theme'
 
-export type NextPageWithLayout = NextPage & {
+export type NextPageWithLayout<T> = NextPage<T> & {
   getLayout?: (page: ReactElement) => ReactNode
 }
 
 type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout
+  Component: NextPageWithLayout<any>
 }
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
