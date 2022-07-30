@@ -1,6 +1,6 @@
 import { atom } from 'jotai'
 
-interface UserIpAtom {
+interface UserIpInterface {
   ip: string
   lati: number
   longi: number
@@ -67,12 +67,24 @@ export interface CafeInfoInterface {
   storeImageList: ImageListInterface[]
 }
 
-export const userIpAtom = atom<UserIpAtom | null>(null)
+interface CafeRewviewPointInterface {
+  reviewCnt: number
+  recommendPercent: number
+  socket: string
+  socketCnt: number
+  wifi: string
+  wifiCnt: number
+  restroom: string
+  restroomCnt: number
+  tableSize: string
+  tableCnt: number
+}
+
+export const userIpAtom = atom<UserIpInterface | null>(null)
 
 export const cafeInfoAtom = atom<CafeInfoInterface | null>(null)
 
 export const is_running_atom = atom((get) => {
-  const today = new Date()
   const businessHoursInfoDto = get(cafeInfoAtom)?.businessHoursInfoDto
   if (businessHoursInfoDto) {
     const { isOpen, closed } = businessHoursInfoDto
@@ -89,22 +101,8 @@ export const is_running_atom = atom((get) => {
         return [isOpen, '오후 ' + hour + ':' + times[1]]
       }
     }
-    // const totalBusinessHoursResDto_array = Object.keys(totalBusinessHoursResDto)
-    // let day = today.getDay() - 1
-    // if (day < 0) day += 6
-    // const onDay = totalBusinessHoursResDto_array[day]
-    // console.log(totalBusinessHoursResDto_array, onDay)
-    // const { open, cloesd } = totalBusinessHoursResDto[onDay]
-    // console.log(open, cloesd)
-    // let time
-    // if (cloesd) {
-    //   time = cloesd.split(':').slice(2)
-    //   console.log(time)
-    // }
-    // if (!open) return [false, closed]
-    // if (open && cloesd && open < today.getHours() && today.getHours() < cloesd)
-    //   return [true, closed]
-    // else return [false, closed]
   }
   return [false, null]
 })
+
+export const cafeReviewPontAtom = atom<CafeRewviewPointInterface | null>(null)
