@@ -29,7 +29,7 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
   let GetRunningTimes
   if (getRunningTimes) {
     GetRunningTimes = (
-      <>
+      <DailyTimeWrapper>
         {Object.entries(getRunningTimes).map(([day, times], idx) => {
           const isToday = getIsToday(idx)
           return (
@@ -43,7 +43,7 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
             </DayTimeWrapper>
           )
         })}
-      </>
+      </DailyTimeWrapper>
     )
   }
 
@@ -107,12 +107,6 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
     }
   }, [storeId, cafeInfo, setCafeInfo, setCafePoints])
 
-  if (cafeInfo) {
-    console.log(cafeInfo.totalBusinessHoursResDto)
-    const key = Object.keys(cafeInfo?.totalBusinessHoursResDto as object)
-    console.log(key.slice(0, -1))
-  }
-
   return (
     <>
       <Head>
@@ -135,7 +129,6 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
           ) : (
             ''
           )}
-
           <CafeInfoWrapper>
             <TitleWrapper>
               <HeaderTitle>{cafeInfo.storeName}</HeaderTitle>
@@ -171,11 +164,7 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
                 <ArrowButton isOpened={isOpened} onClick={onClickHandler} />
               </DescWrapper>
             </OpenInfoWrapper>
-            {isOpened ? (
-              <DailyTimeWrapper>{GetRunningTimes}</DailyTimeWrapper>
-            ) : (
-              ''
-            )}
+            {isOpened && getRunningTimes ? GetRunningTimes : ''}
             <OpenInfoWrapper>
               <Image
                 src="/images/call.svg"

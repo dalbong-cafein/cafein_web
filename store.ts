@@ -94,18 +94,23 @@ export const isRunningAtom = atom<isRunningInterface>((get) => {
     const { isOpen, closed, tmrOpen } = businessHoursInfoDto
     let hour: string | number
     if (isOpen) {
-      hour = getHours(closed)
+      if (closed) {
+        hour = getHours(closed)
+        return [isOpen, hour]
+      }
     } else {
-      hour = getHours(tmrOpen)
+      if (tmrOpen) {
+        hour = getHours(tmrOpen)
+        return [isOpen, hour]
+      }
     }
-    return [isOpen, hour]
   }
   return [false, null]
 })
 
 export const getRunningTimesAtom = atom((get) => {
   const totalBusinessHoursResDto = get(cafeInfoAtom)?.totalBusinessHoursResDto
-  if (totalBusinessHoursResDto) {
+  if (totalBusinessHoursResDto?.onMon) {
     const day_keys = Object.keys(totalBusinessHoursResDto as object).slice(
       0,
       -1
