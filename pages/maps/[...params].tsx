@@ -44,6 +44,9 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
   ) : (
     ''
   )
+  const [isHovering_1, setIsHovering_1] = useState(false)
+  const [isHovering_2, setIsHovering_2] = useState(false)
+  const [isHovering_3, setIsHovering_3] = useState(false)
 
   const getStars = (cnt: string) => {
     return (
@@ -74,9 +77,36 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
     )
   }
 
-  const onClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
+  const arrowOnClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     setIsOpened((cur) => !cur)
+  }
+
+  const recommendOnClickHandler = async (recommendation: string) => {
+    try {
+      const response = await axios.post(`/api/web/recommendations`, {
+        storeId,
+        recommendation
+      })
+      const data = response.data
+      console.log(data, '잘 됐냐!?!?!')
+    } catch (error) {
+      console.error(
+        `카페 추천 데이터 등록 에러 : ${error} of "${recommendation}"`
+      )
+    }
+  }
+
+  const getRecommendation = async () => {
+    try {
+      const response = await axios.get(
+        `/api/web/stores/${storeId}/recommendations`
+      )
+      const data = response.data
+      console.log(data, '데이터 잘 오냐 ? ?')
+    } catch (error) {
+      console.error
+    }
   }
 
   useEffect(() => {
@@ -86,7 +116,7 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
         const data: CafeInfoInterface = response.data.data
         setCafeInfo(data)
       } catch (error) {
-        console.log(`Cafe Info data GET 요청 에러 : ${error}`)
+        console.error(`Cafe Info data GET 요청 에러 : ${error}`)
       }
     }
     async function getCafePoints() {
@@ -97,7 +127,7 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
         const data: CafeRewviewPointInterface = res.data.data
         setCafePoints(data)
       } catch (error) {
-        console.log(`Cafe Points data GET 요청 에러 : ${error}`)
+        console.error(`Cafe Points data GET 요청 에러 : ${error}`)
       }
     }
     if (storeId !== cafeInfo?.storeId) {
@@ -159,7 +189,10 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
                   {runningTime}
                   <span>에 영업 {isRunning ? '종료' : '시작'}</span>
                 </Description>
-                <ArrowButton isOpened={isOpened} onClick={onClickHandler} />
+                <ArrowButton
+                  isOpened={isOpened}
+                  onClick={arrowOnClickHandler}
+                />
               </DescWrapper>
             </OpenInfoWrapper>
             {isOpened && getRunningTimes ? GetRunningTimes : ''}
@@ -261,24 +294,71 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
             </WrapperTitle>
             <ButtonOutterWrapper>
               <ButtonInnerWrapper>
-                <Image
-                  src={'/images/bad.svg'}
-                  width={60}
-                  height={82}
-                  alt="bad badge"
-                />
-                <Image
-                  src={'/images/soso.svg'}
-                  width={60}
-                  height={82}
-                  alt="soso badge"
-                />
-                <Image
-                  src={'/images/good.svg'}
-                  width={60}
-                  height={82}
-                  alt="good badge"
-                />
+                <ButtonWrapper
+                  onMouseEnter={() => setIsHovering_1(true)}
+                  onMouseLeave={() => setIsHovering_1(false)}
+                >
+                  {isHovering_1 ? (
+                    <Image
+                      src={'/images/bad_on.svg'}
+                      width={60}
+                      height={82}
+                      alt="bad_on badge"
+                    />
+                  ) : (
+                    <Image
+                      src={'/images/bad.svg'}
+                      width={60}
+                      height={82}
+                      alt="bad badge"
+                    />
+                  )}
+                  <ButtonDesc isHovering={isHovering_1}>별로예요</ButtonDesc>
+                </ButtonWrapper>
+                <ButtonWrapper
+                  onMouseEnter={() => setIsHovering_2(true)}
+                  onMouseLeave={() => setIsHovering_2(false)}
+                  onClick={() => recommendOnClickHandler('NORMAL')}
+                >
+                  {isHovering_2 ? (
+                    <Image
+                      src={'/images/soso_on.svg'}
+                      width={60}
+                      height={82}
+                      alt="soso_on badge"
+                    />
+                  ) : (
+                    <Image
+                      src={'/images/soso.svg'}
+                      width={60}
+                      height={82}
+                      alt="soso badge"
+                    />
+                  )}
+                  <ButtonDesc isHovering={isHovering_2}>그저그래요</ButtonDesc>
+                </ButtonWrapper>
+                <ButtonWrapper
+                  onMouseEnter={() => setIsHovering_3(true)}
+                  onMouseLeave={() => setIsHovering_3(false)}
+                  onClick={() => getRecommendation()}
+                >
+                  {isHovering_3 ? (
+                    <Image
+                      src={'/images/good_on.svg'}
+                      width={60}
+                      height={82}
+                      alt="good_on badge"
+                    />
+                  ) : (
+                    <Image
+                      src={'/images/good.svg'}
+                      width={60}
+                      height={82}
+                      alt="good badge"
+                    />
+                  )}
+                  <ButtonDesc isHovering={isHovering_3}>추천해요</ButtonDesc>
+                </ButtonWrapper>
               </ButtonInnerWrapper>
             </ButtonOutterWrapper>
           </CafeInfoWrapper>
@@ -544,6 +624,26 @@ const ButtonOutterWrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+`
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  &:hover {
+    cursor: pointer;
+  }
+`
+
+const ButtonDesc = styled.p<{ isHovering: boolean }>`
+  font-size: ${(props) => props.theme.fontsizes.font13}rem;
+  font-weight: 500;
+  color: ${(props) =>
+    props.isHovering
+      ? props.theme.colors.orange400
+      : props.theme.colors.grey400};
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 `
 
 const ButtonInnerWrapper = styled.div`
