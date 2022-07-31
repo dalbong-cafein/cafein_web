@@ -1,4 +1,5 @@
 import { atom } from 'jotai'
+import getHours from './components/utils/getHours'
 
 interface UserIpInterface {
   ip: string
@@ -60,6 +61,7 @@ export interface CafeInfoInterface {
     }
     onSun: null | { open: string; closed: string }
     etcTime: string
+    [key: string]: any
   }
   lngX: number
   latY: number
@@ -80,31 +82,56 @@ export interface CafeRewviewPointInterface {
   tableCnt: number
 }
 
+type isRunningInterface = [boolean, null | string]
+
 export const userIpAtom = atom<UserIpInterface | null>(null)
 
 export const cafeInfoAtom = atom<CafeInfoInterface | null>(null)
 
-export const isRunningAtom = atom((get) => {
+export const isRunningAtom = atom<isRunningInterface>((get) => {
   const businessHoursInfoDto = get(cafeInfoAtom)?.businessHoursInfoDto
   if (businessHoursInfoDto) {
-    const { isOpen, closed } = businessHoursInfoDto
-    if (closed) {
-      const times = closed.split(':')
-      let hour: string | number = Number(times[0])
-      if (hour >= 12) {
-        if (hour > 12) {
-          hour -= 12
-          if (hour < 10) {
-            hour = '0' + String(hour)
-          }
-        } else {
-          hour = String(hour)
-        }
-        return [isOpen, '오후 ' + hour + ':' + times[1]]
-      }
+    const { isOpen, closed, tmrOpen } = businessHoursInfoDto
+    let hour: string | number
+    if (isOpen) {
+      hour = getHours(closed)
+    } else {
+      hour = getHours(tmrOpen)
     }
+    return [isOpen, hour]
   }
   return [false, null]
+})
+
+export const getRunningTimesAtom = atom((get) => {
+  const totalBusinessHoursResDto = get(cafeInfoAtom)?.totalBusinessHoursResDto
+  if (totalBusinessHoursResDto) {
+    const day_keys = Object.keys(totalBusinessHoursResDto as object).slice(
+      0,
+      -1
+    )
+    const days = <string[]>[
+      '월요일',
+      '화요일',
+      '수요일',
+      '목요일',
+      '금요일',
+      '토요일',
+      '일요일'
+    ]
+    const obj = <{ [key: string]: string }>{}
+    day_keys.map((d, idx) => {
+      if (totalBusinessHoursResDto[d]) {
+        const times =
+          getHours(totalBusinessHoursResDto[d].open) +
+          ' ~ ' +
+          getHours(totalBusinessHoursResDto[d].closed)
+        obj[days[idx]] = times
+      }
+    })
+    return obj
+  }
+  return null
 })
 
 export const cafeReviewPonitAtom = atom<CafeRewviewPointInterface | null>(null)

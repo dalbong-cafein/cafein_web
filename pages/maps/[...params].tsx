@@ -3,23 +3,17 @@ import { useAtom, useAtomValue } from 'jotai'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import Link from 'next/link'
 import { MouseEvent, ReactElement, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Ddabong } from '../../components/common/Common'
-import {
-  ButtonsWrapper,
-  NavWrapper,
-  WhiteLink,
-  WhiteLinkWrapper
-} from '../../components/Home/styles/NavStyles'
 import MapLayout from '../../components/Maps/MapLayout'
-import { SearchDetailInput } from '../../components/Maps/styles/FormStyles'
+import getIsToday from '../../components/utils/getIsToday'
 import {
   cafeInfoAtom,
   CafeInfoInterface,
   cafeReviewPonitAtom,
   CafeRewviewPointInterface,
+  getRunningTimesAtom,
   isRunningAtom
 } from '../../store'
 import { NextPageWithLayout } from '../_app'
@@ -27,9 +21,31 @@ import { NextPageWithLayout } from '../_app'
 const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
   const storeId = Number(params[0])
   const [cafeInfo, setCafeInfo] = useAtom(cafeInfoAtom)
-  const [isRunning, closeTime] = useAtomValue(isRunningAtom)
+  const [isRunning, runningTime] = useAtomValue(isRunningAtom)
   const [cafePoints, setCafePoints] = useAtom(cafeReviewPonitAtom)
   const [isOpened, setIsOpened] = useState(false)
+  const getRunningTimes = useAtomValue(getRunningTimesAtom)
+
+  let GetRunningTimes
+  if (getRunningTimes) {
+    GetRunningTimes = (
+      <>
+        {Object.entries(getRunningTimes).map(([day, times], idx) => {
+          const isToday = getIsToday(idx)
+          return (
+            <DayTimeWrapper key={day}>
+              <Day isRunning={isRunning} isToday={isToday}>
+                {day}
+              </Day>
+              <Time isRunning={isRunning} isToday={isToday}>
+                {times}
+              </Time>
+            </DayTimeWrapper>
+          )
+        })}
+      </>
+    )
+  }
 
   const getStars = (cnt: string) => {
     return (
@@ -80,7 +96,6 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
         const res = await axios.get(
           `/api/stores/${storeId}/detail-review-score`
         )
-        console.log(res)
         const data: CafeRewviewPointInterface = res.data.data
         setCafePoints(data)
       } catch (error) {
@@ -91,6 +106,12 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
       Promise.all([getDetailStore(), getCafePoints()])
     }
   }, [storeId, cafeInfo, setCafeInfo, setCafePoints])
+
+  if (cafeInfo) {
+    console.log(cafeInfo.totalBusinessHoursResDto)
+    const key = Object.keys(cafeInfo?.totalBusinessHoursResDto as object)
+    console.log(key.slice(0, -1))
+  }
 
   return (
     <>
@@ -140,11 +161,21 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
                 />
               </ClockIcon>
               <DescWrapper>
-                <StrongSpan>{isRunning ? '영업 중' : '영업 종료'}</StrongSpan>
-                <Description>{closeTime}에 영업 종료</Description>
+                <StrongSpan isRunning={isRunning}>
+                  {isRunning ? '영업 중' : '영업 종료'}
+                </StrongSpan>
+                <Description>
+                  {runningTime}
+                  <span>에 영업 {isRunning ? '종료' : '시작'}</span>
+                </Description>
                 <ArrowButton isOpened={isOpened} onClick={onClickHandler} />
               </DescWrapper>
             </OpenInfoWrapper>
+            {isOpened ? (
+              <DailyTimeWrapper>{GetRunningTimes}</DailyTimeWrapper>
+            ) : (
+              ''
+            )}
             <OpenInfoWrapper>
               <Image
                 src="/images/call.svg"
@@ -368,6 +399,7 @@ const Description = styled.p`
   font-size: ${(props) => props.theme.fontsizes.font15}rem;
   color: ${(props) => props.theme.colors.grey800};
   font-weight: 400;
+  gap: 2px;
 `
 
 const ArrowButton = styled.button<{ isOpened: boolean }>`
@@ -382,6 +414,37 @@ const ArrowButton = styled.button<{ isOpened: boolean }>`
   transform: ${(props) => (props.isOpened ? 'rotate(180deg)' : '')};
 `
 
+const DailyTimeWrapper = styled.ol`
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+  margin-left: 28px;
+`
+
+const DayTimeWrapper = styled.li`
+  display: flex;
+  gap: 4px;
+`
+
+const Day = styled.p<{ isRunning: boolean; isToday: boolean }>`
+  font-size: ${(props) => props.theme.fontsizes.font15}rem;
+  font-weight: 400;
+  color: ${(props) =>
+    props.isRunning && props.isToday
+      ? props.theme.colors.orange500
+      : props.theme.colors.grey500};
+`
+
+const Time = styled.p<{ isRunning: boolean; isToday: boolean }>`
+  font-size: ${(props) => props.theme.fontsizes.font15}rem;
+  font-weight: 400;
+  color: ${(props) =>
+    props.isRunning && props.isToday
+      ? props.theme.colors.orange500
+      : props.theme.colors.grey800};
+`
+
 const CallDescription = styled.a`
   color: ${(props) => props.theme.colors.blue};
   font-size: ${(props) => props.theme.fontsizes.font15}rem;
@@ -392,8 +455,11 @@ const URLDescription = styled(CallDescription)`
   color: ${(props) => props.theme.colors.grey800};
 `
 
-const StrongSpan = styled.span`
-  color: ${(props) => props.theme.colors.orange500};
+const StrongSpan = styled.span<{ isRunning: boolean }>`
+  color: ${(props) =>
+    props.isRunning
+      ? props.theme.colors.orange500
+      : props.theme.colors.grey500};
   font-weight: 600;
   font-size: ${(props) => props.theme.fontsizes.font15}rem;
 `
@@ -480,8 +546,10 @@ const CafeInfoItemDesc = styled(CafeInfoItemTitle)`
   color: ${(props) => props.theme.colors.grey800};
 `
 
-const StrongWrapperTitle = styled(StrongSpan)`
-  margin-left: 0;
+const StrongWrapperTitle = styled.span`
+  color: ${(props) => props.theme.colors.orange500};
+  font-weight: 600;
+  font-size: ${(props) => props.theme.fontsizes.font15}rem;
 `
 
 const ButtonOutterWrapper = styled.div`
