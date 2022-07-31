@@ -57,7 +57,9 @@ const Home: NextPage = () => {
         <SearchFormWrapper>
           <SearchInput placeholder="카페 이름이나 지하철역을 검색해보세요" />
           <SearchButton>검색</SearchButton>
-          <SearchByMap>지도에서 찾기</SearchByMap>
+          <Link href="/maps">
+            <SearchByMap>지도에서 찾기</SearchByMap>
+          </Link>
         </SearchFormWrapper>
       </HomeWrapper>
     </Wrapper>

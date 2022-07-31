@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useAtom, useAtomValue } from 'jotai'
-import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { ReactElement, useEffect } from 'react'
