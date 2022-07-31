@@ -3,7 +3,7 @@ import { useAtom, useAtomValue } from 'jotai'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { ReactElement, useEffect } from 'react'
+import { MouseEvent, ReactElement, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Ddabong } from '../../components/common/Common'
 import MapLayout from '../../components/Maps/MapLayout'
@@ -21,6 +21,7 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
   const [cafeInfo, setCafeInfo] = useAtom(cafeInfoAtom)
   const [isRunning, closeTime] = useAtomValue(isRunningAtom)
   const [cafePoints, setCafePoints] = useAtom(cafeReviewPonitAtom)
+  const [isOpened, setIsOpened] = useState(false)
 
   const getStars = (cnt: string) => {
     return (
@@ -49,6 +50,11 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
         })}
       </StartWrapper>
     )
+  }
+
+  const onClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    setIsOpened((cur) => !cur)
   }
 
   useEffect(() => {
@@ -99,7 +105,16 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
           <CafeInfoWrapper>
             <TitleWrapper>
               <HeaderTitle>{cafeInfo.storeName}</HeaderTitle>
-              {cafeInfo.heartCnt > 0 && <>{Ddabong} n% (계산해야함 + 디자인)</>}
+              {cafePoints.reviewCnt > 0 && (
+                <>
+                  <DDabongWrapper>
+                    {Ddabong}
+                    <DDabongPoints>
+                      {cafePoints.recommendPercent}%
+                    </DDabongPoints>
+                  </DDabongWrapper>
+                </>
+              )}
             </TitleWrapper>
             <SubTitle>{cafeInfo.address.fullAddress}</SubTitle>
             <OpenInfoWrapper>
@@ -111,8 +126,11 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
                   alt="시계 이모지"
                 />
               </ClockIcon>
-              <StrongSpan>{isRunning ? '영업 중' : '영업 종료'}</StrongSpan>
-              <Description>{closeTime}에 영업 종료</Description>
+              <DescWrapper>
+                <StrongSpan>{isRunning ? '영업 중' : '영업 종료'}</StrongSpan>
+                <Description>{closeTime}에 영업 종료</Description>
+                <ArrowButton isOpened={isOpened} onClick={onClickHandler} />
+              </DescWrapper>
             </OpenInfoWrapper>
             <OpenInfoWrapper>
               <Image
@@ -287,11 +305,25 @@ const CafeInfoWrapper = styled.div`
 
 const TitleWrapper = styled.div`
   display: flex;
+  align-items: center;
+  gap: 10px;
 `
 
 const HeaderTitle = styled.h1`
   font-weight: 600;
   font-size: ${(props) => props.theme.fontsizes.font16}rem;
+`
+
+const DDabongWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2px;
+`
+
+const DDabongPoints = styled.span`
+  font-size: ${(props) => props.theme.fontsizes.font12}rem;
+  color: ${(props) => props.theme.colors.grey600};
+  font-weight: 400;
 `
 
 const SubTitle = styled.h2`
@@ -305,6 +337,7 @@ const OpenInfoWrapper = styled.div`
   display: flex;
   margin-top: 12px;
   align-items: center;
+  gap: 8px;
 `
 
 const ClockIcon = styled.span`
@@ -312,18 +345,34 @@ const ClockIcon = styled.span`
   height: 20px;
 `
 
+const DescWrapper = styled.div`
+  display: flex;
+  gap: 4px;
+`
+
 const Description = styled.p`
+  display: flex;
   font-size: ${(props) => props.theme.fontsizes.font15}rem;
   color: ${(props) => props.theme.colors.grey800};
-  margin-left: 4px;
   font-weight: 400;
+`
+
+const ArrowButton = styled.button<{ isOpened: boolean }>`
+  background-image: url('/images/down_arrow.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  transition: all ease 0.4s;
+  transform: ${(props) => (props.isOpened ? 'rotate(180deg)' : '')};
 `
 
 const CallDescription = styled.a`
   color: ${(props) => props.theme.colors.blue};
   font-size: ${(props) => props.theme.fontsizes.font15}rem;
   font-weight: 400;
-  margin-left: 8px;
 `
 
 const URLDescription = styled(CallDescription)`
@@ -334,7 +383,6 @@ const StrongSpan = styled.span`
   color: ${(props) => props.theme.colors.orange500};
   font-weight: 600;
   font-size: ${(props) => props.theme.fontsizes.font15}rem;
-  margin-left: 8px;
 `
 
 const EditInfoWrapper = styled.div`
