@@ -25,27 +25,25 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
   const [cafePoints, setCafePoints] = useAtom(cafeReviewPonitAtom)
   const [isOpened, setIsOpened] = useState(false)
   const getRunningTimes = useAtomValue(getRunningTimesAtom)
-
-  let GetRunningTimes
-  if (getRunningTimes) {
-    GetRunningTimes = (
-      <DailyTimeWrapper>
-        {Object.entries(getRunningTimes).map(([day, times], idx) => {
-          const isToday = getIsToday(idx)
-          return (
-            <DayTimeWrapper key={day}>
-              <Day isRunning={isRunning} isToday={isToday}>
-                {day}
-              </Day>
-              <Time isRunning={isRunning} isToday={isToday}>
-                {times}
-              </Time>
-            </DayTimeWrapper>
-          )
-        })}
-      </DailyTimeWrapper>
-    )
-  }
+  const GetRunningTimes = getRunningTimes ? (
+    <DailyTimeWrapper>
+      {Object.entries(getRunningTimes).map(([day, times], idx) => {
+        const isToday = getIsToday(idx)
+        return (
+          <DayTimeWrapper key={day}>
+            <Day isRunning={isRunning} isToday={isToday}>
+              {day}
+            </Day>
+            <Time isRunning={isRunning} isToday={isToday}>
+              {times}
+            </Time>
+          </DayTimeWrapper>
+        )
+      })}
+    </DailyTimeWrapper>
+  ) : (
+    ''
+  )
 
   const getStars = (cnt: string) => {
     return (
