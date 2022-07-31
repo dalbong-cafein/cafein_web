@@ -47,6 +47,7 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
   const [isHovering_1, setIsHovering_1] = useState(false)
   const [isHovering_2, setIsHovering_2] = useState(false)
   const [isHovering_3, setIsHovering_3] = useState(false)
+  let [isOnButton, setIsOnButton] = useState(0)
 
   const getStars = (cnt: string) => {
     return (
@@ -89,23 +90,17 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
         recommendation
       })
       const data = response.data
-      console.log(data, '잘 됐냐!?!?!')
+      if (recommendation === 'BAD') {
+        setIsOnButton(1)
+      } else if (recommendation === 'NORMAL') {
+        setIsOnButton(2)
+      } else if (recommendation === 'GOOD') {
+        setIsOnButton(3)
+      }
     } catch (error) {
       console.error(
         `카페 추천 데이터 등록 에러 : ${error} of "${recommendation}"`
       )
-    }
-  }
-
-  const getRecommendation = async () => {
-    try {
-      const response = await axios.get(
-        `/api/web/stores/${storeId}/recommendations`
-      )
-      const data = response.data
-      console.log(data, '데이터 잘 오냐 ? ?')
-    } catch (error) {
-      console.error
     }
   }
 
@@ -130,8 +125,25 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
         console.error(`Cafe Points data GET 요청 에러 : ${error}`)
       }
     }
+    async function getRecommendation() {
+      try {
+        const response = await axios.get(
+          `/api/web/stores/${storeId}/recommendations`
+        )
+        const { data } = response.data
+        if (data === 'BAD') {
+          setIsHovering_1(true)
+        } else if (data === 'NORMAL') {
+          setIsHovering_2(true)
+        } else if (data === 'GOOD') {
+          setIsHovering_3(true)
+        }
+      } catch (error) {
+        console.error
+      }
+    }
     if (storeId !== cafeInfo?.storeId) {
-      Promise.all([getDetailStore(), getCafePoints()])
+      Promise.all([getDetailStore(), getCafePoints(), getRecommendation()])
     }
   }, [storeId, cafeInfo, setCafeInfo, setCafePoints])
 
@@ -297,8 +309,9 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
                 <ButtonWrapper
                   onMouseEnter={() => setIsHovering_1(true)}
                   onMouseLeave={() => setIsHovering_1(false)}
+                  onClick={() => recommendOnClickHandler('BAD')}
                 >
-                  {isHovering_1 ? (
+                  {isHovering_1 || isOnButton === 1 ? (
                     <Image
                       src={'/images/bad_on.svg'}
                       width={60}
@@ -313,14 +326,14 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
                       alt="bad badge"
                     />
                   )}
-                  <ButtonDesc isHovering={isHovering_1}>별로예요</ButtonDesc>
+                  <ButtonDesc isHovering={isHovering_1} isOnButton={isOnButton === 1}>별로예요</ButtonDesc>
                 </ButtonWrapper>
                 <ButtonWrapper
                   onMouseEnter={() => setIsHovering_2(true)}
                   onMouseLeave={() => setIsHovering_2(false)}
                   onClick={() => recommendOnClickHandler('NORMAL')}
                 >
-                  {isHovering_2 ? (
+                  {isHovering_2 || isOnButton === 2 ? (
                     <Image
                       src={'/images/soso_on.svg'}
                       width={60}
@@ -335,14 +348,14 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
                       alt="soso badge"
                     />
                   )}
-                  <ButtonDesc isHovering={isHovering_2}>그저그래요</ButtonDesc>
+                  <ButtonDesc isHovering={isHovering_2} isOnButton={isOnButton === 2}>그저그래요</ButtonDesc>
                 </ButtonWrapper>
                 <ButtonWrapper
                   onMouseEnter={() => setIsHovering_3(true)}
                   onMouseLeave={() => setIsHovering_3(false)}
-                  onClick={() => getRecommendation()}
+                  onClick={() => recommendOnClickHandler('GOOD')}
                 >
-                  {isHovering_3 ? (
+                  {isHovering_3 || isOnButton === 3 ? (
                     <Image
                       src={'/images/good_on.svg'}
                       width={60}
@@ -357,7 +370,7 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
                       alt="good badge"
                     />
                   )}
-                  <ButtonDesc isHovering={isHovering_3}>추천해요</ButtonDesc>
+                  <ButtonDesc isHovering={isHovering_3} isOnButton={isOnButton === 3}>추천해요</ButtonDesc>
                 </ButtonWrapper>
               </ButtonInnerWrapper>
             </ButtonOutterWrapper>
@@ -636,11 +649,11 @@ const ButtonWrapper = styled.div`
   }
 `
 
-const ButtonDesc = styled.p<{ isHovering: boolean }>`
+const ButtonDesc = styled.p<{ isHovering: boolean; isOnButton: boolean }>`
   font-size: ${(props) => props.theme.fontsizes.font13}rem;
   font-weight: 500;
   color: ${(props) =>
-    props.isHovering
+    props.isHovering || props.isOnButton
       ? props.theme.colors.orange400
       : props.theme.colors.grey400};
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
