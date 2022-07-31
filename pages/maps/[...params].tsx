@@ -3,10 +3,18 @@ import { useAtom, useAtomValue } from 'jotai'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import { MouseEvent, ReactElement, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Ddabong } from '../../components/common/Common'
+import {
+  ButtonsWrapper,
+  NavWrapper,
+  WhiteLink,
+  WhiteLinkWrapper
+} from '../../components/Home/styles/NavStyles'
 import MapLayout from '../../components/Maps/MapLayout'
+import { SearchDetailInput } from '../../components/Maps/styles/FormStyles'
 import {
   cafeInfoAtom,
   CafeInfoInterface,

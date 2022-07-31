@@ -1,3 +1,4 @@
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -18,7 +19,7 @@ interface MapLayoutProps {
 
 const MapLayout = ({ children }: MapLayoutProps) => {
   const router = useRouter()
-  const { cafeId } = router.query
+  const [cafeId] = router.query.params as string[]
 
   return (
     <>
