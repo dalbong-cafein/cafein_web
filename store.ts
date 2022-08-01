@@ -1,11 +1,6 @@
 import { atom } from 'jotai'
 import getHours from './components/utils/getHours'
 
-interface UserIpInterface {
-  ip: string
-  lati: number
-  longi: number
-}
 interface ImageListInterface {
   imageId: number
   imageUrl: string
@@ -83,8 +78,6 @@ export interface CafeRewviewPointInterface {
 }
 
 type isRunningInterface = [boolean, null | string]
-
-export const userIpAtom = atom<UserIpInterface | null>(null)
 
 export const cafeInfoAtom = atom<CafeInfoInterface | null>(null)
 
