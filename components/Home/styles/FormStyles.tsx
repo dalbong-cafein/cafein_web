@@ -28,10 +28,19 @@ const SearchFormWrapper = styled.form`
 
 const SearchInput = styled.input`
   width: 440px;
-  height: 56px;
+  height: 48px;
   padding: 0 20px;
   background-color: ${(props) => props.theme.colors.white};
-  border-radius: ${(props) => props.theme.borderRadius.border16}px;
+  border-radius: 14px;
+  border: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+
+  &:focus-visible {
+    z-index: 1;
+    outline: none;
+    border-color: ${(props) => props.theme.colors.orange500};
+    box-shadow: ${(props) => props.theme.colors.orange500} 0 0 0 1px;
+  }
 `
 
 const SearchButton = styled.button`

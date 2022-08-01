@@ -18,7 +18,8 @@ interface MapLayoutProps {
 
 const MapLayout = ({ children }: MapLayoutProps) => {
   const router = useRouter()
-  const [cafeId] = router.query.params as string[]
+  const cafeId =
+    router.route !== '/maps' ? (router.query.params as string[]) : ''
 
   return (
     <>

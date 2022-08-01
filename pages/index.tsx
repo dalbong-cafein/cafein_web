@@ -17,6 +17,15 @@ import {
   WhiteLinkWrapper,
   Wrapper
 } from '../components/Home/styles/styles'
+import {
+  HomeSearchLists,
+  SearchList,
+  SearchListDescs,
+  SearchListPosition,
+  SearchLists,
+  SearchListStrong,
+  SearchListTitle
+} from '../components/Maps/styles/FormStyles'
 
 const Home: NextPage = () => {
   return (
@@ -41,9 +50,6 @@ const Home: NextPage = () => {
               <WhiteLink>의견 보내기</WhiteLink>
             </Link>
           </WhiteLinkWrapper>
-          {/* <OrangeButtonWrapper>
-            <OrangeButton>카페 등록하기</OrangeButton>
-          </OrangeButtonWrapper> */}
         </ButtonsWrapper>
       </NavWrapper>
       <HomeWrapper>
@@ -55,6 +61,32 @@ const Home: NextPage = () => {
           </HomeTitle>
         </HeaderWrapper>
         <SearchFormWrapper>
+          <SearchInput placeholder="카페 이름이나 지하철역을 검색해보세요" />
+          <SearchButton>검색</SearchButton>
+          <Link href="/maps">
+            <SearchByMap>지도에서 찾기</SearchByMap>
+          </Link>
+        </SearchFormWrapper>
+        <HomeSearchLists>
+          <SearchList>
+            <Image src={'/images/location.svg'} width={24} height={24} />
+            <SearchListDescs>
+              <SearchListTitle>
+                <SearchListStrong>푸썸플레이스</SearchListStrong> 합정역점
+              </SearchListTitle>
+              <SearchListPosition>
+                서울특별서 마포구 양학로 45
+              </SearchListPosition>
+            </SearchListDescs>
+          </SearchList>
+        </HomeSearchLists>
+        <SearchFormWrapper>
+          <SearchInput placeholder="카페 이름이나 지하철역을 검색해보세요" />
+          <SearchButton>검색</SearchButton>
+          <Link href="/maps">
+            <SearchByMap>지도에서 찾기</SearchByMap>
+          </Link>
+        </SearchFormWrapper><SearchFormWrapper>
           <SearchInput placeholder="카페 이름이나 지하철역을 검색해보세요" />
           <SearchButton>검색</SearchButton>
           <Link href="/maps">
