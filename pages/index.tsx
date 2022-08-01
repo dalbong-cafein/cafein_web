@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import { ChangeEvent, useEffect, useState } from 'react'
 import {
   ButtonsWrapper,
   HeaderWrapper,
@@ -28,6 +29,22 @@ import {
 } from '../components/Maps/styles/FormStyles'
 
 const Home: NextPage = () => {
+  const [inputs, setInputs] = useState('')
+  const [timer, setTimer] = useState<NodeJS.Timeout>()
+  const handleInputs = async (e: ChangeEvent<HTMLInputElement>) => {
+    setInputs(e.target.value)
+    if (timer) {
+      clearTimeout(timer)
+    }
+    const newTimer = setTimeout(async () => {
+      try {
+        console.log(e.target.value)
+      } catch (error) {
+        console.error(`Debouncing Error while fetching Seach Lists : ${error}`)
+      }
+    },500)
+    setTimer(newTimer)
+  }
   return (
     <Wrapper>
       <Head>
@@ -61,7 +78,11 @@ const Home: NextPage = () => {
           </HomeTitle>
         </HeaderWrapper>
         <SearchFormWrapper>
-          <SearchInput placeholder="카페 이름이나 지하철역을 검색해보세요" />
+          <SearchInput
+            placeholder="카페 이름이나 지하철역을 검색해보세요"
+            value={inputs}
+            onChange={handleInputs}
+          />
           <SearchButton>검색</SearchButton>
           <Link href="/maps">
             <SearchByMap>지도에서 찾기</SearchByMap>
@@ -80,19 +101,6 @@ const Home: NextPage = () => {
             </SearchListDescs>
           </SearchList>
         </HomeSearchLists>
-        <SearchFormWrapper>
-          <SearchInput placeholder="카페 이름이나 지하철역을 검색해보세요" />
-          <SearchButton>검색</SearchButton>
-          <Link href="/maps">
-            <SearchByMap>지도에서 찾기</SearchByMap>
-          </Link>
-        </SearchFormWrapper><SearchFormWrapper>
-          <SearchInput placeholder="카페 이름이나 지하철역을 검색해보세요" />
-          <SearchButton>검색</SearchButton>
-          <Link href="/maps">
-            <SearchByMap>지도에서 찾기</SearchByMap>
-          </Link>
-        </SearchFormWrapper>
       </HomeWrapper>
     </Wrapper>
   )
