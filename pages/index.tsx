@@ -1,3 +1,4 @@
+import axios from 'axios'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -38,11 +39,22 @@ const Home: NextPage = () => {
     }
     const newTimer = setTimeout(async () => {
       try {
-        console.log(e.target.value)
+        const response = await axios({
+          method: 'get',
+          url: 'https://dapi.kakao.com/v2/local/search/keyword.json',
+          headers: {
+            Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_KEY}`
+          },
+          params: {
+            query: `${inputs}`,
+            category_group_code: 'CE7'
+          }
+        })
+        console.log(response)
       } catch (error) {
         console.error(`Debouncing Error while fetching Seach Lists : ${error}`)
       }
-    },500)
+    }, 500)
     setTimer(newTimer)
   }
   return (
