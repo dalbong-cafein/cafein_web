@@ -67,9 +67,10 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
       }
     }
     if (storeId !== cafeInfo?.storeId) {
-      Promise.all([getDetailStore(), getCafePoints(), getRecommendation()])
+      Promise.all([getDetailStore(), getCafePoints()])
     }
-  }, [storeId, cafeInfo, setCafeInfo, setCafePoints])
+    getRecommendation()
+  }, [storeId, cafeInfo, isHovering_1, isHovering_2, isHovering_3])
 
   return (
     <>
