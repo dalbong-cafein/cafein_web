@@ -35,9 +35,9 @@ import {
 } from './styles/styles'
 
 const CafeInfoSection = () => {
-  const [cafeInfo, setCafeInfo] = useAtom(cafeInfoAtom)
+  const cafeInfo = useAtomValue(cafeInfoAtom)
   const [isRunning, runningTime] = useAtomValue(isRunningAtom)
-  const [cafePoints, setCafePoints] = useAtom(cafeReviewPonitAtom)
+  const cafePoints = useAtomValue(cafeReviewPonitAtom)
   const [isOpened, setIsOpened] = useState(false)
   const getRunningTimes = useAtomValue(getRunningTimesAtom)
   const GetRunningTimes = getRunningTimes ? (

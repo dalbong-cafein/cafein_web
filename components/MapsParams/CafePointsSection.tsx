@@ -1,4 +1,4 @@
-import { useAtom } from 'jotai'
+import { useAtomValue } from 'jotai'
 import Image from 'next/image'
 import { cafeReviewPonitAtom } from '../../store'
 import {
@@ -14,7 +14,7 @@ import {
 } from './styles/styles'
 
 const CafePOintsSection = () => {
-  const [cafePoints, setCafePoints] = useAtom(cafeReviewPonitAtom)
+  const cafePoints = useAtomValue(cafeReviewPonitAtom)
   const getStars = (cnt: string) => {
     return (
       <StartWrapper>

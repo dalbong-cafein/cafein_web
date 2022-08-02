@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import { Description } from "./CafeInfoSectionStyle"
+import styled from 'styled-components'
+import { Description } from './CafeInfoSectionStyle'
 
 export const WrapperTitle = styled(Description)`
   font-weight: 600;

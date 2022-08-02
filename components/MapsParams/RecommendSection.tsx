@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useAtom, useAtomValue } from 'jotai'
+import { useAtomValue } from 'jotai'
 import Image from 'next/image'
 import { useState } from 'react'
 import { cafeInfoAtom } from '../../store'

@@ -1,10 +1,10 @@
-import { useAtom } from 'jotai'
+import { useAtomValue } from 'jotai'
 import Image from 'next/image'
 import { cafeInfoAtom } from '../../store'
 import { ImageWrappers } from './styles/styles'
 
 const ImageSection = () => {
-  const [cafeInfo, setCafeInfo] = useAtom(cafeInfoAtom)
+  const cafeInfo = useAtomValue(cafeInfoAtom)
   return (
     <>
       {cafeInfo && (

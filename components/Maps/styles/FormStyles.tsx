@@ -112,4 +112,3 @@ export const SearchListPosition = styled.p`
   font-size: ${(props) => props.theme.fontsizes.font13}rem;
   color: ${(props) => props.theme.colors.grey600};
 `
-

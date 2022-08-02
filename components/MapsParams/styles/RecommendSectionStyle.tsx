@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const StrongWrapperTitle = styled.span`
   color: ${(props) => props.theme.colors.orange500};
@@ -23,7 +23,10 @@ export const ButtonWrapper = styled.div`
   }
 `
 
-export const ButtonDesc = styled.p<{ isHovering: boolean; isOnButton: boolean }>`
+export const ButtonDesc = styled.p<{
+  isHovering: boolean
+  isOnButton: boolean
+}>`
   font-size: ${(props) => props.theme.fontsizes.font13}rem;
   font-weight: 500;
   color: ${(props) =>
