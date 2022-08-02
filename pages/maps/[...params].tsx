@@ -70,7 +70,15 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
       Promise.all([getDetailStore(), getCafePoints()])
     }
     getRecommendation()
-  }, [storeId, cafeInfo, isHovering_1, isHovering_2, isHovering_3])
+  }, [
+    storeId,
+    cafeInfo,
+    setCafeInfo,
+    setCafePoints,
+    isHovering_1,
+    isHovering_2,
+    isHovering_3
+  ])
 
   return (
     <>

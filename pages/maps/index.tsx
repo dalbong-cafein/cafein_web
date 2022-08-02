@@ -1,17 +1,15 @@
+import { Props } from 'next/script'
 import { ReactElement } from 'react'
-import { SearchInput } from '../../components/Home/styles/FormStyles'
 import CurrentPopularLists from '../../components/Maps/CurrentPopularLists'
 import MapLayout from '../../components/Maps/MapLayout'
 import RegionLists from '../../components/Maps/RegionLists'
 import {
-  SearchButton,
-  SearchDetailInput,
   SearchListInput,
   SearchWrapper
 } from '../../components/Maps/styles/FormStyles'
 import { NextPageWithLayout } from '../_app'
 
-const Maps: NextPageWithLayout<any> = () => {
+const Maps: NextPageWithLayout<Props> = () => {
   return (
     <>
       <SearchWrapper>

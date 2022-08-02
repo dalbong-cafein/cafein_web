@@ -3,7 +3,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import {
   ButtonsWrapper,
   HeaderWrapper,
@@ -24,7 +24,6 @@ import {
   SearchList,
   SearchListDescs,
   SearchListPosition,
-  SearchLists,
   SearchListStrong,
   SearchListTitle
 } from '../components/Maps/styles/FormStyles'
@@ -102,7 +101,12 @@ const Home: NextPage = () => {
         </SearchFormWrapper>
         <HomeSearchLists>
           <SearchList>
-            <Image src={'/images/location.svg'} width={24} height={24} />
+            <Image
+              src={'/images/location.svg'}
+              width={24}
+              height={24}
+              alt="location IMG"
+            />
             <SearchListDescs>
               <SearchListTitle>
                 <SearchListStrong>푸썸플레이스</SearchListStrong> 합정역점

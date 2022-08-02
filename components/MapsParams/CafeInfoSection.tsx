@@ -1,4 +1,4 @@
-import { useAtom, useAtomValue } from 'jotai'
+import { useAtomValue } from 'jotai'
 import Image from 'next/image'
 import { MouseEvent, useState } from 'react'
 import {

@@ -37,11 +37,10 @@ const RecommendSection = ({
     storeId: number
   ) => {
     try {
-      const response = await axios.post(`/api/web/recommendations`, {
+      await axios.post(`/api/web/recommendations`, {
         storeId,
         recommendation
       })
-      const data = response.data
       if (recommendation === 'BAD') {
         setIsOnButton(1)
       } else if (recommendation === 'NORMAL') {

@@ -3,6 +3,7 @@ import { useAtom, useAtomValue } from 'jotai'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import { Props } from 'next/script'
 import { ReactElement, useEffect } from 'react'
 import styled from 'styled-components'
 import { Ddabong } from '../../components/common/Common'
@@ -24,7 +25,7 @@ import {
 } from '../../store'
 import { NextPageWithLayout } from '../_app'
 
-const MapPage: NextPageWithLayout<any> = () => {
+const MapPage: NextPageWithLayout<Props> = () => {
   // 주소창에 cafeId가 있으면 Detail Map을 보여줌
   const router = useRouter()
   const { cafeId } = router.query
