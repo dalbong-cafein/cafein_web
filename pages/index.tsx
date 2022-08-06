@@ -176,6 +176,28 @@ const Home: NextPage = () => {
             </AddLink>
           </Link>
         </AddWrapper>
+        <FooterWrapper>
+          <FooterQLists>
+            <Link href="/">
+              <QItem>공지사항</QItem>
+            </Link>
+            <Link href="/">
+              <QItem>자주 묻는 질문</QItem>
+            </Link>
+            <Link href="/">
+              <QItem>이용약관</QItem>
+            </Link>
+          </FooterQLists>
+          <FooterQLists>
+            <Link href="/">
+              <QItem>dalbong.cafeing@gmail.com</QItem>
+            </Link>
+            <Link href="/">
+              <QItem>인스타그램</QItem>
+            </Link>
+          </FooterQLists>
+          <CopyRight>COPYRIGHT © 2022 cafein ALL RIGHTS RESERVED.</CopyRight>
+        </FooterWrapper>
       </HomeWrapper>
     </Wrapper>
   )
@@ -248,6 +270,32 @@ const AddButton = styled.button`
   font-weight: 500;
   font-size: ${(props) => props.theme.fontsizes.font16}rem;
   color: ${(props) => props.theme.colors.white};
+`
+
+const FooterWrapper = styled.footer`
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+`
+
+const FooterQLists = styled.ul`
+  display: flex;
+  gap: 16px;
+`
+
+const QItem = styled.li`
+  font-weight: 500;
+  font-size: ${(props) => props.theme.fontsizes.font13}rem;
+  color: ${(props) => props.theme.colors.grey700};
+`
+
+const CopyRight = styled.p`
+  font-weight: 400;
+  font-size: ${(props) => props.theme.fontsizes.font13}rem;
+  color: ${(props) => props.theme.colors.grey500};
 `
 
 export default Home
