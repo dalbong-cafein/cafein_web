@@ -16,11 +16,16 @@ export const HomeTitle = styled.h1`
 `
 
 export const SearchFormWrapper = styled.form`
+  position: relative;
   margin-top: 30px;
   display: flex;
   flex-direction: column;
   gap: 32px;
   align-items: center;
+`
+
+export const InputWrapper = styled.div`
+  position: relative;
 `
 
 export const SearchInput = styled.input`
@@ -29,37 +34,36 @@ export const SearchInput = styled.input`
   padding: 0 22px;
   background-color: ${(props) => props.theme.colors.white};
   border-radius: 16px;
-  border: none;
+  border: 1px solid ${(props) => props.theme.colors.orange400};
   transition: border-color 0.3s, box-shadow 0.3s;
-
-  &::before {
-    position: absolute;
-    content: '';
-  }
+  background-image: url('/images/search.svg');
+  background-repeat: no-repeat;
+  background-position: 22px center;
+  text-indent: 40px;
 
   &:focus-visible {
-    z-index: 1;
     outline: none;
-    border-color: ${(props) => props.theme.colors.orange500};
-    box-shadow: ${(props) => props.theme.colors.orange500} 0 0 0 1px;
   }
+`
+
+export const ClearButton = styled.button<{ isInput: boolean }>`
+  display: ${(props) => (props.isInput ? 'block' : 'none')};
+  position: absolute;
+  right: 0;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  background-image: url('/images/clear_circle.svg');
+  background-color: transparent;
 `
 
 export const SearchButton = styled.button`
-  width: 108px;
   height: 56px;
-  margin-left: 20px;
+  padding: 0 16px;
+  font-weight: 600;
   background-color: ${(props) => props.theme.colors.orange400};
-  border-radius: ${(props) => props.theme.borderRadius.border16}px;
+  border-radius: 14px;
   color: ${(props) => props.theme.colors.white};
-`
-
-export const SearchByMap = styled.button`
-  width: 127px;
-  height: 56px;
-  margin-left: 10px;
-  border: 1px solid ${(props) => props.theme.colors.grey300};
-  border-radius: ${(props) => props.theme.borderRadius.border16}px;
-  color: ${(props) => props.theme.colors.orange400};
-  background-color: transparent;
 `

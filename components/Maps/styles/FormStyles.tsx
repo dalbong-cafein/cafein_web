@@ -87,8 +87,10 @@ export const SearchList = styled.li`
   gap: 10px;
 `
 
-export const HomeSearchLists = styled(SearchLists)`
-  width: 440px;
+export const HomeSearchLists = styled(SearchLists)<{ isDisplay: boolean}>`
+  display: ${(props) => props.isDisplay ? 'block' : 'none'};
+  width: 400px;
+  top: 64px;
 `
 
 export const SearchListDescs = styled.div`

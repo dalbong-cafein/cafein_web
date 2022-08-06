@@ -5,15 +5,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ChangeEvent, useState } from 'react'
 import {
-  HeaderWrapper,
+  ClearButton,
   HomeTitle,
   HomeWrapper,
+  InputWrapper,
   NavWrapper,
   SearchButton,
-  SearchByMap,
   SearchFormWrapper,
   SearchInput,
-  StrongTitle,
   WhiteLink,
   Wrapper
 } from '../components/Home/styles/styles'
@@ -82,34 +81,34 @@ const Home: NextPage = () => {
           카페 추천 서비스 카페인
         </HomeTitle>
         <SearchFormWrapper>
-          <SearchInput
-            placeholder="카페 이름이나 지하철역을 검색해보세요"
-            value={inputs}
-            onChange={handleInputs}
-          />
-          <SearchButton>검색</SearchButton>
-          <Link href="/maps">
-            <SearchByMap>지도에서 찾기</SearchByMap>
-          </Link>
-        </SearchFormWrapper>
-        <HomeSearchLists>
-          <SearchList>
-            <Image
-              src={'/images/location.svg'}
-              width={24}
-              height={24}
-              alt="location IMG"
+          <InputWrapper>
+            <SearchInput
+              placeholder="카페 이름이나 지하철역을 검색해보세요"
+              value={inputs}
+              onChange={handleInputs}
             />
-            <SearchListDescs>
-              <SearchListTitle>
-                <SearchListStrong>푸썸플레이스</SearchListStrong> 합정역점
-              </SearchListTitle>
-              <SearchListPosition>
-                서울특별서 마포구 양학로 45
-              </SearchListPosition>
-            </SearchListDescs>
-          </SearchList>
-        </HomeSearchLists>
+            <ClearButton isInput={inputs === '' ? false : true} />
+          </InputWrapper>
+          <HomeSearchLists isDisplay={inputs === '' ? false : true}>
+            <SearchList>
+              <Image
+                src={'/images/location.svg'}
+                width={24}
+                height={24}
+                alt="location IMG"
+              />
+              <SearchListDescs>
+                <SearchListTitle>
+                  <SearchListStrong>푸썸플레이스</SearchListStrong> 합정역점
+                </SearchListTitle>
+                <SearchListPosition>
+                  서울특별서 마포구 양학로 45
+                </SearchListPosition>
+              </SearchListDescs>
+            </SearchList>
+          </HomeSearchLists>
+          <SearchButton>지도에서 카페 찾기</SearchButton>
+        </SearchFormWrapper>
       </HomeWrapper>
     </Wrapper>
   )
