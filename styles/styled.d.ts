@@ -5,6 +5,7 @@ declare module 'styled-components' {
     colors: {
       grey900: string
       grey800: string
+      grey700: string
       grey600: string
       grey500: string
       grey400: string
@@ -18,6 +19,7 @@ declare module 'styled-components' {
       blue: string
     }
     fontsizes: {
+      font40: number
       font28: number
       font19: number
       font16: number

@@ -1,39 +1,41 @@
 import styled from 'styled-components'
 
-const HomeWrapper = styled.div`
-  max-width: ${(props) => props.theme.widthes.maxWidth}px;
-  width: 100%;
+export const HomeWrapper = styled.div`
+  max-width: 1200px;
+  padding: 100px 34px;
 `
 
-const HeaderWrapper = styled.header`
+export const HomeTitle = styled.h1`
   display: flex;
-  justify-content: flex-start;
-`
-
-const HomeTitle = styled.h1`
-  font-size: ${(props) => props.theme.fontsizes.font28}rem;
+  justify-content: center;
+  align-items: center;
+  font-size: ${(props) => props.theme.fontsizes.font40}rem;
   font-weight: 700;
-  margin-top: ${(props) => props.theme.marginTop.margin40}px;
+  height: 116px;
+  text-align: center;
 `
 
-const StrongTitle = styled.strong`
-  color: ${(props) => props.theme.colors.orange500};
-`
-
-const SearchFormWrapper = styled.form`
-  margin-top: ${(props) => props.theme.marginTop.margin30}px;
+export const SearchFormWrapper = styled.form`
+  margin-top: 30px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
 `
 
-const SearchInput = styled.input`
-  width: 440px;
-  height: 48px;
-  padding: 0 20px;
+export const SearchInput = styled.input`
+  width: 400px;
+  height: 64px;
+  padding: 0 22px;
   background-color: ${(props) => props.theme.colors.white};
-  border-radius: 14px;
+  border-radius: 16px;
   border: none;
   transition: border-color 0.3s, box-shadow 0.3s;
+
+  &::before {
+    position: absolute;
+    content: '';
+  }
 
   &:focus-visible {
     z-index: 1;
@@ -43,7 +45,7 @@ const SearchInput = styled.input`
   }
 `
 
-const SearchButton = styled.button`
+export const SearchButton = styled.button`
   width: 108px;
   height: 56px;
   margin-left: 20px;
@@ -52,7 +54,7 @@ const SearchButton = styled.button`
   color: ${(props) => props.theme.colors.white};
 `
 
-const SearchByMap = styled.button`
+export const SearchByMap = styled.button`
   width: 127px;
   height: 56px;
   margin-left: 10px;
@@ -61,14 +63,3 @@ const SearchByMap = styled.button`
   color: ${(props) => props.theme.colors.orange400};
   background-color: transparent;
 `
-
-export {
-  HomeWrapper,
-  HeaderWrapper,
-  HomeTitle,
-  StrongTitle,
-  SearchFormWrapper,
-  SearchInput,
-  SearchButton,
-  SearchByMap
-}

@@ -5,6 +5,7 @@ const colors = {
   orange400: '#fc7521',
   grey900: '#131313',
   grey800: '#333',
+  grey700: '#515151',
   grey600: '#646464',
   grey500: '#8b8b8b',
   grey400: '#acacac',
@@ -17,6 +18,7 @@ const colors = {
 }
 
 const fontsizes = {
+  font40: 2.5,
   font28: 1.75,
   font19: 1.1875,
   font16: 1,

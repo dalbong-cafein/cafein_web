@@ -5,7 +5,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ChangeEvent, useState } from 'react'
 import {
-  ButtonsWrapper,
   HeaderWrapper,
   HomeTitle,
   HomeWrapper,
@@ -16,7 +15,6 @@ import {
   SearchInput,
   StrongTitle,
   WhiteLink,
-  WhiteLinkWrapper,
   Wrapper
 } from '../components/Home/styles/styles'
 import {
@@ -56,6 +54,7 @@ const Home: NextPage = () => {
     }, 500)
     setTimer(newTimer)
   }
+
   return (
     <Wrapper>
       <Head>
@@ -67,27 +66,21 @@ const Home: NextPage = () => {
             <Image
               src={'/images/logo_black.svg'}
               alt="카페인 로고"
-              width={80}
-              height={21.5}
+              width={103}
+              height={22}
             />
           </a>
         </Link>
-        <ButtonsWrapper>
-          <WhiteLinkWrapper>
-            <Link href="/">
-              <WhiteLink>의견 보내기</WhiteLink>
-            </Link>
-          </WhiteLinkWrapper>
-        </ButtonsWrapper>
+        <Link href="/">
+          <WhiteLink>의견 보내기</WhiteLink>
+        </Link>
       </NavWrapper>
       <HomeWrapper>
-        <HeaderWrapper>
-          <HomeTitle>
-            카공인을 위한
-            <br />
-            카페 추천 서비스 <StrongTitle>카페인</StrongTitle>
-          </HomeTitle>
-        </HeaderWrapper>
+        <HomeTitle>
+          카공인을 위한
+          <br />
+          카페 추천 서비스 카페인
+        </HomeTitle>
         <SearchFormWrapper>
           <SearchInput
             placeholder="카페 이름이나 지하철역을 검색해보세요"

@@ -7,9 +7,9 @@ const Wrapper = styled.div`
 `
 
 const NavWrapper = styled.nav<{ main?: boolean }>`
-  max-width: ${(props) =>
-    props.main ? props.theme.widthes.maxWidth + 'px' : ''};
-  padding: ${(props) => (props.main ? '' : `0 190px 0 24px`)};
+  max-width: 1200px;
+  /* padding: ${(props) => (props.main ? '' : `0 190px 0 24px`)}; */
+  padding: 0 34px;
   width: 100%;
   height: ${(props) => props.theme.marginTop.navHeight}px;
   display: flex;
@@ -17,22 +17,15 @@ const NavWrapper = styled.nav<{ main?: boolean }>`
   align-items: center;
 `
 
-const ButtonsWrapper = styled.ul`
-  display: flex;
-  gap: 24px;
-`
-
-const WhiteLinkWrapper = styled.li`
-  width: 117px;
-  height: 48px;
-`
-
 const WhiteLink = styled.a`
-  display: inline-block;
-  vertical-align: bottom;
-  padding: 16px 24px;
-  font-size: 0.9375rem;
-  border-radius: ${(props) => props.theme.borderRadius.border12}px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: ${(props) => props.theme.fontsizes.font15}rem;
+  font-weight: 500;
+  color: ${(props) => props.theme.colors.grey700};
+  width: 101px;
+  height: 38px;
 `
 
 const OrangeButtonWrapper = styled.li`
@@ -50,8 +43,6 @@ const OrangeButton = styled.button`
 export {
   Wrapper,
   NavWrapper,
-  ButtonsWrapper,
-  WhiteLinkWrapper,
   WhiteLink,
   OrangeButtonWrapper,
   OrangeButton
