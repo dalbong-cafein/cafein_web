@@ -166,15 +166,16 @@ const Home: NextPage = () => {
           <RecommendItemsWrapper>
             <RecommendItem>1</RecommendItem>
             <RecommendItem>2</RecommendItem>
-            <RecommendItem>3</RecommendItem>
-            <RecommendItem>4</RecommendItem>
-            <RecommendItem>5</RecommendItem>
-            <RecommendItem>6</RecommendItem>
-            <RecommendItem>7</RecommendItem>
-            <RecommendItem>8</RecommendItem>
-            <RecommendItem>9</RecommendItem>
           </RecommendItemsWrapper>
         </RecommendWrapper>
+        <AddWrapper>
+          <Link href="/">
+            <AddLink>
+              <AddLinkText>추천하고 싶은 카페가 있다면 알려주세요</AddLinkText>
+              <AddButton>카페 등록하기</AddButton>
+            </AddLink>
+          </Link>
+        </AddWrapper>
       </HomeWrapper>
     </Wrapper>
   )
@@ -213,6 +214,40 @@ const RecommendItemsWrapper = styled.ul`
 const RecommendItem = styled.div`
   width: 364px;
   height: 240px;
+`
+
+const AddWrapper = styled.div`
+  display: flex;
+  height: 240px;
+  padding: 84px 140px;
+  background-image: url('/images/Cafein.svg');
+  background-repeat: no-repeat;
+  background-blend-mode: multiply;
+  background-color: ${(props) => props.theme.colors.grey100};
+  background-position: right 132px top 20px;
+  border-radius: 20px;
+`
+
+const AddLink = styled.a`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+`
+
+const AddLinkText = styled.p`
+  font-size: ${(props) => props.theme.fontsizes.font23}rem;
+  font-weight: 600;
+`
+
+const AddButton = styled.button`
+  border-radius: 14px;
+  background-color: ${(props) => props.theme.colors.grey600};
+  padding: 12px 16px;
+  font-weight: 500;
+  font-size: ${(props) => props.theme.fontsizes.font16}rem;
+  color: ${(props) => props.theme.colors.white};
 `
 
 export default Home
