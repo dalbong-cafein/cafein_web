@@ -10,6 +10,7 @@ declare module 'styled-components' {
       grey500: string
       grey400: string
       grey300: string
+      grey200: string
       grey100: string
       grey50: string
       orange500: string
@@ -21,6 +22,7 @@ declare module 'styled-components' {
     fontsizes: {
       font40: number
       font28: number
+      font24: number
       font19: number
       font16: number
       font15: number

@@ -3,7 +3,13 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ChangeEvent, FormEventHandler, MouseEventHandler, useState } from 'react'
+import {
+  ChangeEvent,
+  FormEventHandler,
+  MouseEventHandler,
+  useState
+} from 'react'
+import styled from 'styled-components'
 import {
   ClearButton,
   HomeTitle,
@@ -150,9 +156,63 @@ const Home: NextPage = () => {
           </HomeSearchLists>
           <SearchButton>지도에서 카페 찾기</SearchButton>
         </SearchFormWrapper>
+        <RecommendWrapper>
+          <RecommendTitle>지역별 카페 추천</RecommendTitle>
+          <RecommendLists>
+            <RecommendList>서대문구</RecommendList>
+            <RecommendList>서대문구</RecommendList>
+            <RecommendList>서대문구</RecommendList>
+          </RecommendLists>
+          <RecommendItemsWrapper>
+            <RecommendItem>1</RecommendItem>
+            <RecommendItem>2</RecommendItem>
+            <RecommendItem>3</RecommendItem>
+            <RecommendItem>4</RecommendItem>
+            <RecommendItem>5</RecommendItem>
+            <RecommendItem>6</RecommendItem>
+            <RecommendItem>7</RecommendItem>
+            <RecommendItem>8</RecommendItem>
+            <RecommendItem>9</RecommendItem>
+          </RecommendItemsWrapper>
+        </RecommendWrapper>
       </HomeWrapper>
     </Wrapper>
   )
 }
+
+const RecommendWrapper = styled.div`
+  margin-top: 102px;
+`
+
+const RecommendTitle = styled.p`
+  font-size: ${(props) => props.theme.fontsizes.font24}rem;
+  font-weight: 700;
+`
+
+const RecommendLists = styled.ul`
+  margin-top: 24px;
+  display: flex;
+  gap: 8px;
+`
+
+const RecommendList = styled.li`
+  padding: 9px 12px;
+  background-color: ${(props) => props.theme.colors.grey200};
+  border-radius: 28px;
+  font-weight: 600;
+  font-size: ${(props) => props.theme.fontsizes.font15}rem;
+`
+
+const RecommendItemsWrapper = styled.ul`
+  display: grid;
+  row-gap: 20px;
+  column-gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(364px, 1fr));
+`
+
+const RecommendItem = styled.div`
+  width: 364px;
+  height: 240px;
+`
 
 export default Home

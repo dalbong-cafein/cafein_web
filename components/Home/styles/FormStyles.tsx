@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const HomeWrapper = styled.div`
   max-width: 1200px;
+  width: 100%;
   padding: 100px 34px;
 `
 
