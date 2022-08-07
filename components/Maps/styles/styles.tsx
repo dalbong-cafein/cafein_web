@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
-const MainWrapper = styled.div`
+const MainWrapper = styled.div<{ isDetail: boolean }>`
   position: absolute;
-  left: 0;
+  left: ${(props) => (props.isDetail ? '400px' : '0')};
   top: 0;
   max-height: 100vh;
   overflow-y: scroll;

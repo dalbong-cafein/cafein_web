@@ -2,7 +2,10 @@ import axios from 'axios'
 import { useAtom } from 'jotai'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
+import Image from 'next/image'
+import Link from 'next/link'
 import { ReactElement, useEffect, useState } from 'react'
+import styled from 'styled-components'
 import MapLayout from '../../components/Maps/MapLayout'
 import CafeInfoSection from '../../components/MapsParams/CafeInfoSection'
 import CafePOintsSection from '../../components/MapsParams/CafePointsSection'
@@ -87,6 +90,16 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
       </Head>
       {cafeInfo && cafePoints && (
         <>
+          <Link href="/">
+            <CloseImage>
+              <Image
+                src="/images/white_close.svg"
+                alt="닫기 아이콘"
+                width={36}
+                height={36}
+              />
+            </CloseImage>
+          </Link>
           <ImageSection />
           <CafeInfoSection />
           <CafePOintsSection />
@@ -106,6 +119,13 @@ const DetailMaps: NextPageWithLayout<{ params: string[] }> = ({ params }) => {
     </>
   )
 }
+
+const CloseImage = styled.a`
+  position: absolute;
+  z-index: 1;
+  right: 16px;
+  top: 16px;
+`
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const { params } = query

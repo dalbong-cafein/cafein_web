@@ -1,5 +1,5 @@
 import { atom } from 'jotai'
-import getHours from './components/utils/getHours'
+import getHours from './utils/getHours'
 
 interface ImageListInterface {
   imageId: number
@@ -133,3 +133,6 @@ export const getRunningTimesAtom = atom((get) => {
 })
 
 export const cafeReviewPonitAtom = atom<CafeRewviewPointInterface | null>(null)
+
+export const searchInputAtom = atom('')
+export const searchListsAtom = atom<string[]>([])

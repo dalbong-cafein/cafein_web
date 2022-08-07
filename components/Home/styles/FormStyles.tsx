@@ -16,7 +16,7 @@ export const HomeTitle = styled.h1`
   text-align: center;
 `
 
-export const SearchFormWrapper = styled.form`
+export const SearchFormWrapper = styled.div`
   position: relative;
   margin-top: 30px;
   display: flex;
@@ -30,6 +30,7 @@ export const InputWrapper = styled.div`
 `
 
 export const SearchInput = styled.input`
+  position: relative;
   width: 400px;
   height: 64px;
   padding: 0 22px;
@@ -41,6 +42,18 @@ export const SearchInput = styled.input`
   background-repeat: no-repeat;
   background-position: 22px center;
   text-indent: 40px;
+  font-size: ${(props) => props.theme.fontsizes.font17}rem;
+  font-weight: 400;
+
+  &::placeholder {
+    color: ${(props) => props.theme.colors.grey700};
+  }
+  &::-webkit-input-placeholder {
+    color: ${(props) => props.theme.colors.grey700};
+  }
+  &:-ms-input-placeholder {
+    color: ${(props) => props.theme.colors.grey700};
+  }
 
   &:focus-visible {
     outline: none;
@@ -50,9 +63,8 @@ export const SearchInput = styled.input`
 export const ClearButton = styled.button<{ isInput: boolean }>`
   display: ${(props) => (props.isInput ? 'block' : 'none')};
   position: absolute;
-  right: 0;
-  top: 50%;
   right: 10px;
+  top: 50%;
   transform: translateY(-50%);
   width: 24px;
   height: 24px;

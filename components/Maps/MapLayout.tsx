@@ -21,17 +21,21 @@ const MapLayout = ({ children }: MapLayoutProps) => {
       <Head>
         <title>카페인 | 지도</title>
       </Head>
-      <MainWrapper>
-        <Link href="/">
-          <Logo>
-            <Image
-              src="/images/logo_black.svg"
-              width={103}
-              height={22}
-              alt="로고"
-            />
-          </Logo>
-        </Link>
+      <MainWrapper isDetail={cafeId ? true : false}>
+        {cafeId ? (
+          ''
+        ) : (
+          <Link href="/">
+            <Logo>
+              <Image
+                src="/images/logo_black.svg"
+                width={103}
+                height={22}
+                alt="로고"
+              />
+            </Logo>
+          </Link>
+        )}
         {children}
       </MainWrapper>
       <Map />

@@ -1,71 +1,57 @@
 import styled from 'styled-components'
+import { SearchInput } from '../../Home/styles/FormStyles'
 
-export const SearchWrapper = styled.form`
+// export const SearchDetailInput = styled.input`
+//   width: 440px;
+//   height: 44px;
+//   border: 1px solid ${(props) => props.theme.colors.grey300};
+//   border-radius: 12px;
+//   font-size: ${(props) => props.theme.fontsizes.font14}rem;
+//   padding-left: 18px;
+//   transition: border-color 0.3s, box-shadow 0.3s;
+
+//   &:focus-visible {
+//     z-index: 1;
+//     outline: none;
+//     border-color: ${(props) => props.theme.colors.orange500};
+//     box-shadow: ${(props) => props.theme.colors.orange500} 0 0 0 1px;
+//   }
+
+//   &::placeholder {
+//     text-indent: 28px;
+//     background-image: url('/images/search.svg');
+//     background-size: contain;
+//     background-repeat: no-repeat;
+//   }
+//   &::-webkit-input-placeholder {
+//     text-indent: 28px;
+//     background-image: url('/images/search.svg');
+//     background-size: contain;
+//     background-repeat: no-repeat;
+//   }
+//   &:-ms-input-placeholder {
+//     text-indent: 28px;
+//     background-image: url('/images/search.svg');
+//     background-size: contain;
+//     background-repeat: no-repeat;
+//   }
+// `
+
+export const SearchListInputWrapper = styled.div`
+  position: relative;
   display: flex;
-  flex-direction: row;
-  padding: 16px 24px 0;
+  justify-content: center;
 `
 
-export const SearchInput = styled.input`
-  width: 530px;
-  height: 48px;
-  padding: 0 20px;
-  background-color: ${(props) => props.theme.colors.white};
-  border: 1px solid ${(props) => props.theme.colors.grey100};
-  border-radius: ${(props) => props.theme.borderRadius.border12}px;
-`
-
-export const SearchButton = styled.button`
-  width: 86px;
-  height: 48px;
-  margin-left: 16px;
-  background-color: ${(props) => props.theme.colors.orange400};
-  color: ${(props) => props.theme.colors.white};
-  border-radius: ${(props) => props.theme.borderRadius.border12}px;
-`
-
-export const SearchDetailInput = styled.input`
-  width: 440px;
+export const SearchListInput = styled(SearchInput)`
+  width: 352px;
   height: 44px;
-  border: 1px solid ${(props) => props.theme.colors.grey300};
   border-radius: 12px;
-  font-size: ${(props) => props.theme.fontsizes.font14}rem;
-  padding-left: 18px;
-  transition: border-color 0.3s, box-shadow 0.3s;
-
-  &:focus-visible {
-    z-index: 1;
-    outline: none;
-    border-color: ${(props) => props.theme.colors.orange500};
-    box-shadow: ${(props) => props.theme.colors.orange500} 0 0 0 1px;
-  }
-
-  &::placeholder {
-    text-indent: 28px;
-    background-image: url('/images/search.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-  &::-webkit-input-placeholder {
-    text-indent: 28px;
-    background-image: url('/images/search.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-  &:-ms-input-placeholder {
-    text-indent: 28px;
-    background-image: url('/images/search.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-`
-
-export const SearchListInput = styled(SearchDetailInput)`
-  width: 632px;
-  height: 48px;
-  border-radius: 10px;
   background-color: ${(props) => props.theme.colors.white};
-  border-color: ${(props) => props.theme.colors.grey100};
+  border: 1.2px solid ${(props) => props.theme.colors.orange400};
+  font-size: ${(props) => props.theme.fontsizes.font15}rem;
+  display: block;
+  margin: 0 auto;
 `
 
 export const SearchLists = styled.ul`

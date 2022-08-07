@@ -25,6 +25,7 @@ declare module 'styled-components' {
       font24: number
       font23: number
       font19: number
+      font17: number
       font16: number
       font15: number
       font14: number

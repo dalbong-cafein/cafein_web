@@ -8,7 +8,7 @@ import {
   isRunningAtom
 } from '../../store'
 import { Ddabong } from '../common/Common'
-import getIsToday from '../utils/getIsToday'
+import getIsToday from '../../utils/getIsToday'
 import {
   ArrowButton,
   CafeInfoWrapper,

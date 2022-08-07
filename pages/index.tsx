@@ -1,14 +1,9 @@
-import axios from 'axios'
+import { useAtom } from 'jotai'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import {
-  ChangeEvent,
-  FormEventHandler,
-  MouseEventHandler,
-  useState
-} from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 import {
   ClearButton,
@@ -30,64 +25,14 @@ import {
   SearchListStrong,
   SearchListTitle
 } from '../components/Maps/styles/FormStyles'
-
-interface IStore {
-  address_name: string
-  category_group_code: string
-  category_group_name: string
-  category_name: string
-  distance: string
-  id: string
-  phone: string
-  place_name: string
-  place_url: string
-  road_address_name: string
-  x: string
-  y: string
-}
+import { useHandleClearEvent, useHandleInputs } from '../utils/useSearchHandler'
+import { searchInputAtom, searchListsAtom } from '../store'
 
 const Home: NextPage = () => {
-  const [inputs, setInputs] = useState('')
-  const [timer, setTimer] = useState<NodeJS.Timeout>()
+  const [inputs, setInputs] = useAtom(searchInputAtom)
   const [isClicked, setIsClicked] = useState(false)
-  const [searchLists, setSearchLists] = useState<string[]>([])
-  const handleInputs = async (e: ChangeEvent<HTMLInputElement>) => {
-    setInputs(e.target.value)
-    if (timer) {
-      clearTimeout(timer)
-    }
-    const newTimer = setTimeout(async () => {
-      try {
-        const response = await axios({
-          method: 'get',
-          url: 'https://dapi.kakao.com/v2/local/search/keyword.json',
-          headers: {
-            Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_KEY}`
-          },
-          params: {
-            query: `${e.target.value}`,
-            category_group_code: 'CE7'
-          }
-        })
-        console.log(response)
-        const {
-          data: { documents }
-        } = response
-        const n_searchLists = documents.map((store: IStore) => store.place_name)
-        console.log(n_searchLists)
-        setSearchLists(n_searchLists)
-      } catch (error) {
-        console.error(`Debouncing Error while fetching Seach Lists : ${error}`)
-      }
-    }, 500)
-    setTimer(newTimer)
-  }
-
-  const handleClearEvent: FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault()
-    setInputs('')
-    setSearchLists([])
-  }
+  const [timer, setTimer] = useState<NodeJS.Timeout>()
+  const [searchLists, setSearchLists] = useAtom(searchListsAtom)
 
   return (
     <Wrapper>
@@ -115,16 +60,31 @@ const Home: NextPage = () => {
           <br />
           카페 추천 서비스 카페인
         </HomeTitle>
-        <SearchFormWrapper onSubmit={handleClearEvent}>
+        <SearchFormWrapper
+        // onSubmit={(e) =>
+
+        // }
+        >
           <InputWrapper>
             <SearchInput
               placeholder="카페 이름이나 지하철역을 검색해보세요"
               value={inputs}
-              onChange={handleInputs}
+              onChange={(e) =>
+                useHandleInputs({
+                  e,
+                  setInputs,
+                  timer,
+                  setTimer,
+                  setSearchLists
+                })
+              }
               onFocus={() => setIsClicked(true)}
               onBlur={() => setIsClicked(false)}
             />
-            <ClearButton isInput={inputs === '' ? false : true} />
+            <ClearButton
+              isInput={inputs === '' ? false : true}
+              onClick={(e) => useHandleClearEvent({ e, setInputs, setSearchLists })}
+            />
           </InputWrapper>
           <HomeSearchLists
             isDisplay={searchLists.length !== 0 && isClicked ? true : false}
