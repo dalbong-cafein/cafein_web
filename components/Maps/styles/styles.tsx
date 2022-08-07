@@ -3,13 +3,22 @@ import styled from 'styled-components'
 const MainWrapper = styled.div`
   position: absolute;
   left: 0;
-  bottom: 0;
-  top: ${(props) => props.theme.marginTop.navHeight}px;
+  top: 0;
+  max-height: 100vh;
+  overflow-y: scroll;
   width: 100%;
   background-color: ${(props) => props.theme.colors.white};
-  max-width: ${(props) => props.theme.widthes.maxBarList}px;
-  min-width: ${(props) => props.theme.widthes.minBarList}px;
+  max-width: 400px;
+  min-width: 375px;
   z-index: 1;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.colors.grey300};
+    border-radius: 4px;
+  }
 `
 
 export { MainWrapper }

@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { ReactNode } from 'react'
+import { Logo } from '../common/Common'
 import Map from './Map'
 import { MainWrapper } from './styles/styles'
 
@@ -20,7 +21,19 @@ const MapLayout = ({ children }: MapLayoutProps) => {
       <Head>
         <title>카페인 | 지도</title>
       </Head>
-      <MainWrapper>{children}</MainWrapper>
+      <MainWrapper>
+        <Link href="/">
+          <Logo>
+            <Image
+              src="/images/logo_black.svg"
+              width={103}
+              height={22}
+              alt="로고"
+            />
+          </Logo>
+        </Link>
+        {children}
+      </MainWrapper>
       <Map />
     </>
   )
