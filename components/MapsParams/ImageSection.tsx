@@ -11,7 +11,7 @@ const ImageSection = () => {
         <>
           {cafeInfo.storeImageList.length > 0 ? (
             <ImageWrappers>
-              {cafeInfo.storeImageList.slice(0, 5).map((imgData, idx) => (
+              {cafeInfo.storeImageList.slice(0, 3).map((imgData, idx) => (
                 <Image
                   src={imgData.imageUrl}
                   alt="카페 사진"
