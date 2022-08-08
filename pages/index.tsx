@@ -223,7 +223,7 @@ const Home: NextPage = () => {
           </FooterQLists>
           <FooterQLists>
             <QItem>
-              <Link href="/">dalbong.cafeing@gmail.com</Link>
+              <Link href="mailto:dalbong.cafeing@gmail.com">dalbong.cafeing@gmail.com</Link>
             </QItem>
 
             <QItem>

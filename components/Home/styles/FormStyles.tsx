@@ -57,9 +57,7 @@ export const SearchInput = styled.input`
   }
 
   &:focus-visible {
-    outline: none;
-    border-width: 1.6px;
-    width: 401.2px;
+    outline: 1.6px solid ${(props) => props.theme.colors.orange400};
   }
 
   @keyframes blink-caret {

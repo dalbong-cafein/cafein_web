@@ -22,7 +22,7 @@ const CurrentPopularItem = styled.li`
   display: flex;
   flex-direction: column;
   flex-grow: 0;
-  max-width: 200px;
+  overflow: auto;
 `
 
 const CurrentPopularItemImage = styled(Image)`
@@ -40,27 +40,27 @@ const CurrentPopularItemRegion = styled.p`
 
 const CurrentPopularItemTitle = styled.p`
   ${(props) => props.theme.mixins.ellipse}
-  margin-top: 12px;
-  font-size: ${(props) => props.theme.fontsizes.font15}rem;
+  font-size: ${(props) => props.theme.fontsizes.font17}rem;
+  color: ${(props) => props.theme.colors.grey800};
+  font-weight: 600;
 `
 
 const CurrentPopularItemLocation = styled.p`
   ${(props) => props.theme.mixins.ellipse}
-  margin-top: 8px;
-  font-size: ${(props) => props.theme.fontsizes.font13}rem;
+  margin-top: 6px;
+  font-size: ${(props) => props.theme.fontsizes.font14}rem;
   font-weight: 400;
   color: ${(props) => props.theme.colors.grey600};
 `
 
 const OnAirWrapper = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: center;
-  margin-top: 8px;
+  margin-top: 4px;
 `
 
 const OnAirBadge = styled.span`
-  font-size: ${(props) => props.theme.fontsizes.font12}rem;
+  font-size: ${(props) => props.theme.fontsizes.font11}rem;
   color: ${(props) => props.theme.colors.orange500};
   font-weight: 400;
   border-radius: ${(props) => props.theme.borderRadius.border4}px;
@@ -74,8 +74,15 @@ const OpeningTime = styled.span`
   color: ${(props) => props.theme.colors.grey800};
 `
 
-const DdabongWrap = styled.span`
-  margin-top: 8px;
+const DdabongWrap = styled.div`
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  margin-top: 7px;
+  font-size: ${(props) => props.theme.fontsizes.font12}rem;
+  color: ${(props) => props.theme.colors.grey600};
+  font-weight: 400;
+
 `
 
 export {

@@ -32,6 +32,7 @@ declare module 'styled-components' {
       font14: number
       font13: number
       font12: number
+      font11: number
     }
     borderRadius: {
       border4: number

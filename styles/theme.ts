@@ -30,7 +30,8 @@ const fontsizes = {
   font15: 0.9375,
   font14: 0.875,
   font13: 0.8125,
-  font12: 0.75
+  font12: 0.75,
+  font11: 0.6875
 }
 
 const widthes = {
