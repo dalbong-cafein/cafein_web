@@ -44,6 +44,7 @@ export const SearchInput = styled.input`
   text-indent: 40px;
   font-size: ${(props) => props.theme.fontsizes.font17}rem;
   font-weight: 400;
+  caret-color: ${(props) => props.theme.colors.orange500};
 
   &::placeholder {
     color: ${(props) => props.theme.colors.grey700};
@@ -57,6 +58,18 @@ export const SearchInput = styled.input`
 
   &:focus-visible {
     outline: none;
+    border-width: 1.6px;
+    width: 401.2px;
+  }
+
+  @keyframes blink-caret {
+    from,
+    to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: ${(props) => props.theme.colors.orange500};
+    }
   }
 `
 

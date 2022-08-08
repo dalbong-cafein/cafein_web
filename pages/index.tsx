@@ -83,7 +83,9 @@ const Home: NextPage = () => {
             />
             <ClearButton
               isInput={inputs === '' ? false : true}
-              onClick={(e) => useHandleClearEvent({ e, setInputs, setSearchLists })}
+              onClick={(e) =>
+                useHandleClearEvent({ e, setInputs, setSearchLists })
+              }
             />
           </InputWrapper>
           <HomeSearchLists
@@ -119,9 +121,30 @@ const Home: NextPage = () => {
         <RecommendWrapper>
           <RecommendTitle>지역별 카페 추천</RecommendTitle>
           <RecommendLists>
-            <RecommendList>서대문구</RecommendList>
-            <RecommendList>서대문구</RecommendList>
-            <RecommendList>서대문구</RecommendList>
+            <RecommendList isActive={true}>
+              <Link
+                href={{ pathname: '/', query: { location: '서대문구' } }}
+                scroll={false}
+              >
+                서대문구
+              </Link>
+            </RecommendList>
+            <RecommendList isActive={false}>
+              <Link
+                href={{ pathname: '/', query: { location: '동대문구' } }}
+                scroll={false}
+              >
+                서대문구
+              </Link>
+            </RecommendList>
+            <RecommendList isActive={false}>
+              <Link
+                href={{ pathname: '/', query: { location: '남대문구' } }}
+                scroll={false}
+              >
+                서대문구
+              </Link>
+            </RecommendList>
           </RecommendLists>
           <RecommendItemsWrapper>
             <RecommendItem>1</RecommendItem>
@@ -178,12 +201,23 @@ const RecommendLists = styled.ul`
   gap: 8px;
 `
 
-const RecommendList = styled.li`
-  padding: 9px 12px;
-  background-color: ${(props) => props.theme.colors.grey200};
+const RecommendList = styled.li<{ isActive: boolean }>`
+  background-color: ${(props) =>
+    props.isActive ? props.theme.colors.grey200 : ''};
   border-radius: 28px;
   font-weight: 600;
   font-size: ${(props) => props.theme.fontsizes.font15}rem;
+  color: ${(props) => (!props.isActive ? props.theme.colors.grey500 : '')};
+
+  &:hover {
+    color: inherit;
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  & a {
+    display: flex;
+    padding: 9px 12px;
+  }
 `
 
 const RecommendItemsWrapper = styled.ul`

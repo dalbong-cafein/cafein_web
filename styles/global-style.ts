@@ -15,7 +15,7 @@ export const GlobalStyle = createGlobalStyle`
   h1,h2,h3,h4,h5,p,div {
     margin: 0
   }
-  a { cursor: pointer; text-decoration: none; }
+  a { cursor: pointer; text-decoration: none; color: inherit; }
   ol, ul {
     list-style: none;
     padding: 0;
