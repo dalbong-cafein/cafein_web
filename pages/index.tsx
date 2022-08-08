@@ -161,23 +161,26 @@ const Home: NextPage = () => {
         </AddWrapper>
         <FooterWrapper>
           <FooterQLists>
-            <Link href="/">
-              <QItem>공지사항</QItem>
-            </Link>
-            <Link href="/">
-              <QItem>자주 묻는 질문</QItem>
-            </Link>
-            <Link href="/">
-              <QItem>이용약관</QItem>
-            </Link>
+            <QItem>
+              <Link href="/">공지사항</Link>
+            </QItem>
+
+            <QItem>
+              <Link href="/">자주 묻는 질문</Link>
+            </QItem>
+
+            <QItem>
+              <Link href="/">이용약관</Link>
+            </QItem>
           </FooterQLists>
           <FooterQLists>
-            <Link href="/">
-              <QItem>dalbong.cafeing@gmail.com</QItem>
-            </Link>
-            <Link href="/">
-              <QItem>인스타그램</QItem>
-            </Link>
+            <QItem>
+              <Link href="/">dalbong.cafeing@gmail.com</Link>
+            </QItem>
+
+            <QItem>
+              <Link href="/">인스타그램</Link>
+            </QItem>
           </FooterQLists>
           <CopyRight>COPYRIGHT © 2022 cafein ALL RIGHTS RESERVED.</CopyRight>
         </FooterWrapper>
@@ -244,7 +247,7 @@ const AddWrapper = styled.div`
   border-radius: 20px;
 `
 
-const AddLink = styled.a`
+const AddLink = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -264,6 +267,12 @@ const AddButton = styled.button`
   font-weight: 500;
   font-size: ${(props) => props.theme.fontsizes.font16}rem;
   color: ${(props) => props.theme.colors.white};
+
+  &:hover,
+  &:focus {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)),
+      #646464;
+  }
 `
 
 const FooterWrapper = styled.footer`
@@ -284,6 +293,10 @@ const QItem = styled.li`
   font-weight: 500;
   font-size: ${(props) => props.theme.fontsizes.font13}rem;
   color: ${(props) => props.theme.colors.grey700};
+
+  & a:hover {
+    color: ${(props) => props.theme.colors.grey800};
+  }
 `
 
 const CopyRight = styled.p`
