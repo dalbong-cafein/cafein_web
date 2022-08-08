@@ -147,8 +147,58 @@ const Home: NextPage = () => {
             </RecommendList>
           </RecommendLists>
           <RecommendItemsWrapper>
-            <RecommendItem>1</RecommendItem>
-            <RecommendItem>2</RecommendItem>
+            <RecommendItem>
+              <Link href="/">
+                <a>
+                  <Image
+                    src={'/images/temp_img.png'}
+                    layout="responsive"
+                    width={364}
+                    height={240}
+                  />
+                  <RecommendDesc>24시간 공부 가능한 카페 7곳</RecommendDesc>
+                </a>
+              </Link>
+            </RecommendItem>
+            <RecommendItem>
+              <Link href="/">
+                <a>
+                  <Image
+                    src={'/images/temp_img.png'}
+                    layout="responsive"
+                    width={364}
+                    height={240}
+                  />
+                  <RecommendDesc>24시간 공부 가능한 카페 7곳</RecommendDesc>
+                </a>
+              </Link>
+            </RecommendItem>
+            <RecommendItem>
+              <Link href="/">
+                <a>
+                  <Image
+                    src={'/images/temp_img.png'}
+                    layout="responsive"
+                    width={364}
+                    height={240}
+                  />
+                  <RecommendDesc>24시간 공부 가능한 카페 7곳</RecommendDesc>
+                </a>
+              </Link>
+            </RecommendItem>
+            <RecommendItem>
+              <Link href="/">
+                <a>
+                  <Image
+                    src={'/images/temp_img.png'}
+                    layout="responsive"
+                    width={364}
+                    height={240}
+                  />
+                  <RecommendDesc>24시간 공부 가능한 카페 7곳</RecommendDesc>
+                </a>
+              </Link>
+            </RecommendItem>
           </RecommendItemsWrapper>
         </RecommendWrapper>
         <AddWrapper>
@@ -164,11 +214,9 @@ const Home: NextPage = () => {
             <QItem>
               <Link href="/">공지사항</Link>
             </QItem>
-
             <QItem>
               <Link href="/">자주 묻는 질문</Link>
             </QItem>
-
             <QItem>
               <Link href="/">이용약관</Link>
             </QItem>
@@ -225,18 +273,44 @@ const RecommendList = styled.li<{ isActive: boolean }>`
 
 const RecommendItemsWrapper = styled.ul`
   display: grid;
+  margin-top: 30px;
   row-gap: 20px;
-  column-gap: 24px;
-  grid-template-columns: repeat(auto-fit, minmax(364px, 1fr));
+  column-gap: 20px;
+  grid-template-columns: repeat(auto-fit, max(364px));
 `
 
-const RecommendItem = styled.div`
+const RecommendItem = styled.li`
+  position: relative;
   width: 364px;
   height: 240px;
+  z-index: 1;
+
+  & img {
+    z-index: -1;
+  }
+
+  & a {
+    display: block;
+  }
+
+  &:hover a {
+    background-color: rgba(0,0,0,0.4);
+    border-radius: 16px;
+  }
+`
+
+const RecommendDesc = styled.p`
+  position: absolute;
+  left: 24px;
+  bottom: 20px;
+  font-weight: 500;
+  font-size: ${(props) => props.theme.fontsizes.font22}rem;
+  color: ${(props) => props.theme.colors.white};
 `
 
 const AddWrapper = styled.div`
   display: flex;
+  margin-top: 100px;
   height: 240px;
   padding: 84px 140px;
   background-image: url('/images/Cafein.svg');

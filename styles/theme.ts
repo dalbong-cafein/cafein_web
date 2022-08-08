@@ -23,6 +23,7 @@ const fontsizes = {
   font28: 1.75,
   font24: 1.5,
   font23: 1.4375,
+  font22: 1.375,
   font19: 1.1875,
   font17: 1.0625,
   font16: 1,
