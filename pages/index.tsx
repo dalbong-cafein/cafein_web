@@ -93,15 +93,6 @@ const Home: NextPage = () => {
             isDisplay={searchLists.length !== 0 && isClicked ? true : false}
           >
             {searchLists.map((searchList) => {
-              const rest_name = split_inputs.reduce((pre, cur) => {
-                return pre
-                  .split(cur)
-                  .join(`<SearchListStrong>${cur}</SearchListStrong>`)
-              }, searchList)
-              const matchText = rest_name.split(
-                new RegExp(/<SearchListStrong>(.+?)<\/SearchListStrong>/)
-              )
-              console.log(matchText)
               return (
                 <SearchList key={searchList}>
                   <Image
@@ -112,13 +103,17 @@ const Home: NextPage = () => {
                   />
                   <SearchListDescs>
                     <SearchListTitle>
-                      {matchText.map((text, index) =>
-                        split_inputs.includes(text) ? (
-                          <SearchListStrong>{text}</SearchListStrong>
-                        ) : (
-                          text
-                        )
-                      )}
+                      {searchList
+                        .split('')
+                        .map((text, index) =>
+                          split_inputs.includes(text) ? (
+                            <SearchListStrong key={`${text} ${index}`}>
+                              {text}
+                            </SearchListStrong>
+                          ) : (
+                            text
+                          )
+                        )}
                     </SearchListTitle>
                     <SearchListPosition>
                       서울특별서 마포구 양학로 45
