@@ -90,4 +90,12 @@ export const SearchButton = styled.button`
   background-color: ${(props) => props.theme.colors.orange400};
   border-radius: 14px;
   color: ${(props) => props.theme.colors.white};
+
+  &:hover {
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15)
+    ), ${(props) => props.theme.colors.orange400};
+  }
 `

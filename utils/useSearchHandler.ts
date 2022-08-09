@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { SetStateAction } from 'jotai'
-import { ChangeEvent, Dispatch, MouseEvent } from 'react'
+import { NextRouter } from 'next/router'
+import { ChangeEvent, Dispatch, KeyboardEvent, MouseEvent } from 'react'
 
 interface IStore {
   address_name: string
@@ -82,5 +83,21 @@ export const useHandleClearEvent = ({
   e.preventDefault()
   setInputs('')
   setSearchLists([])
+  return
+}
+
+export const onEnterPress = (
+  e: KeyboardEvent<HTMLInputElement>,
+  inputs: string,
+  router: NextRouter
+) => {
+  if (e.key === 'Enter') {
+    router.push({
+      pathname: `maps`,
+      query: {
+        search: inputs
+      }
+    })
+  }
   return
 }

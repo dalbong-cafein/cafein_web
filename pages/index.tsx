@@ -25,12 +25,17 @@ import {
   SearchListStrong,
   SearchListTitle
 } from '../components/Maps/styles/FormStyles'
-import { useHandleClearEvent, useHandleInputs } from '../utils/useSearchHandler'
+import {
+  onEnterPress,
+  useHandleClearEvent,
+  useHandleInputs
+} from '../utils/useSearchHandler'
 import {
   searchInputAtom,
   searchListsAtom,
   split_searchInputAtom
 } from '../store'
+import { useRouter } from 'next/router'
 
 const Home: NextPage = () => {
   const [inputs, setInputs] = useAtom(searchInputAtom)
@@ -38,6 +43,7 @@ const Home: NextPage = () => {
   const [timer, setTimer] = useState<NodeJS.Timeout>()
   const [searchLists, setSearchLists] = useAtom(searchListsAtom)
   const split_inputs = useAtomValue(split_searchInputAtom)
+  const router = useRouter()
 
   return (
     <Wrapper>
@@ -81,6 +87,7 @@ const Home: NextPage = () => {
               }
               onFocus={() => setIsClicked(true)}
               onBlur={() => setIsClicked(false)}
+              onKeyDown={(e) => onEnterPress(e, inputs, router)}
             />
             <ClearButton
               isInput={inputs === '' ? false : true}
