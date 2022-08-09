@@ -135,4 +135,10 @@ export const getRunningTimesAtom = atom((get) => {
 export const cafeReviewPonitAtom = atom<CafeRewviewPointInterface | null>(null)
 
 export const searchInputAtom = atom('')
+
+export const split_searchInputAtom = atom<string[]>((get) => {
+  const split_inputs = get(searchInputAtom).split(' ')
+  return split_inputs
+})
+
 export const searchListsAtom = atom<string[]>([])

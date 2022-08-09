@@ -56,8 +56,11 @@ export const SearchListInput = styled(SearchInput)`
 
 export const SearchLists = styled.ul`
   position: absolute;
+  z-index: 2;
   margin-top: 10px;
   width: 632px;
+  max-height: 50vh;
+  overflow: auto;
   border-radius: 10px;
   filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.06));
   padding: 10px;

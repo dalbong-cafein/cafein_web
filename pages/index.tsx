@@ -1,4 +1,4 @@
-import { useAtom } from 'jotai'
+import { useAtom, useAtomValue } from 'jotai'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -26,13 +26,18 @@ import {
   SearchListTitle
 } from '../components/Maps/styles/FormStyles'
 import { useHandleClearEvent, useHandleInputs } from '../utils/useSearchHandler'
-import { searchInputAtom, searchListsAtom } from '../store'
+import {
+  searchInputAtom,
+  searchListsAtom,
+  split_searchInputAtom
+} from '../store'
 
 const Home: NextPage = () => {
   const [inputs, setInputs] = useAtom(searchInputAtom)
   const [isClicked, setIsClicked] = useState(false)
   const [timer, setTimer] = useState<NodeJS.Timeout>()
   const [searchLists, setSearchLists] = useAtom(searchListsAtom)
+  const split_inputs = useAtomValue(split_searchInputAtom)
 
   return (
     <Wrapper>
@@ -60,11 +65,7 @@ const Home: NextPage = () => {
           <br />
           카페 추천 서비스 카페인
         </HomeTitle>
-        <SearchFormWrapper
-        // onSubmit={(e) =>
-
-        // }
-        >
+        <SearchFormWrapper>
           <InputWrapper>
             <SearchInput
               placeholder="카페 이름이나 지하철역을 검색해보세요"
@@ -92,27 +93,38 @@ const Home: NextPage = () => {
             isDisplay={searchLists.length !== 0 && isClicked ? true : false}
           >
             {searchLists.map((searchList) => {
-              const rest_name = searchList.replace(inputs, '')
+              const rest_name = split_inputs.reduce((pre, cur) => {
+                return pre
+                  .split(cur)
+                  .join(`<SearchListStrong>${cur}</SearchListStrong>`)
+              }, searchList)
+              const matchText = rest_name.split(
+                new RegExp(/<SearchListStrong>(.+?)<\/SearchListStrong>/)
+              )
+              console.log(matchText)
               return (
-                <>
-                  <SearchList>
-                    <Image
-                      src={'/images/location.svg'}
-                      width={24}
-                      height={24}
-                      alt="location IMG"
-                    />
-                    <SearchListDescs>
-                      <SearchListTitle>
-                        <SearchListStrong>{inputs}</SearchListStrong>
-                        {rest_name}
-                      </SearchListTitle>
-                      <SearchListPosition>
-                        서울특별서 마포구 양학로 45
-                      </SearchListPosition>
-                    </SearchListDescs>
-                  </SearchList>
-                </>
+                <SearchList key={searchList}>
+                  <Image
+                    src={'/images/location.svg'}
+                    width={24}
+                    height={24}
+                    alt="location IMG"
+                  />
+                  <SearchListDescs>
+                    <SearchListTitle>
+                      {matchText.map((text, index) =>
+                        split_inputs.includes(text) ? (
+                          <SearchListStrong>{text}</SearchListStrong>
+                        ) : (
+                          text
+                        )
+                      )}
+                    </SearchListTitle>
+                    <SearchListPosition>
+                      서울특별서 마포구 양학로 45
+                    </SearchListPosition>
+                  </SearchListDescs>
+                </SearchList>
               )
             })}
           </HomeSearchLists>
@@ -223,9 +235,10 @@ const Home: NextPage = () => {
           </FooterQLists>
           <FooterQLists>
             <QItem>
-              <Link href="mailto:dalbong.cafeing@gmail.com">dalbong.cafeing@gmail.com</Link>
+              <Link href="mailto:dalbong.cafeing@gmail.com">
+                dalbong.cafeing@gmail.com
+              </Link>
             </QItem>
-
             <QItem>
               <Link href="/">인스타그램</Link>
             </QItem>
@@ -294,7 +307,7 @@ const RecommendItem = styled.li`
   }
 
   &:hover a {
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
     border-radius: 16px;
   }
 `

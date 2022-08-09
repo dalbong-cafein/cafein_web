@@ -1,10 +1,6 @@
 import axios from 'axios'
 import { SetStateAction } from 'jotai'
-import {
-  ChangeEvent,
-  Dispatch,
-  MouseEvent
-} from 'react'
+import { ChangeEvent, Dispatch, MouseEvent } from 'react'
 
 interface IStore {
   address_name: string
@@ -43,6 +39,10 @@ export const useHandleInputs = async ({
   setSearchLists
 }: useHandlerInputsProps) => {
   setInputs(e.target.value)
+  if (!e.target.value) {
+    setSearchLists([])
+    return
+  }
   if (timer) {
     clearTimeout(timer)
   }
