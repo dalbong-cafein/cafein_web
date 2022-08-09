@@ -40,7 +40,7 @@ export const useHandleInputs = async ({
   setSearchLists
 }: useHandlerInputsProps) => {
   setInputs(e.target.value)
-  if (!e.target.value) {
+  if (!e.target.value.length) {
     setSearchLists([])
     return
   }
@@ -49,6 +49,10 @@ export const useHandleInputs = async ({
   }
   const newTimer = setTimeout(async () => {
     try {
+      if (!e.target.value.length) {
+        setSearchLists([])
+        return
+      }
       const response = await axios({
         method: 'get',
         url: 'https://dapi.kakao.com/v2/local/search/keyword.json',

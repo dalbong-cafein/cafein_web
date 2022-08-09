@@ -1,6 +1,6 @@
 import { useAtom } from 'jotai'
 import { Props } from 'next/script'
-import { ReactElement, useState } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import CurrentPopularLists from '../../components/Maps/CurrentPopularLists'
 import MapLayout from '../../components/Maps/MapLayout'
 import RegionLists from '../../components/Maps/RegionLists'
@@ -15,6 +15,7 @@ import {
   SearchListTitle
 } from '../../components/Maps/styles/FormStyles'
 import {
+  onEnterPress,
   useHandleClearEvent,
   useHandleInputs
 } from '../../utils/useSearchHandler'
@@ -42,6 +43,7 @@ import { Ddabong } from '../../components/common/Common'
 import { GetServerSideProps } from 'next'
 import axios from 'axios'
 import getHours from '../../utils/getHours'
+import { useRouter } from 'next/router'
 
 interface CafeListsProps {
   storeId: number
@@ -69,9 +71,13 @@ const Maps: NextPageWithLayout<{
   const [isClicked, setIsClicked] = useState(false)
   const [timer, setTimer] = useState<NodeJS.Timeout>()
   const [searchLists, setSearchLists] = useAtom(searchListsAtom)
-  if (!inputs && search) {
-    setInputs(search)
-  }
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!inputs && search) {
+      setInputs(search)
+    }
+  }, [])
   return (
     <>
       <SearchListInputWrapper>
@@ -81,9 +87,14 @@ const Maps: NextPageWithLayout<{
             value={inputs}
             onChange={(e) => {
               useHandleInputs({ e, setInputs, timer, setTimer, setSearchLists })
+              if (!isClicked) setIsClicked(true)
             }}
             onFocus={() => setIsClicked(true)}
             onBlur={() => setIsClicked(false)}
+            onKeyDown={(e) => {
+              onEnterPress(e, inputs, router)
+              setIsClicked(false)
+            }}
           />
           <ClearButton
             isInput={inputs === '' ? false : true}
