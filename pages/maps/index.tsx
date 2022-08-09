@@ -39,12 +39,39 @@ import {
   OpeningTime
 } from '../../components/Maps/styles/CurrentPopularStyles'
 import { Ddabong } from '../../components/common/Common'
+import { GetServerSideProps } from 'next'
+import axios from 'axios'
+import getHours from '../../utils/getHours'
 
-const Maps: NextPageWithLayout<Props> = () => {
+interface CafeListsProps {
+  storeId: number
+  storeName: string
+  fullAddress: string
+  recommendPercent: null | number
+  businessHoursInfoDto: {
+    isOpen: boolean
+    closed: string
+    tmrOpen: string
+  }
+  lngX: number
+  latY: number
+  storeImageDto: {
+    imageId: number
+    imageUrl: string
+  }
+}
+
+const Maps: NextPageWithLayout<{
+  search?: string
+  cafeDatas?: CafeListsProps[]
+}> = ({ search, cafeDatas }) => {
   const [inputs, setInputs] = useAtom(searchInputAtom)
   const [isClicked, setIsClicked] = useState(false)
   const [timer, setTimer] = useState<NodeJS.Timeout>()
   const [searchLists, setSearchLists] = useAtom(searchListsAtom)
+  if (!inputs && search) {
+    setInputs(search)
+  }
   return (
     <>
       <SearchListInputWrapper>
@@ -96,158 +123,45 @@ const Maps: NextPageWithLayout<Props> = () => {
       </SearchListInputWrapper>
       <CafeListWrapper>
         <CafeList>
-          <CurrentPopularItem>
-            <Link href="/maps">
-              <a>
-                <CurrentPopularItemTitle>
-                  투썸 플레이스 올림픽공원투썸 플레이스 올림픽공원투썸 플레이스
-                  올림픽공원
-                </CurrentPopularItemTitle>
-                <CurrentPopularItemLocation>
-                  이곳엔 지역이 들어가이곳엔 지역이 들어가이곳엔 지역이
-                  들어가이곳엔 지역이 들어가
-                </CurrentPopularItemLocation>
-                <OnAirWrapper>
-                  <OnAirBadge>영업중</OnAirBadge>
-                  <OpeningTime>오전 11:30 에 영업 종료</OpeningTime>
-                </OnAirWrapper>
-                <DdabongWrap>{Ddabong} 79%</DdabongWrap>
-              </a>
-            </Link>
-          </CurrentPopularItem>
-          <CurrentPopularItem>
-            <Link href="/maps">
-              <a>
-                <CurrentPopularItemTitle>
-                  투썸 플레이스 올림픽공원투썸 플레이스 올림픽공원투썸 플레이스
-                  올림픽공원
-                </CurrentPopularItemTitle>
-                <CurrentPopularItemLocation>
-                  이곳엔 지역이 들어가이곳엔 지역이 들어가이곳엔 지역이
-                  들어가이곳엔 지역이 들어가
-                </CurrentPopularItemLocation>
-                <OnAirWrapper>
-                  <OnAirBadge>영업중</OnAirBadge>
-                  <OpeningTime>오전 11:30 에 영업 종료</OpeningTime>
-                </OnAirWrapper>
-                <DdabongWrap>{Ddabong} 79%</DdabongWrap>
-              </a>
-            </Link>
-          </CurrentPopularItem>
-          <CurrentPopularItem>
-            <Link href="/maps">
-              <a>
-                <CurrentPopularItemTitle>
-                  투썸 플레이스 올림픽공원투썸 플레이스 올림픽공원투썸 플레이스
-                  올림픽공원
-                </CurrentPopularItemTitle>
-                <CurrentPopularItemLocation>
-                  이곳엔 지역이 들어가이곳엔 지역이 들어가이곳엔 지역이
-                  들어가이곳엔 지역이 들어가
-                </CurrentPopularItemLocation>
-                <OnAirWrapper>
-                  <OnAirBadge>영업중</OnAirBadge>
-                  <OpeningTime>오전 11:30 에 영업 종료</OpeningTime>
-                </OnAirWrapper>
-                <DdabongWrap>{Ddabong} 79%</DdabongWrap>
-              </a>
-            </Link>
-          </CurrentPopularItem>
-          <CurrentPopularItem>
-            <Link href="/maps">
-              <a>
-                <CurrentPopularItemTitle>
-                  투썸 플레이스 올림픽공원투썸 플레이스 올림픽공원투썸 플레이스
-                  올림픽공원
-                </CurrentPopularItemTitle>
-                <CurrentPopularItemLocation>
-                  이곳엔 지역이 들어가이곳엔 지역이 들어가이곳엔 지역이
-                  들어가이곳엔 지역이 들어가
-                </CurrentPopularItemLocation>
-                <OnAirWrapper>
-                  <OnAirBadge>영업중</OnAirBadge>
-                  <OpeningTime>오전 11:30 에 영업 종료</OpeningTime>
-                </OnAirWrapper>
-                <DdabongWrap>{Ddabong} 79%</DdabongWrap>
-              </a>
-            </Link>
-          </CurrentPopularItem>
-          <CurrentPopularItem>
-            <Link href="/maps">
-              <a>
-                <CurrentPopularItemTitle>
-                  투썸 플레이스 올림픽공원투썸 플레이스 올림픽공원투썸 플레이스
-                  올림픽공원
-                </CurrentPopularItemTitle>
-                <CurrentPopularItemLocation>
-                  이곳엔 지역이 들어가이곳엔 지역이 들어가이곳엔 지역이
-                  들어가이곳엔 지역이 들어가
-                </CurrentPopularItemLocation>
-                <OnAirWrapper>
-                  <OnAirBadge>영업중</OnAirBadge>
-                  <OpeningTime>오전 11:30 에 영업 종료</OpeningTime>
-                </OnAirWrapper>
-                <DdabongWrap>{Ddabong} 79%</DdabongWrap>
-              </a>
-            </Link>
-          </CurrentPopularItem>
-          <CurrentPopularItem>
-            <Link href="/maps">
-              <a>
-                <CurrentPopularItemTitle>
-                  투썸 플레이스 올림픽공원투썸 플레이스 올림픽공원투썸 플레이스
-                  올림픽공원
-                </CurrentPopularItemTitle>
-                <CurrentPopularItemLocation>
-                  이곳엔 지역이 들어가이곳엔 지역이 들어가이곳엔 지역이
-                  들어가이곳엔 지역이 들어가
-                </CurrentPopularItemLocation>
-                <OnAirWrapper>
-                  <OnAirBadge>영업중</OnAirBadge>
-                  <OpeningTime>오전 11:30 에 영업 종료</OpeningTime>
-                </OnAirWrapper>
-                <DdabongWrap>{Ddabong} 79%</DdabongWrap>
-              </a>
-            </Link>
-          </CurrentPopularItem>
-          <CurrentPopularItem>
-            <Link href="/maps">
-              <a>
-                <CurrentPopularItemTitle>
-                  투썸 플레이스 올림픽공원투썸 플레이스 올림픽공원투썸 플레이스
-                  올림픽공원
-                </CurrentPopularItemTitle>
-                <CurrentPopularItemLocation>
-                  이곳엔 지역이 들어가이곳엔 지역이 들어가이곳엔 지역이
-                  들어가이곳엔 지역이 들어가
-                </CurrentPopularItemLocation>
-                <OnAirWrapper>
-                  <OnAirBadge>영업중</OnAirBadge>
-                  <OpeningTime>오전 11:30 에 영업 종료</OpeningTime>
-                </OnAirWrapper>
-                <DdabongWrap>{Ddabong} 79%</DdabongWrap>
-              </a>
-            </Link>
-          </CurrentPopularItem>
-          <CurrentPopularItem>
-            <Link href="/maps">
-              <a>
-                <CurrentPopularItemTitle>
-                  투썸 플레이스 올림픽공원투썸 플레이스 올림픽공원투썸 플레이스
-                  올림픽공원
-                </CurrentPopularItemTitle>
-                <CurrentPopularItemLocation>
-                  이곳엔 지역이 들어가이곳엔 지역이 들어가이곳엔 지역이
-                  들어가이곳엔 지역이 들어가
-                </CurrentPopularItemLocation>
-                <OnAirWrapper>
-                  <OnAirBadge>영업중</OnAirBadge>
-                  <OpeningTime>오전 11:30 에 영업 종료</OpeningTime>
-                </OnAirWrapper>
-                <DdabongWrap>{Ddabong} 79%</DdabongWrap>
-              </a>
-            </Link>
-          </CurrentPopularItem>
+          {cafeDatas
+            ? cafeDatas.map((cafe) => (
+                <CurrentPopularItem>
+                  <Link
+                    href={{ pathname: 'maps', query: { cafeId: cafe.storeId } }}
+                    as={`/maps/${cafe.storeName}`}
+                  >
+                    <a>
+                      <CurrentPopularItemTitle>
+                        {cafe.storeName}
+                      </CurrentPopularItemTitle>
+                      <CurrentPopularItemLocation>
+                        {cafe.fullAddress}
+                      </CurrentPopularItemLocation>
+                      <OnAirWrapper>
+                        <OnAirBadge>
+                          {cafe.businessHoursInfoDto.isOpen
+                            ? '영업중'
+                            : '영업종료'}
+                        </OnAirBadge>
+                        <OpeningTime>
+                          {cafe.businessHoursInfoDto.closed
+                            ? getHours(cafe.businessHoursInfoDto.closed) +
+                              '에 영업 종료'
+                            : '정보 없음'}
+                        </OpeningTime>
+                      </OnAirWrapper>
+                      {cafe.recommendPercent ? (
+                        <DdabongWrap>
+                          {Ddabong} {cafe.recommendPercent + '%'}
+                        </DdabongWrap>
+                      ) : (
+                        ''
+                      )}
+                    </a>
+                  </Link>
+                </CurrentPopularItem>
+              ))
+            : ''}
         </CafeList>
       </CafeListWrapper>
     </>
@@ -273,6 +187,34 @@ const CafeList = styled.ul`
 
 Maps.getLayout = function getLayout(page: ReactElement) {
   return <MapLayout>{page}</MapLayout>
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  if (query.search) {
+    const { search } = query
+    try {
+      const res = await axios(
+        `${process.env.API_DOMAIN}/web/stores?keyword=${encodeURI(
+          search as string
+        )}`
+      )
+      const data: CafeListsProps[] = res.data.data
+      return {
+        props: {
+          search,
+          cafeDatas: data
+        }
+      }
+    } catch (error) {
+      console.error('또 실패다!', error)
+      return {
+        props: { search }
+      }
+    }
+  }
+  return {
+    props: {}
+  }
 }
 
 export default Maps

@@ -23,23 +23,7 @@ const nextConfig = {
       {
         source: '/api/web/stores/:storeId/recommendations',
         destination: `${process.env.API_DOMAIN}/web/stores/:storeId/recommendations`
-      },
-      // {
-      //   source: '/api/getKakaoAPI/yap',
-      //   has: [
-      //     {
-      //       type: 'query',
-      //       key: 'category_group_code',
-      //       value: '(?<place>.*)'
-      //     },
-      //     {
-      //       type: 'query',
-      //       key: 'query',
-      //       value: '(?<category>.*)'
-      //     }
-      //   ],
-      //   destination: `https://dapi.kakao.com/v2/local/search/keyword.json?category_group_code=CE7&query=투썸플레이스`
-      // }
+      }
     ]
   }
 }
