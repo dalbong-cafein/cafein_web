@@ -132,6 +132,11 @@ const Maps: NextPageWithLayout<{
           })}
         </HomeSearchLists>
       </SearchListInputWrapper>
+      <FilterWrapper>
+        <FilterItem>영업중</FilterItem>
+        <FilterItem>가까운순</FilterItem>
+        <FilterItem>추천순</FilterItem>
+      </FilterWrapper>
       <CafeListWrapper>
         <CafeList>
           {cafeDatas
@@ -179,8 +184,23 @@ const Maps: NextPageWithLayout<{
   )
 }
 
+const FilterWrapper = styled.ul`
+  display: flex;
+  gap: 6px;
+  padding: 10px 24px;
+  margin-top: 6px;
+`
+
+const FilterItem = styled.li`
+  border: 1px solid ${(props) => props.theme.colors.grey200};
+  border-radius: 20px;
+  font-size: ${(props) => props.theme.fontsizes.font14}rem;
+  font-weight: 400;
+  color: ${(props) => props.theme.colors.grey800};
+  padding: 8px 12px;
+`
+
 const CafeListWrapper = styled.div`
-  margin-top: 16px;
   border-top: 1px solid ${(props) => props.theme.colors.grey100};
 `
 
