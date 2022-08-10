@@ -72,12 +72,13 @@ const Maps: NextPageWithLayout<{
   const [timer, setTimer] = useState<NodeJS.Timeout>()
   const [searchLists, setSearchLists] = useAtom(searchListsAtom)
   const router = useRouter()
-
+  const [isOpenDetail, setIsOpenDetail] = useState(false)
   useEffect(() => {
-    if (!inputs && search) {
+    if (search && search !== inputs) {
       setInputs(search)
     }
-  }, [])
+    console.log(search, inputs, '열렸녀??')
+  }, [router])
   return (
     <>
       <SearchListInputWrapper>
@@ -141,10 +142,18 @@ const Maps: NextPageWithLayout<{
         <CafeList>
           {cafeDatas
             ? cafeDatas.map((cafe) => (
-                <CurrentPopularItem>
+                <CurrentPopularItem
+                  key={cafe.storeId}
+                  onClick={() => setIsOpenDetail(true)}
+                >
                   <Link
-                    href={{ pathname: 'maps', query: { cafeId: cafe.storeId } }}
-                    as={`/maps/${cafe.storeName}`}
+                    href={{
+                      pathname: 'maps',
+                      query: { cafeId: cafe.storeId, storeName: cafe.storeName }
+                    }}
+                    as={`/maps?search=${search}&storeName=${cafe.storeName}`}
+                    shallow
+                    replace
                   >
                     <a>
                       <CurrentPopularItemTitle>
@@ -198,6 +207,7 @@ const FilterItem = styled.li`
   font-weight: 400;
   color: ${(props) => props.theme.colors.grey800};
   padding: 8px 12px;
+  cursor: pointer;
 `
 
 const CafeListWrapper = styled.div`
