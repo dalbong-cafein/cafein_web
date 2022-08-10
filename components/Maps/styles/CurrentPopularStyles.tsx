@@ -23,6 +23,10 @@ const CurrentPopularItem = styled.li`
   flex-direction: column;
   flex-grow: 0;
   overflow: auto;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.02);
+  }
 `
 
 const CurrentPopularItemImage = styled(Image)`
@@ -56,7 +60,7 @@ const CurrentPopularItemLocation = styled.p`
 const OnAirWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 4px;
+  margin-top: 5px;
 `
 
 const OnAirBadge = styled.span`

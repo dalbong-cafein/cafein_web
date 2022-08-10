@@ -217,12 +217,17 @@ const CafeListWrapper = styled.div`
 const CafeList = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 20px 24px;
 
-  & li:not(:first-child) {
+  & li:not(:first-child)::after {
+    content: '';
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    top: 0;
     border-top: 1px solid ${(props) => props.theme.colors.grey100};
-    padding-top: 20px;
+  }
+  & li {
+    padding: 20px 24px;
   }
 `
 
