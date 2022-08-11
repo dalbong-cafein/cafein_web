@@ -2,34 +2,20 @@ import axios from 'axios'
 import { SetStateAction } from 'jotai'
 import { NextRouter } from 'next/router'
 import { ChangeEvent, Dispatch, KeyboardEvent, MouseEvent } from 'react'
-
-interface IStore {
-  address_name: string
-  category_group_code: string
-  category_group_name: string
-  category_name: string
-  distance: string
-  id: string
-  phone: string
-  place_name: string
-  place_url: string
-  road_address_name: string
-  x: string
-  y: string
-}
+import { IStore } from '../store'
 
 interface useHandlerInputsProps {
   e: ChangeEvent<HTMLInputElement>
   setInputs: (update: SetStateAction<string>) => void
   timer: NodeJS.Timeout | undefined
   setTimer: Dispatch<SetStateAction<NodeJS.Timeout | undefined>>
-  setSearchLists: (update: SetStateAction<string[]>) => void
+  setSearchLists: (update: SetStateAction<IStore[]>) => void
 }
 
 interface useHandleClearEventProps {
   e: MouseEvent<HTMLButtonElement>
   setInputs: (update: SetStateAction<string>) => void
-  setSearchLists: (update: SetStateAction<string[]>) => void
+  setSearchLists: (update: SetStateAction<IStore[]>) => void
 }
 
 export const useHandleInputs = async ({
@@ -70,7 +56,7 @@ export const useHandleInputs = async ({
       } = response
       const n_searchLists = documents.map((store: IStore) => store.place_name)
       console.log(n_searchLists)
-      setSearchLists(n_searchLists)
+      setSearchLists(documents)
     } catch (error) {
       console.error(`Debouncing Error while fetching Seach Lists : ${error}`)
     }
