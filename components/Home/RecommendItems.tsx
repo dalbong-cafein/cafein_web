@@ -10,7 +10,7 @@ const RecommendItems = () => {
           <a>
             <Image
               src={'/images/temp_img.png'}
-              layout="responsive"
+              layout="fill"
               width={364}
               height={240}
             />
@@ -23,7 +23,7 @@ const RecommendItems = () => {
           <a>
             <Image
               src={'/images/temp_img.png'}
-              layout="responsive"
+              layout="fill"
               width={364}
               height={240}
             />
@@ -36,7 +36,7 @@ const RecommendItems = () => {
           <a>
             <Image
               src={'/images/temp_img.png'}
-              layout="responsive"
+              layout="fill"
               width={364}
               height={240}
             />
@@ -49,7 +49,7 @@ const RecommendItems = () => {
           <a>
             <Image
               src={'/images/temp_img.png'}
-              layout="responsive"
+              layout="fill"
               width={364}
               height={240}
             />

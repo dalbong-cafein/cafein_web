@@ -39,14 +39,14 @@ export const RecommendItemsWrapper = styled.ul`
   margin-top: 30px;
   row-gap: 20px;
   column-gap: 20px;
-  grid-template-columns: repeat(auto-fit, max(364px));
+  grid-template-columns: repeat(auto-fit, minmax(364px, 1fr));
 `
 
 export const RecommendItem = styled.li`
   position: relative;
-  width: 364px;
   height: 240px;
   z-index: 1;
+  border-radius: 16px;
 
   & img {
     z-index: -1;
@@ -54,6 +54,8 @@ export const RecommendItem = styled.li`
 
   & a {
     display: block;
+    width: 100%;
+    height: 100%;
   }
 
   &:hover a {
