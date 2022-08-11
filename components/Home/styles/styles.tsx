@@ -1,3 +1,5 @@
 export * from './FormStyles'
 export * from './NavStyles'
 export * from './RecommendStyles'
+export * from './AddOnStyles'
+export * from './FooterStyles'

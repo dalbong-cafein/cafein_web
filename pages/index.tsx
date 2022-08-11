@@ -1,52 +1,29 @@
-import { useAtom, useAtomValue } from 'jotai'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
-import styled from 'styled-components'
 import {
-  ClearButton,
+  AddButton,
+  AddLink,
+  AddLinkText,
+  AddWrapper,
+  CopyRight,
+  FooterQLists,
+  FooterWrapper,
   HomeTitle,
   HomeWrapper,
-  InputWrapper,
   NavWrapper,
-  SearchButton,
-  SearchFormWrapper,
-  SearchInput,
+  QItem,
+  RecommendTitle,
+  RecommendWrapper,
   WhiteLink,
   Wrapper
 } from '../components/Home/styles/styles'
-import {
-  HomeSearchLists,
-  SearchList,
-  SearchListDescs,
-  SearchListPosition,
-  SearchListStrong,
-  SearchListTitle
-} from '../components/Maps/styles/FormStyles'
-import {
-  onEnterPress,
-  useHandleClearEvent,
-  useHandleInputs
-} from '../utils/useSearchHandler'
-import {
-  searchInputAtom,
-  searchListsAtom,
-  split_searchInputAtom
-} from '../store'
-import { useRouter } from 'next/router'
 import Search from '../components/Home/Search'
 import TabList from '../components/Home/TabList'
+import RecommendItems from '../components/Home/RecommendItems'
 
 const Home: NextPage = () => {
-  const [inputs, setInputs] = useAtom(searchInputAtom)
-  const [isClicked, setIsClicked] = useState(false)
-  const [timer, setTimer] = useState<NodeJS.Timeout>()
-  const [searchLists, setSearchLists] = useAtom(searchListsAtom)
-  const split_inputs = useAtomValue(split_searchInputAtom)
-  const router = useRouter()
-
   return (
     <Wrapper>
       <Head>
@@ -77,60 +54,7 @@ const Home: NextPage = () => {
         <RecommendWrapper>
           <RecommendTitle>지역별 카페 추천</RecommendTitle>
           <TabList />
-          <RecommendItemsWrapper>
-            <RecommendItem>
-              <Link href="/">
-                <a>
-                  <Image
-                    src={'/images/temp_img.png'}
-                    layout="responsive"
-                    width={364}
-                    height={240}
-                  />
-                  <RecommendDesc>24시간 공부 가능한 카페 7곳</RecommendDesc>
-                </a>
-              </Link>
-            </RecommendItem>
-            <RecommendItem>
-              <Link href="/">
-                <a>
-                  <Image
-                    src={'/images/temp_img.png'}
-                    layout="responsive"
-                    width={364}
-                    height={240}
-                  />
-                  <RecommendDesc>24시간 공부 가능한 카페 7곳</RecommendDesc>
-                </a>
-              </Link>
-            </RecommendItem>
-            <RecommendItem>
-              <Link href="/">
-                <a>
-                  <Image
-                    src={'/images/temp_img.png'}
-                    layout="responsive"
-                    width={364}
-                    height={240}
-                  />
-                  <RecommendDesc>24시간 공부 가능한 카페 7곳</RecommendDesc>
-                </a>
-              </Link>
-            </RecommendItem>
-            <RecommendItem>
-              <Link href="/">
-                <a>
-                  <Image
-                    src={'/images/temp_img.png'}
-                    layout="responsive"
-                    width={364}
-                    height={240}
-                  />
-                  <RecommendDesc>24시간 공부 가능한 카페 7곳</RecommendDesc>
-                </a>
-              </Link>
-            </RecommendItem>
-          </RecommendItemsWrapper>
+          <RecommendItems />
         </RecommendWrapper>
         <AddWrapper>
           <Link href="/">
@@ -169,121 +93,8 @@ const Home: NextPage = () => {
   )
 }
 
-const RecommendWrapper = styled.div`
-  margin-top: 102px;
-`
 
-const RecommendTitle = styled.p`
-  font-size: ${(props) => props.theme.fontsizes.font24}rem;
-  font-weight: 700;
-`
 
-const RecommendItemsWrapper = styled.ul`
-  display: grid;
-  margin-top: 30px;
-  row-gap: 20px;
-  column-gap: 20px;
-  grid-template-columns: repeat(auto-fit, max(364px));
-`
 
-const RecommendItem = styled.li`
-  position: relative;
-  width: 364px;
-  height: 240px;
-  z-index: 1;
-
-  & img {
-    z-index: -1;
-  }
-
-  & a {
-    display: block;
-  }
-
-  &:hover a {
-    background-color: rgba(0, 0, 0, 0.4);
-    border-radius: 16px;
-  }
-`
-
-const RecommendDesc = styled.p`
-  position: absolute;
-  left: 24px;
-  bottom: 20px;
-  font-weight: 500;
-  font-size: ${(props) => props.theme.fontsizes.font22}rem;
-  color: ${(props) => props.theme.colors.white};
-`
-
-const AddWrapper = styled.div`
-  display: flex;
-  margin-top: 100px;
-  height: 240px;
-  padding: 84px 140px;
-  background-image: url('/images/Cafein.svg');
-  background-repeat: no-repeat;
-  background-blend-mode: multiply;
-  background-color: ${(props) => props.theme.colors.grey100};
-  background-position: right 132px top 20px;
-  border-radius: 20px;
-`
-
-const AddLink = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: center;
-  justify-content: center;
-`
-
-const AddLinkText = styled.p`
-  font-size: ${(props) => props.theme.fontsizes.font23}rem;
-  font-weight: 600;
-`
-
-const AddButton = styled.button`
-  border-radius: 14px;
-  background-color: ${(props) => props.theme.colors.grey600};
-  padding: 12px 16px;
-  font-weight: 500;
-  font-size: ${(props) => props.theme.fontsizes.font16}rem;
-  color: ${(props) => props.theme.colors.white};
-
-  &:hover,
-  &:focus {
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)),
-      #646464;
-  }
-`
-
-const FooterWrapper = styled.footer`
-  margin-top: 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-`
-
-const FooterQLists = styled.ul`
-  display: flex;
-  gap: 16px;
-`
-
-const QItem = styled.li`
-  font-weight: 500;
-  font-size: ${(props) => props.theme.fontsizes.font13}rem;
-  color: ${(props) => props.theme.colors.grey700};
-
-  & a:hover {
-    color: ${(props) => props.theme.colors.grey800};
-  }
-`
-
-const CopyRight = styled.p`
-  font-weight: 400;
-  font-size: ${(props) => props.theme.fontsizes.font13}rem;
-  color: ${(props) => props.theme.colors.grey500};
-`
 
 export default Home
