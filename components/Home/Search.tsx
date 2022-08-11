@@ -35,10 +35,13 @@ const Search = () => {
   const [timer, setTimer] = useState<NodeJS.Timeout>()
   const [isClicked, setIsClicked] = useState(false)
   const router = useRouter()
+  const { pathname } = router
+  console.log(pathname === '/maps' ? 'true' : 'false', 'helloo~')
   return (
-    <SearchFormWrapper>
+    <SearchFormWrapper isMap={pathname === '/maps' ? true : false}>
       <InputWrapper>
         <SearchInput
+          isMap={pathname === '/maps' ? true : false}
           placeholder="카페 이름이나 지하철역을 검색해보세요"
           value={inputs}
           onChange={(e) =>
@@ -77,9 +80,7 @@ const Search = () => {
                     .split('')
                     .map((text) =>
                       split_inputs.includes(text) ? (
-                        <SearchListStrong>
-                          {text}
-                        </SearchListStrong>
+                        <SearchListStrong>{text}</SearchListStrong>
                       ) : (
                         text
                       )
@@ -93,7 +94,7 @@ const Search = () => {
           )
         })}
       </HomeSearchLists>
-      <SearchButton>지도에서 카페 찾기</SearchButton>
+      {pathname === '/maps' ? '' : <SearchButton>지도에서 카페 찾기</SearchButton>}
     </SearchFormWrapper>
   )
 }

@@ -16,12 +16,12 @@ export const HomeTitle = styled.h1`
   text-align: center;
 `
 
-export const SearchFormWrapper = styled.div`
+export const SearchFormWrapper = styled.div<{ isMap: boolean }>`
   position: relative;
-  margin-top: 30px;
+  margin-top: ${(props) => props.isMap ? '' : '30px'};
+  gap: ${(props) => props.isMap ? '' : '32px'};
   display: flex;
   flex-direction: column;
-  gap: 32px;
   align-items: center;
 `
 
@@ -29,20 +29,20 @@ export const InputWrapper = styled.div`
   position: relative;
 `
 
-export const SearchInput = styled.input`
+export const SearchInput = styled.input<{ isMap: boolean }>`
   position: relative;
-  width: 400px;
-  height: 64px;
+  width: ${(props) => props.isMap ? '352px' : '400px'};
+  height: ${(props) => props.isMap ? '44px' : '64px'};
   padding: 0 22px;
   background-color: ${(props) => props.theme.colors.white};
-  border-radius: 16px;
-  border: 1px solid ${(props) => props.theme.colors.orange400};
+  border-radius: ${(props) => props.isMap ? '12px' : '16px'};
+  border: ${(props) => props.isMap ? '1.2px' : '1px'} solid ${(props) => props.theme.colors.orange400};
   transition: border-color 0.3s, box-shadow 0.3s;
   background-image: url('/images/search.svg');
   background-repeat: no-repeat;
   background-position: 22px center;
   text-indent: 40px;
-  font-size: ${(props) => props.theme.fontsizes.font17}rem;
+  font-size: ${(props) => props.isMap ? `${props.theme.fontsizes.font15}rem` : `${props.theme.fontsizes.font17}rem`};
   font-weight: 400;
   caret-color: ${(props) => props.theme.colors.orange500};
 
@@ -92,10 +92,7 @@ export const SearchButton = styled.button`
   color: ${(props) => props.theme.colors.white};
 
   &:hover {
-    background: linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.15),
-      rgba(0, 0, 0, 0.15)
-    ), ${(props) => props.theme.colors.orange400};
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
+      ${(props) => props.theme.colors.orange400};
   }
 `
