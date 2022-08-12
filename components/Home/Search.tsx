@@ -67,7 +67,7 @@ const Search = () => {
       >
         {searchLists.map((searchList) => {
           return (
-            <SearchList key={searchList.id}>
+            <SearchList key={searchList.storeId}>
               <Image
                 src={'/images/location.svg'}
                 width={24}
@@ -76,7 +76,7 @@ const Search = () => {
               />
               <SearchListDescs>
                 <SearchListTitle>
-                  {searchList.place_name
+                  {searchList.storeName
                     .split('')
                     .map((text) =>
                       split_inputs.includes(text) ? (
@@ -87,7 +87,7 @@ const Search = () => {
                     )}
                 </SearchListTitle>
                 <SearchListPosition>
-                  {searchList.address_name}
+                  {searchList.fullAddress}
                 </SearchListPosition>
               </SearchListDescs>
             </SearchList>

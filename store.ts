@@ -80,18 +80,18 @@ export interface CafeRewviewPointInterface {
 type isRunningInterface = [boolean, null | string]
 
 export interface IStore {
-  address_name: string
-  category_group_code: string
-  category_group_name: string
-  category_name: string
-  distance: string
-  id: string
-  phone: string
-  place_name: string
-  place_url: string
-  road_address_name: string
-  x: string
-  y: string
+  businessHoursInfoDto: {
+    isOpen: false | null
+    closed: string | null
+    tmrOpen: string | null
+  }
+  fullAddress: string
+  latY: number
+  lngX: number
+  recommendPercent: null | number
+  storeId: number
+  storeImageDto: null
+  storeName: string
 }
 
 export const cafeInfoAtom = atom<CafeInfoInterface | null>(null)
