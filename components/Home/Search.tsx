@@ -39,6 +39,8 @@ const Search = () => {
   const [index, setIndex] = useState(-1)
   const autoRef = useRef<HTMLUListElement>(null)
 
+  console.log(isClicked)
+
   const handleKeyArrow = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Backspace') {
       return
@@ -48,6 +50,7 @@ const Search = () => {
       console.log(e.key)
       switch (e.key) {
         case 'ArrowDown':
+          setIsClicked(true)
           autoRef.current?.scrollTo({ top: index * 70.19 })
           setIndex(index + 1)
           if (autoRef.current?.childElementCount === index + 1) setIndex(0)
@@ -61,6 +64,7 @@ const Search = () => {
           break
         case 'Escape':
           autoRef.current?.scrollTo({ top: 0 })
+          setIsClicked(false)
           setIndex(-1)
           break
         case 'Enter':
