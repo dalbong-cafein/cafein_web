@@ -1,7 +1,7 @@
 import { useAtom } from 'jotai'
 import { ReactElement, useEffect, useState } from 'react'
 import MapLayout from '../../components/Maps/MapLayout'
-import { searchInputAtom, searchListsAtom } from '../../store'
+import { IStore, searchInputAtom, searchListsAtom } from '../../store'
 import { NextPageWithLayout } from '../_app'
 import styled from 'styled-components'
 import Link from 'next/link'
@@ -22,27 +22,11 @@ import { useRouter } from 'next/router'
 import Search from '../../components/Home/Search'
 import Image from 'next/image'
 
-interface CafeListsProps {
-  storeId: number
-  storeName: string
-  fullAddress: string
-  recommendPercent: null | number
-  businessHoursInfoDto: {
-    isOpen: boolean
-    closed: string
-    tmrOpen: string
-  }
-  lngX: number
-  latY: number
-  storeImageDto: {
-    imageId: number
-    imageUrl: string
-  }
-}
+
 
 const Maps: NextPageWithLayout<{
   search?: string
-  cafeDatas?: CafeListsProps[]
+  cafeDatas?: IStore[]
 }> = ({ search, cafeDatas }) => {
   const [inputs, setInputs] = useAtom(searchInputAtom)
   const router = useRouter()
@@ -82,9 +66,9 @@ const Maps: NextPageWithLayout<{
                 <Link
                   href={{
                     pathname: 'maps',
-                    query: { cafeId: cafe.storeId, storeName: cafe.storeName }
+                    query: { search, storeId: cafe.storeId, storeName: cafe.storeName }
                   }}
-                  as={`/maps?search=${search}&storeName=${cafe.storeName}`}
+                  as={`maps/search=${search}&storeId=${cafe.storeId}`}
                   shallow
                   replace
                 >
@@ -179,6 +163,7 @@ Maps.getLayout = function getLayout(page: ReactElement) {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  console.log(query, '내가 바로 진짜 쿼리')
   if (query.search) {
     const { search } = query
     try {
@@ -187,7 +172,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
           search as string
         )}`
       )
-      const data: CafeListsProps[] = res.data.data
+      const data: IStore[] = res.data.data
       return {
         props: {
           search,

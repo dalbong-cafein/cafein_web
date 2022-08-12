@@ -90,7 +90,7 @@ export interface IStore {
   lngX: number
   recommendPercent: null | number
   storeId: number
-  storeImageDto: null
+  storeImageDto: null | ImageListInterface[]
   storeName: string
 }
 

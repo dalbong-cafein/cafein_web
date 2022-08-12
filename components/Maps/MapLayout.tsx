@@ -15,24 +15,17 @@ interface MapLayoutProps {
 
 const MapLayout = ({ children }: MapLayoutProps) => {
   const router = useRouter()
-  const { storeName, cafeId } = router.query
-
+  const { search, storeId } = router.query
   return (
     <>
       <Head>
         <title>카페인 | 지도</title>
       </Head>
-      <MainWrapper>
-        
-        {children}
-      </MainWrapper>
-      {storeName ? (
+      <MainWrapper>{children}</MainWrapper>
+      {storeId ? (
         <>
-          <DetailStore
-            cafeId={cafeId ? Number(cafeId) : undefined}
-            isDetail={cafeId ? true : false}
-          />
-          <Link href="/">
+          <DetailStore />
+          <Link href={{ pathname: 'maps', query: { search } }}>
             <CloseImage>
               <Image
                 src="/images/white_close.svg"

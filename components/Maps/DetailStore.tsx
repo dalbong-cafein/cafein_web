@@ -8,7 +8,8 @@ import {
   cafeInfoAtom,
   CafeInfoInterface,
   cafeReviewPonitAtom,
-  CafeRewviewPointInterface
+  CafeRewviewPointInterface,
+  IStore
 } from '../../store'
 import CafeInfoSection from '../MapsParams/CafeInfoSection'
 import CafePOintsSection from '../MapsParams/CafePointsSection'
@@ -16,31 +17,24 @@ import ImageSection from '../MapsParams/ImageSection'
 import { CafeInfoWrapper } from '../MapsParams/styles/CafeInfoSectionStyle'
 import RecommendSection from '../MapsParams/RecommendSection'
 import { WrapperTitle } from '../MapsParams/styles/CafePointsSectionStyle'
-import styled from 'styled-components'
 import { DetailWrapper } from './styles/styles'
-import { Router, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
-const DetailStore = ({
-  isDetail,
-  cafeId
-}: {
-  isDetail: boolean
-  cafeId: number | undefined
-}) => {
+const DetailStore = () => {
   const [cafeInfo, setCafeInfo] = useAtom(cafeInfoAtom)
   const [cafePoints, setCafePoints] = useAtom(cafeReviewPonitAtom)
   const [isHovering_1, setIsHovering_1] = useState(false)
   const [isHovering_2, setIsHovering_2] = useState(false)
   const [isHovering_3, setIsHovering_3] = useState(false)
+  const [isBadQuery, setIsBadQuery] = useState(false)
   const router = useRouter()
-  console.log(cafeId)
-  const storeId = cafeId ? cafeId : 20
-  console.log(cafeId, storeId)
+  const { storeId } = router.query
 
   useEffect(() => {
     async function getDetailStore() {
       try {
         const response = await axios.get(`/api/stores/${storeId}`)
+
         const data: CafeInfoInterface = response.data.data
         setCafeInfo(data)
       } catch (error) {
@@ -75,12 +69,13 @@ const DetailStore = ({
         console.error
       }
     }
-    if (storeId !== cafeInfo?.storeId) {
-      Promise.all([getDetailStore(), getCafePoints()])
+    if (storeId && isNaN(+storeId)) {
+      setIsBadQuery(true)
     }
-    getRecommendation()
+    else if (storeId !== cafeInfo?.storeId) {
+      Promise.all([getDetailStore(), getCafePoints(), getRecommendation()])
+    }
   }, [
-    storeId,
     cafeInfo,
     setCafeInfo,
     setCafePoints,
@@ -90,7 +85,7 @@ const DetailStore = ({
   ])
 
   return (
-    <DetailWrapper isDetail={isDetail}>
+    <DetailWrapper isDetail={storeId ? true : false}>
       <Head>
         <title>카페인 | {router.query.storeName}</title>
       </Head>
