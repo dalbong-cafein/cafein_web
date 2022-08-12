@@ -40,8 +40,12 @@ const Search = () => {
   const autoRef = useRef<HTMLUListElement>(null)
 
   const handleKeyArrow = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Backspace') {
+      return
+    } 
     if (searchLists) {
       if (index !== -1) e.preventDefault()
+      console.log(e.key)
       switch (e.key) {
         case 'ArrowDown':
           autoRef.current?.scrollTo({ top: index * 70.19 })
