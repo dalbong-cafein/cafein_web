@@ -22,8 +22,6 @@ import { useRouter } from 'next/router'
 import Search from '../../components/Home/Search'
 import Image from 'next/image'
 
-
-
 const Maps: NextPageWithLayout<{
   search?: string
   cafeDatas?: IStore[]
@@ -66,9 +64,13 @@ const Maps: NextPageWithLayout<{
                 <Link
                   href={{
                     pathname: 'maps',
-                    query: { search, storeId: cafe.storeId, storeName: cafe.storeName }
+                    query: {
+                      search,
+                      storeId: cafe.storeId,
+                      storeName: cafe.storeName
+                    }
                   }}
-                  as={`maps/search=${search}&storeId=${cafe.storeId}`}
+                  as={`maps?search=${search}&storeId=${cafe.storeId}`}
                   shallow
                   replace
                 >
@@ -94,7 +96,7 @@ const Maps: NextPageWithLayout<{
                     </OnAirWrapper>
                     {cafe.recommendPercent ? (
                       <DdabongWrap>
-                        {Ddabong} {cafe.recommendPercent + '%'}
+                        {Ddabong} {Math.floor(cafe.recommendPercent) + '%'}
                       </DdabongWrap>
                     ) : (
                       ''

@@ -36,11 +36,13 @@ const RecommendSection = ({
     recommendation: string,
     storeId: number
   ) => {
+    alert(storeId)
     try {
-      await axios.post(`/api/web/recommendations`, {
-        storeId,
-        recommendation
+      const res = await axios.post(`/api/web/recommendations`, {
+        recommendation,
+        storeId
       })
+      console.log(res)
       if (recommendation === 'BAD') {
         setIsOnButton(1)
       } else if (recommendation === 'NORMAL') {
@@ -78,6 +80,7 @@ const RecommendSection = ({
                       width={60}
                       height={82}
                       alt="bad_on badge"
+                      priority={true}
                     />
                   ) : (
                     <Image
@@ -85,6 +88,7 @@ const RecommendSection = ({
                       width={60}
                       height={82}
                       alt="bad badge"
+                      priority={true}
                     />
                   )}
                   <ButtonDesc
@@ -107,6 +111,7 @@ const RecommendSection = ({
                       width={60}
                       height={82}
                       alt="soso_on badge"
+                      priority={true}
                     />
                   ) : (
                     <Image
@@ -114,6 +119,7 @@ const RecommendSection = ({
                       width={60}
                       height={82}
                       alt="soso badge"
+                      priority={true}
                     />
                   )}
                   <ButtonDesc
@@ -136,6 +142,7 @@ const RecommendSection = ({
                       width={60}
                       height={82}
                       alt="good_on badge"
+                      priority={true}
                     />
                   ) : (
                     <Image
@@ -143,6 +150,7 @@ const RecommendSection = ({
                       width={60}
                       height={82}
                       alt="good badge"
+                      priority={true}
                     />
                   )}
                   <ButtonDesc

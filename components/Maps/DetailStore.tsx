@@ -71,8 +71,7 @@ const DetailStore = () => {
     }
     if (storeId && isNaN(+storeId)) {
       setIsBadQuery(true)
-    }
-    else if (storeId !== cafeInfo?.storeId) {
+    } else if (storeId !== cafeInfo?.storeId) {
       Promise.all([getDetailStore(), getCafePoints(), getRecommendation()])
     }
   }, [
@@ -87,7 +86,7 @@ const DetailStore = () => {
   return (
     <DetailWrapper isDetail={storeId ? true : false}>
       <Head>
-        <title>카페인 | {router.query.storeName}</title>
+        <title>카페인 | {router.query.storeName ? router.query.storeName : cafeInfo?.storeName}</title>
       </Head>
       {cafeInfo && cafePoints && (
         <>

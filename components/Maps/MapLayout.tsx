@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useState } from 'react'
 import styled from 'styled-components'
 import { Logo } from '../common/Common'
 import DetailStore from './DetailStore'
@@ -16,6 +16,7 @@ interface MapLayoutProps {
 const MapLayout = ({ children }: MapLayoutProps) => {
   const router = useRouter()
   const { search, storeId } = router.query
+  const [inHoverClose, setInHoverClose] = useState(false)
   return (
     <>
       <Head>
@@ -26,13 +27,25 @@ const MapLayout = ({ children }: MapLayoutProps) => {
         <>
           <DetailStore />
           <Link href={{ pathname: 'maps', query: { search } }}>
-            <CloseImage>
-              <Image
-                src="/images/white_close.svg"
-                alt="닫기 아이콘"
-                width={24}
-                height={24}
-              />
+            <CloseImage
+              onMouseEnter={() => setInHoverClose(true)}
+              onMouseLeave={() => setInHoverClose(false)}
+            >
+              {inHoverClose ? (
+                <Image
+                  src="/images/orange_close.svg"
+                  alt="닫기 아이콘"
+                  width={24}
+                  height={24}
+                />
+              ) : (
+                <Image
+                  src="/images/white_close.svg"
+                  alt="닫기 아이콘"
+                  width={24}
+                  height={24}
+                />
+              )}
             </CloseImage>
           </Link>
         </>
@@ -45,6 +58,7 @@ const MapLayout = ({ children }: MapLayoutProps) => {
 }
 
 const CloseImage = styled.a`
+  box-sizing: border-box;
   position: absolute;
   display: flex;
   justify-content: center;
@@ -58,6 +72,10 @@ const CloseImage = styled.a`
   border-radius: 0 8px 8px 0;
   border: 0.8px solid ${(props) => props.theme.colors.grey200};
   border-left: none;
+
+  &:hover {
+    border-color: ${(props) => props.theme.colors.orange300};
+  }
 `
 
 export default MapLayout
