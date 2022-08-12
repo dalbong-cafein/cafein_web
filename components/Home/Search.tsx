@@ -1,7 +1,7 @@
 import { useAtom, useAtomValue } from 'jotai'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { KeyboardEvent, useRef, useState } from 'react'
 import {
   searchInputAtom,
   searchListsAtom,
@@ -36,6 +36,36 @@ const Search = () => {
   const [isClicked, setIsClicked] = useState(false)
   const router = useRouter()
   const { pathname } = router
+  const [index, setIndex] = useState(-1)
+  const autoRef = useRef<HTMLUListElement>(null)
+
+  const handleKeyArrow = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (searchLists) {
+      if (index !== -1) e.preventDefault()
+      switch (e.key) {
+        case 'ArrowDown':
+          autoRef.current?.scrollTo({ top: index * 70.19 })
+          setIndex(index + 1)
+          if (autoRef.current?.childElementCount === index + 1) setIndex(0)
+          break
+        case 'ArrowUp':
+          autoRef.current?.scrollTo({ top: (index-1) * 70.19 })
+          setIndex(index - 1)
+          if (index <= 0) {
+            setIndex(-1)
+          }
+          break
+        case 'Escape':
+          autoRef.current?.scrollTo({ top: 0 })
+          setIndex(-1)
+          break
+        case 'Enter':
+          onEnterPress(e, inputs, router)
+          break
+      }
+    }
+  }
+
   return (
     <SearchFormWrapper isMap={pathname === '/maps' ? true : false}>
       <InputWrapper>
@@ -54,7 +84,7 @@ const Search = () => {
           }
           onFocus={() => setIsClicked(true)}
           onBlur={() => setIsClicked(false)}
-          onKeyDown={(e) => onEnterPress(e, inputs, router)}
+          onKeyDown={handleKeyArrow}
         />
         <ClearButton
           isInput={inputs === '' ? false : true}
@@ -64,10 +94,14 @@ const Search = () => {
       <HomeSearchLists
         isMap={pathname === '/maps' ? true : false}
         isDisplay={searchLists.length !== 0 && isClicked ? true : false}
+        ref={autoRef}
       >
-        {searchLists.map((searchList) => {
+        {searchLists.map((searchList, idx) => {
           return (
-            <SearchList key={searchList.storeId}>
+            <SearchList
+              key={searchList.storeId}
+              isFocus={index === idx ? true : false}
+            >
               <Image
                 src={'/images/location.svg'}
                 width={24}
