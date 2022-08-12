@@ -22,7 +22,6 @@ const CurrentPopularItem = styled.li`
   display: flex;
   flex-direction: column;
   flex-grow: 0;
-  overflow: auto;
 
   &:hover {
     background: rgba(0, 0, 0, 0.02);

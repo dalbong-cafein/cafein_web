@@ -36,7 +36,6 @@ const Search = () => {
   const [isClicked, setIsClicked] = useState(false)
   const router = useRouter()
   const { pathname } = router
-  console.log(pathname === '/maps' ? 'true' : 'false', 'helloo~')
   return (
     <SearchFormWrapper isMap={pathname === '/maps' ? true : false}>
       <InputWrapper>
@@ -63,6 +62,7 @@ const Search = () => {
         />
       </InputWrapper>
       <HomeSearchLists
+        isMap={pathname === '/maps' ? true : false}
         isDisplay={searchLists.length !== 0 && isClicked ? true : false}
       >
         {searchLists.map((searchList) => {
@@ -94,7 +94,11 @@ const Search = () => {
           )
         })}
       </HomeSearchLists>
-      {pathname === '/maps' ? '' : <SearchButton>지도에서 카페 찾기</SearchButton>}
+      {pathname === '/maps' ? (
+        ''
+      ) : (
+        <SearchButton>지도에서 카페 찾기</SearchButton>
+      )}
     </SearchFormWrapper>
   )
 }

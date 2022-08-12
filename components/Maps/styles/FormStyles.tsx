@@ -22,10 +22,20 @@ export const SearchList = styled.li`
   gap: 10px;
 `
 
-export const HomeSearchLists = styled(SearchLists)<{ isDisplay: boolean}>`
-  display: ${(props) => props.isDisplay ? 'block' : 'none'};
-  width: 400px;
-  top: 64px;
+export const HomeSearchLists = styled(SearchLists)<{
+  isDisplay: boolean
+  isMap: boolean
+}>`
+  display: ${(props) => (props.isDisplay ? 'block' : 'none')};
+  width: ${(props) => (props.isMap ? '352px' : '400px')};
+  top: ${(props) => (props.isMap ? '34px' : '64px')};
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.colors.grey300};
+    border-radius: 4px;
+  }
 `
 
 export const SearchListDescs = styled.div`

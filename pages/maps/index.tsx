@@ -14,12 +14,13 @@ import {
   OnAirWrapper,
   OpeningTime
 } from '../../components/Maps/styles/CurrentPopularStyles'
-import { Ddabong } from '../../components/common/Common'
+import { Ddabong, Logo } from '../../components/common/Common'
 import { GetServerSideProps } from 'next'
 import axios from 'axios'
 import getHours from '../../utils/getHours'
 import { useRouter } from 'next/router'
 import Search from '../../components/Home/Search'
+import Image from 'next/image'
 
 interface CafeListsProps {
   storeId: number
@@ -50,70 +51,84 @@ const Maps: NextPageWithLayout<{
     if (search && search !== inputs) {
       setInputs(search)
     }
-    console.log(search, inputs, '열렸녀??')
   }, [router])
   return (
     <>
-      <Search />
-      <FilterWrapper>
-        <FilterItem>영업중</FilterItem>
-        <FilterItem>가까운순</FilterItem>
-        <FilterItem>추천순</FilterItem>
-      </FilterWrapper>
-      <CafeListWrapper>
-        <CafeList>
-          {cafeDatas
-            ? cafeDatas.map((cafe) => (
-                <CurrentPopularItem
-                  key={cafe.storeId}
-                  onClick={() => setIsOpenDetail(true)}
+      <Wrapper>
+        <Link href="/">
+          <Logo>
+            <Image
+              src="/images/logo_black.svg"
+              width={103}
+              height={22}
+              alt="로고"
+            />
+          </Logo>
+        </Link>
+        <Search />
+        <FilterWrapper>
+          <FilterItem>영업중</FilterItem>
+          <FilterItem>가까운순</FilterItem>
+          <FilterItem>추천순</FilterItem>
+        </FilterWrapper>
+      </Wrapper>
+      <CafeList>
+        {cafeDatas
+          ? cafeDatas.map((cafe) => (
+              <CurrentPopularItem
+                key={cafe.storeId}
+                onClick={() => setIsOpenDetail(true)}
+              >
+                <Link
+                  href={{
+                    pathname: 'maps',
+                    query: { cafeId: cafe.storeId, storeName: cafe.storeName }
+                  }}
+                  as={`/maps?search=${search}&storeName=${cafe.storeName}`}
+                  shallow
+                  replace
                 >
-                  <Link
-                    href={{
-                      pathname: 'maps',
-                      query: { cafeId: cafe.storeId, storeName: cafe.storeName }
-                    }}
-                    as={`/maps?search=${search}&storeName=${cafe.storeName}`}
-                    shallow
-                    replace
-                  >
-                    <a>
-                      <CurrentPopularItemTitle>
-                        {cafe.storeName}
-                      </CurrentPopularItemTitle>
-                      <CurrentPopularItemLocation>
-                        {cafe.fullAddress}
-                      </CurrentPopularItemLocation>
-                      <OnAirWrapper>
-                        <OnAirBadge>
-                          {cafe.businessHoursInfoDto.isOpen
-                            ? '영업중'
-                            : '영업종료'}
-                        </OnAirBadge>
-                        <OpeningTime>
-                          {cafe.businessHoursInfoDto.closed
-                            ? getHours(cafe.businessHoursInfoDto.closed) +
-                              '에 영업 종료'
-                            : '정보 없음'}
-                        </OpeningTime>
-                      </OnAirWrapper>
-                      {cafe.recommendPercent ? (
-                        <DdabongWrap>
-                          {Ddabong} {cafe.recommendPercent + '%'}
-                        </DdabongWrap>
-                      ) : (
-                        ''
-                      )}
-                    </a>
-                  </Link>
-                </CurrentPopularItem>
-              ))
-            : ''}
-        </CafeList>
-      </CafeListWrapper>
+                  <a>
+                    <CurrentPopularItemTitle>
+                      {cafe.storeName}
+                    </CurrentPopularItemTitle>
+                    <CurrentPopularItemLocation>
+                      {cafe.fullAddress}
+                    </CurrentPopularItemLocation>
+                    <OnAirWrapper>
+                      <OnAirBadge>
+                        {cafe.businessHoursInfoDto.isOpen
+                          ? '영업중'
+                          : '영업종료'}
+                      </OnAirBadge>
+                      <OpeningTime>
+                        {cafe.businessHoursInfoDto.closed
+                          ? getHours(cafe.businessHoursInfoDto.closed) +
+                            '에 영업 종료'
+                          : '정보 없음'}
+                      </OpeningTime>
+                    </OnAirWrapper>
+                    {cafe.recommendPercent ? (
+                      <DdabongWrap>
+                        {Ddabong} {cafe.recommendPercent + '%'}
+                      </DdabongWrap>
+                    ) : (
+                      ''
+                    )}
+                  </a>
+                </Link>
+              </CurrentPopularItem>
+            ))
+          : ''}
+      </CafeList>
     </>
   )
 }
+
+const Wrapper = styled.header`
+  display: flex;
+  flex-direction: column;
+`
 
 const FilterWrapper = styled.ul`
   display: flex;
@@ -132,13 +147,12 @@ const FilterItem = styled.li`
   cursor: pointer;
 `
 
-const CafeListWrapper = styled.div`
-  border-top: 1px solid ${(props) => props.theme.colors.grey100};
-`
-
 const CafeList = styled.ul`
+  border-top: 1px solid ${(props) => props.theme.colors.grey100};
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 179.09px);
+  overflow-y: auto;
 
   & li:not(:first-child)::after {
     content: '';
@@ -150,6 +164,13 @@ const CafeList = styled.ul`
   }
   & li {
     padding: 20px 24px;
+  }
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.colors.grey300};
+    border-radius: 4px;
   }
 `
 

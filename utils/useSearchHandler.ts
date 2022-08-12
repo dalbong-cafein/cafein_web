@@ -50,12 +50,10 @@ export const useHandleInputs = async ({
           category_group_code: 'CE7'
         }
       })
-      console.log(response)
       const {
         data: { documents }
       } = response
       const n_searchLists = documents.map((store: IStore) => store.place_name)
-      console.log(n_searchLists)
       setSearchLists(documents)
     } catch (error) {
       console.error(`Debouncing Error while fetching Seach Lists : ${error}`)

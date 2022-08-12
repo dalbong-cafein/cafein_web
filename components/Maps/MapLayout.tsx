@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { ReactNode } from 'react'
+import styled from 'styled-components'
 import { Logo } from '../common/Common'
 import DetailStore from './DetailStore'
 import Map from './Map'
@@ -15,7 +16,6 @@ interface MapLayoutProps {
 const MapLayout = ({ children }: MapLayoutProps) => {
   const router = useRouter()
   const { storeName, cafeId } = router.query
-  console.log(storeName)
 
   return (
     <>
@@ -23,23 +23,26 @@ const MapLayout = ({ children }: MapLayoutProps) => {
         <title>카페인 | 지도</title>
       </Head>
       <MainWrapper>
-        <Link href="/">
-          <Logo>
-            <Image
-              src="/images/logo_black.svg"
-              width={103}
-              height={22}
-              alt="로고"
-            />
-          </Logo>
-        </Link>
+        
         {children}
       </MainWrapper>
       {storeName ? (
-        <DetailStore
-          storeId={Number(cafeId)}
-          isDetail={cafeId ? true : false}
-        />
+        <>
+          <DetailStore
+            cafeId={cafeId ? Number(cafeId) : undefined}
+            isDetail={cafeId ? true : false}
+          />
+          <Link href="/">
+            <CloseImage>
+              <Image
+                src="/images/white_close.svg"
+                alt="닫기 아이콘"
+                width={24}
+                height={24}
+              />
+            </CloseImage>
+          </Link>
+        </>
       ) : (
         ''
       )}
@@ -47,5 +50,21 @@ const MapLayout = ({ children }: MapLayoutProps) => {
     </>
   )
 }
+
+const CloseImage = styled.a`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  left: 800px;
+  top: 16px;
+  z-index: 2;
+  background-color: ${(props) => props.theme.colors.white};
+  border-radius: 0 8px 8px 0;
+  border: 0.8px solid ${(props) => props.theme.colors.grey200};
+  border-left: none;
+`
 
 export default MapLayout

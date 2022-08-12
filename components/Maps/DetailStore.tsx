@@ -22,10 +22,10 @@ import { Router, useRouter } from 'next/router'
 
 const DetailStore = ({
   isDetail,
-  storeId
+  cafeId
 }: {
   isDetail: boolean
-  storeId: number
+  cafeId: number | undefined
 }) => {
   const [cafeInfo, setCafeInfo] = useAtom(cafeInfoAtom)
   const [cafePoints, setCafePoints] = useAtom(cafeReviewPonitAtom)
@@ -33,6 +33,9 @@ const DetailStore = ({
   const [isHovering_2, setIsHovering_2] = useState(false)
   const [isHovering_3, setIsHovering_3] = useState(false)
   const router = useRouter()
+  console.log(cafeId)
+  const storeId = cafeId ? cafeId : 20
+  console.log(cafeId, storeId)
 
   useEffect(() => {
     async function getDetailStore() {
@@ -93,16 +96,6 @@ const DetailStore = ({
       </Head>
       {cafeInfo && cafePoints && (
         <>
-          <Link href="/">
-            <CloseImage>
-              <Image
-                src="/images/white_close.svg"
-                alt="닫기 아이콘"
-                width={36}
-                height={36}
-              />
-            </CloseImage>
-          </Link>
           <ImageSection />
           <CafeInfoSection />
           <CafePOintsSection />
@@ -122,12 +115,5 @@ const DetailStore = ({
     </DetailWrapper>
   )
 }
-
-const CloseImage = styled.a`
-  position: absolute;
-  z-index: 1;
-  right: 16px;
-  top: 16px;
-`
 
 export default DetailStore

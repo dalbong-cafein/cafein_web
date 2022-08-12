@@ -20,7 +20,6 @@ const Map = () => {
           position: naver.maps.Position.BOTTOM_LEFT
         }
       })
-      console.log(map)
     }
     initMap()
   }, [])

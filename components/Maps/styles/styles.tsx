@@ -6,7 +6,6 @@ const MainWrapper = styled.div`
   top: 0;
   min-height: 100vh;
   max-height: 100vh;
-  overflow-y: auto;
   width: 100%;
   background-color: ${(props) => props.theme.colors.white};
   max-width: 400px;
@@ -14,13 +13,7 @@ const MainWrapper = styled.div`
   z-index: 1;
   filter: drop-shadow(8px 0px 20px rgba(0, 0, 0, 0.08));
 
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.colors.grey300};
-    border-radius: 4px;
-  }
+
 `
 
 const DetailWrapper = styled.div<{ isDetail: boolean }>`
@@ -29,7 +22,7 @@ const DetailWrapper = styled.div<{ isDetail: boolean }>`
   top: 0;
   min-height: 100vh;
   max-height: 100vh;
-  overflow-y: auto;
+  overflow-y: scroll;
   width: 100%;
   background-color: ${(props) => props.theme.colors.white};
   max-width: 400px;
