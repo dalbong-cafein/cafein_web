@@ -36,7 +36,6 @@ const RecommendSection = ({
     recommendation: string,
     storeId: number
   ) => {
-    alert(storeId)
     try {
       const res = await axios.post(`/api/web/recommendations`, {
         recommendation,

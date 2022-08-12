@@ -31,6 +31,7 @@ const DetailStore = () => {
   const { storeId } = router.query
 
   useEffect(() => {
+    console.log('hello??')
     async function getDetailStore() {
       try {
         const response = await axios.get(`/api/stores/${storeId}`)
@@ -74,19 +75,17 @@ const DetailStore = () => {
     } else if (storeId !== cafeInfo?.storeId) {
       Promise.all([getDetailStore(), getCafePoints(), getRecommendation()])
     }
-  }, [
-    cafeInfo,
-    setCafeInfo,
-    setCafePoints,
-    isHovering_1,
-    isHovering_2,
-    isHovering_3
-  ])
+  }, [])
 
   return (
     <DetailWrapper isDetail={storeId ? true : false}>
       <Head>
-        <title>카페인 | {router.query.storeName ? router.query.storeName : cafeInfo?.storeName}</title>
+        <title>
+          카페인 |{' '}
+          {router.query.storeName
+            ? router.query.storeName
+            : cafeInfo?.storeName}
+        </title>
       </Head>
       {cafeInfo && cafePoints && (
         <>

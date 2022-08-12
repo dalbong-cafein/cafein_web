@@ -26,7 +26,7 @@ const MapLayout = ({ children }: MapLayoutProps) => {
       {storeId ? (
         <>
           <DetailStore />
-          <Link href={{ pathname: 'maps', query: { search } }}>
+          <Link href={{ pathname: 'maps', query: { search } }} shallow>
             <CloseImage
               onMouseEnter={() => setInHoverClose(true)}
               onMouseLeave={() => setInHoverClose(false)}
