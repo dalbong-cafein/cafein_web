@@ -1,8 +1,9 @@
 import axios from 'axios'
-import { useAtomValue } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
 import Image from 'next/image'
-import { useState } from 'react'
-import { cafeInfoAtom } from '../../store'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { cafeInfoAtom, cafeReviewPercentAtom } from '../../store'
 import {
   ButtonDesc,
   ButtonInnerWrapper,
@@ -31,17 +32,58 @@ const RecommendSection = ({
   setIsHovering_3
 }: propTypes) => {
   const cafeInfo = useAtomValue(cafeInfoAtom)
+  const setCafeReviewPercent = useSetAtom(cafeReviewPercentAtom)
   const [isOnButton, setIsOnButton] = useState(0)
+  const router = useRouter()
+  const { storeId } = router.query
+
+  useEffect(() => {
+    setIsOnButton(0)
+  }, [storeId])
+
+  async function getRecommendation() {
+    try {
+      const response = await axios.get(
+        `/api/web/stores/${storeId}/recommendations`
+      )
+      const { data } = response.data
+      console.log(data, '데이터를 보여줘!!')
+      const { recommendPercentOfStore, recommendation } = data
+      setCafeReviewPercent(recommendPercentOfStore)
+      if (recommendation === 'BAD') {
+        setIsHovering_1(true)
+        setIsHovering_2(false)
+        setIsHovering_3(false)
+      } else if (recommendation === 'NORMAL') {
+        setIsHovering_1(false)
+        setIsHovering_2(true)
+        setIsHovering_3(false)
+      } else if (recommendation === 'GOOD') {
+        setIsHovering_1(false)
+        setIsHovering_2(false)
+        setIsHovering_3(true)
+      } else {
+        setIsHovering_1(false)
+        setIsHovering_2(false)
+        setIsHovering_3(false)
+      }
+    } catch (error) {
+      console.error
+    }
+  }
+
   const recommendOnClickHandler = async (
     recommendation: string,
     storeId: number
   ) => {
     try {
-      const res = await axios.post(`/api/web/recommendations`, {
-        recommendation,
-        storeId
-      })
-      console.log(res)
+      axios
+        .post(`/api/web/recommendations`, {
+          recommendation,
+          storeId
+        })
+        .then(() => getRecommendation())
+
       if (recommendation === 'BAD') {
         setIsOnButton(1)
       } else if (recommendation === 'NORMAL') {

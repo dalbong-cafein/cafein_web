@@ -1839,6 +1839,11 @@
   dependencies:
     "wrappy" "1"
 
+"optics-ts@*":
+  "integrity" "sha512-iu6//uEMAKsowlq7hd8pNTc43KOjxMPW60BBA8DIt0q311iiOaWPilMHGOyCDvQ7llRutwlCkGX6e4HnUD0ARg=="
+  "resolved" "https://registry.npmjs.org/optics-ts/-/optics-ts-2.3.0.tgz"
+  "version" "2.3.0"
+
 "optionator@^0.9.1":
   "integrity" "sha512-74RlY5FCnhq4jRxVUPKDaRwrVNXMqsGsiW6AJw4XK8hmtm10wC0ypZBLw5IIp85NZMr91+qd1RvvENwg7jjRFw=="
   "resolved" "https://registry.npmjs.org/optionator/-/optionator-0.9.1.tgz"

@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { MouseEvent, useState } from 'react'
 import {
   cafeInfoAtom,
+  cafeReviewPercentAtom,
   cafeReviewPonitAtom,
   getRunningTimesAtom,
   isRunningAtom
@@ -38,6 +39,8 @@ const CafeInfoSection = () => {
   const cafeInfo = useAtomValue(cafeInfoAtom)
   const [isRunning, runningTime] = useAtomValue(isRunningAtom)
   const cafePoints = useAtomValue(cafeReviewPonitAtom)
+  const cafeReviewPercent = useAtomValue(cafeReviewPercentAtom)
+
   const [isOpened, setIsOpened] = useState(false)
   const getRunningTimes = useAtomValue(getRunningTimesAtom)
   const GetRunningTimes = getRunningTimes ? (
@@ -70,12 +73,12 @@ const CafeInfoSection = () => {
           <CafeInfoWrapper>
             <TitleWrapper>
               <HeaderTitle>{cafeInfo.storeName}</HeaderTitle>
-              {cafePoints.reviewCnt > 0 && (
+              {cafeReviewPercent > 0 && (
                 <>
                   <DDabongWrapper>
                     {Ddabong}
                     <DDabongPoints>
-                      {cafePoints.recommendPercent}%
+                      {Math.floor(cafeReviewPercent)}%
                     </DDabongPoints>
                   </DDabongWrapper>
                 </>

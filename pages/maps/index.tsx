@@ -28,6 +28,7 @@ const Maps: NextPageWithLayout<{
 }> = ({ search, cafeDatas }) => {
   const [inputs, setInputs] = useAtom(searchInputAtom)
   const router = useRouter()
+  const { storeId } = router.query
   const [isOpenDetail, setIsOpenDetail] = useState(false)
   useEffect(() => {
     if (search && search !== inputs) {
@@ -60,6 +61,7 @@ const Maps: NextPageWithLayout<{
               <CurrentPopularItem
                 key={cafe.storeId}
                 onClick={() => setIsOpenDetail(true)}
+                isClicked={storeId && storeId as string === String(cafe.storeId) ? true : false}
               >
                 <Link
                   href={{
@@ -71,8 +73,6 @@ const Maps: NextPageWithLayout<{
                     }
                   }}
                   as={`maps?search=${search}&storeId=${cafe.storeId}`}
-                  shallow
-                  replace
                 >
                   <a>
                     <CurrentPopularItemTitle>

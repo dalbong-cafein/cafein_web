@@ -1,4 +1,5 @@
 import { atom } from 'jotai'
+import { focusAtom } from 'jotai/optics'
 import getHours from './utils/getHours'
 
 interface ImageListInterface {
@@ -148,6 +149,8 @@ export const getRunningTimesAtom = atom((get) => {
 })
 
 export const cafeReviewPonitAtom = atom<CafeRewviewPointInterface | null>(null)
+
+export const cafeReviewPercentAtom = atom<number>(0)
 
 export const searchInputAtom = atom('')
 
