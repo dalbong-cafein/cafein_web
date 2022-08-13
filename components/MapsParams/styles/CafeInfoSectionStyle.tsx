@@ -1,21 +1,19 @@
 import styled from 'styled-components'
 
-export const CafeInfoWrapper = styled.div`
+export const CafeInfoWrapper = styled.div<{ isFirst?: boolean }>`
   display: flex;
   flex-direction: column;
-  padding: 35px 34px 20px 24px;
+  padding: ${(props) => (props.isFirst ? '24px' : '35px')} 34px 20px 24px;
   position: relative;
 
-  &:not(first-child) {
-    &::before {
-      content: '';
-      height: 10px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      background-color: ${(props) => props.theme.colors.grey100};
-    }
+  &::before {
+    content: '';
+    height: ${(props) => (props.isFirst ? '' : '10px')};
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: ${(props) => props.theme.colors.grey100};
   }
 `
 
@@ -43,11 +41,17 @@ export const DDabongPoints = styled.span`
   font-weight: 500;
 `
 
+export const SubTitleWrapper = styled.div`
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 10px;
+`
+
 export const SubTitle = styled.h2`
   font-weight: 400;
   font-size: ${(props) => props.theme.fontsizes.font14}rem;
   color: ${(props) => props.theme.colors.grey600};
-  margin-top: 10px;
 `
 
 export const OpenInfoWrapper = styled.div`
@@ -82,7 +86,6 @@ export const ArrowButton = styled.button<{ isOpened: boolean }>`
   background-color: transparent;
   width: 16px;
   height: 16px;
-  margin-left: 6px;
   transition: all ease 0.4s;
   transform: ${(props) => (props.isOpened ? 'rotate(180deg)' : '')};
 `

@@ -18,3 +18,4 @@ export const Logo = styled.a`
   width: 103px;
   height: 22px;
 `
+

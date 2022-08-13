@@ -30,6 +30,7 @@ import {
   OpenInfoWrapper,
   StrongSpan,
   SubTitle,
+  SubTitleWrapper,
   Time,
   TitleWrapper,
   URLDescription
@@ -70,7 +71,7 @@ const CafeInfoSection = () => {
     <>
       {cafeInfo && cafePoints && (
         <>
-          <CafeInfoWrapper>
+          <CafeInfoWrapper isFirst={true}>
             <TitleWrapper>
               <HeaderTitle>{cafeInfo.storeName}</HeaderTitle>
               {cafeReviewPercent > 0 && (
@@ -84,7 +85,10 @@ const CafeInfoSection = () => {
                 </>
               )}
             </TitleWrapper>
-            <SubTitle>{cafeInfo.address.fullAddress}</SubTitle>
+            <SubTitleWrapper>
+              <SubTitle>{cafeInfo.address.fullAddress}</SubTitle>
+              <Image src={'/images/copy.svg'} width={18} height={18} />
+            </SubTitleWrapper>
             <OpenInfoWrapper>
               <ClockIcon>
                 <Image

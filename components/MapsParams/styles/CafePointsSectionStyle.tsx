@@ -13,7 +13,6 @@ export const WrapperTitle = styled(Description)`
 export const CafeInfoList = styled.div`
   display: flex;
   flex-direction: column;
-  padding-left: 8px;
   gap: 16px;
   margin-top: 20px;
 `
