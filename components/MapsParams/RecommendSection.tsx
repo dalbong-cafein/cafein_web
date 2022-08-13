@@ -11,6 +11,8 @@ import {
   ButtonWrapper,
   CafeInfoWrapper,
   StrongWrapperTitle,
+  WordsWrapper,
+  WordsWrapperText,
   WrapperTitle
 } from './styles/styles'
 
@@ -102,10 +104,11 @@ const RecommendSection = ({
       {cafeInfo && (
         <>
           <CafeInfoWrapper>
-            <WrapperTitle>
+            <WrapperTitle>리뷰</WrapperTitle>
+            <WordsWrapper>
               <StrongWrapperTitle>{cafeInfo.storeName}</StrongWrapperTitle>
-              카공 카페로 어떤가요?
-            </WrapperTitle>
+              <WordsWrapperText>카공 카페로 어떤가요?</WordsWrapperText>
+            </WordsWrapper>
             <ButtonOutterWrapper>
               <ButtonInnerWrapper>
                 <ButtonWrapper

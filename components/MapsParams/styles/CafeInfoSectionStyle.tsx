@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const CafeInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 24px 34px 20px 24px;
+  padding: 35px 34px 20px 24px;
   position: relative;
 
   &:not(first-child) {
@@ -28,7 +28,7 @@ export const TitleWrapper = styled.div`
 
 export const HeaderTitle = styled.h1`
   font-weight: 600;
-  font-size: ${(props) => props.theme.fontsizes.font16}rem;
+  font-size: ${(props) => props.theme.fontsizes.font19}rem;
 `
 
 export const DDabongWrapper = styled.div`
@@ -38,14 +38,14 @@ export const DDabongWrapper = styled.div`
 `
 
 export const DDabongPoints = styled.span`
-  font-size: ${(props) => props.theme.fontsizes.font12}rem;
+  font-size: ${(props) => props.theme.fontsizes.font13}rem;
   color: ${(props) => props.theme.colors.grey600};
-  font-weight: 400;
+  font-weight: 500;
 `
 
 export const SubTitle = styled.h2`
   font-weight: 400;
-  font-size: ${(props) => props.theme.fontsizes.font13}rem;
+  font-size: ${(props) => props.theme.fontsizes.font14}rem;
   color: ${(props) => props.theme.colors.grey600};
   margin-top: 10px;
 `

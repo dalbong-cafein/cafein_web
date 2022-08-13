@@ -4,10 +4,9 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { ReactNode, useState } from 'react'
 import styled from 'styled-components'
-import { Logo } from '../common/Common'
 import DetailStore from './DetailStore'
 import Map from './Map'
-import { DetailWrapper, MainWrapper } from './styles/styles'
+import { MainWrapper } from './styles/styles'
 
 interface MapLayoutProps {
   children: ReactNode

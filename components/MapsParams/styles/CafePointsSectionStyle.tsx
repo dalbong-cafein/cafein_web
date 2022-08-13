@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { Description } from './CafeInfoSectionStyle'
 
 export const WrapperTitle = styled(Description)`
+  font-size: ${(props) => props.theme.fontsizes.font17}rem;
   font-weight: 600;
   margin-left: 0;
   & span {
