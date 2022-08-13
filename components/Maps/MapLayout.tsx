@@ -36,15 +36,15 @@ const MapLayout = ({ children }: MapLayoutProps) => {
                 <Image
                   src="/images/orange_close.svg"
                   alt="닫기 아이콘"
-                  width={24}
-                  height={24}
+                  width={44}
+                  height={44}
                 />
               ) : (
                 <Image
                   src="/images/white_close.svg"
                   alt="닫기 아이콘"
-                  width={24}
-                  height={24}
+                  width={44}
+                  height={44}
                 />
               )}
             </CloseImage>
@@ -68,15 +68,7 @@ const CloseImage = styled.a`
   height: 44px;
   left: 800px;
   top: 16px;
-  z-index: 2;
-  background-color: ${(props) => props.theme.colors.white};
-  border-radius: 0 8px 8px 0;
-  border: 0.8px solid ${(props) => props.theme.colors.grey200};
-  border-left: none;
-
-  &:hover {
-    border-color: ${(props) => props.theme.colors.orange300};
-  }
+  z-index: 1;
 `
 
 export default MapLayout

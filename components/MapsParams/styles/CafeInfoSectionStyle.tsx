@@ -3,13 +3,13 @@ import styled from 'styled-components'
 export const CafeInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 30px 30px 24px;
+  padding: 24px 34px 20px 24px;
   position: relative;
 
   &:not(first-child) {
     &::before {
       content: '';
-      height: 2px;
+      height: 10px;
       position: absolute;
       top: 0;
       left: 0;

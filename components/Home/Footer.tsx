@@ -1,9 +1,13 @@
 import Link from "next/link"
 import { CopyRight, FooterQLists, FooterWrapper, QItem } from "./styles/FooterStyles"
 
-const Footer = () => {
+interface IFooterProps {
+  isHome: boolean
+}
+
+const Footer = ({ isHome }: IFooterProps) => {
   return (
-    <FooterWrapper>
+    <FooterWrapper isHome={isHome}>
       <FooterQLists>
         <QItem>
           <Link href="/">공지사항</Link>

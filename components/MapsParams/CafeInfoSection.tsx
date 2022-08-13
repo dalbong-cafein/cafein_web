@@ -129,11 +129,11 @@ const CafeInfoSection = () => {
               />
               <URLDescription href={`/`}>http;eiofjoasjfj</URLDescription>
             </OpenInfoWrapper>
-            <EditInfoWrapper>
+            {/* <EditInfoWrapper>
               <EditInfoButton>정보수정</EditInfoButton>
               <EditDesc>잘못된 정보가 있다면 알려주세요</EditDesc>
               <EditDateDesc>마지막 수정일 </EditDateDesc>
-            </EditInfoWrapper>
+            </EditInfoWrapper> */}
           </CafeInfoWrapper>
         </>
       )}

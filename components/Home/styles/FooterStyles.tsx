@@ -1,12 +1,15 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
-export const FooterWrapper = styled.footer`
-  margin-top: 60px;
+export const FooterWrapper = styled.footer<{ isHome: boolean }>`
+  margin-top: ${(props) => (props.isHome ? '60px' : '40px')};
+  background-color: ${(props) =>
+    props.isHome ? '' : props.theme.colors.grey50};
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 12px;
+  padding: ${(props) => props.isHome ? '' : '30px 0'};
 `
 
 export const FooterQLists = styled.ul`

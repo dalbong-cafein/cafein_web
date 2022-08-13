@@ -19,6 +19,8 @@ declare module 'styled-components' {
       white: string
       black: string
       blue: string
+      green500: string
+      green050: string
     }
     fontsizes: {
       font40: number

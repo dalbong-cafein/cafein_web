@@ -9,7 +9,7 @@ export const AddWrapper = styled.div`
   background-repeat: no-repeat;
   background-blend-mode: multiply;
   background-color: ${(props) => props.theme.colors.grey100};
-  background-position: right 132px top 20px;
+  background-position: right 11% top 20px;
   border-radius: 20px;
 `
 

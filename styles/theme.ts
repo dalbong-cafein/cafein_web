@@ -16,7 +16,9 @@ const colors = {
   grey50: '#f7f7f7',
   white: '#fff',
   black: '#000',
-  blue: '#2563Eb'
+  blue: '#2563Eb',
+  green500: '#26ba6a',
+  green050: '#dff5e8'
 }
 
 const fontsizes = {
@@ -70,7 +72,6 @@ const mixins = {
   scroll_x: `
     overflow-x: auto;
     overflow-y: hidden;
-    white-space: nowrap;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none; // IE 스크롤바 감추기
     scrollbar-width: none; // Firefox 스크롤바 감추기

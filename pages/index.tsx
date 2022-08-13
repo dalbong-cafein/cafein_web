@@ -54,14 +54,14 @@ const Home: NextPage = () => {
           <RecommendItems />
         </RecommendWrapper>
         <AddWrapper>
-          <Link href="/">
-            <AddLink>
-              <AddLinkText>추천하고 싶은 카페가 있다면 알려주세요</AddLinkText>
+          <AddLink>
+            <AddLinkText>추천하고 싶은 카페가 있다면 알려주세요</AddLinkText>
+            <Link href="/">
               <AddButton>카페 등록하기</AddButton>
-            </AddLink>
-          </Link>
+            </Link>
+          </AddLink>
         </AddWrapper>
-        <Footer />
+        <Footer isHome={true} />
       </HomeWrapper>
     </Wrapper>
   )
