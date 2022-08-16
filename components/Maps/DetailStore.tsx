@@ -3,7 +3,7 @@ import { useAtom, useSetAtom } from 'jotai'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { MouseEventHandler, useEffect, useRef, useState } from 'react'
 import {
   cafeInfoAtom,
   CafeInfoInterface,
@@ -37,8 +37,46 @@ const DetailStore = () => {
   const [isHovering_2, setIsHovering_2] = useState(false)
   const [isHovering_3, setIsHovering_3] = useState(false)
   const [isBadQuery, setIsBadQuery] = useState(false)
+  const [curScrollId, setCurScrollId] = useState(0)
+  const [isLeftActive, setIsLeftActive] = useState(false)
+  const [isRightActive, setIsRightActive] = useState(true)
+  const autoRef = useRef<HTMLUListElement>(null)
   const router = useRouter()
   const { storeId } = router.query
+
+  const handleLeft = () => {
+    autoRef.current?.scrollTo({
+      left: autoRef.current?.scrollLeft - 246,
+      behavior: 'smooth'
+    })
+    const id = curScrollId - 1
+    setCurScrollId(id)
+    if (id == 0) {
+      setIsLeftActive(false)
+    } else if (!isLeftActive) {
+      setIsLeftActive(true)
+    }
+    if (!isRightActive) {
+      setIsRightActive(true)
+    }
+  }
+
+  const handleRight = () => {
+    autoRef.current?.scrollTo({
+      left: autoRef.current?.scrollLeft + 246,
+      behavior: 'smooth'
+    })
+    const id = curScrollId + 1
+    setCurScrollId(id)
+    if (id == 3) {
+      setIsRightActive(false)
+    } else if (!isRightActive) {
+      setIsRightActive(true)
+    }
+    if (!isLeftActive) {
+      setIsLeftActive(true)
+    }
+  }
 
   useEffect(() => {
     console.log('hello Funk')
@@ -161,7 +199,33 @@ const DetailStore = () => {
           </CafeInfoWrapper>
           <CafeInfoWrapper>
             <WrapperTitle>근처에 있는 카공 카페를 찾아봤어요</WrapperTitle>
-            <ScrollWrapper>
+            {isLeftActive ? (
+              <LeftArrowBtn onClick={handleLeft}>
+                <Image
+                  src="/images/left_arrow_off.svg"
+                  width={36}
+                  height={36}
+                  alt="왼쪽버튼"
+                />
+              </LeftArrowBtn>
+            ) : (
+              ''
+            )}
+
+            {isRightActive ? (
+              <RightArrowBtn onClick={handleRight}>
+                <Image
+                  src="/images/right_arrow_off.svg"
+                  width={36}
+                  height={36}
+                  alt="오른쪽버튼"
+                />
+              </RightArrowBtn>
+            ) : (
+              ''
+            )}
+
+            <ScrollWrapper ref={autoRef}>
               <CardItem>
                 <CardImgWrapper>
                   <Image src="/images/temp_img.png" width={70} height={70} />
@@ -290,7 +354,6 @@ const DetailStore = () => {
                   </CardTextWrapper>
                 </CardDescWrapper>
               </CardItem>
-              
             </ScrollWrapper>
           </CafeInfoWrapper>
           <AddWrapper2>
@@ -411,22 +474,40 @@ const CongestionLates = styled(CongestionDesc)`
 `
 
 const ScrollWrapper = styled.ul`
+  position: relative;
   display: flex;
   margin: 0 -34px 0 -20px;
-  padding: 16px 0;
+  padding: 16px 8px;
   gap: 12px;
   background-color: ${(props) => props.theme.colors.white};
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory;
 
-  &::after, &::before {
+  &::after,
+  &::before {
     content: '';
     width: 20px;
     display: block;
   }
 
   ${(props) => props.theme.mixins.scroll_x}
+`
 
+const ScrollBtn = styled.button`
+  position: absolute;
+  display: flex;
+  top: 50%;
+  z-index: 1;
+  background-color: transparent;
+  padding: 0;
+`
+
+const LeftArrowBtn = styled(ScrollBtn)`
+  left: 8px;
+`
+
+const RightArrowBtn = styled(ScrollBtn)`
+  right: 8px;
 `
 
 const CardItem = styled.li`
@@ -513,6 +594,7 @@ const AddButton2 = styled(AddButton)`
   width: 101px;
   height: 28px;
   font-size: ${(props) => props.theme.fontsizes.font14}rem;
+  align-self: flex-start;
 `
 
 export default DetailStore

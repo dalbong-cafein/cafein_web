@@ -21,6 +21,10 @@ export const SearchList = styled.li<{ isFocus: boolean }>`
   flex-direction: row;
   align-items: flex-start;
   gap: 10px;
+
+  &:hover {
+    background-color: #edf5f5;
+  }
 `
 
 export const HomeSearchLists = styled(SearchLists)<{
@@ -59,4 +63,6 @@ export const SearchListPosition = styled.p`
   font-weight: 400;
   font-size: ${(props) => props.theme.fontsizes.font13}rem;
   color: ${(props) => props.theme.colors.grey600};
+  width: 320px;
+  ${(props) => props.theme.mixins.ellipse}
 `

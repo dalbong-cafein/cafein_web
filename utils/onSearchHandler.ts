@@ -4,7 +4,7 @@ import { NextRouter } from 'next/router'
 import { ChangeEvent, Dispatch, KeyboardEvent, MouseEvent } from 'react'
 import { IStore } from '../store'
 
-interface useHandlerInputsProps {
+interface onHandlerInputsProps {
   e: ChangeEvent<HTMLInputElement>
   setInputs: (update: SetStateAction<string>) => void
   timer: NodeJS.Timeout | undefined
@@ -12,19 +12,19 @@ interface useHandlerInputsProps {
   setSearchLists: (update: SetStateAction<IStore[]>) => void
 }
 
-interface useHandleClearEventProps {
+interface onHandleClearEventProps {
   e: MouseEvent<HTMLButtonElement>
   setInputs: (update: SetStateAction<string>) => void
   setSearchLists: (update: SetStateAction<IStore[]>) => void
 }
 
-export const useHandleInputs = async ({
+export const onHandleInputs = async ({
   e,
   setInputs,
   timer,
   setTimer,
   setSearchLists
-}: useHandlerInputsProps) => {
+}: onHandlerInputsProps) => {
   setInputs(e.target.value)
   if (!e.target.value.length) {
     setSearchLists([])
@@ -50,7 +50,9 @@ export const useHandleInputs = async ({
       //     category_group_code: 'CE7'
       //   }
       // })
-      const response = await axios.get(`/api/web/stores?keyword=${encodeURI(e.target.value)}`)
+      const response = await axios.get(
+        `/api/web/stores?keyword=${encodeURI(e.target.value)}`
+      )
       console.log(response)
       const data = response.data.data
       setSearchLists(data)
@@ -62,11 +64,11 @@ export const useHandleInputs = async ({
   return
 }
 
-export const useHandleClearEvent = ({
+export const onHandleClearEvent = ({
   e,
   setInputs,
   setSearchLists
-}: useHandleClearEventProps) => {
+}: onHandleClearEventProps) => {
   e.preventDefault()
   setInputs('')
   setSearchLists([])

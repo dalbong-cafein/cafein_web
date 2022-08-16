@@ -9,9 +9,9 @@ import {
 } from '../../store'
 import {
   onEnterPress,
-  useHandleClearEvent,
-  useHandleInputs
-} from '../../utils/useSearchHandler'
+  onHandleClearEvent,
+  onHandleInputs
+} from '../../utils/onSearchHandler'
 import {
   HomeSearchLists,
   SearchList,
@@ -40,6 +40,7 @@ const Search = () => {
   const autoRef = useRef<HTMLUListElement>(null)
 
   const handleKeyArrow = (e: KeyboardEvent<HTMLInputElement>) => {
+    console.log(e.key, index)
     if (e.key === 'Backspace') {
       return
     }
@@ -50,7 +51,9 @@ const Search = () => {
           setIsClicked(true)
           autoRef.current?.scrollTo({ top: index * 70.19 })
           setIndex(index + 1)
-          if (autoRef.current?.childElementCount === index + 1) setIndex(0)
+          if (autoRef.current?.childElementCount === index + 1) {
+            setIndex(0)
+          }
           break
         case 'ArrowUp':
           autoRef.current?.scrollTo({ top: (index - 1) * 70.19 })
@@ -79,7 +82,7 @@ const Search = () => {
           placeholder="카페 이름이나 지하철역을 검색해보세요"
           value={inputs}
           onChange={(e) =>
-            useHandleInputs({
+            onHandleInputs({
               e,
               setInputs,
               timer,
@@ -93,7 +96,7 @@ const Search = () => {
         />
         <ClearButton
           isInput={inputs === '' ? false : true}
-          onClick={(e) => useHandleClearEvent({ e, setInputs, setSearchLists })}
+          onClick={(e) => onHandleClearEvent({ e, setInputs, setSearchLists })}
         />
       </InputWrapper>
       <HomeSearchLists
