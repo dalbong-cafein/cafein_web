@@ -1,7 +1,7 @@
 import { useAtom, useAtomValue } from 'jotai'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { KeyboardEvent, useRef, useState } from 'react'
+import { KeyboardEvent, useEffect, useRef, useState } from 'react'
 import {
   searchInputAtom,
   searchListsAtom,
@@ -38,39 +38,57 @@ const Search = () => {
   const { pathname } = router
   const [index, setIndex] = useState(-1)
   const autoRef = useRef<HTMLUListElement>(null)
+  const [nodeLists, setNodeLists] = useState<HTMLCollection | undefined>()
+  let searchIdx = -1
+
+  useEffect(() => {
+    setNodeLists(autoRef.current?.children)
+  }, [autoRef])
 
   const handleKeyArrow = (e: KeyboardEvent<HTMLInputElement>) => {
-    console.log(e.key, index)
+    console.log(e.key, index, '누른다!!')
     if (e.key === 'Backspace') {
       return
     }
-    if (searchLists) {
-      if (index !== -1) e.preventDefault()
+    console.log(searchIdx)
+    if (searchLists && nodeLists && nodeLists?.length > 0) {
       switch (e.key) {
         case 'ArrowDown':
-          setIsClicked(true)
-          autoRef.current?.scrollTo({ top: index * 70.19 })
-          setIndex(index + 1)
-          if (autoRef.current?.childElementCount === index + 1) {
-            setIndex(0)
+          e.preventDefault()
+          if (searchIdx === -1) {
+            console.log(searchIdx)
+            searchIdx += 1
+            nodeLists[searchIdx].classList.toggle('active')
+          } else {
+            nodeLists[searchIdx].classList.toggle('active')
+            searchIdx += 1
+            if (searchIdx === autoRef.current?.childElementCount) {
+              searchIdx = 0
+            }
+            nodeLists[searchIdx].classList.toggle('active')
           }
+          autoRef.current?.scrollTo({ top: searchIdx * 70.19 })
           break
         case 'ArrowUp':
-          autoRef.current?.scrollTo({ top: (index - 1) * 70.19 })
-          setIndex(index - 1)
-          if (index <= 0) {
-            setIndex(-1)
+          e.preventDefault()
+          if (searchIdx === -1) return
+          nodeLists[searchIdx].classList.toggle('active')
+          searchIdx -= 1
+          if (searchIdx === -1) {
+            searchIdx = (autoRef.current?.childElementCount as number) - 1
           }
-          break
-        case 'Escape':
-          autoRef.current?.scrollTo({ top: 0 })
-          setIsClicked(false)
-          setIndex(-1)
+          autoRef.current?.scrollTo({ top: searchIdx * 70.19 })
+          nodeLists[searchIdx].classList.toggle('active')
           break
         case 'Enter':
           onEnterPress(e, inputs, router)
           break
+        default:
+          autoRef.current?.scrollTo({ top: 0 })
+          searchIdx = -1
+          break
       }
+      return
     }
   }
 

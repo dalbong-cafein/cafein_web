@@ -22,6 +22,10 @@ export const SearchList = styled.li<{ isFocus: boolean }>`
   align-items: flex-start;
   gap: 10px;
 
+  &.active {
+    background-color: #edf5f5;
+  }
+
   &:hover {
     background-color: #edf5f5;
   }
