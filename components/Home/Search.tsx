@@ -40,23 +40,21 @@ const Search = () => {
   const autoRef = useRef<HTMLUListElement>(null)
   const [nodeLists, setNodeLists] = useState<HTMLCollection | undefined>()
   let searchIdx = -1
+  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     setNodeLists(autoRef.current?.children)
   }, [autoRef])
 
   const handleKeyArrow = (e: KeyboardEvent<HTMLInputElement>) => {
-    console.log(e.key, index, '누른다!!')
     if (e.key === 'Backspace') {
       return
     }
-    console.log(searchIdx)
     if (searchLists && nodeLists && nodeLists?.length > 0) {
       switch (e.key) {
         case 'ArrowDown':
           e.preventDefault()
           if (searchIdx === -1) {
-            console.log(searchIdx)
             searchIdx += 1
             nodeLists[searchIdx].classList.toggle('active')
           } else {
@@ -96,6 +94,7 @@ const Search = () => {
     <SearchFormWrapper isMap={pathname === '/maps' ? true : false}>
       <InputWrapper>
         <SearchInput
+          ref={inputRef}
           isMap={pathname === '/maps' ? true : false}
           placeholder="카페 이름이나 지하철역을 검색해보세요"
           value={inputs}
@@ -108,13 +107,29 @@ const Search = () => {
               setSearchLists
             })
           }
-          onFocus={() => setIsClicked(true)}
+          onFocus={(e) => {
+            if (inputs && !searchLists.length) {
+              setInputs(inputRef.current?.value as string)
+              onHandleInputs({
+                e,
+                setInputs,
+                timer,
+                setTimer,
+                setSearchLists
+              })
+            }
+            setIsClicked(true)
+          }}
           onBlur={() => setIsClicked(false)}
           onKeyDown={handleKeyArrow}
         />
         <ClearButton
           isInput={inputs === '' ? false : true}
-          onClick={(e) => onHandleClearEvent({ e, setInputs, setSearchLists })}
+          onClick={(e) => {
+            // inputRef.current?.value = ''
+            inputRef.current?.focus()
+            onHandleClearEvent({ e, setInputs, setSearchLists })
+          }}
         />
       </InputWrapper>
       <HomeSearchLists

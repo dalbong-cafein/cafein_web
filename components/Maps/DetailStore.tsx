@@ -79,7 +79,6 @@ const DetailStore = () => {
   }
 
   useEffect(() => {
-    console.log('hello Funk')
     async function getDetailStore() {
       try {
         const response = await axios.get(`/api/stores/${storeId}`)
@@ -95,7 +94,6 @@ const DetailStore = () => {
         const res = await axios.get(
           `/api/stores/${storeId}/detail-review-score`
         )
-        console.log(res.data)
         const data: CafeRewviewPointInterface = res.data.data
         setCafePoints(data)
       } catch (error) {
@@ -108,7 +106,6 @@ const DetailStore = () => {
           `/api/web/stores/${storeId}/recommendations`
         )
         const { data } = response.data
-        console.log(data, '데이터를 보여줘!!')
         const { recommendPercentOfStore, recommendation } = data
         setCafeReviewPercent(recommendPercentOfStore)
         if (recommendation === 'BAD') {

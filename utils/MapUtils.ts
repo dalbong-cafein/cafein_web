@@ -1,7 +1,6 @@
 import { IStore } from '../store'
 
 const getMapCenterByInputs = (map: naver.maps.Map, address: string) => {
-  console.log(map, '내가 이렇게 잘 있는데?')
   naver.maps.Service.geocode(
     {
       query: address
@@ -24,22 +23,25 @@ const getMapCenterByInputs = (map: naver.maps.Map, address: string) => {
 }
 
 const getMapItems = (map: naver.maps.Map, cafes: IStore[], storeId: number) => {
+  const markers: naver.maps.Marker[] = []
   cafes.forEach((cafe) => {
     if (cafe.storeId === storeId) {
       map.setCenter(new naver.maps.LatLng(cafe.latY, cafe.lngX))
     }
-    new naver.maps.Marker({
-      map: map as naver.maps.Map,
-      position: new naver.maps.LatLng(cafe.latY, cafe.lngX),
-      icon: {
-        content:
-          cafe.storeId === storeId
-            ? `<div class="marker active">${cafe.storeName}</div>`
-            : `<div class='marker'>${cafe.storeName}</div>`
-      }
-    })
+    markers.push(
+      new naver.maps.Marker({
+        map: map as naver.maps.Map,
+        position: new naver.maps.LatLng(cafe.latY, cafe.lngX),
+        icon: {
+          content:
+            cafe.storeId === storeId
+              ? `<div class="marker active">${cafe.storeName}</div>`
+              : `<div class='marker'>${cafe.storeName}</div>`
+        }
+      })
+    )
   })
-  return
+  return markers
 }
 
 export { getMapCenterByInputs, getMapItems }

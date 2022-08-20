@@ -16,8 +16,6 @@ const MapLayout = ({ children }: MapLayoutProps) => {
   const router = useRouter()
   const { search, storeId } = router.query
   const [inHoverClose, setInHoverClose] = useState(false)
-  console.log('hello 내가 layout', children)
-  console.log('bye 내가 storeId', storeId)
   const { cafeDatas } = children.props
   return (
     <>

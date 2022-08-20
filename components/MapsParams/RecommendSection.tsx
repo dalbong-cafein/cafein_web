@@ -49,7 +49,6 @@ const RecommendSection = ({
         `/api/web/stores/${storeId}/recommendations`
       )
       const { data } = response.data
-      console.log(data, '데이터를 보여줘!!')
       const { recommendPercentOfStore, recommendation } = data
       setCafeReviewPercent(recommendPercentOfStore)
       if (recommendation === 'BAD') {

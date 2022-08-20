@@ -53,7 +53,6 @@ export const onHandleInputs = async ({
       const response = await axios.get(
         `/api/web/stores?keyword=${encodeURI(e.target.value)}`
       )
-      console.log(response)
       const data = response.data.data
       setSearchLists(data)
     } catch (error) {

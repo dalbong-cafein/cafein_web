@@ -1,7 +1,13 @@
 import { useAtom } from 'jotai'
 import { ReactElement, useEffect, useState } from 'react'
 import MapLayout from '../../components/Maps/MapLayout'
-import { IStore, mapAtom, searchInputAtom, searchListsAtom } from '../../store'
+import {
+  IStore,
+  mapAtom,
+  mapMarkerList,
+  searchInputAtom,
+  searchListsAtom
+} from '../../store'
 import { NextPageWithLayout } from '../_app'
 import styled from 'styled-components'
 import Link from 'next/link'
@@ -30,22 +36,34 @@ const Maps: NextPageWithLayout<{
 }> = ({ search, cafeDatas }) => {
   const [inputs, setInputs] = useAtom(searchInputAtom)
   const [map, setMap] = useAtom(mapAtom)
+  const [markers, setMarkers] = useAtom(mapMarkerList)
   const router = useRouter()
   const { storeId } = router.query
   const [isOpenDetail, setIsOpenDetail] = useState(false)
+
   useEffect(() => {
+    if (!inputs) setInputs(search as string)
+  }, [])
+
+  useEffect(() => {
+    console.log(search, inputs, '뭐야 ??')
     if (!map) setMap(initMap.init())
-    if (search && search !== inputs) {
-      setInputs(search)
+    if (search && search !== inputs && map) {
+      console.log('변해라 얍!')
+      getMapCenterByInputs(map, search as string)
+      // if (markers) markers.forEach((marker) => marker.setMap(null))
     }
     if (map) {
+      console.log(cafeDatas)
       if (cafeDatas) {
-        getMapItems(map, cafeDatas as IStore[], Number(storeId) as number)
+        setMarkers(
+          getMapItems(map, cafeDatas as IStore[], Number(storeId) as number)
+        )
       } else {
         getMapCenterByInputs(map, search as string)
       }
     }
-  }, [router, map])
+  }, [router, map, inputs])
   return (
     <>
       <Wrapper>
@@ -180,7 +198,6 @@ Maps.getLayout = function getLayout(page: ReactElement) {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  console.log(query, '내가 바로 진짜 쿼리')
   if (query.search) {
     const { search } = query
     try {

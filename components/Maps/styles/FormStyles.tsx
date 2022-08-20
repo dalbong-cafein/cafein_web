@@ -38,6 +38,7 @@ export const HomeSearchLists = styled(SearchLists)<{
   display: ${(props) => (props.isDisplay ? 'block' : 'none')};
   width: ${(props) => (props.isMap ? '352px' : '400px')};
   top: ${(props) => (props.isMap ? '34px' : '64px')};
+  overflow-x: hidden;
   &::-webkit-scrollbar {
     width: 6px;
   }
