@@ -35,15 +35,18 @@ export const GlobalStyle = createGlobalStyle`
     padding: 12px 16px;
     background-color: white;
     border-radius: 99px;
-    border: 1.2px solid ${(props) => props.theme.colors.orange400}
+    border: 1.2px solid ${(props) => props.theme.colors.orange400};
+    font-weight: 600;
+    font-size: 15px;
+    height: 40px;
   }
   .marker::before {
     position: absolute;
-    bottom: -12px;
+    bottom: -6px;
     content: '';
-    width: 20px;
-    height: 20px;
-    border-radius: 2px;
+    width: 8px;
+    height: 8px;
+    border-top-right-radius: 2px;
     border-top: 1.2px solid ${(props) => props.theme.colors.orange400};
     border-right: 1.2px solid ${(props) => props.theme.colors.orange400};
     background-color: white;

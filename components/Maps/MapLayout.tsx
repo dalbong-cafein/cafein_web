@@ -17,6 +17,7 @@ const MapLayout = ({ children }: MapLayoutProps) => {
   const { search, storeId } = router.query
   const [inHoverClose, setInHoverClose] = useState(false)
   console.log('hello 내가 layout', children)
+  console.log('bye 내가 storeId', storeId)
   const { cafeDatas } = children.props
   return (
     <>
@@ -54,7 +55,7 @@ const MapLayout = ({ children }: MapLayoutProps) => {
       ) : (
         ''
       )}
-      <Map search={search as string} cafeDatas={cafeDatas} />
+      <Map />
     </>
   )
 }

@@ -1,7 +1,7 @@
 import { useAtom } from 'jotai'
 import { ReactElement, useEffect, useState } from 'react'
 import MapLayout from '../../components/Maps/MapLayout'
-import { IStore, searchInputAtom, searchListsAtom } from '../../store'
+import { IStore, mapAtom, searchInputAtom, searchListsAtom } from '../../store'
 import { NextPageWithLayout } from '../_app'
 import styled from 'styled-components'
 import Link from 'next/link'
@@ -21,20 +21,31 @@ import getHours from '../../utils/getHours'
 import { useRouter } from 'next/router'
 import Search from '../../components/Home/Search'
 import Image from 'next/image'
+import { getMapCenterByInputs, getMapItems } from '../../utils/MapUtils'
+import initMap from '../../utils/initMap'
 
 const Maps: NextPageWithLayout<{
   search?: string
   cafeDatas?: IStore[]
 }> = ({ search, cafeDatas }) => {
   const [inputs, setInputs] = useAtom(searchInputAtom)
+  const [map, setMap] = useAtom(mapAtom)
   const router = useRouter()
   const { storeId } = router.query
   const [isOpenDetail, setIsOpenDetail] = useState(false)
   useEffect(() => {
+    if (!map) setMap(initMap.init())
     if (search && search !== inputs) {
       setInputs(search)
     }
-  }, [router])
+    if (map) {
+      if (cafeDatas) {
+        getMapItems(map, cafeDatas as IStore[], Number(storeId) as number)
+      } else {
+        getMapCenterByInputs(map, search as string)
+      }
+    }
+  }, [router, map])
   return (
     <>
       <Wrapper>
