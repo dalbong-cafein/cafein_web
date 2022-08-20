@@ -1,4 +1,6 @@
-const init = () => {
+import { getMapCenterByInputs } from './MapUtils'
+
+const init = (search: string) => {
   const mapOptions = {
     zoomControl: true,
     zoomControlOptions: {
@@ -15,6 +17,13 @@ const init = () => {
     mapDataControl: false
   }
   const map = new naver.maps.Map('map', mapOptions)
+  getMapCenterByInputs(map, search)
+    .then((result: boolean) => {
+      console.log('wow', result)
+    })
+    .catch((err: boolean) => {
+      console.error('wow', err)
+    })
   return map
 }
 

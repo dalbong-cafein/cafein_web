@@ -19,8 +19,15 @@ import Search from '../components/Home/Search'
 import TabList from '../components/Home/TabList'
 import RecommendItems from '../components/Home/RecommendItems'
 import Footer from '../components/Home/Footer'
+import { useEffect } from 'react'
+import { useSetAtom } from 'jotai'
+import { mapAtom } from '../store'
 
 const Home: NextPage = () => {
+  const setMap = useSetAtom(mapAtom)
+  useEffect(() => {
+    setMap(null)
+  }, [])
   return (
     <Wrapper>
       <Head>

@@ -43,24 +43,22 @@ const Maps: NextPageWithLayout<{
 
   useEffect(() => {
     if (!inputs) setInputs(search as string)
+    if (!map) setMap(initMap.init(search as string))
   }, [])
 
   useEffect(() => {
     console.log(search, inputs, '뭐야 ??')
-    if (!map) setMap(initMap.init())
     if (search && search !== inputs && map) {
       console.log('변해라 얍!')
       getMapCenterByInputs(map, search as string)
       // if (markers) markers.forEach((marker) => marker.setMap(null))
     }
     if (map) {
-      console.log(cafeDatas)
+      console.log('하이 그;얌둥이 카페들', cafeDatas)
       if (cafeDatas) {
         setMarkers(
           getMapItems(map, cafeDatas as IStore[], Number(storeId) as number)
         )
-      } else {
-        getMapCenterByInputs(map, search as string)
       }
     }
   }, [router, map, inputs])
