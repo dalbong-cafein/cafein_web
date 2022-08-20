@@ -56,7 +56,7 @@ export default class MyDocument extends Document {
 
           <Script
             strategy="beforeInteractive"
-            src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NAVER_PUBLIC_KEY}`}
+            src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NAVER_PUBLIC_KEY}&submodules=geocoder`}
           />
         </Head>
         <body>

@@ -52,7 +52,7 @@ const MapLayout = ({ children }: MapLayoutProps) => {
       ) : (
         ''
       )}
-      <Map />
+      <Map search={search as string} />
     </>
   )
 }

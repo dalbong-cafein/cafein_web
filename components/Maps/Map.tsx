@@ -1,11 +1,10 @@
 import { useEffect } from 'react'
 import { MapBox } from './styles/styles'
 
-const Map = () => {
+const Map = ({ search }: { search?: string }) => {
   useEffect(() => {
     const initMap = () => {
       const map = new naver.maps.Map('map', {
-        center: new naver.maps.LatLng(37.566, 126.9784),
         zoomControl: true,
         zoomControlOptions: {
           style: naver.maps.ZoomControlStyle.SMALL,
@@ -20,6 +19,29 @@ const Map = () => {
           position: naver.maps.Position.BOTTOM_LEFT
         }
       })
+      const searchAddressToCoordinate = (address: string) =>
+        naver.maps.Service.geocode(
+          {
+            query: address
+          },
+          (status, response) => {
+            if (status === naver.maps.Service.Status.ERROR) {
+              if (!address) {
+                return alert('Geocode Error, Please Check address')
+              }
+              return alert('Geocode Error, address: ' + address)
+            }
+            if (response.v2.meta.totalCount === 0) {
+              return alert('No result.') // ➡️ 검색 결과가 없으니 Not Found 404 페이지로 ㄱㄱ
+            }
+            const item = response.v2.addresses[0]
+            const point = new naver.maps.Point(Number(item.x), Number(item.y))
+            map.setCenter(point)
+          }
+        )
+      if (search) {
+        searchAddressToCoordinate(search)
+      }
     }
     initMap()
   }, [])

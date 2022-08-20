@@ -12,8 +12,6 @@ const MainWrapper = styled.div`
   min-width: 375px;
   z-index: 1;
   filter: drop-shadow(8px 0px 20px rgba(0, 0, 0, 0.08));
-
-
 `
 
 const DetailWrapper = styled.div<{ isDetail: boolean }>`

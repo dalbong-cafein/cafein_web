@@ -61,7 +61,11 @@ const Maps: NextPageWithLayout<{
               <CurrentPopularItem
                 key={cafe.storeId}
                 onClick={() => setIsOpenDetail(true)}
-                isClicked={storeId && storeId as string === String(cafe.storeId) ? true : false}
+                isClicked={
+                  storeId && (storeId as string) === String(cafe.storeId)
+                    ? true
+                    : false
+                }
               >
                 <Link
                   href={{
