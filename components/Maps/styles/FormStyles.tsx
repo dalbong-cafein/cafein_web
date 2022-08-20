@@ -1,5 +1,10 @@
 import styled from 'styled-components'
 
+interface HomeSearchListsProps {
+  isDisplay: boolean
+  isMap: boolean
+}
+
 export const SearchLists = styled.ul`
   position: absolute;
   z-index: 2;
@@ -21,6 +26,7 @@ export const SearchList = styled.li<{ isFocus: boolean }>`
   flex-direction: row;
   align-items: flex-start;
   gap: 10px;
+  z-index: 3;
 
   &.active {
     background-color: #edf5f5;
@@ -28,13 +34,11 @@ export const SearchList = styled.li<{ isFocus: boolean }>`
 
   &:hover {
     background-color: #edf5f5;
+    cursor: pointer;
   }
 `
 
-export const HomeSearchLists = styled(SearchLists)<{
-  isDisplay: boolean
-  isMap: boolean
-}>`
+export const HomeSearchLists = styled(SearchLists)<HomeSearchListsProps>`
   display: ${(props) => (props.isDisplay ? 'block' : 'none')};
   width: ${(props) => (props.isMap ? '352px' : '400px')};
   top: ${(props) => (props.isMap ? '34px' : '64px')};
@@ -46,6 +50,11 @@ export const HomeSearchLists = styled(SearchLists)<{
     background-color: ${(props) => props.theme.colors.grey300};
     border-radius: 4px;
   }
+`
+
+export const SearchListItemWrapper = styled.div`
+  display: flex;
+  gap: 10px;
 `
 
 export const SearchListDescs = styled.div`

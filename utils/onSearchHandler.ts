@@ -77,25 +77,35 @@ export const onHandleClearEvent = ({
 }
 
 export const onEnterPress = (
-  e: KeyboardEvent<HTMLInputElement>,
+  e: KeyboardEvent<HTMLInputElement> | MouseEvent<HTMLLIElement>,
   inputs: string,
   router: NextRouter,
   map: naver.maps.Map | null,
   markers: naver.maps.Marker[],
-  setIsClicked: Dispatch<SetStateAction<boolean>>
+  setIsClicked: Dispatch<SetStateAction<boolean>>,
+  storeId?: number
 ) => {
-  if (e.key === 'Enter') {
+  if (storeId) {
+    router.push({
+      pathname: `maps`,
+      query: {
+        search: inputs,
+        storeId: storeId
+      }
+    })
+  } else {
     router.push({
       pathname: `maps`,
       query: {
         search: inputs
       }
     })
-    if (map) {
-      getMapCenterByInputs(map, inputs)
-      markers.forEach((marker) => marker.setMap(null))
-    }
-    setIsClicked(false)
   }
+  if (map) {
+    getMapCenterByInputs(map, inputs)
+    markers.forEach((marker) => marker.setMap(null))
+  }
+  setIsClicked(false)
+
   return
 }

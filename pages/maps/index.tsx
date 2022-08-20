@@ -40,6 +40,7 @@ const Maps: NextPageWithLayout<{
   const router = useRouter()
   const { storeId } = router.query
   const [isOpenDetail, setIsOpenDetail] = useState(false)
+  console.log(router.query, '야 신기한거 보여줌')
 
   useEffect(() => {
     if (!inputs) setInputs(search as string)

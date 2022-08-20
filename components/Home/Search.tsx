@@ -1,8 +1,10 @@
 import { useAtom, useAtomValue } from 'jotai'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { KeyboardEvent, useEffect, useRef, useState } from 'react'
 import {
+  cafeInfoAtom,
   mapAtom,
   mapMarkerList,
   searchInputAtom,
@@ -18,6 +20,7 @@ import {
   HomeSearchLists,
   SearchList,
   SearchListDescs,
+  SearchListItemWrapper,
   SearchListPosition,
   SearchListStrong,
   SearchListTitle
@@ -40,21 +43,40 @@ const Search = () => {
   const { pathname } = router
   const [index, setIndex] = useState(-1)
   const autoRef = useRef<HTMLUListElement>(null)
-  const [nodeLists, setNodeLists] = useState<HTMLCollection | undefined>()
+  const [nodeLists, setNodeLists] = useState<HTMLCollection>()
   let searchIdx = -1
   const inputRef = useRef<HTMLInputElement>(null)
   const [map, setMap] = useAtom(mapAtom)
   const markers = useAtomValue(mapMarkerList)
 
   useEffect(() => {
-    setNodeLists(autoRef.current?.children)
+    setNodeLists(autoRef.current?.children as HTMLCollection)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const handleClickOutside = (event: MouseEvent | any): void => {
+      if (
+        inputRef.current &&
+        autoRef.current &&
+        !autoRef.current.contains(event.target as Node) &&
+        event.target !== inputRef.current
+      ) {
+        setIsClicked(false)
+        if (nodeLists && nodeLists.length > 0) {
+          for (let i = 0; i < nodeLists.length; i++)
+            nodeLists[i].classList.remove('active')
+        }
+      }
+    }
+    window.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      window.removeEventListener('mousedown', handleClickOutside)
+    }
   }, [autoRef])
 
   const handleKeyArrow = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Backspace') {
       return
     }
-    if (searchLists && nodeLists && nodeLists?.length > 0) {
+    if (searchLists && nodeLists && nodeLists.length > 0) {
       switch (e.key) {
         case 'ArrowDown':
           e.preventDefault()
@@ -83,7 +105,19 @@ const Search = () => {
           nodeLists[searchIdx].classList.toggle('active')
           break
         case 'Enter':
-          onEnterPress(e, inputs, router, map, markers, setIsClicked)
+          if (searchIdx !== -1) {
+            onEnterPress(
+              e,
+              searchLists[searchIdx].storeName,
+              router,
+              map,
+              markers,
+              setIsClicked,
+              searchLists[searchIdx].storeId
+            )
+          } else {
+            onEnterPress(e, inputs, router, map, markers, setIsClicked)
+          }
           break
         default:
           autoRef.current?.scrollTo({ top: 0 })
@@ -124,7 +158,6 @@ const Search = () => {
             }
             setIsClicked(true)
           }}
-          onBlur={() => setIsClicked(false)}
           onKeyDown={handleKeyArrow}
         />
         <ClearButton
@@ -146,6 +179,19 @@ const Search = () => {
             <SearchList
               key={searchList.storeId}
               isFocus={index === idx ? true : false}
+              onClick={(e) => {
+                {
+                  onEnterPress(
+                    e,
+                    searchList.storeName,
+                    router,
+                    map,
+                    markers,
+                    setIsClicked,
+                    searchList.storeId
+                  )
+                }
+              }}
             >
               <Image
                 src={'/images/location.svg'}
