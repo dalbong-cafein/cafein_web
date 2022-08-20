@@ -80,7 +80,8 @@ export const ClearButton = styled.button<{ isInput: boolean }>`
   display: ${(props) => (props.isInput ? 'block' : 'none')};
   position: absolute;
   right: 12px;
-  top: 11px;
+  top: 50%;
+  transform: translateY(-82%);
   width: 24px;
   height: 24px;
   background-image: url('/images/clear_circle.svg');

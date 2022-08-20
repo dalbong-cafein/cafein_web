@@ -91,7 +91,7 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
   }
 
   useEffect(() => {
-    if (!inputs) setInputs(search as string)
+    if (!inputs || inputs !== search) setInputs(search as string)
     if (!map && cafe) {
       setMap(initMap.init('', [cafe.latY as number, cafe.lngX as number]))
     } else if (map && cafe) {
@@ -172,214 +172,244 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
   }, [storeId])
   return (
     <>
-      <Head>
-        <title>
-          카페인 |{' '}
-          {router.query.storeName
-            ? router.query.storeName
-            : cafeInfo?.storeName}
-        </title>
-      </Head>
-      <ImageSection />
-      <CafeInfoSection />
-      <CafePOintsSection />
-      <RecommendSection
-        isHovering_1={isHovering_1}
-        setIsHovering_1={setIsHovering_1}
-        isHovering_2={isHovering_2}
-        setIsHovering_2={setIsHovering_2}
-        isHovering_3={isHovering_3}
-        setIsHovering_3={setIsHovering_3}
-      />
-      <CafeInfoWrapper>
-        <WrapperTitle>혼잡도</WrapperTitle>
-        <ButtonWrapper>
-          <Select isOpened={false}>
-            월요일
-            <Image src="/images/down_arrow.svg" width={16} height={16} />
-          </Select>
-          <CongestionBtn>혼잡도 알려주기</CongestionBtn>
-        </ButtonWrapper>
-        <CongestionWrapper>
-          <CongestionItem>
-            <GreenCircle>여유</GreenCircle>
-            <CongestionSubWrapper>
-              <CongestionTitle>
-                <CongestionUser>달봉</CongestionUser>님의 제보
-              </CongestionTitle>
-              <CongestionDescWrapper>
+      <CafeWrapper>
+        <Head>
+          <title>
+            카페인 |{' '}
+            {router.query.storeName
+              ? router.query.storeName
+              : cafeInfo?.storeName}
+          </title>
+        </Head>
+        <ImageSection />
+        <CafeInfoSection />
+        <CafePOintsSection />
+        <RecommendSection
+          isHovering_1={isHovering_1}
+          setIsHovering_1={setIsHovering_1}
+          isHovering_2={isHovering_2}
+          setIsHovering_2={setIsHovering_2}
+          isHovering_3={isHovering_3}
+          setIsHovering_3={setIsHovering_3}
+        />
+        <CafeInfoWrapper>
+          <WrapperTitle>혼잡도</WrapperTitle>
+          <ButtonWrapper>
+            <Select isOpened={false}>
+              월요일
+              <Image src="/images/down_arrow.svg" width={16} height={16} />
+            </Select>
+            <CongestionBtn>혼잡도 알려주기</CongestionBtn>
+          </ButtonWrapper>
+          <CongestionWrapper>
+            <CongestionItem>
+              <GreenCircle>여유</GreenCircle>
+              <CongestionSubWrapper>
+                <CongestionTitle>
+                  <CongestionUser>달봉</CongestionUser>님의 제보
+                </CongestionTitle>
+                <CongestionDescWrapper>
+                  <CongestionDesc>30분전</CongestionDesc>
+                  <CongestionLates>·</CongestionLates>
+                  <CongestionLates>가장 최근에 공유했어요</CongestionLates>
+                </CongestionDescWrapper>
+              </CongestionSubWrapper>
+            </CongestionItem>
+            <CongestionItem>
+              <GreyCircle>여유</GreyCircle>
+              <CongestionSubWrapper>
+                <CongestionTitle>
+                  <CongestionUser>달봉</CongestionUser>님의 제보
+                </CongestionTitle>
                 <CongestionDesc>30분전</CongestionDesc>
-                <CongestionLates>·</CongestionLates>
-                <CongestionLates>가장 최근에 공유했어요</CongestionLates>
-              </CongestionDescWrapper>
-            </CongestionSubWrapper>
-          </CongestionItem>
-          <CongestionItem>
-            <GreyCircle>여유</GreyCircle>
-            <CongestionSubWrapper>
-              <CongestionTitle>
-                <CongestionUser>달봉</CongestionUser>님의 제보
-              </CongestionTitle>
-              <CongestionDesc>30분전</CongestionDesc>
-            </CongestionSubWrapper>
-          </CongestionItem>
-        </CongestionWrapper>
-      </CafeInfoWrapper>
-      <CafeInfoWrapper>
-        <WrapperTitle>근처에 있는 카공 카페를 찾아봤어요</WrapperTitle>
-        {isLeftActive ? (
-          <LeftArrowBtn onClick={handleLeft}>
-            <Image
-              src="/images/left_arrow_off.svg"
-              width={36}
-              height={36}
-              alt="왼쪽버튼"
-            />
-          </LeftArrowBtn>
-        ) : (
-          ''
-        )}
+              </CongestionSubWrapper>
+            </CongestionItem>
+          </CongestionWrapper>
+        </CafeInfoWrapper>
+        <CafeInfoWrapper>
+          <WrapperTitle>근처에 있는 카공 카페를 찾아봤어요</WrapperTitle>
+          {isLeftActive ? (
+            <LeftArrowBtn onClick={handleLeft}>
+              <Image
+                src="/images/left_arrow_off.svg"
+                width={36}
+                height={36}
+                alt="왼쪽버튼"
+              />
+            </LeftArrowBtn>
+          ) : (
+            ''
+          )}
 
-        {isRightActive ? (
-          <RightArrowBtn onClick={handleRight}>
-            <Image
-              src="/images/right_arrow_off.svg"
-              width={36}
-              height={36}
-              alt="오른쪽버튼"
-            />
-          </RightArrowBtn>
-        ) : (
-          ''
-        )}
+          {isRightActive ? (
+            <RightArrowBtn onClick={handleRight}>
+              <Image
+                src="/images/right_arrow_off.svg"
+                width={36}
+                height={36}
+                alt="오른쪽버튼"
+              />
+            </RightArrowBtn>
+          ) : (
+            ''
+          )}
 
-        <ScrollWrapper ref={autoRef}>
-          <CardItem>
-            <CardImgWrapper>
-              <Image src="/images/temp_img.png" width={70} height={70} />
-              <Image src="/images/temp_img.png" width={70} height={70} />
-              <Image src="/images/temp_img.png" width={70} height={70} />
-            </CardImgWrapper>
-            <CardDescWrapper>
-              <CardTitle>엔젤리너스 L7홍대점</CardTitle>
-              <CardTextWrapper>
-                <OnAirBadge>영업중</OnAirBadge>
-                <GreenLight>여유</GreenLight>
-              </CardTextWrapper>
-              <CardTextWrapper>
-                <CardEmojiWrapper>
-                  <Image src="/images/navigation.svg" width={16} height={16} />
-                  <NormalText>150m</NormalText>
-                </CardEmojiWrapper>
-                <CardEmojiWrapper>
-                  <Image src="/images/ddabong.svg" width={16} height={16} />
-                  <NormalText>79%</NormalText>
-                </CardEmojiWrapper>
-                <CardEmojiWrapper>
-                  <Image src="/images/heart.svg" width={16} height={16} />
-                  <NormalText>12</NormalText>
-                </CardEmojiWrapper>
-              </CardTextWrapper>
-            </CardDescWrapper>
-          </CardItem>
-          <CardItem>
-            <CardImgWrapper>
-              <Image src="/images/temp_img.png" width={70} height={70} />
-              <Image src="/images/temp_img.png" width={70} height={70} />
-              <Image src="/images/temp_img.png" width={70} height={70} />
-            </CardImgWrapper>
-            <CardDescWrapper>
-              <CardTitle>엔젤리너스 L7홍대점</CardTitle>
-              <CardTextWrapper>
-                <OnAirBadge>영업중</OnAirBadge>
-                <GreenLight>여유</GreenLight>
-              </CardTextWrapper>
-              <CardTextWrapper>
-                <CardEmojiWrapper>
-                  <Image src="/images/navigation.svg" width={16} height={16} />
-                  <NormalText>150m</NormalText>
-                </CardEmojiWrapper>
-                <CardEmojiWrapper>
-                  <Image src="/images/ddabong.svg" width={16} height={16} />
-                  <NormalText>79%</NormalText>
-                </CardEmojiWrapper>
-                <CardEmojiWrapper>
-                  <Image src="/images/heart.svg" width={16} height={16} />
-                  <NormalText>12</NormalText>
-                </CardEmojiWrapper>
-              </CardTextWrapper>
-            </CardDescWrapper>
-          </CardItem>
-          <CardItem>
-            <CardImgWrapper>
-              <Image src="/images/temp_img.png" width={70} height={70} />
-              <Image src="/images/temp_img.png" width={70} height={70} />
-              <Image src="/images/temp_img.png" width={70} height={70} />
-            </CardImgWrapper>
-            <CardDescWrapper>
-              <CardTitle>엔젤리너스 L7홍대점</CardTitle>
-              <CardTextWrapper>
-                <OnAirBadge>영업중</OnAirBadge>
-                <GreenLight>여유</GreenLight>
-              </CardTextWrapper>
-              <CardTextWrapper>
-                <CardEmojiWrapper>
-                  <Image src="/images/navigation.svg" width={16} height={16} />
-                  <NormalText>150m</NormalText>
-                </CardEmojiWrapper>
-                <CardEmojiWrapper>
-                  <Image src="/images/ddabong.svg" width={16} height={16} />
-                  <NormalText>79%</NormalText>
-                </CardEmojiWrapper>
-                <CardEmojiWrapper>
-                  <Image src="/images/heart.svg" width={16} height={16} />
-                  <NormalText>12</NormalText>
-                </CardEmojiWrapper>
-              </CardTextWrapper>
-            </CardDescWrapper>
-          </CardItem>
-          <CardItem>
-            <CardImgWrapper>
-              <Image src="/images/temp_img.png" width={70} height={70} />
-              <Image src="/images/temp_img.png" width={70} height={70} />
-              <Image src="/images/temp_img.png" width={70} height={70} />
-            </CardImgWrapper>
-            <CardDescWrapper>
-              <CardTitle>엔젤리너스 L7홍대점</CardTitle>
-              <CardTextWrapper>
-                <OnAirBadge>영업중</OnAirBadge>
-                <GreenLight>여유</GreenLight>
-              </CardTextWrapper>
-              <CardTextWrapper>
-                <CardEmojiWrapper>
-                  <Image src="/images/navigation.svg" width={16} height={16} />
-                  <NormalText>150m</NormalText>
-                </CardEmojiWrapper>
-                <CardEmojiWrapper>
-                  <Image src="/images/ddabong.svg" width={16} height={16} />
-                  <NormalText>79%</NormalText>
-                </CardEmojiWrapper>
-                <CardEmojiWrapper>
-                  <Image src="/images/heart.svg" width={16} height={16} />
-                  <NormalText>12</NormalText>
-                </CardEmojiWrapper>
-              </CardTextWrapper>
-            </CardDescWrapper>
-          </CardItem>
-        </ScrollWrapper>
-      </CafeInfoWrapper>
-      <AddWrapper2>
-        <AddLink2>
-          <AddLinkText2>추천하고 싶은 카페가 있다면 알려주세요</AddLinkText2>
-          <Link href="/">
-            <AddButton2>카페 등록하기</AddButton2>
-          </Link>
-        </AddLink2>
-      </AddWrapper2>
-      <Footer isHome={false} />
+          <ScrollWrapper ref={autoRef}>
+            <CardItem>
+              <CardImgWrapper>
+                <Image src="/images/temp_img.png" width={70} height={70} />
+                <Image src="/images/temp_img.png" width={70} height={70} />
+                <Image src="/images/temp_img.png" width={70} height={70} />
+              </CardImgWrapper>
+              <CardDescWrapper>
+                <CardTitle>엔젤리너스 L7홍대점</CardTitle>
+                <CardTextWrapper>
+                  <OnAirBadge>영업중</OnAirBadge>
+                  <GreenLight>여유</GreenLight>
+                </CardTextWrapper>
+                <CardTextWrapper>
+                  <CardEmojiWrapper>
+                    <Image
+                      src="/images/navigation.svg"
+                      width={16}
+                      height={16}
+                    />
+                    <NormalText>150m</NormalText>
+                  </CardEmojiWrapper>
+                  <CardEmojiWrapper>
+                    <Image src="/images/ddabong.svg" width={16} height={16} />
+                    <NormalText>79%</NormalText>
+                  </CardEmojiWrapper>
+                  <CardEmojiWrapper>
+                    <Image src="/images/heart.svg" width={16} height={16} />
+                    <NormalText>12</NormalText>
+                  </CardEmojiWrapper>
+                </CardTextWrapper>
+              </CardDescWrapper>
+            </CardItem>
+            <CardItem>
+              <CardImgWrapper>
+                <Image src="/images/temp_img.png" width={70} height={70} />
+                <Image src="/images/temp_img.png" width={70} height={70} />
+                <Image src="/images/temp_img.png" width={70} height={70} />
+              </CardImgWrapper>
+              <CardDescWrapper>
+                <CardTitle>엔젤리너스 L7홍대점</CardTitle>
+                <CardTextWrapper>
+                  <OnAirBadge>영업중</OnAirBadge>
+                  <GreenLight>여유</GreenLight>
+                </CardTextWrapper>
+                <CardTextWrapper>
+                  <CardEmojiWrapper>
+                    <Image
+                      src="/images/navigation.svg"
+                      width={16}
+                      height={16}
+                    />
+                    <NormalText>150m</NormalText>
+                  </CardEmojiWrapper>
+                  <CardEmojiWrapper>
+                    <Image src="/images/ddabong.svg" width={16} height={16} />
+                    <NormalText>79%</NormalText>
+                  </CardEmojiWrapper>
+                  <CardEmojiWrapper>
+                    <Image src="/images/heart.svg" width={16} height={16} />
+                    <NormalText>12</NormalText>
+                  </CardEmojiWrapper>
+                </CardTextWrapper>
+              </CardDescWrapper>
+            </CardItem>
+            <CardItem>
+              <CardImgWrapper>
+                <Image src="/images/temp_img.png" width={70} height={70} />
+                <Image src="/images/temp_img.png" width={70} height={70} />
+                <Image src="/images/temp_img.png" width={70} height={70} />
+              </CardImgWrapper>
+              <CardDescWrapper>
+                <CardTitle>엔젤리너스 L7홍대점</CardTitle>
+                <CardTextWrapper>
+                  <OnAirBadge>영업중</OnAirBadge>
+                  <GreenLight>여유</GreenLight>
+                </CardTextWrapper>
+                <CardTextWrapper>
+                  <CardEmojiWrapper>
+                    <Image
+                      src="/images/navigation.svg"
+                      width={16}
+                      height={16}
+                    />
+                    <NormalText>150m</NormalText>
+                  </CardEmojiWrapper>
+                  <CardEmojiWrapper>
+                    <Image src="/images/ddabong.svg" width={16} height={16} />
+                    <NormalText>79%</NormalText>
+                  </CardEmojiWrapper>
+                  <CardEmojiWrapper>
+                    <Image src="/images/heart.svg" width={16} height={16} />
+                    <NormalText>12</NormalText>
+                  </CardEmojiWrapper>
+                </CardTextWrapper>
+              </CardDescWrapper>
+            </CardItem>
+            <CardItem>
+              <CardImgWrapper>
+                <Image src="/images/temp_img.png" width={70} height={70} />
+                <Image src="/images/temp_img.png" width={70} height={70} />
+                <Image src="/images/temp_img.png" width={70} height={70} />
+              </CardImgWrapper>
+              <CardDescWrapper>
+                <CardTitle>엔젤리너스 L7홍대점</CardTitle>
+                <CardTextWrapper>
+                  <OnAirBadge>영업중</OnAirBadge>
+                  <GreenLight>여유</GreenLight>
+                </CardTextWrapper>
+                <CardTextWrapper>
+                  <CardEmojiWrapper>
+                    <Image
+                      src="/images/navigation.svg"
+                      width={16}
+                      height={16}
+                    />
+                    <NormalText>150m</NormalText>
+                  </CardEmojiWrapper>
+                  <CardEmojiWrapper>
+                    <Image src="/images/ddabong.svg" width={16} height={16} />
+                    <NormalText>79%</NormalText>
+                  </CardEmojiWrapper>
+                  <CardEmojiWrapper>
+                    <Image src="/images/heart.svg" width={16} height={16} />
+                    <NormalText>12</NormalText>
+                  </CardEmojiWrapper>
+                </CardTextWrapper>
+              </CardDescWrapper>
+            </CardItem>
+          </ScrollWrapper>
+        </CafeInfoWrapper>
+        <AddWrapper2>
+          <AddLink2>
+            <AddLinkText2>추천하고 싶은 카페가 있다면 알려주세요</AddLinkText2>
+            <Link href="/">
+              <AddButton2>카페 등록하기</AddButton2>
+            </Link>
+          </AddLink2>
+        </AddWrapper2>
+        <Footer isHome={false} />
+      </CafeWrapper>
     </>
   )
 }
+
+const CafeWrapper = styled.div`
+  height: calc(100vh - 88px);
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.colors.grey300};
+    border-radius: 4px;
+  }
+`
 
 const ButtonWrapper = styled.div`
   display: flex;

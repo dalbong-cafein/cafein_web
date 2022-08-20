@@ -167,8 +167,7 @@ const Wrapper = styled.header`
 const FilterWrapper = styled.ul`
   display: flex;
   gap: 6px;
-  padding: 10px 24px;
-  margin-top: 6px;
+  padding: 0 24px 16px;
 `
 
 const FilterItem = styled.li`
@@ -185,7 +184,7 @@ const CafeList = styled.ul`
   border-top: 1px solid ${(props) => props.theme.colors.grey100};
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 179.09px);
+  height: calc(100vh - 185.03px);
   overflow-y: auto;
 
   & li:not(:first-child)::after {
