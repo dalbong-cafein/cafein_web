@@ -18,8 +18,8 @@ export const HomeTitle = styled.h1`
 
 export const SearchFormWrapper = styled.div<{ isMap: boolean }>`
   position: relative;
-  margin-top: ${(props) => props.isMap ? '' : '30px'};
-  gap: ${(props) => props.isMap ? '' : '32px'};
+  margin-top: ${(props) => (props.isMap ? '' : '30px')};
+  gap: ${(props) => (props.isMap ? '' : '32px')};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,18 +31,23 @@ export const InputWrapper = styled.div`
 
 export const SearchInput = styled.input<{ isMap: boolean }>`
   position: relative;
-  width: ${(props) => props.isMap ? '352px' : '400px'};
-  height: ${(props) => props.isMap ? '44px' : '64px'};
+  margin-bottom: 16px;
+  width: ${(props) => (props.isMap ? '352px' : '400px')};
+  height: ${(props) => (props.isMap ? '44px' : '64px')};
   padding: 0 22px;
   background-color: ${(props) => props.theme.colors.white};
-  border-radius: ${(props) => props.isMap ? '12px' : '16px'};
-  border: ${(props) => props.isMap ? '1.2px' : '1px'} solid ${(props) => props.theme.colors.orange400};
+  border-radius: ${(props) => (props.isMap ? '12px' : '16px')};
+  border: ${(props) => (props.isMap ? '1.2px' : '1px')} solid
+    ${(props) => props.theme.colors.orange400};
   transition: border-color 0.3s, box-shadow 0.3s;
   background-image: url('/images/search.svg');
   background-repeat: no-repeat;
   background-position: 22px center;
   text-indent: 40px;
-  font-size: ${(props) => props.isMap ? `${props.theme.fontsizes.font15}rem` : `${props.theme.fontsizes.font17}rem`};
+  font-size: ${(props) =>
+    props.isMap
+      ? `${props.theme.fontsizes.font15}rem`
+      : `${props.theme.fontsizes.font17}rem`};
   font-weight: 400;
   caret-color: ${(props) => props.theme.colors.orange500};
 
@@ -74,9 +79,8 @@ export const SearchInput = styled.input<{ isMap: boolean }>`
 export const ClearButton = styled.button<{ isInput: boolean }>`
   display: ${(props) => (props.isInput ? 'block' : 'none')};
   position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
+  right: 12px;
+  top: 11px;
   width: 24px;
   height: 24px;
   background-image: url('/images/clear_circle.svg');

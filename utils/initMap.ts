@@ -1,6 +1,26 @@
 import { getMapCenterByInputs } from './MapUtils'
 
-const init = (search: string) => {
+const init = (search: string, pos?: number[]) => {
+  if (pos) {
+    const mapOptions = {
+      center: new naver.maps.LatLng(pos[0], pos[1]),
+      zoomControl: true,
+      zoomControlOptions: {
+        style: naver.maps.ZoomControlStyle.SMALL,
+        position: naver.maps.Position.RIGHT_BOTTOM
+      },
+      logoControlOptions: {
+        position: naver.maps.Position.RIGHT_BOTTOM
+      },
+      scaleControl: false,
+      scaleControlOptions: {
+        position: naver.maps.Position.RIGHT_CENTER
+      },
+      mapDataControl: false
+    }
+    const map = new naver.maps.Map('map', mapOptions)
+    return map
+  }
   const mapOptions = {
     zoomControl: true,
     zoomControlOptions: {
@@ -17,6 +37,7 @@ const init = (search: string) => {
     mapDataControl: false
   }
   const map = new naver.maps.Map('map', mapOptions)
+
   getMapCenterByInputs(map, search)
     .then((result: boolean) => {
       console.log('wow', result)
