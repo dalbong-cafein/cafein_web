@@ -3,6 +3,8 @@ import { SetStateAction } from 'jotai'
 import { NextRouter } from 'next/router'
 import { ChangeEvent, Dispatch, KeyboardEvent, MouseEvent } from 'react'
 import { IStore } from '../store'
+import initMap from './initMap'
+import { getMapCenterByInputs } from './MapUtils'
 
 interface onHandlerInputsProps {
   e: ChangeEvent<HTMLInputElement>
@@ -77,7 +79,9 @@ export const onHandleClearEvent = ({
 export const onEnterPress = (
   e: KeyboardEvent<HTMLInputElement>,
   inputs: string,
-  router: NextRouter
+  router: NextRouter,
+  map: naver.maps.Map | null,
+  markers: naver.maps.Marker[]
 ) => {
   if (e.key === 'Enter') {
     router.push({
@@ -86,6 +90,11 @@ export const onEnterPress = (
         search: inputs
       }
     })
+    if (map) {
+      getMapCenterByInputs(map, inputs)
+      console.log(markers)
+      markers.forEach((marker) => marker.setMap(null))
+    }
   }
   return
 }

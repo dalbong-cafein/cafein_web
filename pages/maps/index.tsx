@@ -48,11 +48,6 @@ const Maps: NextPageWithLayout<{
 
   useEffect(() => {
     console.log(search, inputs, '뭐야 ??')
-    if (search && search !== inputs && map) {
-      console.log('변해라 얍!')
-      getMapCenterByInputs(map, search as string)
-      // if (markers) markers.forEach((marker) => marker.setMap(null))
-    }
     if (map) {
       console.log('하이 그;얌둥이 카페들', cafeDatas)
       if (cafeDatas) {
@@ -61,7 +56,7 @@ const Maps: NextPageWithLayout<{
         )
       }
     }
-  }, [router, map, inputs])
+  }, [router, map])
   return (
     <>
       <Wrapper>

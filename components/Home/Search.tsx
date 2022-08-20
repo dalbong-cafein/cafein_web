@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { KeyboardEvent, useEffect, useRef, useState } from 'react'
 import {
+  mapAtom,
+  mapMarkerList,
   searchInputAtom,
   searchListsAtom,
   split_searchInputAtom
@@ -41,6 +43,8 @@ const Search = () => {
   const [nodeLists, setNodeLists] = useState<HTMLCollection | undefined>()
   let searchIdx = -1
   const inputRef = useRef<HTMLInputElement>(null)
+  const [map, setMap] = useAtom(mapAtom)
+  const markers = useAtomValue(mapMarkerList)
 
   useEffect(() => {
     setNodeLists(autoRef.current?.children)
@@ -79,7 +83,7 @@ const Search = () => {
           nodeLists[searchIdx].classList.toggle('active')
           break
         case 'Enter':
-          onEnterPress(e, inputs, router)
+          onEnterPress(e, inputs, router, map, markers)
           break
         default:
           autoRef.current?.scrollTo({ top: 0 })
