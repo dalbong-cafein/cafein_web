@@ -28,4 +28,36 @@ export const GlobalStyle = createGlobalStyle`
   input, div, nav, ul, ol, li {
     box-sizing: border-box;
   }
+  .marker {
+    white-space: nowrap;
+    position: relative;
+    display: flex;
+    padding: 12px 16px;
+    background-color: white;
+    border-radius: 99px;
+    border: 1.2px solid ${(props) => props.theme.colors.orange400}
+  }
+  .marker::before {
+    position: absolute;
+    bottom: -12px;
+    content: '';
+    width: 20px;
+    height: 20px;
+    border-radius: 2px;
+    border-top: 1.2px solid ${(props) => props.theme.colors.orange400};
+    border-right: 1.2px solid ${(props) => props.theme.colors.orange400};
+    background-color: white;
+    left: 50%;
+    transform: translateX(-50%) rotate(135deg);
+  }
+  .marker:hover {
+    color: ${(props) => props.theme.colors.orange400};
+  }
+  .marker.active {
+    background-color: ${(props) => props.theme.colors.orange400};
+    color: white;
+  }
+  .marker.active::before {
+    background-color: ${(props) => props.theme.colors.orange400};
+  }
 `

@@ -9,13 +9,15 @@ import Map from './Map'
 import { MainWrapper } from './styles/styles'
 
 interface MapLayoutProps {
-  children: ReactNode
+  children: JSX.Element
 }
 
 const MapLayout = ({ children }: MapLayoutProps) => {
   const router = useRouter()
   const { search, storeId } = router.query
   const [inHoverClose, setInHoverClose] = useState(false)
+  console.log('hello 내가 layout', children)
+  const { cafeDatas } = children.props
   return (
     <>
       <Head>
@@ -52,7 +54,7 @@ const MapLayout = ({ children }: MapLayoutProps) => {
       ) : (
         ''
       )}
-      <Map search={search as string} />
+      <Map search={search as string} cafeDatas={cafeDatas} />
     </>
   )
 }

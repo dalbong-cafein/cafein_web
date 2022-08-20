@@ -1,7 +1,14 @@
 import { useEffect } from 'react'
+import { IStore } from '../../store'
 import { MapBox } from './styles/styles'
 
-const Map = ({ search }: { search?: string }) => {
+const Map = ({
+  search,
+  cafeDatas
+}: {
+  search?: string
+  cafeDatas?: IStore[]
+}) => {
   useEffect(() => {
     const initMap = () => {
       const map = new naver.maps.Map('map', {
@@ -41,6 +48,16 @@ const Map = ({ search }: { search?: string }) => {
         )
       if (search) {
         searchAddressToCoordinate(search)
+      }
+      if (cafeDatas) {
+        cafeDatas.forEach((cafeData) => {
+          const marker = new naver.maps.Marker({
+            map: map,
+            position: new naver.maps.LatLng(cafeData.latY, cafeData.lngX),
+            icon: { content: `<div class='marker'>${cafeData.storeName}</div>` }
+          })
+          console.log(marker)
+        })
       }
     }
     initMap()
