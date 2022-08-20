@@ -56,6 +56,9 @@ export const GlobalStyle = createGlobalStyle`
   .marker:hover {
     color: ${(props) => props.theme.colors.orange400};
   }
+  .marker.over {
+    color: ${(props) => props.theme.colors.orange400};
+  }
   .marker.active {
     background-color: ${(props) => props.theme.colors.orange400};
     color: white;

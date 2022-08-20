@@ -83,7 +83,7 @@ const Search = () => {
           nodeLists[searchIdx].classList.toggle('active')
           break
         case 'Enter':
-          onEnterPress(e, inputs, router, map, markers)
+          onEnterPress(e, inputs, router, map, markers, setIsClicked)
           break
         default:
           autoRef.current?.scrollTo({ top: 0 })

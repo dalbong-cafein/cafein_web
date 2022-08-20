@@ -34,18 +34,18 @@ const getMapItems = (map: naver.maps.Map, cafes: IStore[], storeId: number) => {
     if (cafe.storeId === storeId) {
       map.setCenter(new naver.maps.LatLng(cafe.latY, cafe.lngX))
     }
-    markers.push(
-      new naver.maps.Marker({
-        map: map as naver.maps.Map,
-        position: new naver.maps.LatLng(cafe.latY, cafe.lngX),
-        icon: {
-          content:
-            cafe.storeId === storeId
-              ? `<div class="marker active">${cafe.storeName}</div>`
-              : `<div class='marker'>${cafe.storeName}</div>`
-        }
-      })
-    )
+    const marker = new naver.maps.Marker({
+      map: map as naver.maps.Map,
+      position: new naver.maps.LatLng(cafe.latY, cafe.lngX),
+      icon: {
+        content:
+          cafe.storeId === storeId
+            ? `<div class="marker active">${cafe.storeName}</div>`
+            : `<div class='marker'>${cafe.storeName}</div>`
+      }
+    })
+    cafe.marker = marker
+    markers.push(marker)
   })
   return markers
 }

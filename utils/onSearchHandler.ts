@@ -81,7 +81,8 @@ export const onEnterPress = (
   inputs: string,
   router: NextRouter,
   map: naver.maps.Map | null,
-  markers: naver.maps.Marker[]
+  markers: naver.maps.Marker[],
+  setIsClicked: Dispatch<SetStateAction<boolean>>
 ) => {
   if (e.key === 'Enter') {
     router.push({
@@ -92,9 +93,9 @@ export const onEnterPress = (
     })
     if (map) {
       getMapCenterByInputs(map, inputs)
-      console.log(markers)
       markers.forEach((marker) => marker.setMap(null))
     }
+    setIsClicked(false)
   }
   return
 }

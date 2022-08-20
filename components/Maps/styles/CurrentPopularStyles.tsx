@@ -17,12 +17,12 @@ const CurrentPopularList = styled.ul`
   gap: 16px;
 `
 
-const CurrentPopularItem = styled.li<{isClicked : boolean}>`
+const CurrentPopularItem = styled.li<{ isClicked: boolean }>`
   position: relative;
   display: flex;
   flex-direction: column;
   flex-grow: 0;
-  background: ${(props) => props.isClicked ? 'rgba(0, 0, 0, 0.02)' : ''};
+  background: ${(props) => (props.isClicked ? 'rgba(0, 0, 0, 0.02)' : '')};
 
   &:hover {
     background: rgba(0, 0, 0, 0.02);
@@ -86,7 +86,6 @@ const DdabongWrap = styled.div`
   font-size: ${(props) => props.theme.fontsizes.font12}rem;
   color: ${(props) => props.theme.colors.grey600};
   font-weight: 400;
-
 `
 
 export {

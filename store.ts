@@ -93,6 +93,7 @@ export interface IStore {
   storeId: number
   storeImageDto: null | ImageListInterface[]
   storeName: string
+  marker: naver.maps.Marker | null
 }
 
 export const cafeInfoAtom = atom<CafeInfoInterface | null>(null)

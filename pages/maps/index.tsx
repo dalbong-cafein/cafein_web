@@ -54,6 +54,7 @@ const Maps: NextPageWithLayout<{
         setMarkers(
           getMapItems(map, cafeDatas as IStore[], Number(storeId) as number)
         )
+        console.log(cafeDatas, '변경 끝!')
       }
     }
   }, [router, map])
@@ -88,6 +89,26 @@ const Maps: NextPageWithLayout<{
                     ? true
                     : false
                 }
+                onMouseOver={() => {
+                  if (
+                    (cafe.marker?.getIcon() as { content: string }).content ===
+                    `<div class="marker active">${cafe.storeName}</div>`
+                  )
+                    return
+                  cafe.marker?.setIcon({
+                    content: `<div class="marker over">${cafe.storeName}</div>`
+                  })
+                }}
+                onMouseOut={() => {
+                  if (
+                    (cafe.marker?.getIcon() as { content: string }).content ===
+                    `<div class="marker active">${cafe.storeName}</div>`
+                  )
+                    return
+                  cafe.marker?.setIcon({
+                    content: `<div class="marker">${cafe.storeName}</div>`
+                  })
+                }}
               >
                 <Link
                   href={{
