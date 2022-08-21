@@ -121,6 +121,10 @@ const Search = () => {
           break
         default:
           autoRef.current?.scrollTo({ top: 0 })
+          if (searchIdx !== -1) {
+            console.log(searchIdx, ' hehe')
+            nodeLists[searchIdx].classList.remove('active')
+          }
           searchIdx = -1
           break
       }
@@ -174,7 +178,7 @@ const Search = () => {
         isDisplay={searchLists.length !== 0 && isClicked ? true : false}
         ref={autoRef}
       >
-        {searchLists.map((searchList, idx) => {
+        {searchLists.slice(0, 10).map((searchList, idx) => {
           return (
             <SearchList
               key={searchList.storeId}

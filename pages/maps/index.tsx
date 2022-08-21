@@ -2,6 +2,7 @@ import { useAtom } from 'jotai'
 import { ReactElement, useEffect, useState } from 'react'
 import MapLayout from '../../components/Maps/MapLayout'
 import {
+  isDimmedAtom,
   IStore,
   mapAtom,
   mapMarkerList,
@@ -81,7 +82,7 @@ const Maps: NextPageWithLayout<{
       </Wrapper>
       <CafeList>
         {cafeDatas
-          ? cafeDatas.map((cafe) => (
+          ? cafeDatas.slice(0, 15).map((cafe) => (
               <CurrentPopularItem
                 key={cafe.storeId}
                 onClick={() => setIsOpenDetail(true)}

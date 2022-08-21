@@ -164,3 +164,5 @@ export const searchListsAtom = atom<IStore[]>([])
 
 export const mapAtom = atom<naver.maps.Map | null>(null)
 export const mapMarkerList = atom<naver.maps.Marker[]>([])
+
+export const isDimmedAtom = atom<boolean>(false)

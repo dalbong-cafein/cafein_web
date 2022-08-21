@@ -1,10 +1,11 @@
+import { useAtom } from 'jotai'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { ReactNode, useState } from 'react'
 import styled from 'styled-components'
-import { IStore } from '../../store'
+import { isDimmedAtom, IStore } from '../../store'
 import { Logo } from '../common/Common'
 import Search from '../Home/Search'
 import DetailCafe from '../MapsParams/DetailCaffe'
@@ -20,6 +21,7 @@ const MapLayout = ({ children }: MapLayoutProps) => {
   const router = useRouter()
   const { search, storeId } = router.query
   const [inHoverClose, setInHoverClose] = useState(false)
+  const [isDimmed, setIsDimmed] = useAtom(isDimmedAtom)
   const { cafeDatas } = children.props
   console.log(cafeDatas, 'ㅘ하하하')
   return (
@@ -27,6 +29,25 @@ const MapLayout = ({ children }: MapLayoutProps) => {
       <Head>
         <title>카페인 | 지도</title>
       </Head>
+      {isDimmed ? (
+        <DimmedWrapper>
+          <DimmedAlertWrapper>
+            <DimmedAlertHeader>
+              <DimmedAlertTitle>준비중인 기능입니다</DimmedAlertTitle>
+              <DimmedAlertSubTitle>
+                빠른 시일 내에 이용하실 수 있도록
+                <br />
+                열심히 노력할게요
+              </DimmedAlertSubTitle>
+            </DimmedAlertHeader>
+            <DimmedAlertBtn onClick={() => setIsDimmed(false)}>
+              확인
+            </DimmedAlertBtn>
+          </DimmedAlertWrapper>
+        </DimmedWrapper>
+      ) : (
+        ''
+      )}
       {cafeDatas.length === 1 ? (
         <MainWrapper>
           <Link href="/">
@@ -106,6 +127,64 @@ const MapLayout = ({ children }: MapLayoutProps) => {
     </>
   )
 }
+const DimmedWrapper = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const DimmedAlertWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 16px;
+  padding-top: 30px;
+  padding-bottom: 16px;
+  gap: 22px;
+`
+
+const DimmedAlertHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+`
+
+const DimmedAlertTitle = styled.p`
+  font-weight: 700;
+  font-size: ${(props) => props.theme.fontsizes.font17}rem;
+  color: ${(props) => props.theme.colors.grey800};
+`
+
+const DimmedAlertSubTitle = styled.p`
+  font-weight: 400;
+  font-size: ${(props) => props.theme.fontsizes.font14}rem;
+  color: ${(props) => props.theme.colors.grey600};
+  text-align: center;
+`
+
+const DimmedAlertBtn = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  border-radius: 12px;
+  background-color: ${(props) => props.theme.colors.orange400};
+  font-size: ${(props) => props.theme.fontsizes.font15}rem;
+  font-weight: 500;
+  color: white;
+`
 
 const CloseImage = styled.a<{ isSingle: boolean }>`
   box-sizing: border-box;

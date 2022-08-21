@@ -21,7 +21,6 @@ const DetailWrapper = styled.div<{ isDetail: boolean }>`
   top: 0;
   min-height: 100vh;
   max-height: 100vh;
-  overflow-y: scroll;
   width: 100%;
   background-color: ${(props) => props.theme.colors.white};
   max-width: 400px;

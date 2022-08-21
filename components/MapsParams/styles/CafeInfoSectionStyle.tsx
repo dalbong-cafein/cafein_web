@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const CafeInfoWrapper = styled.div<{ isFirst?: boolean }>`
   display: flex;
   flex-direction: column;
-  padding: ${(props) => (props.isFirst ? '24px' : '35px')} 34px 20px 24px;
+  padding: ${(props) => (props.isFirst ? '24px' : '30px')} 24px 24px 20px;
   position: relative;
 
   &::before {

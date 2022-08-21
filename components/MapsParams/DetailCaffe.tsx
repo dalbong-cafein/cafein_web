@@ -12,6 +12,7 @@ import {
   cafeReviewPercentAtom,
   cafeReviewPonitAtom,
   CafeRewviewPointInterface,
+  isDimmedAtom,
   IStore,
   mapAtom,
   mapMarkerList,
@@ -51,6 +52,7 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
   const [curScrollId, setCurScrollId] = useState(0)
   const [isLeftActive, setIsLeftActive] = useState(false)
   const [isRightActive, setIsRightActive] = useState(true)
+  const setIsDimmed = useSetAtom(isDimmedAtom)
   const [markers, setMarkers] = useAtom(mapMarkerList)
   const autoRef = useRef<HTMLUListElement>(null)
   const router = useRouter()
@@ -88,6 +90,10 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
     if (!isLeftActive) {
       setIsLeftActive(true)
     }
+  }
+
+  const notYet = () => {
+    setIsDimmed(true)
   }
 
   useEffect(() => {
@@ -172,7 +178,7 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
   }, [storeId])
   return (
     <>
-      <CafeWrapper>
+      <CafeWrapper isSingle={cafe ? true : false}>
         <Head>
           <title>
             카페인 |{' '}
@@ -195,11 +201,11 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
         <CafeInfoWrapper>
           <WrapperTitle>혼잡도</WrapperTitle>
           <ButtonWrapper>
-            <Select isOpened={false}>
+            <Select isOpened={false} onClick={notYet}>
               월요일
               <Image src="/images/down_arrow.svg" width={16} height={16} />
             </Select>
-            <CongestionBtn>혼잡도 알려주기</CongestionBtn>
+            <CongestionBtn onClick={notYet}>혼잡도 알려주기</CongestionBtn>
           </ButtonWrapper>
           <CongestionWrapper>
             <CongestionItem>
@@ -399,9 +405,10 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
   )
 }
 
-const CafeWrapper = styled.div`
-  height: calc(100vh - 88px);
+const CafeWrapper = styled.div<{ isSingle: boolean }>`
+  height: ${(props) => (props.isSingle ? `calc(100vh - 88px)` : '100vh')};
   overflow-y: auto;
+  overflow-x: hidden;
   &::-webkit-scrollbar {
     width: 6px;
   }
