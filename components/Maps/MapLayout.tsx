@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { ReactNode, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { isDimmedAtom, IStore } from '../../store'
 import { Logo } from '../common/Common'
@@ -30,7 +30,11 @@ const MapLayout = ({ children }: MapLayoutProps) => {
         <title>카페인 | 지도</title>
       </Head>
       {isDimmed ? (
-        <DimmedWrapper>
+        <DimmedWrapper
+          onClick={(e) => {
+            if (e.currentTarget === e.target) setIsDimmed(false)
+          }}
+        >
           <DimmedAlertWrapper>
             <DimmedAlertHeader>
               <DimmedAlertTitle>준비중인 기능입니다</DimmedAlertTitle>
@@ -148,8 +152,7 @@ const DimmedAlertWrapper = styled.div`
   justify-content: center;
   background-color: white;
   border-radius: 16px;
-  padding-top: 30px;
-  padding-bottom: 16px;
+  padding: 30px 16px 16px;
   gap: 22px;
 `
 
@@ -176,6 +179,7 @@ const DimmedAlertSubTitle = styled.p`
 
 const DimmedAlertBtn = styled.button`
   display: flex;
+  width: 100%;
   align-items: center;
   justify-content: center;
   height: 44px;

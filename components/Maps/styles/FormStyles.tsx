@@ -8,11 +8,12 @@ interface HomeSearchListsProps {
 export const SearchLists = styled.ul`
   position: absolute;
   z-index: 2;
-  margin-top: 10px;
+  margin-top: 4px;
   width: 632px;
   max-height: 50vh;
   overflow: auto;
   border-radius: 10px;
+  border: 1px solid ${(props) => props.theme.colors.grey100};
   filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.06));
   padding: 10px;
   background-color: ${(props) => props.theme.colors.white};
@@ -42,6 +43,7 @@ export const HomeSearchLists = styled(SearchLists)<HomeSearchListsProps>`
   display: ${(props) => (props.isDisplay ? 'block' : 'none')};
   width: ${(props) => (props.isMap ? '352px' : '400px')};
   top: ${(props) => (props.isMap ? '34px' : '64px')};
+  margin-top: ${(props) => (props.isMap ? '14px' : '4px')};
   overflow-x: hidden;
   &::-webkit-scrollbar {
     width: 6px;
