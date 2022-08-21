@@ -2,7 +2,7 @@ import { atom } from 'jotai'
 import { focusAtom } from 'jotai/optics'
 import getHours from './utils/getHours'
 
-interface ImageListInterface {
+export interface ImageListInterface {
   imageId: number
   imageUrl: string
 }

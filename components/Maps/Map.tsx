@@ -1,9 +1,9 @@
 import { useAtom, useAtomValue } from 'jotai'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import { cafeInfoAtom, moreAtom } from '../../store'
+import { cafeInfoAtom, ImageListInterface, moreAtom } from '../../store'
 import { DimmedWrapper } from '../common/Common'
 import { MapBox } from './styles/styles'
 
@@ -12,6 +12,7 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
   const cafeInfo = useAtomValue(cafeInfoAtom)
   const [imageId, setImageId] = useState(0)
   const router = useRouter()
+  const slideRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     setMore(false)
   }, [router])
@@ -19,6 +20,20 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
   const handleClick = () => {
     setMore(false)
   }
+
+  const handleRight = () => {
+    if (imageId < (cafeInfo?.storeImageList as ImageListInterface[]).length) {
+      setImageId((cur) => cur + 1)
+      slideRef.current?.scrollBy({ left: 100 })
+    }
+  }
+  const handleLeft = () => {
+    if (imageId > 0) {
+      setImageId((cur) => cur - 1)
+      slideRef.current?.scrollBy({ left: -100 })
+    }
+  }
+  console.log(imageId, slideRef.current?.scrollLeft)
   return (
     <>
       {more &&
@@ -31,27 +46,31 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
             </Escape>
             <MainImage>
               <Image
-                src={`${cafeInfo?.storeImageList[0].imageUrl}`}
+                src={`${cafeInfo?.storeImageList[imageId].imageUrl}`}
                 width={480}
                 height={480}
               />
             </MainImage>
             <ImageLists>
-              <ArrowBtn>
+              <ArrowBtn onClick={handleLeft}>
                 <Image
                   src={'/images/left_arrow_img.svg'}
                   width={40}
                   height={40}
                 />
               </ArrowBtn>
-              <ImagesWrapper>
-                {cafeInfo?.storeImageList.slice(0, 3).map((storeImage, idx) => (
+              <ImagesWrapper ref={slideRef}>
+                <ImageWrapper isActive={false} />
+                <ImageWrapper isActive={false} />
+                {cafeInfo?.storeImageList.map((storeImage, idx) => (
                   <ImageWrapper isActive={imageId === idx}>
                     <Image src={storeImage.imageUrl} width={100} height={100} />
                   </ImageWrapper>
                 ))}
+                <ImageWrapper isActive={false} />
+                <ImageWrapper isActive={false} />
               </ImagesWrapper>
-              <ArrowBtn>
+              <ArrowBtn onClick={handleRight}>
                 <Image
                   src={'/images/right_arrow_img.svg'}
                   width={40}
@@ -59,6 +78,9 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
                 />
               </ArrowBtn>
             </ImageLists>
+            <NumOfCount>
+              {imageId + 1}/{cafeInfo.storeImageList.length}
+            </NumOfCount>
           </DimmedWrapper>
         </>
       ) : (
@@ -119,11 +141,25 @@ const ImagesWrapper = styled.div`
 `
 
 const ImageWrapper = styled.div<{ isActive: boolean }>`
+  box-sizing: content-box;
   width: 100px;
   height: 100px;
   flex: 0 0 100px;
   border: ${(props) => (props.isActive ? '1.6px solid white' : '')};
   scroll-snap-align: center;
+`
+
+const NumOfCount = styled.div`
+  position: absolute;
+  top: 770px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: ${(props) => props.theme.fontsizes.font15}rem;
+  color: white;
+  font-weight: 500;
 `
 
 export default Map
