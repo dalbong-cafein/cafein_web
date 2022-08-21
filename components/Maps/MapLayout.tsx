@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { isDimmedAtom, IStore } from '../../store'
-import { Logo } from '../common/Common'
+import { DimmedWrapper, Logo } from '../common/Common'
 import Search from '../Home/Search'
 import DetailCafe from '../MapsParams/DetailCaffe'
 import DetailStore from './DetailStore'
@@ -31,6 +31,7 @@ const MapLayout = ({ children }: MapLayoutProps) => {
       </Head>
       {isDimmed ? (
         <DimmedWrapper
+          isSearch={false}
           onClick={(e) => {
             if (e.currentTarget === e.target) setIsDimmed(false)
           }}
@@ -127,22 +128,10 @@ const MapLayout = ({ children }: MapLayoutProps) => {
           )}
         </>
       )}
-      <Map />
+      <Map isSingle={cafeDatas.length === 1 ? true : false} />
     </>
   )
 }
-const DimmedWrapper = styled.div`
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
 
 const DimmedAlertWrapper = styled.div`
   display: flex;
@@ -200,7 +189,7 @@ const CloseImage = styled.a<{ isSingle: boolean }>`
   height: 44px;
   left: ${(props) => (props.isSingle ? '400px' : '800px')};
   top: 16px;
-  z-index: 1;
+  z-index: 5;
 `
 
 export default MapLayout

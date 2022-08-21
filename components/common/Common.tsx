@@ -19,3 +19,15 @@ export const Logo = styled.a`
   height: 22px;
 `
 
+export const DimmedWrapper = styled.div<{ isSearch: boolean }>`
+  position: absolute;
+  left: ${(props) => (props.isSearch ? '400px' : '800px')};
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: ${(props) => (props.isSearch ? 4 : 9999)};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`

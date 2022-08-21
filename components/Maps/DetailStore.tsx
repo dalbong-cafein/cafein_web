@@ -10,7 +10,7 @@ import {
   cafeReviewPercentAtom,
   cafeReviewPonitAtom,
   CafeRewviewPointInterface,
-  IStore
+  moreAtom
 } from '../../store'
 import CafeInfoSection from '../MapsParams/CafeInfoSection'
 import CafePOintsSection from '../MapsParams/CafePointsSection'
@@ -40,8 +40,10 @@ const DetailStore = () => {
   const [isBadQuery, setIsBadQuery] = useState(false)
   const router = useRouter()
   const { storeId } = router.query
+  const setMore = useSetAtom(moreAtom)
 
   useEffect(() => {
+    setMore(false)
     async function getDetailStore() {
       try {
         const response = await axios.get(`/api/stores/${storeId}`)
