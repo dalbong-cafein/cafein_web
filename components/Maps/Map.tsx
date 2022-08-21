@@ -19,10 +19,11 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
 
   const handleClick = () => {
     setMore(false)
+    setImageId(0)
   }
 
   const handleRight = () => {
-    if (imageId < (cafeInfo?.storeImageList as ImageListInterface[]).length) {
+    if (imageId < (cafeInfo?.storeImageList as ImageListInterface[]).length - 1) {
       setImageId((cur) => cur + 1)
       slideRef.current?.scrollBy({ left: 100 })
     }
@@ -129,6 +130,10 @@ const ArrowBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 const ImagesWrapper = styled.div`
