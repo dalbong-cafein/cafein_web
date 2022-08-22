@@ -12,9 +12,11 @@ import {
   WhiteLink,
   Wrapper
 } from '../components/Home/styles/NavStyles'
-import { HomeTitle, HomeWrapper } from '../components/Home/styles/FormStyles'
+import { HomeTitle, HomeWrapper, SearchButton } from '../components/Home/styles/FormStyles'
 import Search from '../components/Home/Search'
 import {
+  RecommendHeadWrapper,
+  RecommendSubWrapper,
   RecommendTitle,
   RecommendWrapper
 } from '../components/Home/styles/RecommendStyles'
@@ -26,12 +28,17 @@ import {
   AddWrapper
 } from '../components/Home/styles/AddOnStyles'
 import RecommendItems from '../components/Home/RecommendItems'
+import { useRouter } from 'next/router'
 
 const Home: NextPage = () => {
   const setMap = useSetAtom(mapAtom)
+  const router = useRouter()
   useEffect(() => {
     setMap(null)
   }, [])
+  const mapHandler = () => {
+    router.push('/maps')
+  }
   return (
     <Wrapper>
       <Head>
@@ -60,8 +67,13 @@ const Home: NextPage = () => {
         </HomeTitle>
         <Search />
         <RecommendWrapper>
-          <RecommendTitle>지역별 카페 추천</RecommendTitle>
-          <TabList />
+          <RecommendSubWrapper>
+            <RecommendHeadWrapper>
+              <RecommendTitle>지역별 카페 추천</RecommendTitle>
+              <TabList />
+            </RecommendHeadWrapper>
+            <SearchButton onClick={mapHandler}>지도에서 카페 찾기</SearchButton>
+          </RecommendSubWrapper>
           <RecommendItems />
         </RecommendWrapper>
         <AddWrapper>

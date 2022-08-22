@@ -1,7 +1,19 @@
 import styled from "styled-components"
 
 export const RecommendWrapper = styled.div`
-  margin-top: 102px;
+  margin-top: 144px;
+`
+
+export const RecommendSubWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+export const RecommendHeadWrapper = styled.div`
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
 `
 
 export const RecommendTitle = styled.p`
@@ -10,7 +22,6 @@ export const RecommendTitle = styled.p`
 `
 
 export const RecommendLists = styled.ul`
-  margin-top: 24px;
   display: flex;
   gap: 8px;
 `

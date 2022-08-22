@@ -89,8 +89,8 @@ export const ClearButton = styled.button<{ isInput: boolean }>`
 `
 
 export const SearchButton = styled.button`
-  height: 56px;
-  padding: 0 16px;
+  height: 48px;
+  padding: 16px 24px;
   font-weight: 600;
   background-color: ${(props) => props.theme.colors.orange400};
   border-radius: 14px;

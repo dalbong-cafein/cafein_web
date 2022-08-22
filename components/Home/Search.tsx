@@ -223,11 +223,6 @@ const Search = () => {
           )
         })}
       </HomeSearchLists>
-      {pathname === '/maps' ? (
-        ''
-      ) : (
-        <SearchButton>지도에서 카페 찾기</SearchButton>
-      )}
     </SearchFormWrapper>
   )
 }
