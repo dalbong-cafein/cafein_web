@@ -38,6 +38,8 @@ const init = (search: string, pos?: number[]) => {
   }
   const map = new naver.maps.Map('map', mapOptions)
 
+  if (!search) return map
+
   getMapCenterByInputs(map, search)
     .then((result: boolean) => {
       console.log('wow', result)

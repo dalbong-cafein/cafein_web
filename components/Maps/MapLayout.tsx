@@ -53,82 +53,90 @@ const MapLayout = ({ children }: MapLayoutProps) => {
       ) : (
         ''
       )}
-      {cafeDatas.length === 1 ? (
-        <MainWrapper>
-          <Link href="/">
-            <Logo>
-              <Image
-                src="/images/logo_black.svg"
-                width={103}
-                height={22}
-                alt="로고"
-              />
-            </Logo>
-          </Link>
-          <Search />
-          <DetailCafe cafe={cafeDatas[0] as IStore} />
-          <Link href={{ pathname: 'maps', query: { search } }} shallow>
-            <CloseImage
-              isSingle={true}
-              onClick={() => setInHoverClose(false)}
-              onMouseEnter={() => setInHoverClose(true)}
-              onMouseLeave={() => setInHoverClose(false)}
-            >
-              {inHoverClose ? (
+      {cafeDatas ? (
+        cafeDatas.length === 1 ? (
+          <MainWrapper>
+            <Link href="/">
+              <Logo>
                 <Image
-                  src="/images/orange_close.svg"
-                  alt="닫기 아이콘"
-                  width={44}
-                  height={44}
+                  src="/images/logo_black.svg"
+                  width={103}
+                  height={22}
+                  alt="로고"
                 />
-              ) : (
-                <Image
-                  src="/images/white_close.svg"
-                  alt="닫기 아이콘"
-                  width={44}
-                  height={44}
-                />
-              )}
-            </CloseImage>
-          </Link>
-        </MainWrapper>
+              </Logo>
+            </Link>
+            <Search />
+            <DetailCafe cafe={cafeDatas[0] as IStore} />
+            <Link href={{ pathname: 'maps', query: { search } }} shallow>
+              <CloseImage
+                isSingle={true}
+                onClick={() => setInHoverClose(false)}
+                onMouseEnter={() => setInHoverClose(true)}
+                onMouseLeave={() => setInHoverClose(false)}
+              >
+                {inHoverClose ? (
+                  <Image
+                    src="/images/orange_close.svg"
+                    alt="닫기 아이콘"
+                    width={44}
+                    height={44}
+                  />
+                ) : (
+                  <Image
+                    src="/images/white_close.svg"
+                    alt="닫기 아이콘"
+                    width={44}
+                    height={44}
+                  />
+                )}
+              </CloseImage>
+            </Link>
+          </MainWrapper>
+        ) : (
+          <>
+            <MainWrapper>{children}</MainWrapper>
+            {storeId ? (
+              <>
+                <DetailStore />
+                <Link href={{ pathname: 'maps', query: { search } }} shallow>
+                  <CloseImage
+                    isSingle={false}
+                    onClick={() => setInHoverClose(false)}
+                    onMouseEnter={() => setInHoverClose(true)}
+                    onMouseLeave={() => setInHoverClose(false)}
+                  >
+                    {inHoverClose ? (
+                      <Image
+                        src="/images/orange_close.svg"
+                        alt="닫기 아이콘"
+                        width={44}
+                        height={44}
+                      />
+                    ) : (
+                      <Image
+                        src="/images/white_close.svg"
+                        alt="닫기 아이콘"
+                        width={44}
+                        height={44}
+                      />
+                    )}
+                  </CloseImage>
+                </Link>
+              </>
+            ) : (
+              ''
+            )}
+          </>
+        )
       ) : (
-        <>
-          <MainWrapper>{children}</MainWrapper>
-          {storeId ? (
-            <>
-              <DetailStore />
-              <Link href={{ pathname: 'maps', query: { search } }} shallow>
-                <CloseImage
-                  isSingle={false}
-                  onClick={() => setInHoverClose(false)}
-                  onMouseEnter={() => setInHoverClose(true)}
-                  onMouseLeave={() => setInHoverClose(false)}
-                >
-                  {inHoverClose ? (
-                    <Image
-                      src="/images/orange_close.svg"
-                      alt="닫기 아이콘"
-                      width={44}
-                      height={44}
-                    />
-                  ) : (
-                    <Image
-                      src="/images/white_close.svg"
-                      alt="닫기 아이콘"
-                      width={44}
-                      height={44}
-                    />
-                  )}
-                </CloseImage>
-              </Link>
-            </>
-          ) : (
-            ''
-          )}
-        </>
+        <MainWrapper>{children}</MainWrapper>
       )}
-      <Map isSingle={cafeDatas.length === 1 ? true : false} />
+      {cafeDatas ? (
+        <Map isSingle={cafeDatas.length === 1 ? true : false} />
+      ) : (
+        <Map isSingle={true} />
+      )}
     </>
   )
 }

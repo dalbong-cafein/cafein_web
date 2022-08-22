@@ -30,6 +30,7 @@ import Search from '../../components/Home/Search'
 import Image from 'next/image'
 import { getMapCenterByInputs, getMapItems } from '../../utils/MapUtils'
 import initMap from '../../utils/initMap'
+import ErrorComponent from '../../components/common/ErrorComponent'
 
 const Maps: NextPageWithLayout<{
   search?: string
@@ -41,11 +42,12 @@ const Maps: NextPageWithLayout<{
   const router = useRouter()
   const { storeId } = router.query
   const [isOpenDetail, setIsOpenDetail] = useState(false)
-  console.log(router.query, '야 신기한거 보여줌')
+  console.log(router.query, '야 신기한거 보여줌', cafeDatas)
 
   useEffect(() => {
-    if (!inputs) setInputs(search as string)
-    if (!map) setMap(initMap.init(search as string))
+    if (!inputs && search) setInputs(search as string)
+    if (!map && search) setMap(initMap.init(search as string))
+    else if (!map) setMap(initMap.init(''))
   }, [])
 
   useEffect(() => {
@@ -81,8 +83,11 @@ const Maps: NextPageWithLayout<{
         </FilterWrapper>
       </Wrapper>
       <CafeList>
-        {cafeDatas
-          ? cafeDatas.slice(0, 15).map((cafe) => (
+        {cafeDatas ? (
+          cafeDatas.length === 0 ? (
+            <ErrorComponent storeName={search} />
+          ) : (
+            cafeDatas.slice(0, 15).map((cafe) => (
               <CurrentPopularItem
                 key={cafe.storeId}
                 onClick={() => setIsOpenDetail(true)}
@@ -154,7 +159,10 @@ const Maps: NextPageWithLayout<{
                 </Link>
               </CurrentPopularItem>
             ))
-          : ''}
+          )
+        ) : (
+          <ErrorComponent />
+        )}
       </CafeList>
     </>
   )
