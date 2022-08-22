@@ -73,8 +73,24 @@ const Search = () => {
   }, [autoRef])
 
   const handleKeyArrow = (e: KeyboardEvent<HTMLInputElement>) => {
+    console.log(e.key)
     if (e.key === 'Backspace') {
       return
+    }
+    if (e.key === 'Enter') {
+      if (searchIdx !== -1) {
+        onEnterPress(
+          e,
+          searchLists[searchIdx].storeName,
+          router,
+          map,
+          markers,
+          setIsClicked,
+          searchLists[searchIdx].storeId
+        )
+      } else {
+        onEnterPress(e, inputs, router, map, markers, setIsClicked)
+      }
     }
     if (searchLists && nodeLists && nodeLists.length > 0) {
       switch (e.key) {
@@ -103,21 +119,6 @@ const Search = () => {
           }
           autoRef.current?.scrollTo({ top: searchIdx * 70.19 })
           nodeLists[searchIdx].classList.toggle('active')
-          break
-        case 'Enter':
-          if (searchIdx !== -1) {
-            onEnterPress(
-              e,
-              searchLists[searchIdx].storeName,
-              router,
-              map,
-              markers,
-              setIsClicked,
-              searchLists[searchIdx].storeId
-            )
-          } else {
-            onEnterPress(e, inputs, router, map, markers, setIsClicked)
-          }
           break
         default:
           autoRef.current?.scrollTo({ top: 0 })
