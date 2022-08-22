@@ -2,26 +2,30 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+
+import { useEffect } from 'react'
+import { useSetAtom } from 'jotai'
+import { mapAtom } from '../store'
+import Footer from '../components/Home/Footer'
+import {
+  NavWrapper,
+  WhiteLink,
+  Wrapper
+} from '../components/Home/styles/NavStyles'
+import { HomeTitle, HomeWrapper } from '../components/Home/styles/FormStyles'
+import Search from '../components/Home/Search'
+import {
+  RecommendTitle,
+  RecommendWrapper
+} from '../components/Home/styles/RecommendStyles'
+import TabList from '../components/Home/TabList'
 import {
   AddButton,
   AddLink,
   AddLinkText,
-  AddWrapper,
-  HomeTitle,
-  HomeWrapper,
-  NavWrapper,
-  RecommendTitle,
-  RecommendWrapper,
-  WhiteLink,
-  Wrapper
-} from '../components/Home/styles/styles'
-import Search from '../components/Home/Search'
-import TabList from '../components/Home/TabList'
+  AddWrapper
+} from '../components/Home/styles/AddOnStyles'
 import RecommendItems from '../components/Home/RecommendItems'
-import Footer from '../components/Home/Footer'
-import { useEffect } from 'react'
-import { useSetAtom } from 'jotai'
-import { mapAtom } from '../store'
 
 const Home: NextPage = () => {
   const setMap = useSetAtom(mapAtom)
