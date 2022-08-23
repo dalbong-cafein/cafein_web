@@ -23,7 +23,10 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
   }
 
   const handleRight = () => {
-    if (imageId < (cafeInfo?.storeImageList as ImageListInterface[]).length - 1) {
+    if (
+      imageId <
+      (cafeInfo?.storeImageList as ImageListInterface[]).length - 1
+    ) {
       setImageId((cur) => cur + 1)
       slideRef.current?.scrollBy({ left: 100 })
     }
@@ -41,7 +44,7 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
       cafeInfo?.storeImageList &&
       cafeInfo?.storeImageList.length > 0 ? (
         <>
-          <DimmedWrapper isSearch={isSingle}>
+          <DimmedWrapper isAll={false} isSearch={isSingle}>
             <Escape onClick={handleClick}>
               <Image src={'/images/close.svg'} width={40} height={40} />
             </Escape>

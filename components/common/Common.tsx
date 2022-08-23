@@ -19,9 +19,9 @@ export const Logo = styled.a`
   height: 22px;
 `
 
-export const DimmedWrapper = styled.div<{ isSearch: boolean }>`
+export const DimmedWrapper = styled.div<{ isSearch: boolean; isAll: boolean }>`
   position: absolute;
-  left: ${(props) => (props.isSearch ? '400px' : '800px')};
+  left: ${(props) => (props.isAll ? '0' : props.isSearch ? '400px' : '800px')};
   right: 0;
   top: 0;
   bottom: 0;
