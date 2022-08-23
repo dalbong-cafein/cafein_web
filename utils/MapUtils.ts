@@ -1,3 +1,4 @@
+import { NextRouter, useRouter } from 'next/router'
 import { IStore } from '../store'
 
 const getMapCenterByInputs = (
@@ -28,7 +29,26 @@ const getMapCenterByInputs = (
   })
 }
 
-const getMapItems = (map: naver.maps.Map, cafes: IStore[], storeId: number) => {
+const getClickHandler = (cafe: IStore, router: NextRouter) => {
+  const { search } = router.query
+  return () => {
+    router.push({
+      pathname: 'maps',
+      query: {
+        search,
+        storeId: cafe.storeId,
+        storeName: cafe.storeName
+      }
+    })
+  }
+}
+
+const getMapItems = (
+  map: naver.maps.Map,
+  cafes: IStore[],
+  storeId: number,
+  router: NextRouter
+) => {
   const markers: naver.maps.Marker[] = []
   cafes.forEach((cafe) => {
     if (cafe.storeId === storeId) {
@@ -44,6 +64,7 @@ const getMapItems = (map: naver.maps.Map, cafes: IStore[], storeId: number) => {
             : `<div class='marker'>${cafe.storeName}</div>`
       }
     })
+    naver.maps.Event.addListener(marker, 'click', getClickHandler(cafe, router))
     cafe.marker = marker
     markers.push(marker)
   })

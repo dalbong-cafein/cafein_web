@@ -56,7 +56,7 @@ const Maps: NextPageWithLayout<{
       console.log('하이 그;얌둥이 카페들', cafeDatas)
       if (cafeDatas) {
         setMarkers(
-          getMapItems(map, cafeDatas as IStore[], Number(storeId) as number)
+          getMapItems(map, cafeDatas as IStore[], Number(storeId) as number, router)
         )
         console.log(cafeDatas, '변경 끝!')
       }
