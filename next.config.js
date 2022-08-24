@@ -25,6 +25,10 @@ const nextConfig = {
         destination: `${process.env.API_DOMAIN}/web/stores/:storeId/recommendations`
       },
       {
+        source: '/api/web/stores/:storeId/near-stores',
+        destination: `${process.env.API_DOMAIN}/web/stores/:storeId/near-stores`
+      },
+      {
         source: '/api/web/:path*',
         destination: `${process.env.API_DOMAIN}/web/:path*`
       }

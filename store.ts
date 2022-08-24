@@ -96,6 +96,19 @@ export interface IStore {
   marker: naver.maps.Marker | null
 }
 
+export interface INearCafe {
+  businessHoursInfoDto: { isOpen: null; closed: null; tmrOpen: null }
+  congestionScoreAvg: null | number
+  distance: number
+  heartCnt: number
+  latY: number
+  lngX: number
+  recommendPercent: null | number
+  storeId: number
+  storeImageDtoList: ImageListInterface[]
+  storeName: string
+}
+
 export const cafeInfoAtom = atom<CafeInfoInterface | null>(null)
 
 export const isRunningAtom = atom<isRunningInterface>((get) => {

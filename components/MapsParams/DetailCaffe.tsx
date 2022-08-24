@@ -12,6 +12,7 @@ import {
   cafeReviewPercentAtom,
   cafeReviewPonitAtom,
   CafeRewviewPointInterface,
+  INearCafe,
   isDimmedAtom,
   IStore,
   mapAtom,
@@ -52,6 +53,7 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
   const [curScrollId, setCurScrollId] = useState(0)
   const [isLeftActive, setIsLeftActive] = useState(false)
   const [isRightActive, setIsRightActive] = useState(true)
+  const [nearCafes, setNearCafes] = useState<INearCafe[]>()
   const setIsDimmed = useSetAtom(isDimmedAtom)
   const [markers, setMarkers] = useAtom(mapMarkerList)
   const autoRef = useRef<HTMLUListElement>(null)
@@ -59,6 +61,7 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
   const { search, storeId } = router.query
 
   const handleLeft = () => {
+    console.log(curScrollId)
     autoRef.current?.scrollTo({
       left: autoRef.current?.scrollLeft - 246,
       behavior: 'smooth'
@@ -76,13 +79,14 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
   }
 
   const handleRight = () => {
+    console.log(curScrollId)
     autoRef.current?.scrollTo({
       left: autoRef.current?.scrollLeft + 246,
       behavior: 'smooth'
     })
     const id = curScrollId + 1
     setCurScrollId(id)
-    if (id == 3) {
+    if (id === nearCafes?.length) {
       setIsRightActive(false)
     } else if (!isRightActive) {
       setIsRightActive(true)
@@ -166,14 +170,30 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
           setIsHovering_3(false)
         }
       } catch (error) {
-        console.error
+        console.error(`Cafe Recommend data Get error : ${error}`)
+      }
+    }
+    async function getNearStores() {
+      try {
+        const response = await axios.get(
+          `/api/web/stores/${storeId}/near-stores`
+        )
+        console.log(response.data.data)
+        setNearCafes(response.data.data)
+      } catch (error) {
+        console.error(error)
       }
     }
     if (storeId && isNaN(+storeId)) {
       setIsBadQuery(true)
     }
     if (storeId !== cafeInfo?.storeId) {
-      Promise.all([getDetailStore(), getCafePoints(), getRecommendation()])
+      Promise.all([
+        getDetailStore(),
+        getCafePoints(),
+        getRecommendation(),
+        getNearStores()
+      ])
     }
   }, [storeId])
   return (
@@ -261,134 +281,91 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
           )}
 
           <ScrollWrapper ref={autoRef}>
-            <CardItem>
-              <CardImgWrapper>
-                <Image src="/images/temp_img.png" width={70} height={70} />
-                <Image src="/images/temp_img.png" width={70} height={70} />
-                <Image src="/images/temp_img.png" width={70} height={70} />
-              </CardImgWrapper>
-              <CardDescWrapper>
-                <CardTitle>엔젤리너스 L7홍대점</CardTitle>
-                <CardTextWrapper>
-                  <OnAirBadge>영업중</OnAirBadge>
-                  <GreenLight>여유</GreenLight>
-                </CardTextWrapper>
-                <CardTextWrapper>
-                  <CardEmojiWrapper>
-                    <Image
-                      src="/images/navigation.svg"
-                      width={16}
-                      height={16}
-                    />
-                    <NormalText>150m</NormalText>
-                  </CardEmojiWrapper>
-                  <CardEmojiWrapper>
-                    <Image src="/images/ddabong.svg" width={16} height={16} />
-                    <NormalText>79%</NormalText>
-                  </CardEmojiWrapper>
-                  <CardEmojiWrapper>
-                    <Image src="/images/heart.svg" width={16} height={16} />
-                    <NormalText>12</NormalText>
-                  </CardEmojiWrapper>
-                </CardTextWrapper>
-              </CardDescWrapper>
-            </CardItem>
-            <CardItem>
-              <CardImgWrapper>
-                <Image src="/images/temp_img.png" width={70} height={70} />
-                <Image src="/images/temp_img.png" width={70} height={70} />
-                <Image src="/images/temp_img.png" width={70} height={70} />
-              </CardImgWrapper>
-              <CardDescWrapper>
-                <CardTitle>엔젤리너스 L7홍대점</CardTitle>
-                <CardTextWrapper>
-                  <OnAirBadge>영업중</OnAirBadge>
-                  <GreenLight>여유</GreenLight>
-                </CardTextWrapper>
-                <CardTextWrapper>
-                  <CardEmojiWrapper>
-                    <Image
-                      src="/images/navigation.svg"
-                      width={16}
-                      height={16}
-                    />
-                    <NormalText>150m</NormalText>
-                  </CardEmojiWrapper>
-                  <CardEmojiWrapper>
-                    <Image src="/images/ddabong.svg" width={16} height={16} />
-                    <NormalText>79%</NormalText>
-                  </CardEmojiWrapper>
-                  <CardEmojiWrapper>
-                    <Image src="/images/heart.svg" width={16} height={16} />
-                    <NormalText>12</NormalText>
-                  </CardEmojiWrapper>
-                </CardTextWrapper>
-              </CardDescWrapper>
-            </CardItem>
-            <CardItem>
-              <CardImgWrapper>
-                <Image src="/images/temp_img.png" width={70} height={70} />
-                <Image src="/images/temp_img.png" width={70} height={70} />
-                <Image src="/images/temp_img.png" width={70} height={70} />
-              </CardImgWrapper>
-              <CardDescWrapper>
-                <CardTitle>엔젤리너스 L7홍대점</CardTitle>
-                <CardTextWrapper>
-                  <OnAirBadge>영업중</OnAirBadge>
-                  <GreenLight>여유</GreenLight>
-                </CardTextWrapper>
-                <CardTextWrapper>
-                  <CardEmojiWrapper>
-                    <Image
-                      src="/images/navigation.svg"
-                      width={16}
-                      height={16}
-                    />
-                    <NormalText>150m</NormalText>
-                  </CardEmojiWrapper>
-                  <CardEmojiWrapper>
-                    <Image src="/images/ddabong.svg" width={16} height={16} />
-                    <NormalText>79%</NormalText>
-                  </CardEmojiWrapper>
-                  <CardEmojiWrapper>
-                    <Image src="/images/heart.svg" width={16} height={16} />
-                    <NormalText>12</NormalText>
-                  </CardEmojiWrapper>
-                </CardTextWrapper>
-              </CardDescWrapper>
-            </CardItem>
-            <CardItem>
-              <CardImgWrapper>
-                <Image src="/images/temp_img.png" width={70} height={70} />
-                <Image src="/images/temp_img.png" width={70} height={70} />
-                <Image src="/images/temp_img.png" width={70} height={70} />
-              </CardImgWrapper>
-              <CardDescWrapper>
-                <CardTitle>엔젤리너스 L7홍대점</CardTitle>
-                <CardTextWrapper>
-                  <OnAirBadge>영업중</OnAirBadge>
-                  <GreenLight>여유</GreenLight>
-                </CardTextWrapper>
-                <CardTextWrapper>
-                  <CardEmojiWrapper>
-                    <Image
-                      src="/images/navigation.svg"
-                      width={16}
-                      height={16}
-                    />
-                    <NormalText>150m</NormalText>
-                  </CardEmojiWrapper>
-                  <CardEmojiWrapper>
-                    <Image src="/images/ddabong.svg" width={16} height={16} />
-                    <NormalText>79%</NormalText>
-                  </CardEmojiWrapper>
-                  <CardEmojiWrapper>
-                    <Image src="/images/heart.svg" width={16} height={16} />
-                    <NormalText>12</NormalText>
-                  </CardEmojiWrapper>
-                </CardTextWrapper>
-              </CardDescWrapper>
-            </CardItem>
+            {nearCafes &&
+              nearCafes.map((nearCafe) => (
+                <CardItem key={nearCafe.storeId}>
+                  <CardImgWrapper>
+                    {nearCafe.storeImageDtoList.length ? (
+                      nearCafe.storeImageDtoList.map((storeImage) => (
+                        <Image
+                          src={storeImage.imageUrl}
+                          width={70}
+                          height={70}
+                          alt="카페 섬네일 이미지"
+                          key={storeImage.imageId}
+                        />
+                      ))
+                    ) : (
+                      <>
+                        <Image
+                          src="/images/temp_img.png"
+                          width={70}
+                          height={70}
+                          alt="기본 이미지"
+                        />
+                        <Image
+                          src="/images/temp_img.png"
+                          width={70}
+                          height={70}
+                          alt="기본 이미지"
+                        />
+                        <Image
+                          src="/images/temp_img.png"
+                          width={70}
+                          height={70}
+                          alt="기본 이미지"
+                        />
+                      </>
+                    )}
+                  </CardImgWrapper>
+                  <CardDescWrapper>
+                    <CardTitle>{nearCafe.storeName}</CardTitle>
+                    <CardTextWrapper>
+                      <OnAirBadge>
+                        {nearCafe.businessHoursInfoDto.isOpen
+                          ? '영업중'
+                          : '영업종료'}
+                      </OnAirBadge>
+                      <GreenLight>여유</GreenLight>
+                    </CardTextWrapper>
+                    <CardTextWrapper>
+                      <CardEmojiWrapper>
+                        <Image
+                          src="/images/navigation.svg"
+                          width={16}
+                          height={16}
+                          alt="네비게이션 이모지"
+                        />
+                        <NormalText>
+                          {Math.floor(nearCafe.distance)}m
+                        </NormalText>
+                      </CardEmojiWrapper>
+                      <CardEmojiWrapper>
+                        <Image
+                          src="/images/ddabong.svg"
+                          width={16}
+                          height={16}
+                          alt="따봉 이모지"
+                        />
+                        <NormalText>
+                          {nearCafe.recommendPercent
+                            ? Math.floor(nearCafe.recommendPercent) + '%'
+                            : 0}
+                        </NormalText>
+                      </CardEmojiWrapper>
+                      <CardEmojiWrapper>
+                        <Image
+                          src="/images/heart.svg"
+                          width={16}
+                          height={16}
+                          alt="하트 이모지"
+                        />
+                        <NormalText>{nearCafe.heartCnt}</NormalText>
+                      </CardEmojiWrapper>
+                    </CardTextWrapper>
+                  </CardDescWrapper>
+                </CardItem>
+              ))}
           </ScrollWrapper>
         </CafeInfoWrapper>
         <AddWrapper2>

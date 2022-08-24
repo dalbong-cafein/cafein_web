@@ -103,7 +103,9 @@ export const onEnterPress = (
   }
   if (map) {
     getMapCenterByInputs(map, inputs)
-    markers.forEach((marker) => marker.setMap(null))
+    markers.forEach((marker) => {
+      marker.setMap(null)
+    })
   }
   setIsClicked(false)
 

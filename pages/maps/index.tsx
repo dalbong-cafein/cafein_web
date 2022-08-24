@@ -44,7 +44,7 @@ const Maps: NextPageWithLayout<{
   const [isOpenDetail, setIsOpenDetail] = useState(false)
   const [sortMode, setSortMode] = useState(0)
   const [cafes, setCafes] = useState<IStore[] | undefined>(cafeDatas)
-  console.log(router.query, '야 신기한거 보여줌', cafeDatas)
+  console.log(router.query, '야 신기한거 보여줌', cafeDatas, cafes)
 
   const sortByOnAir = () => {
     setSortMode(1)
@@ -110,6 +110,7 @@ const Maps: NextPageWithLayout<{
     console.log(search, inputs, '뭐야 ??')
     if (map) {
       console.log('하이 그;얌둥이 카페들', cafeDatas)
+      setCafes(cafeDatas)
       if (cafeDatas) {
         setMarkers(
           getMapItems(
