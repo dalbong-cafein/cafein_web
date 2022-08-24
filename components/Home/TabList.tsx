@@ -1,57 +1,41 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { RecommendList, RecommendLists } from './styles/RecommendStyles'
 
 const TabList = () => {
+  const router = useRouter()
+  const { sggNm } = router.query
+  const sggNmes = [
+    '서대문구',
+    '마포구',
+    '동대문구',
+    '종로구',
+    '강남구',
+    '성북구'
+  ]
   return (
     <RecommendLists>
-      <RecommendList isActive={true}>
-        <Link
-          href={{ pathname: '/', query: { location: '서대문구' } }}
-          scroll={false}
+      {sggNmes.map((location, idx) => (
+        <RecommendList
+          isActive={
+            !sggNm
+              ? idx === 0
+                ? true
+                : false
+              : sggNm === location
+              ? true
+              : false
+          }
+          key={location}
         >
-          서대문구
-        </Link>
-      </RecommendList>
-      <RecommendList isActive={false}>
-        <Link
-          href={{ pathname: '/', query: { location: '마포구' } }}
-          scroll={false}
-        >
-          마포구
-        </Link>
-      </RecommendList>
-      <RecommendList isActive={false}>
-        <Link
-          href={{ pathname: '/', query: { location: '동대문구' } }}
-          scroll={false}
-        >
-          동대문구
-        </Link>
-      </RecommendList>
-      <RecommendList isActive={false}>
-        <Link
-          href={{ pathname: '/', query: { location: '종로구' } }}
-          scroll={false}
-        >
-          종로구
-        </Link>
-      </RecommendList>
-      <RecommendList isActive={false}>
-        <Link
-          href={{ pathname: '/', query: { location: '강남구' } }}
-          scroll={false}
-        >
-          강남구
-        </Link>
-      </RecommendList>
-      <RecommendList isActive={false}>
-        <Link
-          href={{ pathname: '/', query: { location: '성북구' } }}
-          scroll={false}
-        >
-          성북구
-        </Link>
-      </RecommendList>
+          <Link
+            href={{ pathname: '/', query: { sggNm: location } }}
+            scroll={false}
+          >
+            {location}
+          </Link>
+        </RecommendList>
+      ))}
     </RecommendLists>
   )
 }

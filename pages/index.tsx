@@ -12,7 +12,11 @@ import {
   WhiteLink,
   Wrapper
 } from '../components/Home/styles/NavStyles'
-import { HomeTitle, HomeWrapper, SearchButton } from '../components/Home/styles/FormStyles'
+import {
+  HomeTitle,
+  HomeWrapper,
+  SearchButton
+} from '../components/Home/styles/FormStyles'
 import Search from '../components/Home/Search'
 import {
   RecommendHeadWrapper,

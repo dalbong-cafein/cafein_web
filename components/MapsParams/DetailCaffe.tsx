@@ -61,21 +61,11 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
   const { search, storeId } = router.query
 
   const handleLeft = () => {
-    console.log(curScrollId)
     autoRef.current?.scrollTo({
       left: autoRef.current?.scrollLeft - 246,
       behavior: 'smooth'
     })
-    const id = curScrollId - 1
-    setCurScrollId(id)
-    if (id == 0) {
-      setIsLeftActive(false)
-    } else if (!isLeftActive) {
-      setIsLeftActive(true)
-    }
-    if (!isRightActive) {
-      setIsRightActive(true)
-    }
+    setCurScrollId((cur) => cur - 1)
   }
 
   const handleRight = () => {
@@ -84,16 +74,7 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
       left: autoRef.current?.scrollLeft + 246,
       behavior: 'smooth'
     })
-    const id = curScrollId + 1
-    setCurScrollId(id)
-    if (id === nearCafes?.length) {
-      setIsRightActive(false)
-    } else if (!isRightActive) {
-      setIsRightActive(true)
-    }
-    if (!isLeftActive) {
-      setIsLeftActive(true)
-    }
+    setCurScrollId((cur) => cur + 1)
   }
 
   const notYet = () => {
@@ -123,6 +104,12 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
   }, [map])
 
   useEffect(() => {
+    setCurScrollId(0)
+    autoRef.current?.scrollTo({
+      left: autoRef.current?.scrollLeft * 0,
+      behavior: 'smooth'
+    })
+    console.log(autoRef.current?.scrollLeft)
     async function getDetailStore() {
       try {
         const response = await axios.get(`/api/stores/${storeId}`)
@@ -254,7 +241,7 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
         </CafeInfoWrapper>
         <CafeInfoWrapper>
           <WrapperTitle>근처에 있는 카공 카페를 찾아봤어요</WrapperTitle>
-          {isLeftActive ? (
+          {curScrollId !== 0 ? (
             <LeftArrowBtn onClick={handleLeft}>
               <Image
                 src="/images/left_arrow_off.svg"
@@ -267,7 +254,7 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
             ''
           )}
 
-          {isRightActive ? (
+          {curScrollId !== (nearCafes?.length as number) - 1 ? (
             <RightArrowBtn onClick={handleRight}>
               <Image
                 src="/images/right_arrow_off.svg"
@@ -283,7 +270,7 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
           <ScrollWrapper ref={autoRef}>
             {nearCafes &&
               nearCafes.map((nearCafe) => (
-                <CardItem key={nearCafe.storeId}>
+                <CardItem key={String(nearCafe.storeId) + storeId}>
                   <CardImgWrapper>
                     {nearCafe.storeImageDtoList.length ? (
                       nearCafe.storeImageDtoList.map((storeImage) => (
