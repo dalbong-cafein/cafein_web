@@ -31,8 +31,7 @@ const Maps: NextPageWithLayout<{
   const [markers, setMarkers] = useAtom(mapMarkerList)
   const router = useRouter()
   const { storeId } = router.query
-  const [isOpenDetail, setIsOpenDetail] = useState(false)
-  const [cafes, setCafes] = useAtom(searchListsAtom)
+  const [cafes, setCafes] = useState(cafeDatas)
   console.log(router.query, '야 신기한거 보여줌', cafeDatas, cafes)
 
   useEffect(() => {
@@ -42,22 +41,19 @@ const Maps: NextPageWithLayout<{
 
     if (!map && search) setMap(initMap.init(search as string))
     else if (!map) setMap(initMap.init(''))
-
-    if (!cafes?.length) {
-      setCafes(cafeDatas)
-    }
   }, [])
 
   useEffect(() => {
-    console.log(search, inputs, '뭐야 ??')
-
     if (map) {
-      if (cafes) {
-        setMarkers(
-          getMapItems(map, cafes as IStore[], Number(storeId) as number, router)
+      setMarkers(
+        getMapItems(
+          map,
+          cafeDatas as IStore[],
+          Number(storeId) as number,
+          router
         )
-        console.log(cafes, '변경 끝!')
-      }
+      )
+      setCafes(cafeDatas)
     }
   }, [router, map])
   return (
