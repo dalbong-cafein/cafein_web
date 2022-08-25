@@ -15,6 +15,33 @@ const MainWrapper = styled.div`
   filter: drop-shadow(8px 0px 20px rgba(0, 0, 0, 0.08));
 `
 
+const CafeList = styled.ul`
+  border-top: 1px solid ${(props) => props.theme.colors.grey100};
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 185.03px);
+  overflow-y: auto;
+
+  & li:not(:first-child)::after {
+    content: '';
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    top: 0;
+    border-top: 1px solid ${(props) => props.theme.colors.grey100};
+  }
+  & li {
+    padding: 20px 24px;
+  }
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.colors.grey300};
+    border-radius: 4px;
+  }
+`
+
 const DetailWrapper = styled.div<{ isDetail: boolean }>`
   position: absolute;
   left: 400px;
@@ -37,7 +64,7 @@ const DetailWrapper = styled.div<{ isDetail: boolean }>`
   }
 `
 
-export { MainWrapper, DetailWrapper }
+export { MainWrapper, DetailWrapper, CafeList }
 export * from './MapStyle'
 export * from './ShortCafeStyles'
 export * from './RegionListStyles'
