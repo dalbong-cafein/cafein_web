@@ -25,7 +25,7 @@ const Maps: NextPageWithLayout<{
 }> = ({ search, cafeDatas }) => {
   const [inputs, setInputs] = useAtom(searchInputAtom)
   const [map, setMap] = useAtom(mapAtom)
-  const setMarkers = useSetAtom(mapMarkerList)
+  const [markers, setMarkers] = useAtom(mapMarkerList)
   const router = useRouter()
   const { storeId } = router.query
   const [cafes, setCafes] = useState(cafeDatas)
@@ -51,6 +51,9 @@ const Maps: NextPageWithLayout<{
         )
       )
       setCafes(cafeDatas)
+    }
+    return () => {
+      markers.forEach((marker) => marker.setMap(null))
     }
   }, [router, map])
   return (
