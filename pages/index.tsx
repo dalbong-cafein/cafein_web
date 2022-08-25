@@ -35,10 +35,10 @@ import RecommendItems from '../components/Home/RecommendItems'
 import { useRouter } from 'next/router'
 import RecommendSection from '../components/Home/RecommendSection'
 const Home: NextPage = () => {
-  const setMap = useSetAtom(mapAtom)
-  useEffect(() => {
-    setMap(null)
-  }, [])
+  // const setMap = useSetAtom(mapAtom)
+  // useEffect(() => {
+  //   setMap(null)
+  // }, [])
 
   return (
     <Wrapper>

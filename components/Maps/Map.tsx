@@ -3,7 +3,12 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import { cafeInfoAtom, ImageListInterface, moreAtom } from '../../store'
+import {
+  cafeInfoAtom,
+  ImageListInterface,
+  mapAtom,
+  moreAtom
+} from '../../store'
 import { DimmedWrapper } from '../common/Common'
 import { MapBox } from './styles/styles'
 
@@ -12,10 +17,19 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
   const cafeInfo = useAtomValue(cafeInfoAtom)
   const [imageId, setImageId] = useState(0)
   const router = useRouter()
+  const mapRef = useRef<HTMLDivElement>(null)
   const slideRef = useRef<HTMLDivElement>(null)
+
+  const map = useAtomValue(mapAtom)
   useEffect(() => {
     setMore(false)
   }, [router])
+
+  useEffect(() => {
+    console.log('맵이 있냐??')
+    console.log(mapRef)
+    console.log(map)
+  }, [mapRef])
 
   const handleClick = () => {
     setMore(false)
@@ -93,7 +107,7 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
       ) : (
         ''
       )}
-      <MapBox id="map" />
+      <MapBox ref={mapRef} id="map" />
     </>
   )
 }
