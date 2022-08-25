@@ -5,35 +5,25 @@ import Link from 'next/link'
 
 import { useEffect } from 'react'
 import { useSetAtom } from 'jotai'
+
 import { mapAtom } from '../store'
+
+import RecommendSection from '../components/Home/RecommendSection'
+import Search from '../components/Home/Search'
 import Footer from '../components/Home/Footer'
+
 import {
   NavWrapper,
   WhiteLink,
-  Wrapper
-} from '../components/Home/styles/NavStyles'
-import {
+  Wrapper,
   HomeTitle,
   HomeWrapper,
-  SearchButton
-} from '../components/Home/styles/FormStyles'
-import Search from '../components/Home/Search'
-import {
-  RecommendHeadWrapper,
-  RecommendSubWrapper,
-  RecommendTitle,
-  RecommendWrapper
-} from '../components/Home/styles/RecommendStyles'
-import TabList from '../components/Home/TabList'
-import {
   AddButton,
   AddLink,
   AddLinkText,
   AddWrapper
-} from '../components/Home/styles/AddOnStyles'
-import RecommendItems from '../components/Home/RecommendItems'
-import { useRouter } from 'next/router'
-import RecommendSection from '../components/Home/RecommendSection'
+} from '../components/Home/styles/styles'
+
 const Home: NextPage = () => {
   const setMap = useSetAtom(mapAtom)
   useEffect(() => {

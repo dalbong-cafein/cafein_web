@@ -1,17 +1,23 @@
-import { useAtom, useSetAtom } from 'jotai'
 import { ReactElement, useEffect, useState } from 'react'
-import MapLayout from '../../components/Maps/MapLayout'
-import { IStore, mapAtom, mapMarkerList, searchInputAtom } from '../../store'
 import { NextPageWithLayout } from '../_app'
 import { GetServerSideProps } from 'next'
-import axios from 'axios'
+
 import { useRouter } from 'next/router'
-import { getMapItems } from '../../utils/MapUtils'
-import initMap from '../../utils/initMap'
+import { useAtom, useSetAtom } from 'jotai'
+
+import axios from 'axios'
+
+import { IStore, mapAtom, mapMarkerList, searchInputAtom } from '../../store'
+
+import MapLayout from '../../components/Maps/MapLayout'
 import ErrorComponent from '../../components/common/ErrorComponent'
 import HeaderSection from '../../components/Maps/HeaderSection'
 import ShortCafeItem from '../../components/Maps/ShortCafeItem'
+
 import { CafeList } from '../../components/Maps/styles/styles'
+
+import initMap from '../../utils/initMap'
+import { getMapItems } from '../../utils/MapUtils'
 
 const Maps: NextPageWithLayout<{
   search?: string
