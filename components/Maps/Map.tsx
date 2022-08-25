@@ -67,7 +67,10 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
                 <ImageWrapper isActive={false} />
                 <ImageWrapper isActive={false} />
                 {cafeInfo?.storeImageList.map((storeImage, idx) => (
-                  <ImageWrapper isActive={imageId === idx}>
+                  <ImageWrapper
+                    isActive={imageId === idx}
+                    key={storeImage.imageId}
+                  >
                     <Image src={storeImage.imageUrl} width={100} height={100} />
                   </ImageWrapper>
                 ))}

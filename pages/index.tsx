@@ -33,16 +33,13 @@ import {
 } from '../components/Home/styles/AddOnStyles'
 import RecommendItems from '../components/Home/RecommendItems'
 import { useRouter } from 'next/router'
-
+import RecommendSection from '../components/Home/RecommendSection'
 const Home: NextPage = () => {
   const setMap = useSetAtom(mapAtom)
-  const router = useRouter()
   useEffect(() => {
     setMap(null)
   }, [])
-  const mapHandler = () => {
-    router.push('/maps')
-  }
+
   return (
     <Wrapper>
       <Head>
@@ -70,16 +67,7 @@ const Home: NextPage = () => {
           카페 추천 서비스 카페인
         </HomeTitle>
         <Search />
-        <RecommendWrapper>
-          <RecommendSubWrapper>
-            <RecommendHeadWrapper>
-              <RecommendTitle>지역별 카페 추천</RecommendTitle>
-              <TabList />
-            </RecommendHeadWrapper>
-            <SearchButton onClick={mapHandler}>지도에서 카페 찾기</SearchButton>
-          </RecommendSubWrapper>
-          <RecommendItems />
-        </RecommendWrapper>
+        <RecommendSection />
         <AddWrapper>
           <AddLink>
             <AddLinkText>추천하고 싶은 카페가 있다면 알려주세요</AddLinkText>
