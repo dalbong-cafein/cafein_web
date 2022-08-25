@@ -2,7 +2,6 @@ import { useAtom } from 'jotai'
 import { ReactElement, useEffect, useState } from 'react'
 import MapLayout from '../../components/Maps/MapLayout'
 import {
-  isDimmedAtom,
   IStore,
   mapAtom,
   mapMarkerList,
@@ -11,17 +10,6 @@ import {
 } from '../../store'
 import { NextPageWithLayout } from '../_app'
 import styled from 'styled-components'
-import Link from 'next/link'
-import {
-  CurrentPopularItem,
-  CurrentPopularItemLocation,
-  CurrentPopularItemTitle,
-  DdabongWrap,
-  OnAirBadge,
-  OnAirWrapper,
-  OpeningTime
-} from '../../components/Maps/styles/CurrentPopularStyles'
-import { Ddabong, Logo } from '../../components/common/Common'
 import { GetServerSideProps } from 'next'
 import axios from 'axios'
 import getHours from '../../utils/getHours'
@@ -32,6 +20,7 @@ import { getMapCenterByInputs, getMapItems } from '../../utils/MapUtils'
 import initMap from '../../utils/initMap'
 import ErrorComponent from '../../components/common/ErrorComponent'
 import HeaderSection from '../../components/Maps/HeaderSection'
+import ShortCafeItem from '../../components/Maps/ShortCafeItem'
 
 const Maps: NextPageWithLayout<{
   search?: string
@@ -79,78 +68,16 @@ const Maps: NextPageWithLayout<{
           cafes.length === 0 ? (
             <ErrorComponent storeName={search} />
           ) : (
-            cafes.slice(0, 15).map((cafe) => (
-              <CurrentPopularItem
-                key={cafe.storeId}
-                onClick={() => setIsOpenDetail(true)}
-                isClicked={
-                  storeId && (storeId as string) === String(cafe.storeId)
-                    ? true
-                    : false
-                }
-                onMouseOver={() => {
-                  if (
-                    (cafe.marker?.getIcon() as { content: string }).content ===
-                    `<div class="marker active">${cafe.storeName}</div>`
-                  )
-                    return
-                  cafe.marker?.setIcon({
-                    content: `<div class="marker over">${cafe.storeName}</div>`
-                  })
-                }}
-                onMouseOut={() => {
-                  if (
-                    (cafe.marker?.getIcon() as { content: string }).content ===
-                    `<div class="marker active">${cafe.storeName}</div>`
-                  )
-                    return
-                  cafe.marker?.setIcon({
-                    content: `<div class="marker">${cafe.storeName}</div>`
-                  })
-                }}
-              >
-                <Link
-                  href={{
-                    pathname: 'maps',
-                    query: {
-                      search,
-                      storeId: cafe.storeId,
-                      storeName: cafe.storeName
-                    }
-                  }}
-                  as={`maps?search=${search}&storeId=${cafe.storeId}`}
-                >
-                  <a>
-                    <CurrentPopularItemTitle>
-                      {cafe.storeName}
-                    </CurrentPopularItemTitle>
-                    <CurrentPopularItemLocation>
-                      {cafe.fullAddress}
-                    </CurrentPopularItemLocation>
-                    <OnAirWrapper>
-                      <OnAirBadge>
-                        {cafe.businessHoursInfoDto.isOpen
-                          ? '영업중'
-                          : '영업종료'}
-                      </OnAirBadge>
-                      <OpeningTime>
-                        {cafe.businessHoursInfoDto.closed
-                          ? getHours(cafe.businessHoursInfoDto.closed) +
-                            '에 영업 종료'
-                          : '정보 없음'}
-                      </OpeningTime>
-                    </OnAirWrapper>
-                    {cafe.recommendPercent ? (
-                      <DdabongWrap>
-                        {Ddabong} {Math.floor(cafe.recommendPercent) + '%'}
-                      </DdabongWrap>
-                    ) : (
-                      ''
-                    )}
-                  </a>
-                </Link>
-              </CurrentPopularItem>
-            ))
+            cafes
+              .slice(0, 15)
+              .map((cafe) => (
+                <ShortCafeItem
+                  cafe={cafe}
+                  storeId={storeId as string}
+                  search={search as string}
+                  key={cafe.storeId}
+                />
+              ))
           )
         ) : (
           <ErrorComponent />

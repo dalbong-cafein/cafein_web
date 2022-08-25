@@ -1,15 +1,15 @@
 import Image from 'next/image'
 import styled from 'styled-components'
 
-const CurrentPopularWrapper = styled.div`
+const ShortCafeWrapper = styled.div`
   margin-top: 30px;
 `
 
-const CurrentPopularTitle = styled.h2`
+const ShortCafeTitle = styled.h2`
   font-size: ${(props) => props.theme.fontsizes.font19}rem;
 `
 
-const CurrentPopularList = styled.ul`
+const ShortCafeList = styled.ul`
   margin-top: 30px;
   display: flex;
   flex-direction: row;
@@ -17,7 +17,7 @@ const CurrentPopularList = styled.ul`
   gap: 16px;
 `
 
-const CurrentPopularItem = styled.li<{ isClicked: boolean }>`
+const ShortCafeItemList = styled.li<{ isClicked: boolean }>`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -29,11 +29,11 @@ const CurrentPopularItem = styled.li<{ isClicked: boolean }>`
   }
 `
 
-const CurrentPopularItemImage = styled(Image)`
+const ShortCafeItemImage = styled(Image)`
   border-radius: ${(props) => props.theme.borderRadius.border12}px;
 `
 
-const CurrentPopularItemRegion = styled.p`
+const ShortCafeItemRegion = styled.p`
   border-radius: ${(props) => props.theme.borderRadius.border12}px;
   background-color: ${(props) => props.theme.colors.grey50};
   position: absolute;
@@ -42,14 +42,14 @@ const CurrentPopularItemRegion = styled.p`
   padding: 8px 10px;
 `
 
-const CurrentPopularItemTitle = styled.p`
+const ShortCafeItemTitle = styled.p`
   ${(props) => props.theme.mixins.ellipse}
   font-size: ${(props) => props.theme.fontsizes.font17}rem;
   color: ${(props) => props.theme.colors.grey800};
   font-weight: 600;
 `
 
-const CurrentPopularItemLocation = styled.p`
+const ShortCafeItemLocation = styled.p`
   ${(props) => props.theme.mixins.ellipse}
   margin-top: 6px;
   font-size: ${(props) => props.theme.fontsizes.font14}rem;
@@ -89,14 +89,14 @@ const DdabongWrap = styled.div`
 `
 
 export {
-  CurrentPopularWrapper,
-  CurrentPopularTitle,
-  CurrentPopularList,
-  CurrentPopularItem,
-  CurrentPopularItemImage,
-  CurrentPopularItemRegion,
-  CurrentPopularItemTitle,
-  CurrentPopularItemLocation,
+  ShortCafeWrapper,
+  ShortCafeTitle,
+  ShortCafeList,
+  ShortCafeItemList,
+  ShortCafeItemImage,
+  ShortCafeItemRegion,
+  ShortCafeItemTitle,
+  ShortCafeItemLocation,
   OnAirWrapper,
   OnAirBadge,
   OpeningTime,

@@ -28,7 +28,7 @@ import {
   AddLinkText,
   AddWrapper
 } from '../Home/styles/AddOnStyles'
-import { OnAirBadge } from '../Maps/styles/CurrentPopularStyles'
+import { OnAirBadge } from '../Maps/styles/ShortCafeStyles'
 import CafeInfoSection from './CafeInfoSection'
 import CafePOintsSection from './CafePointsSection'
 import ImageSection from './ImageSection'

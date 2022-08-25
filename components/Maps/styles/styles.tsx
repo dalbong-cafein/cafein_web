@@ -39,6 +39,6 @@ const DetailWrapper = styled.div<{ isDetail: boolean }>`
 
 export { MainWrapper, DetailWrapper }
 export * from './MapStyle'
-export * from './CurrentPopularStyles'
+export * from './ShortCafeStyles'
 export * from './RegionListStyles'
 export * from './FormStyles'
