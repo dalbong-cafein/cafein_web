@@ -45,7 +45,7 @@ const Maps: NextPageWithLayout<{
       setMarkers(
         getMapItems(
           map,
-          cafeDatas as IStore[],
+          cafeDatas?.slice(0, 15) as IStore[],
           Number(storeId) as number,
           router
         )
