@@ -50,7 +50,7 @@ const getMapItems = (
   router: NextRouter
 ) => {
   const markers: naver.maps.Marker[] = []
-  cafes.forEach((cafe) => {
+  cafes?.forEach((cafe) => {
     if (cafe.storeId === storeId) {
       map.setCenter(new naver.maps.LatLng(cafe.latY, cafe.lngX))
     }

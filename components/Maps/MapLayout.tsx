@@ -33,20 +33,22 @@ const MapLayout = ({ children }: MapLayoutProps) => {
       {isDimmed ? <DimmedAlert setIsDimmed={setIsDimmed} /> : ''}
       {cafeDatas ? (
         cafeDatas.length === 1 ? (
-          <MainWrapper>
-            <Link href="/">
-              <Logo>
-                <Image
-                  src="/images/logo_black.svg"
-                  width={103}
-                  height={22}
-                  alt="로고"
-                />
-              </Logo>
-            </Link>
-            <Search />
-            <DetailCafe cafe={cafeDatas[0] as IStore} />
-            <Link href={{ pathname: 'maps', query: { search } }} shallow>
+          <>
+            <MainWrapper>
+              <Link href="/">
+                <Logo>
+                  <Image
+                    src="/images/logo_black.svg"
+                    width={103}
+                    height={22}
+                    alt="로고"
+                  />
+                </Logo>
+              </Link>
+              <Search />
+              <DetailCafe cafe={cafeDatas[0] as IStore} />
+            </MainWrapper>
+            <Link href={{ pathname: 'maps' }}>
               <CloseImage
                 isSingle={true}
                 onClick={() => setInHoverClose(false)}
@@ -70,7 +72,7 @@ const MapLayout = ({ children }: MapLayoutProps) => {
                 )}
               </CloseImage>
             </Link>
-          </MainWrapper>
+          </>
         ) : (
           <>
             <MainWrapper>{children}</MainWrapper>
@@ -128,7 +130,7 @@ const CloseImage = styled.a<{ isSingle: boolean }>`
   width: 44px;
   height: 44px;
   left: ${(props) => (props.isSingle ? '400px' : '800px')};
-  top: 16px;
+  top: ${(props) => (props.isSingle ? '145px' : '16px')};
   z-index: 5;
 `
 

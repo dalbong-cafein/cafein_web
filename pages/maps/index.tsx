@@ -30,10 +30,10 @@ const Maps: NextPageWithLayout<{
   const { storeId } = router.query
   const [cafes, setCafes] = useState(cafeDatas)
   console.log(router.query, '야 신기한거 보여줌', cafeDatas, cafes)
+  console.log(cafeDatas, '서버에서 찾아왔다')
 
   useEffect(() => {
     console.log('맵 아톰 잘 있냐??')
-    console.log(map?.getElement())
     if (!inputs && search) setInputs(search as string)
 
     if (!map && search) setMap(initMap.init(search as string))
@@ -90,6 +90,7 @@ Maps.getLayout = function getLayout(page: ReactElement) {
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   if (query.search) {
     const { search } = query
+    console.log(search, 'search')
     try {
       const res = await axios(
         `${process.env.API_DOMAIN}/web/stores?keyword=${encodeURI(

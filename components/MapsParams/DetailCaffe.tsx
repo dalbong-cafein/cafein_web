@@ -58,7 +58,7 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
   const [markers, setMarkers] = useAtom(mapMarkerList)
   const autoRef = useRef<HTMLUListElement>(null)
   const router = useRouter()
-  const { search, storeId } = router.query
+  const { storeName: search, storeId } = cafe as IStore
 
   const handleLeft = () => {
     autoRef.current?.scrollTo({
@@ -109,7 +109,7 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
       left: autoRef.current?.scrollLeft * 0,
       behavior: 'smooth'
     })
-    console.log(autoRef.current?.scrollLeft)
+    console.log(autoRef.current?.scrollLeft, storeId, '가게 번호')
     async function getDetailStore() {
       try {
         const response = await axios.get(`/api/stores/${storeId}`)
