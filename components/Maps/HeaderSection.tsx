@@ -17,8 +17,8 @@ const HeaderSection = () => {
 
   const sortByOnAir = () => {
     setSortMode(1)
-    if (cafeDatas) {
-      const f_cafes: IStore[] = cafeDatas?.filter((cafe) =>
+    if (cafes) {
+      const f_cafes: IStore[] = cafes?.filter((cafe) =>
         cafe.businessHoursInfoDto.isOpen ? true : false
       )
       console.log(f_cafes, '얘넨 영업중이래')
@@ -32,7 +32,7 @@ const HeaderSection = () => {
     }
 
     function success(position: GeolocationPosition) {
-      const Cafes = cafeDatas
+      const Cafes = cafes
       Cafes?.sort((a, b) => {
         const totA =
           a.latY - position.coords.latitude + a.lngX - position.coords.longitude
@@ -52,8 +52,9 @@ const HeaderSection = () => {
   }
   const sortByRecommend = () => {
     setSortMode(3)
-    if (cafeDatas) {
-      const Cafes = cafeDatas
+    if (cafes) {
+      console.log(cafes)
+      const Cafes = cafes
       Cafes?.sort((a, b) => {
         if (a.recommendPercent && b.recommendPercent) {
           return b.recommendPercent - a.recommendPercent
