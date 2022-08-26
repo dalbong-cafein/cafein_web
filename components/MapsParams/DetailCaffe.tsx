@@ -37,11 +37,10 @@ import { CafeInfoWrapper } from './styles/CafeInfoSectionStyle'
 import { WrapperTitle } from './styles/CafePointsSectionStyle'
 
 interface DetailCafeProps {
-  cafe?: IStore
   isSingle: boolean
 }
 
-const DetailCafe = ({ cafe, isSingle }: DetailCafeProps) => {
+const DetailCafe = ({ isSingle }: DetailCafeProps) => {
   const [inputs, setInputs] = useAtom(searchInputAtom)
   const [map, setMap] = useAtom(mapAtom)
   const [cafeInfo, setCafeInfo] = useAtom(cafeInfoAtom)
@@ -59,7 +58,7 @@ const DetailCafe = ({ cafe, isSingle }: DetailCafeProps) => {
   const [markers, setMarkers] = useAtom(mapMarkerList)
   const autoRef = useRef<HTMLUListElement>(null)
   const router = useRouter()
-  const { storeName: search, storeId } = cafe as IStore
+  const { search, storeId } = router.query
 
   const handleLeft = () => {
     autoRef.current?.scrollTo({
@@ -83,20 +82,22 @@ const DetailCafe = ({ cafe, isSingle }: DetailCafeProps) => {
   }
 
   useEffect(() => {
-    if (!inputs || inputs !== search) setInputs(search as string)
-    if (!map && cafe) {
-      setMap(initMap.init('', [cafe.latY as number, cafe.lngX as number]))
-    } else if (map && cafe) {
-      const center = new naver.maps.LatLng(cafe.latY, cafe.lngX)
+    // if (!inputs || inputs !== search) setInputs(search as string)
+    if (!map && cafeInfo) {
+      setMap(
+        initMap.init('', [cafeInfo.latY as number, cafeInfo.lngX as number])
+      )
+    } else if (map && cafeInfo) {
+      const center = new naver.maps.LatLng(cafeInfo.latY, cafeInfo.lngX)
       map.setCenter(center)
     }
     let marker: naver.maps.Marker
-    if (map && cafe)
+    if (map && cafeInfo)
       marker = new naver.maps.Marker({
         map: map as naver.maps.Map,
-        position: new naver.maps.LatLng(cafe.latY, cafe.lngX),
+        position: new naver.maps.LatLng(cafeInfo.latY, cafeInfo.lngX),
         icon: {
-          content: `<div class="marker active">${cafe.storeName}</div>`
+          content: `<div class="marker active">${cafeInfo.storeName}</div>`
         }
       })
     return () => {
@@ -187,12 +188,7 @@ const DetailCafe = ({ cafe, isSingle }: DetailCafeProps) => {
     <>
       <CafeWrapper isSingle={isSingle}>
         <Head>
-          <title>
-            카페인 |{' '}
-            {router.query.storeName
-              ? router.query.storeName
-              : cafeInfo?.storeName}
-          </title>
+          <title>카페인 | {cafeInfo?.storeName}</title>
         </Head>
         <ImageSection />
         <CafeInfoSection />

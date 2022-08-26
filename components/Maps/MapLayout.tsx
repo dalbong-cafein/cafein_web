@@ -1,18 +1,13 @@
 import { useAtom } from 'jotai'
 import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import React, { useEffect, useState } from 'react'
 import { isDimmedAtom, IStore } from '../../store'
 import CloseButton from '../common/CloseButton'
-import { Logo } from '../common/Common'
 import DimmedAlert from '../common/DimmedAlert'
 import { FlexA } from '../common/styles/CommonStyles'
-import Search from '../Home/Search'
 import DetailCafe from '../MapsParams/DetailCaffe'
-import DetailStore from './DetailStore'
 import HeaderSection from './HeaderSection'
 import Map from './Map'
 import { DetailWrapper, MainWrapper } from './styles/styles'
@@ -28,6 +23,19 @@ const MapLayout = ({ children }: MapLayoutProps) => {
   const [isDimmed, setIsDimmed] = useAtom(isDimmedAtom)
   const { cafeDatas } = children.props
 
+  useEffect(() => {
+    console.log('리다이렉팅할거야', cafeDatas, 'hello')
+    if (cafeDatas?.length === 1) {
+      router.push({
+        pathname: `maps`,
+        query: {
+          search,
+          storeId: (cafeDatas[0] as IStore).storeId
+        }
+      })
+    }
+  }, [])
+
   return (
     <>
       <Head>
@@ -39,7 +47,7 @@ const MapLayout = ({ children }: MapLayoutProps) => {
           <>
             <MainWrapper>
               <HeaderSection hasFilter={false} />
-              <DetailCafe cafe={cafeDatas[0] as IStore} isSingle={true} />
+              <DetailCafe isSingle={true} />
             </MainWrapper>
             <Link href="/maps">
               <FlexA>
@@ -53,11 +61,14 @@ const MapLayout = ({ children }: MapLayoutProps) => {
           </>
         ) : (
           <>
-            <MainWrapper>{children}</MainWrapper>
+            <MainWrapper>
+              <HeaderSection hasFilter={true} />
+              {children}
+            </MainWrapper>
             {storeId ? (
               <>
                 <DetailWrapper>
-                  <DetailCafe cafe={cafeDatas[0] as IStore} isSingle={false} />
+                  <DetailCafe isSingle={false} />
                 </DetailWrapper>
                 <Link href={{ pathname: 'maps', query: { search } }} shallow>
                   <FlexA>
