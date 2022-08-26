@@ -24,7 +24,6 @@ const MapLayout = ({ children }: MapLayoutProps) => {
   const { cafeDatas } = children.props
 
   useEffect(() => {
-    console.log('리다이렉팅할거야', cafeDatas, 'hello')
     if (cafeDatas?.length === 1) {
       router.push({
         pathname: `maps`,
@@ -42,60 +41,84 @@ const MapLayout = ({ children }: MapLayoutProps) => {
         <title>카페인 | 지도</title>
       </Head>
       {isDimmed ? <DimmedAlert setIsDimmed={setIsDimmed} /> : ''}
-      {cafeDatas ? (
-        cafeDatas.length === 1 ? (
-          <>
-            <MainWrapper>
-              <HeaderSection hasFilter={false} />
-              <DetailCafe isSingle={true} />
-            </MainWrapper>
-            <Link href="/maps">
-              <FlexA>
-                <CloseButton
-                  inHoverClose={inHoverClose}
-                  setInHoverClose={setInHoverClose}
-                  isSingle={true}
-                />
-              </FlexA>
-            </Link>
-          </>
-        ) : (
-          <>
-            <MainWrapper>
-              <HeaderSection hasFilter={true} />
-              {children}
-            </MainWrapper>
-            {storeId ? (
-              <>
-                <DetailWrapper>
-                  <DetailCafe isSingle={false} />
-                </DetailWrapper>
-                <Link href={{ pathname: 'maps', query: { search } }} shallow>
-                  <FlexA>
-                    <CloseButton
-                      inHoverClose={inHoverClose}
-                      setInHoverClose={setInHoverClose}
-                      isSingle={false}
-                    />
-                  </FlexA>
-                </Link>
-              </>
-            ) : (
-              ''
-            )}
-          </>
-        )
+      <MainWrapper>
+        <HeaderSection hasFilter={cafeDatas?.length === 1 ? false : true} />
+        {children}
+      </MainWrapper>
+      {storeId ? (
+        <>
+          <DetailWrapper>
+            <DetailCafe isSingle={false} />
+          </DetailWrapper>
+          <Link href={{ pathname: 'maps', query: { search } }} shallow>
+            <FlexA>
+              <CloseButton
+                inHoverClose={inHoverClose}
+                setInHoverClose={setInHoverClose}
+                isSingle={false}
+              />
+            </FlexA>
+          </Link>
+        </>
       ) : (
-        <MainWrapper>
-          <HeaderSection hasFilter={true} />
-          {children}
-        </MainWrapper>
+        ''
       )}
-      {cafeDatas ? (
-        <Map isSingle={cafeDatas.length === 1 ? true : false} />
+      <Map isSingle={cafeDatas?.length === 1 ? true : false} />
+      {/* {cafeDatas ? (
+        <>
+          {cafeDatas.length === 1 ? (
+            <>
+              <MainWrapper>
+                <HeaderSection hasFilter={false} />
+                <DetailCafe isSingle={true} />
+              </MainWrapper>
+              <Link href="/maps">
+                <FlexA>
+                  <CloseButton
+                    inHoverClose={inHoverClose}
+                    setInHoverClose={setInHoverClose}
+                    isSingle={true}
+                  />
+                </FlexA>
+              </Link>
+            </>
+          ) : (
+            <>
+              <MainWrapper>
+                <HeaderSection hasFilter={true} />
+                {children}
+              </MainWrapper>
+              {storeId ? (
+                <>
+                  <DetailWrapper>
+                    <DetailCafe isSingle={false} />
+                  </DetailWrapper>
+                  <Link href={{ pathname: 'maps', query: { search } }} shallow>
+                    <FlexA>
+                      <CloseButton
+                        inHoverClose={inHoverClose}
+                        setInHoverClose={setInHoverClose}
+                        isSingle={false}
+                      />
+                    </FlexA>
+                  </Link>
+                </>
+              ) : (
+                ''
+              )}
+            </>
+          )}
+          <Map isSingle={cafeDatas.length === 1 ? true : false} />
+        </>
       ) : (
-        <Map isSingle={true} />
-      )}
+        <>
+          <MainWrapper>
+            <HeaderSection hasFilter={true} />
+            {children}
+          </MainWrapper>
+          <Map isSingle={true} />
+        </>
+      )} */}
     </>
   )
 }

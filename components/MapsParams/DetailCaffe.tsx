@@ -82,7 +82,7 @@ const DetailCafe = ({ isSingle }: DetailCafeProps) => {
   }
 
   useEffect(() => {
-    // if (!inputs || inputs !== search) setInputs(search as string)
+    if (!inputs || inputs !== search) setInputs(search as string)
     if (!map && cafeInfo) {
       setMap(
         initMap.init('', [cafeInfo.latY as number, cafeInfo.lngX as number])

@@ -78,6 +78,7 @@ const Search = () => {
       return
     }
     if (e.key === 'Enter') {
+      inputRef.current?.blur()
       if (searchIdx !== -1) {
         onEnterPress(
           e,
