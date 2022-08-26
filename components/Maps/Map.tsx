@@ -21,6 +21,7 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
   const slideRef = useRef<HTMLDivElement>(null)
 
   const map = useAtomValue(mapAtom)
+
   useEffect(() => {
     setMore(false)
   }, [router])

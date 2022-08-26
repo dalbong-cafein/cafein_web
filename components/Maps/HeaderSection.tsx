@@ -11,7 +11,7 @@ import {
   Wrapper
 } from './styles/HeaderSectionStyles'
 
-const HeaderSection = () => {
+const HeaderSection = ({ hasFilter }: { hasFilter: boolean }) => {
   const [cafes, setCafes] = useAtom(searchListsAtom)
   const [sortMode, setSortMode] = useState(0)
 
@@ -82,11 +82,15 @@ const HeaderSection = () => {
         </Logo>
       </Link>
       <Search />
-      <FilterWrapper>
-        <FilterItem onClick={sortByOnAir}>영업중</FilterItem>
-        <FilterItem onClick={sortByClosest}>가까운순</FilterItem>
-        <FilterItem onClick={sortByRecommend}>추천순</FilterItem>
-      </FilterWrapper>
+      {hasFilter ? (
+        <FilterWrapper>
+          <FilterItem onClick={sortByOnAir}>영업중</FilterItem>
+          <FilterItem onClick={sortByClosest}>가까운순</FilterItem>
+          <FilterItem onClick={sortByRecommend}>추천순</FilterItem>
+        </FilterWrapper>
+      ) : (
+        ''
+      )}
     </Wrapper>
   )
 }

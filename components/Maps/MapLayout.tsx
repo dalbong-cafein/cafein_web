@@ -11,6 +11,7 @@ import DimmedAlert from '../common/DimmedAlert'
 import Search from '../Home/Search'
 import DetailCafe from '../MapsParams/DetailCaffe'
 import DetailStore from './DetailStore'
+import HeaderSection from './HeaderSection'
 import Map from './Map'
 import { MainWrapper } from './styles/styles'
 
@@ -35,17 +36,7 @@ const MapLayout = ({ children }: MapLayoutProps) => {
         cafeDatas.length === 1 ? (
           <>
             <MainWrapper>
-              <Link href="/">
-                <Logo>
-                  <Image
-                    src="/images/logo_black.svg"
-                    width={103}
-                    height={22}
-                    alt="로고"
-                  />
-                </Logo>
-              </Link>
-              <Search />
+              <HeaderSection hasFilter={false} />
               <DetailCafe cafe={cafeDatas[0] as IStore} />
             </MainWrapper>
             <Link href={{ pathname: 'maps' }}>

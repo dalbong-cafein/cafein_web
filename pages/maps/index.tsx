@@ -58,7 +58,7 @@ const Maps: NextPageWithLayout<{
   }, [router, map])
   return (
     <>
-      <HeaderSection />
+      <HeaderSection hasFilter={true} />
       <CafeList>
         {cafes ? (
           cafes.length === 0 ? (
