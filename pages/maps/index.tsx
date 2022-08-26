@@ -39,11 +39,24 @@ const Maps: NextPage = ({
   const { storeId } = router.query
   const [cafes, setCafes] = useState(cafeDatas)
   const [inHoverClose, setInHoverClose] = useState(false)
+  const isSingle = cafeDatas?.length === 1 ? true : false
+
+  const [isEmpty, setIsEmpty] = useState(cafeDatas?.length === 0 ? true : false)
+
+  console.log(isSingle, isEmpty, storeId)
 
   console.log(cafeDatas, '서버에서 찾아왔다')
 
   useEffect(() => {
-    if (!inputs && search) setInputs(search as string)
+    if (cafeDatas?.length === 1) {
+      router.push({
+        pathname: `maps`,
+        query: {
+          search,
+          storeId: (cafeDatas[0] as IStore).storeId
+        }
+      })
+    }
 
     if (!map && search) setMap(initMap.init(search as string))
     else if (!map) setMap(initMap.init(''))
@@ -61,13 +74,15 @@ const Maps: NextPage = ({
       )
       setCafes(cafeDatas)
     }
+    if ((!inputs && search) || inputs !== search) setInputs(search as string)
     return () => {
       markers.forEach((marker) => marker.setMap(null))
     }
   }, [router, map])
+
   return (
     <>
-      {cafeDatas ? (
+      {/* {cafeDatas ? (
         <>
           {cafeDatas.length === 1 ? (
             <>
@@ -155,7 +170,46 @@ const Maps: NextPage = ({
           </MainWrapper>
           <Map isSingle={true} />
         </>
+      )} */}
+      <MainWrapper>
+        <HeaderSection hasFilter={!isSingle} />
+        {isSingle ? (
+          <DetailCafe isSingle={isSingle} />
+        ) : isEmpty ? (
+          <ErrorComponent storeName={search} />
+        ) : (
+          <CafeList>
+            {cafes &&
+              cafes
+                .slice(0, 15)
+                .map((cafe: IStore) => (
+                  <ShortCafeItem
+                    cafe={cafe}
+                    storeId={storeId as string}
+                    search={search as string}
+                    key={cafe.storeId}
+                  />
+                ))}
+          </CafeList>
+        )}
+      </MainWrapper>
+      {!isSingle && !isEmpty && storeId ? (
+        <>
+          <DetailWrapper>
+            <DetailCafe isSingle={isSingle} />
+          </DetailWrapper>
+          <Link passHref href={{ pathname: 'maps', query: { search } }}>
+            <CloseButton
+              inHoverClose={inHoverClose}
+              setInHoverClose={setInHoverClose}
+              isSingle={isSingle}
+            />
+          </Link>
+        </>
+      ) : (
+        ''
       )}
+      <Map isSingle={isSingle} />
     </>
   )
 }

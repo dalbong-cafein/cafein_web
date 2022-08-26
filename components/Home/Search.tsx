@@ -209,9 +209,11 @@ const Search = () => {
                 <SearchListTitle>
                   {searchList.storeName
                     .split('')
-                    .map((text) =>
+                    .map((text, idx) =>
                       split_inputs.includes(text) ? (
-                        <SearchListStrong>{text}</SearchListStrong>
+                        <SearchListStrong key={idx + searchList.storeId}>
+                          {text}
+                        </SearchListStrong>
                       ) : (
                         text
                       )
