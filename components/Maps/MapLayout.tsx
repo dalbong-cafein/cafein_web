@@ -86,7 +86,10 @@ const MapLayout = ({ children }: MapLayoutProps) => {
           </>
         )
       ) : (
-        <MainWrapper>{children}</MainWrapper>
+        <MainWrapper>
+          <HeaderSection hasFilter={true} />
+          {children}
+        </MainWrapper>
       )}
       {cafeDatas ? (
         <Map isSingle={cafeDatas.length === 1 ? true : false} />
