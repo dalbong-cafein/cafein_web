@@ -42,7 +42,7 @@ const CafeList = styled.ul`
   }
 `
 
-const DetailWrapper = styled.div<{ isDetail: boolean }>`
+const DetailWrapper = styled.div`
   position: absolute;
   left: 400px;
   top: 0;

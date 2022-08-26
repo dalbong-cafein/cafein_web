@@ -38,9 +38,10 @@ import { WrapperTitle } from './styles/CafePointsSectionStyle'
 
 interface DetailCafeProps {
   cafe?: IStore
+  isSingle: boolean
 }
 
-const DetailCafe = ({ cafe }: DetailCafeProps) => {
+const DetailCafe = ({ cafe, isSingle }: DetailCafeProps) => {
   const [inputs, setInputs] = useAtom(searchInputAtom)
   const [map, setMap] = useAtom(mapAtom)
   const [cafeInfo, setCafeInfo] = useAtom(cafeInfoAtom)
@@ -165,7 +166,6 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
         const response = await axios.get(
           `/api/web/stores/${storeId}/near-stores`
         )
-        console.log(response.data.data)
         setNearCafes(response.data.data)
       } catch (error) {
         console.error(error)
@@ -185,7 +185,7 @@ const DetailCafe = ({ cafe }: DetailCafeProps) => {
   }, [storeId])
   return (
     <>
-      <CafeWrapper isSingle={cafe ? true : false}>
+      <CafeWrapper isSingle={isSingle}>
         <Head>
           <title>
             카페인 |{' '}

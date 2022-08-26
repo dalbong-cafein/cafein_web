@@ -1,9 +1,7 @@
 import axios from 'axios'
 import { useAtom, useSetAtom } from 'jotai'
 import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
-import { MouseEventHandler, useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   cafeInfoAtom,
   CafeInfoInterface,
@@ -13,22 +11,8 @@ import {
   IStore,
   moreAtom
 } from '../../store'
-import CafeInfoSection from '../MapsParams/CafeInfoSection'
-import CafePOintsSection from '../MapsParams/CafePointsSection'
-import ImageSection from '../MapsParams/ImageSection'
-import { CafeInfoWrapper } from '../MapsParams/styles/CafeInfoSectionStyle'
-import RecommendSection from '../MapsParams/RecommendSection'
-import { WrapperTitle } from '../MapsParams/styles/CafePointsSectionStyle'
-import { DetailWrapper, OnAirBadge } from './styles/styles'
+import { DetailWrapper } from './styles/styles'
 import { useRouter } from 'next/router'
-import styled from 'styled-components'
-import {
-  AddButton,
-  AddLink,
-  AddLinkText,
-  AddWrapper
-} from '../Home/styles/AddOnStyles'
-import Footer from '../Home/Footer'
 import DetailCafe from '../MapsParams/DetailCaffe'
 
 interface DetailCafeProps {
@@ -108,7 +92,7 @@ const DetailStore = ({ cafe }: DetailCafeProps) => {
   }, [storeId])
 
   return (
-    <DetailWrapper isDetail={storeId ? true : false}>
+    <DetailWrapper>
       <Head>
         <title>
           카페인 |{' '}
@@ -117,7 +101,7 @@ const DetailStore = ({ cafe }: DetailCafeProps) => {
             : cafeInfo?.storeName}
         </title>
       </Head>
-      <DetailCafe cafe={cafe} />
+      <DetailCafe cafe={cafe} isSingle={false} />
     </DetailWrapper>
   )
 }

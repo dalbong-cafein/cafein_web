@@ -9,12 +9,13 @@ import { isDimmedAtom, IStore } from '../../store'
 import CloseButton from '../common/CloseButton'
 import { Logo } from '../common/Common'
 import DimmedAlert from '../common/DimmedAlert'
+import { FlexA } from '../common/styles/CommonStyles'
 import Search from '../Home/Search'
 import DetailCafe from '../MapsParams/DetailCaffe'
 import DetailStore from './DetailStore'
 import HeaderSection from './HeaderSection'
 import Map from './Map'
-import { MainWrapper } from './styles/styles'
+import { DetailWrapper, MainWrapper } from './styles/styles'
 
 interface MapLayoutProps {
   children: JSX.Element
@@ -26,7 +27,7 @@ const MapLayout = ({ children }: MapLayoutProps) => {
   const [inHoverClose, setInHoverClose] = useState(false)
   const [isDimmed, setIsDimmed] = useAtom(isDimmedAtom)
   const { cafeDatas } = children.props
-  console.log(cafeDatas, 'ㅘ하하하')
+
   return (
     <>
       <Head>
@@ -38,13 +39,16 @@ const MapLayout = ({ children }: MapLayoutProps) => {
           <>
             <MainWrapper>
               <HeaderSection hasFilter={false} />
-              <DetailCafe cafe={cafeDatas[0] as IStore} />
+              <DetailCafe cafe={cafeDatas[0] as IStore} isSingle={true} />
             </MainWrapper>
-            <Link href={{ pathname: 'maps' }}>
-              <CloseButton
-                inHoverClose={inHoverClose}
-                setInHoverClose={setInHoverClose}
-              />
+            <Link href="/maps">
+              <FlexA>
+                <CloseButton
+                  inHoverClose={inHoverClose}
+                  setInHoverClose={setInHoverClose}
+                  isSingle={true}
+                />
+              </FlexA>
             </Link>
           </>
         ) : (
@@ -52,12 +56,17 @@ const MapLayout = ({ children }: MapLayoutProps) => {
             <MainWrapper>{children}</MainWrapper>
             {storeId ? (
               <>
-                <DetailStore cafe={cafeDatas[0] as IStore} />
+                <DetailWrapper>
+                  <DetailCafe cafe={cafeDatas[0] as IStore} isSingle={false} />
+                </DetailWrapper>
                 <Link href={{ pathname: 'maps', query: { search } }} shallow>
-                  <CloseButton
-                    inHoverClose={inHoverClose}
-                    setInHoverClose={setInHoverClose}
-                  />
+                  <FlexA>
+                    <CloseButton
+                      inHoverClose={inHoverClose}
+                      setInHoverClose={setInHoverClose}
+                      isSingle={false}
+                    />
+                  </FlexA>
                 </Link>
               </>
             ) : (

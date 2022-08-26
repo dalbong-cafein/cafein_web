@@ -29,11 +29,10 @@ const Maps: NextPageWithLayout<{
   const router = useRouter()
   const { storeId } = router.query
   const [cafes, setCafes] = useState(cafeDatas)
-  console.log(router.query, '야 신기한거 보여줌', cafeDatas, cafes)
+
   console.log(cafeDatas, '서버에서 찾아왔다')
 
   useEffect(() => {
-    console.log('맵 아톰 잘 있냐??')
     if (!inputs && search) setInputs(search as string)
 
     if (!map && search) setMap(initMap.init(search as string))

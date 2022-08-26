@@ -4,12 +4,17 @@ import styled from 'styled-components'
 interface ICloseButton {
   inHoverClose: boolean
   setInHoverClose: React.Dispatch<React.SetStateAction<boolean>>
+  isSingle: boolean
 }
 
-const CloseButton = ({ inHoverClose, setInHoverClose }: ICloseButton) => {
+const CloseButton = ({
+  inHoverClose,
+  setInHoverClose,
+  isSingle
+}: ICloseButton) => {
   return (
     <CloseImage
-      isSingle={true}
+      isSingle={isSingle}
       onClick={() => setInHoverClose(false)}
       onMouseEnter={() => setInHoverClose(true)}
       onMouseLeave={() => setInHoverClose(false)}
