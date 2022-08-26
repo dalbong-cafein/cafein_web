@@ -27,6 +27,7 @@ import Link from 'next/link'
 import { FlexA } from '../../components/common/styles/CommonStyles'
 import CloseButton from '../../components/common/CloseButton'
 import Map from '../../components/Maps/Map'
+import Head from 'next/head'
 
 const Maps: NextPage = ({
   search,
@@ -171,6 +172,9 @@ const Maps: NextPage = ({
           <Map isSingle={true} />
         </>
       )} */}
+      <Head>
+        <title>카페인 | {search ? search : '지도'}</title>
+      </Head>
       <MainWrapper>
         <HeaderSection hasFilter={!isSingle} />
         {isSingle ? (
@@ -184,6 +188,7 @@ const Maps: NextPage = ({
                 .slice(0, 15)
                 .map((cafe: IStore) => (
                   <ShortCafeItem
+                    router={router}
                     cafe={cafe}
                     storeId={storeId as string}
                     search={search as string}

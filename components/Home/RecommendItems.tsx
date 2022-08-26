@@ -26,8 +26,8 @@ const RecommendItems = () => {
         <RecommendItem key={recommend.engType}>
           <Link
             href={{
-              pathname: '/sgg/maps',
-              query: { sggNm: loc, tpye: recommend.engType }
+              pathname: '/maps/suggestions',
+              query: { sggNm: loc, type: recommend.engType }
             }}
           >
             <a>

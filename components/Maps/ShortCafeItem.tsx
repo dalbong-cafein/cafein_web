@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { NextRouter } from 'next/router'
 import { IStore } from '../../store'
 import getHours from '../../utils/getHours'
 import {
@@ -20,9 +21,10 @@ interface IShortCafeItem {
   cafe: IStore
   storeId: string
   search: string
+  router: NextRouter
 }
 
-const ShortCafeItem = ({ cafe, storeId, search }: IShortCafeItem) => {
+const ShortCafeItem = ({ cafe, storeId, search, router }: IShortCafeItem) => {
   return (
     <ShortCafeItemList
       key={cafe.storeId}
@@ -34,14 +36,13 @@ const ShortCafeItem = ({ cafe, storeId, search }: IShortCafeItem) => {
     >
       <Link
         href={{
-          pathname: 'maps',
+          pathname: router.pathname,
           query: {
-            search,
-            storeId: cafe.storeId,
-            storeName: cafe.storeName
+            ...router.query,
+            storeId: cafe.storeId
           }
         }}
-        as={`maps?search=${search}&storeId=${cafe.storeId}`}
+        // as={`maps?search=${search}&storeId=${cafe.storeId}`}
       >
         <a>
           <ShortCafeItemTitle>{cafe.storeName}</ShortCafeItemTitle>

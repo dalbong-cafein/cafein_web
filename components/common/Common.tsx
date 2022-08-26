@@ -12,8 +12,6 @@ export const Ddabong = (
 export const Logo = styled.a`
   display: flex;
   flex: 0;
-  margin-top: 23px;
-  margin-left: 24px;
   margin: 23px 24px 30px;
   width: 103px;
   height: 22px;
