@@ -10,6 +10,7 @@ import {
   cafeReviewPercentAtom,
   cafeReviewPonitAtom,
   CafeRewviewPointInterface,
+  IStore,
   moreAtom
 } from '../../store'
 import CafeInfoSection from '../MapsParams/CafeInfoSection'
@@ -30,7 +31,11 @@ import {
 import Footer from '../Home/Footer'
 import DetailCafe from '../MapsParams/DetailCaffe'
 
-const DetailStore = () => {
+interface DetailCafeProps {
+  cafe?: IStore
+}
+
+const DetailStore = ({ cafe }: DetailCafeProps) => {
   const [cafeInfo, setCafeInfo] = useAtom(cafeInfoAtom)
   const [cafePoints, setCafePoints] = useAtom(cafeReviewPonitAtom)
   const setCafeReviewPercent = useSetAtom(cafeReviewPercentAtom)
@@ -112,7 +117,7 @@ const DetailStore = () => {
             : cafeInfo?.storeName}
         </title>
       </Head>
-      <DetailCafe />
+      <DetailCafe cafe={cafe} />
     </DetailWrapper>
   )
 }

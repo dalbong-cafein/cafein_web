@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { isDimmedAtom, IStore } from '../../store'
+import CloseButton from '../common/CloseButton'
 import { Logo } from '../common/Common'
 import DimmedAlert from '../common/DimmedAlert'
 import Search from '../Home/Search'
@@ -40,28 +41,10 @@ const MapLayout = ({ children }: MapLayoutProps) => {
               <DetailCafe cafe={cafeDatas[0] as IStore} />
             </MainWrapper>
             <Link href={{ pathname: 'maps' }}>
-              <CloseImage
-                isSingle={true}
-                onClick={() => setInHoverClose(false)}
-                onMouseEnter={() => setInHoverClose(true)}
-                onMouseLeave={() => setInHoverClose(false)}
-              >
-                {inHoverClose ? (
-                  <Image
-                    src="/images/orange_close.svg"
-                    alt="닫기 아이콘"
-                    width={44}
-                    height={44}
-                  />
-                ) : (
-                  <Image
-                    src="/images/white_close.svg"
-                    alt="닫기 아이콘"
-                    width={44}
-                    height={44}
-                  />
-                )}
-              </CloseImage>
+              <CloseButton
+                inHoverClose={inHoverClose}
+                setInHoverClose={setInHoverClose}
+              />
             </Link>
           </>
         ) : (
@@ -69,30 +52,12 @@ const MapLayout = ({ children }: MapLayoutProps) => {
             <MainWrapper>{children}</MainWrapper>
             {storeId ? (
               <>
-                <DetailStore />
+                <DetailStore cafe={cafeDatas[0] as IStore} />
                 <Link href={{ pathname: 'maps', query: { search } }} shallow>
-                  <CloseImage
-                    isSingle={false}
-                    onClick={() => setInHoverClose(false)}
-                    onMouseEnter={() => setInHoverClose(true)}
-                    onMouseLeave={() => setInHoverClose(false)}
-                  >
-                    {inHoverClose ? (
-                      <Image
-                        src="/images/orange_close.svg"
-                        alt="닫기 아이콘"
-                        width={44}
-                        height={44}
-                      />
-                    ) : (
-                      <Image
-                        src="/images/white_close.svg"
-                        alt="닫기 아이콘"
-                        width={44}
-                        height={44}
-                      />
-                    )}
-                  </CloseImage>
+                  <CloseButton
+                    inHoverClose={inHoverClose}
+                    setInHoverClose={setInHoverClose}
+                  />
                 </Link>
               </>
             ) : (
@@ -111,18 +76,5 @@ const MapLayout = ({ children }: MapLayoutProps) => {
     </>
   )
 }
-
-const CloseImage = styled.a<{ isSingle: boolean }>`
-  box-sizing: border-box;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 44px;
-  height: 44px;
-  left: ${(props) => (props.isSingle ? '400px' : '800px')};
-  top: ${(props) => (props.isSingle ? '145px' : '16px')};
-  z-index: 5;
-`
 
 export default MapLayout
