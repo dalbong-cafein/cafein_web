@@ -1,6 +1,6 @@
 import { SetStateAction } from 'react'
 
-import { DimmedWrapper } from './Common'
+import common from './Common'
 
 import {
   DimmedAlertBtn,
@@ -16,7 +16,7 @@ interface IDimmedAlert {
 
 const DimmedAlert = ({ setIsDimmed }: IDimmedAlert) => {
   return (
-    <DimmedWrapper
+    <common.DimmedWrapper
       isSearch={false}
       isAll={true}
       onClick={(e) => {
@@ -34,7 +34,7 @@ const DimmedAlert = ({ setIsDimmed }: IDimmedAlert) => {
         </DimmedAlertHeader>
         <DimmedAlertBtn onClick={() => setIsDimmed(false)}>확인</DimmedAlertBtn>
       </DimmedAlertWrapper>
-    </DimmedWrapper>
+    </common.DimmedWrapper>
   )
 }
 

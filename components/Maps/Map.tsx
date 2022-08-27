@@ -13,6 +13,7 @@ import {
 } from '../../store'
 
 import common from '../common/Common'
+import Ic_close from '@public/close.svg'
 import Ic_left_arrow from '@public/left_arrow_img.svg'
 import Ic_right_arrow from '@public/right_arrow_img.svg'
 
@@ -68,12 +69,7 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
         <>
           <common.DimmedWrapper isAll={false} isSearch={isSingle}>
             <Escape onClick={handleClick}>
-              <Image
-                src={'/images/close.svg'}
-                width={40}
-                height={40}
-                alt={'닫기 이모지'}
-              />
+              <Ic_close />
             </Escape>
             <MainImage>
               <Image

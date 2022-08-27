@@ -34,6 +34,7 @@ const Suggestions: NextPage = ({
   const { sggNm, type, storeId } = router.query
   const [, setCafes] = useState(cafeDatas)
   const [isDimmed, setIsDimmed] = useAtom(isDimmedAtom)
+  const isSingle = storeId ? false : true
 
   console.log('잘왔다', router)
 
@@ -82,19 +83,19 @@ const Suggestions: NextPage = ({
       {storeId ? (
         <>
           <DetailWrapper>
-            <DetailCafe isSingle={false} />
+            <DetailCafe isSingle={isSingle} />
           </DetailWrapper>
           <Link
             passHref
             href={{ pathname: router.pathname, query: { sggNm, type } }}
           >
-            <CloseButton isSingle={false} />
+            <CloseButton isSingle={isSingle} />
           </Link>
         </>
       ) : (
         ''
       )}
-      <Map isSingle={true} />
+      <Map isSingle={isSingle} />
     </>
   )
 }

@@ -10,7 +10,7 @@ import {
   isRunningAtom
 } from '../../store'
 
-import { Ddabong } from '../common/Common'
+import common from '../common/Common'
 import getIsToday from '../../utils/getIsToday'
 
 import {
@@ -76,7 +76,7 @@ const CafeInfoSection = () => {
               {cafeReviewPercent > 0 && (
                 <>
                   <DDabongWrapper>
-                    {Ddabong}
+                    {common.Ic_like}
                     <DDabongPoints>
                       {Math.floor(cafeReviewPercent)}%
                     </DDabongPoints>
