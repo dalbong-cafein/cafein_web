@@ -60,6 +60,7 @@ const Maps: NextPage = ({
 
     if (!map && search) setMap(initMap.init(search as string))
     else if (!map) setMap(initMap.init(''))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -78,6 +79,7 @@ const Maps: NextPage = ({
     return () => {
       markers.forEach((marker) => marker.setMap(null))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, map])
 
   return (
@@ -191,7 +193,6 @@ const Maps: NextPage = ({
                     router={router}
                     cafe={cafe}
                     storeId={storeId as string}
-                    search={search as string}
                     key={cafe.storeId}
                   />
                 ))}

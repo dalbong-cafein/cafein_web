@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
@@ -64,13 +65,19 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
         <>
           <DimmedWrapper isAll={false} isSearch={isSingle}>
             <Escape onClick={handleClick}>
-              <Image src={'/images/close.svg'} width={40} height={40} />
+              <Image
+                src={'/images/close.svg'}
+                width={40}
+                height={40}
+                alt={'닫기 이모지'}
+              />
             </Escape>
             <MainImage>
               <Image
                 src={`${cafeInfo?.storeImageList[imageId].imageUrl}`}
                 width={480}
                 height={480}
+                alt={'카페 사진'}
               />
             </MainImage>
             <ImageLists>
@@ -79,6 +86,7 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
                   src={'/images/left_arrow_img.svg'}
                   width={40}
                   height={40}
+                  alt={'왼쪽 화살표 이모지'}
                 />
               </ArrowBtn>
               <ImagesWrapper ref={slideRef}>
@@ -89,7 +97,12 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
                     isActive={imageId === idx}
                     key={storeImage.imageId}
                   >
-                    <Image src={storeImage.imageUrl} width={100} height={100} />
+                    <Image
+                      src={storeImage.imageUrl}
+                      width={100}
+                      height={100}
+                      alt={'카페 이미지'}
+                    />
                   </ImageWrapper>
                 ))}
                 <ImageWrapper isActive={false} />
@@ -100,6 +113,7 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
                   src={'/images/right_arrow_img.svg'}
                   width={40}
                   height={40}
+                  alt={'오른쪽 화살표 이모지'}
                 />
               </ArrowBtn>
             </ImageLists>

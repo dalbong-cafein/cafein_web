@@ -16,7 +16,7 @@ import {
 
 const HeaderSection = ({ hasFilter }: { hasFilter: boolean }) => {
   const [cafes, setCafes] = useAtom(searchListsAtom)
-  const [sortMode, setSortMode] = useState(0)
+  const [, setSortMode] = useState(0)
 
   const sortByOnAir = () => {
     setSortMode(1)

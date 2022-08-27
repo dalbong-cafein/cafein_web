@@ -16,7 +16,6 @@ import {
   INearCafe,
   isDimmedAtom,
   mapAtom,
-  mapMarkerList,
   searchInputAtom
 } from '../../store'
 
@@ -47,15 +46,12 @@ const DetailCafe = ({ isSingle }: DetailCafeProps) => {
   const [isHovering_1, setIsHovering_1] = useState(false)
   const [isHovering_2, setIsHovering_2] = useState(false)
   const [isHovering_3, setIsHovering_3] = useState(false)
-  const [cafePoints, setCafePoints] = useAtom(cafeReviewPonitAtom)
+  const [, setCafePoints] = useAtom(cafeReviewPonitAtom)
   const setCafeReviewPercent = useSetAtom(cafeReviewPercentAtom)
-  const [isBadQuery, setIsBadQuery] = useState(false)
+  const [, setIsBadQuery] = useState(false)
   const [curScrollId, setCurScrollId] = useState(0)
-  const [isLeftActive, setIsLeftActive] = useState(false)
-  const [isRightActive, setIsRightActive] = useState(true)
   const [nearCafes, setNearCafes] = useState<INearCafe[]>()
   const setIsDimmed = useSetAtom(isDimmedAtom)
-  const [markers, setMarkers] = useAtom(mapMarkerList)
   const autoRef = useRef<HTMLUListElement>(null)
   const router = useRouter()
   const { search, storeId } = router.query
@@ -103,6 +99,7 @@ const DetailCafe = ({ isSingle }: DetailCafeProps) => {
     return () => {
       if (marker) marker.setMap(null)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map])
 
   useEffect(() => {
@@ -183,6 +180,7 @@ const DetailCafe = ({ isSingle }: DetailCafeProps) => {
         getNearStores()
       ])
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [storeId])
   return (
     <>
@@ -206,7 +204,12 @@ const DetailCafe = ({ isSingle }: DetailCafeProps) => {
           <ButtonWrapper>
             <Select isOpened={false} onClick={notYet}>
               월요일
-              <Image src="/images/down_arrow.svg" width={16} height={16} />
+              <Image
+                src="/images/down_arrow.svg"
+                width={16}
+                height={16}
+                alt={'더보기 이모지'}
+              />
             </Select>
             <CongestionBtn onClick={notYet}>혼잡도 알려주기</CongestionBtn>
           </ButtonWrapper>

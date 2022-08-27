@@ -40,12 +40,11 @@ const Search = () => {
   const [isClicked, setIsClicked] = useState(false)
   const router = useRouter()
   const { pathname } = router
-  const [index, setIndex] = useState(-1)
   const autoRef = useRef<HTMLUListElement>(null)
   const [nodeLists, setNodeLists] = useState<HTMLCollection>()
   let searchIdx = -1
   const inputRef = useRef<HTMLInputElement>(null)
-  const [map, setMap] = useAtom(mapAtom)
+  const map = useAtomValue(mapAtom)
   const markers = useAtomValue(mapMarkerList)
 
   useEffect(() => {
@@ -69,6 +68,7 @@ const Search = () => {
     return () => {
       window.removeEventListener('mousedown', handleClickOutside)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoRef])
 
   const handleKeyArrow = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -179,11 +179,10 @@ const Search = () => {
         isDisplay={searchLists.length !== 0 && isClicked ? true : false}
         ref={autoRef}
       >
-        {searchLists.slice(0, 10).map((searchList, idx) => {
+        {searchLists.slice(0, 10).map((searchList) => {
           return (
             <SearchList
               key={searchList.storeId}
-              isFocus={index === idx ? true : false}
               onClick={(e) => {
                 {
                   onEnterPress(

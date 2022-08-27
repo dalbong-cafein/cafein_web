@@ -19,10 +19,10 @@ export const SearchLists = styled.ul`
   background-color: ${(props) => props.theme.colors.white};
 `
 
-export const SearchList = styled.li<{ isFocus: boolean }>`
+export const SearchList = styled.li`
   width: 100%;
   padding: 16px 10px;
-  background-color: ${(props) => (props.isFocus ? '#edf5f5' : '#fff')};
+  background-color: white;
   display: flex;
   flex-direction: row;
   align-items: flex-start;

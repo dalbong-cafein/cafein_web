@@ -86,7 +86,12 @@ const CafeInfoSection = () => {
             </TitleWrapper>
             <SubTitleWrapper>
               <SubTitle>{cafeInfo.address.fullAddress}</SubTitle>
-              <Image src={'/images/copy.svg'} width={18} height={18} />
+              <Image
+                src={'/images/copy.svg'}
+                width={18}
+                height={18}
+                alt={'복사 이모지'}
+              />
             </SubTitleWrapper>
             <OpenInfoWrapper>
               <ClockIcon>

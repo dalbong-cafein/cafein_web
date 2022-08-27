@@ -31,12 +31,13 @@ const Suggestions: NextPage = ({
   const [markers, setMarkers] = useAtom(mapMarkerList)
   const router = useRouter()
   const { sggNm, type, storeId } = router.query
-  const [cafes, setCafes] = useState(cafeDatas)
+  const [, setCafes] = useState(cafeDatas)
   const [inHoverClose, setInHoverClose] = useState(false)
   console.log('잘왔다', router)
 
   useEffect(() => {
     if (!map && sggNm) setMap(initMap.init(sggNm as string))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -54,6 +55,7 @@ const Suggestions: NextPage = ({
     return () => {
       markers.forEach((marker) => marker.setMap(null))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, map])
 
   return (
@@ -68,7 +70,6 @@ const Suggestions: NextPage = ({
             <ShortCafeItem
               cafe={cafe}
               storeId={storeId as string}
-              search={cafe.storeName}
               router={router}
               key={cafe.storeId}
             />

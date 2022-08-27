@@ -23,11 +23,10 @@ import {
 interface IShortCafeItem {
   cafe: IStore
   storeId: string
-  search: string
   router: NextRouter
 }
 
-const ShortCafeItem = ({ cafe, storeId, search, router }: IShortCafeItem) => {
+const ShortCafeItem = ({ cafe, storeId, router }: IShortCafeItem) => {
   return (
     <ShortCafeItemList
       key={cafe.storeId}

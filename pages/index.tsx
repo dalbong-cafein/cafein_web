@@ -28,6 +28,7 @@ const Home: NextPage = () => {
   const setMap = useSetAtom(mapAtom)
   useEffect(() => {
     setMap(null)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
