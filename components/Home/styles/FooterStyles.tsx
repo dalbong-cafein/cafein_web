@@ -9,7 +9,7 @@ export const FooterWrapper = styled.footer<{ isHome: boolean }>`
   justify-content: center;
   align-items: center;
   gap: 12px;
-  padding: ${(props) => props.isHome ? '' : '30px 0'};
+  padding: ${(props) => (props.isHome ? '' : '30px 0')};
 `
 
 export const FooterQLists = styled.ul`

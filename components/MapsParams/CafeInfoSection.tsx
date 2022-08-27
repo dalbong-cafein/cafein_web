@@ -1,6 +1,7 @@
-import { useAtomValue } from 'jotai'
 import Image from 'next/image'
 import { MouseEvent, useState } from 'react'
+
+import { useAtomValue } from 'jotai'
 import {
   cafeInfoAtom,
   cafeReviewPercentAtom,
@@ -8,8 +9,10 @@ import {
   getRunningTimesAtom,
   isRunningAtom
 } from '../../store'
+
 import { Ddabong } from '../common/Common'
 import getIsToday from '../../utils/getIsToday'
+
 import {
   ArrowButton,
   CafeInfoWrapper,
@@ -22,10 +25,6 @@ import {
   DDabongWrapper,
   Description,
   DescWrapper,
-  EditDateDesc,
-  EditDesc,
-  EditInfoButton,
-  EditInfoWrapper,
   HeaderTitle,
   OpenInfoWrapper,
   StrongSpan,

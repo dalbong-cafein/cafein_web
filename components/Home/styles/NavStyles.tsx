@@ -40,10 +40,4 @@ const OrangeButton = styled.button`
   border-radius: ${(props) => props.theme.borderRadius.border12}px;
 `
 
-export {
-  Wrapper,
-  NavWrapper,
-  WhiteLink,
-  OrangeButtonWrapper,
-  OrangeButton
-}
+export { Wrapper, NavWrapper, WhiteLink, OrangeButtonWrapper, OrangeButton }

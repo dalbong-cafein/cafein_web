@@ -3,7 +3,6 @@ import { SetStateAction } from 'jotai'
 import { NextRouter } from 'next/router'
 import { ChangeEvent, Dispatch, KeyboardEvent, MouseEvent } from 'react'
 import { IStore } from '../store'
-import initMap from './initMap'
 import { getMapCenterByInputs } from './MapUtils'
 
 interface onHandlerInputsProps {

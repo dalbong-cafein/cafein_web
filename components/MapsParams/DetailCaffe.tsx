@@ -1,10 +1,11 @@
-import axios from 'axios'
-import { useAtom, useSetAtom } from 'jotai'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
+
+import axios from 'axios'
+import { useAtom, useSetAtom } from 'jotai'
 import styled from 'styled-components'
 import {
   cafeInfoAtom,
@@ -14,14 +15,18 @@ import {
   CafeRewviewPointInterface,
   INearCafe,
   isDimmedAtom,
-  IStore,
   mapAtom,
   mapMarkerList,
   searchInputAtom
 } from '../../store'
+
 import initMap from '../../utils/initMap'
-import { getMapCenterByInputs } from '../../utils/MapUtils'
 import Footer from '../Home/Footer'
+import CafeInfoSection from './CafeInfoSection'
+import CafePOintsSection from './CafePointsSection'
+import ImageSection from './ImageSection'
+import RecommendSection from './RecommendSection'
+
 import {
   AddButton,
   AddLink,
@@ -29,12 +34,7 @@ import {
   AddWrapper
 } from '../Home/styles/AddOnStyles'
 import { OnAirBadge } from '../Maps/styles/ShortCafeStyles'
-import CafeInfoSection from './CafeInfoSection'
-import CafePOintsSection from './CafePointsSection'
-import ImageSection from './ImageSection'
-import RecommendSection from './RecommendSection'
-import { CafeInfoWrapper } from './styles/CafeInfoSectionStyle'
-import { WrapperTitle } from './styles/CafePointsSectionStyle'
+import { CafeInfoWrapper, WrapperTitle } from './styles/styles'
 
 interface DetailCafeProps {
   isSingle: boolean

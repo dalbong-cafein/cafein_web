@@ -1,8 +1,9 @@
-import { useAtomValue, useSetAtom } from 'jotai'
 import Image from 'next/image'
-import Link from 'next/link'
 import React, { MouseEvent } from 'react'
+
+import { useAtomValue, useSetAtom } from 'jotai'
 import { cafeInfoAtom, moreAtom } from '../../store'
+
 import { ImageLink, ImageWrappers, ShowMore } from './styles/styles'
 
 const ImageSection = () => {

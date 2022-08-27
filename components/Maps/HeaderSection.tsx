@@ -1,10 +1,13 @@
-import { useAtom } from 'jotai'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+
+import { useAtom } from 'jotai'
 import { IStore, searchListsAtom } from '../../store'
+
 import { Logo } from '../common/Common'
 import Search from '../Home/Search'
+
 import {
   FilterItem,
   FilterWrapper,

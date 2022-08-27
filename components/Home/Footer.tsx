@@ -1,5 +1,11 @@
-import Link from "next/link"
-import { CopyRight, FooterQLists, FooterWrapper, QItem } from "./styles/FooterStyles"
+import Link from 'next/link'
+
+import {
+  CopyRight,
+  FooterQLists,
+  FooterWrapper,
+  QItem
+} from './styles/FooterStyles'
 
 interface IFooterProps {
   isHome: boolean

@@ -17,7 +17,7 @@ export const StrongWrapperTitle = styled.span`
 export const WordsWrapperText = styled.span`
   font-weight: 500;
   font-size: ${(props) => props.theme.fontsizes.font15}rem;
-  color: ${(props) => props.theme.colors.grey700}
+  color: ${(props) => props.theme.colors.grey700};
 `
 
 export const ButtonOutterWrapper = styled.div`

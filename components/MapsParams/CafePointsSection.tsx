@@ -1,6 +1,8 @@
 import { useAtomValue } from 'jotai'
 import Image from 'next/image'
+
 import { cafeReviewPonitAtom } from '../../store'
+
 import {
   CafeInfoItemDesc,
   CafeInfoItemDescsWrapper,

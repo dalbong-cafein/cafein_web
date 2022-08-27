@@ -1,7 +1,8 @@
-import { useAtom, useAtomValue } from 'jotai'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
+
+import { useAtom, useAtomValue } from 'jotai'
 import styled from 'styled-components'
 import {
   cafeInfoAtom,
@@ -9,7 +10,9 @@ import {
   mapAtom,
   moreAtom
 } from '../../store'
+
 import { DimmedWrapper } from '../common/Common'
+
 import { MapBox } from './styles/styles'
 
 const Map = ({ isSingle }: { isSingle: boolean }) => {

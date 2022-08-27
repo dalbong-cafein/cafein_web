@@ -1,5 +1,8 @@
 import { useRouter } from 'next/router'
+
 import RecommendItems from './RecommendItems'
+import TabList from './TabList'
+
 import { SearchButton } from './styles/FormStyles'
 import {
   RecommendHeadWrapper,
@@ -7,7 +10,6 @@ import {
   RecommendTitle,
   RecommendWrapper
 } from './styles/RecommendStyles'
-import TabList from './TabList'
 
 const RecommendSection = () => {
   const router = useRouter()

@@ -1,27 +1,28 @@
-import axios from 'axios'
-import { useAtom } from 'jotai'
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+
+import axios from 'axios'
+import { useAtom } from 'jotai'
 import styled from 'styled-components'
+import { IStore, mapAtom, mapMarkerList } from '../../../store'
+
 import CloseButton from '../../../components/common/CloseButton'
-import { Logo } from '../../../components/common/Common'
-import HeaderSection from '../../../components/Maps/HeaderSection'
 import Map from '../../../components/Maps/Map'
 import ShortCafeItem from '../../../components/Maps/ShortCafeItem'
-import { Wrapper } from '../../../components/Maps/styles/HeaderSectionStyles'
+import DetailCafe from '../../../components/MapsParams/DetailCaffe'
+
+import initMap from '../../../utils/initMap'
+import { getMapItems } from '../../../utils/MapUtils'
+
 import {
   CafeList,
   DetailWrapper,
   MainWrapper
 } from '../../../components/Maps/styles/styles'
-import DetailCafe from '../../../components/MapsParams/DetailCaffe'
-import { IStore, mapAtom, mapMarkerList } from '../../../store'
-import initMap from '../../../utils/initMap'
-import { getMapItems } from '../../../utils/MapUtils'
 
 const Suggestions: NextPage = ({
   cafeDatas

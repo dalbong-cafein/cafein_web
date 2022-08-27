@@ -16,7 +16,7 @@ export const ImageWrappers = styled.div`
 export const ImageLink = styled.a`
   display: flex;
   position: relative;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -24,7 +24,7 @@ export const ImageLink = styled.a`
     right: 0;
     top: 0;
     bottom: 0;
-    background-color:  rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
     z-index: 1;
   }
 `

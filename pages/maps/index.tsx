@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
-
 import { useRouter } from 'next/router'
-import { useAtom } from 'jotai'
+import Link from 'next/link'
+import Head from 'next/head'
 
+import { useAtom } from 'jotai'
 import axios from 'axios'
 
 import {
@@ -18,6 +18,10 @@ import {
 import ErrorComponent from '../../components/common/ErrorComponent'
 import HeaderSection from '../../components/Maps/HeaderSection'
 import ShortCafeItem from '../../components/Maps/ShortCafeItem'
+import DetailCafe from '../../components/MapsParams/DetailCaffe'
+import Map from '../../components/Maps/Map'
+import DimmedAlert from '../../components/common/DimmedAlert'
+import CloseButton from '../../components/common/CloseButton'
 
 import {
   CafeList,
@@ -27,12 +31,6 @@ import {
 
 import initMap from '../../utils/initMap'
 import { getMapItems } from '../../utils/MapUtils'
-import DetailCafe from '../../components/MapsParams/DetailCaffe'
-import Link from 'next/link'
-import CloseButton from '../../components/common/CloseButton'
-import Map from '../../components/Maps/Map'
-import Head from 'next/head'
-import DimmedAlert from '../../components/common/DimmedAlert'
 
 const Maps: NextPage = ({
   search,
@@ -47,12 +45,7 @@ const Maps: NextPage = ({
   const [inHoverClose, setInHoverClose] = useState(false)
   const isSingle = cafeDatas?.length === 1 ? true : false
   const [isDimmed, setIsDimmed] = useAtom(isDimmedAtom)
-
-  const [isEmpty, setIsEmpty] = useState(cafeDatas?.length === 0 ? true : false)
-
-  console.log(isSingle, isEmpty, storeId)
-
-  console.log(cafeDatas, '서버에서 찾아왔다')
+  const isEmpty = cafeDatas?.length === 0 ? true : false
 
   useEffect(() => {
     if (cafeDatas?.length === 1) {

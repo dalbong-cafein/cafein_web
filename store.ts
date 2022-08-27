@@ -1,5 +1,4 @@
 import { atom } from 'jotai'
-import { focusAtom } from 'jotai/optics'
 import getHours from './utils/getHours'
 
 export interface ImageListInterface {

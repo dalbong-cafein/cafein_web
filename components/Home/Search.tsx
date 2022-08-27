@@ -1,26 +1,26 @@
-import { useAtom, useAtomValue } from 'jotai'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { KeyboardEvent, useEffect, useRef, useState } from 'react'
+
+import { useAtom, useAtomValue } from 'jotai'
 import {
-  cafeInfoAtom,
   mapAtom,
   mapMarkerList,
   searchInputAtom,
   searchListsAtom,
   split_searchInputAtom
 } from '../../store'
+
 import {
   onEnterPress,
   onHandleClearEvent,
   onHandleInputs
 } from '../../utils/onSearchHandler'
+
 import {
   HomeSearchLists,
   SearchList,
   SearchListDescs,
-  SearchListItemWrapper,
   SearchListPosition,
   SearchListStrong,
   SearchListTitle
@@ -28,7 +28,6 @@ import {
 import {
   ClearButton,
   InputWrapper,
-  SearchButton,
   SearchFormWrapper,
   SearchInput
 } from './styles/FormStyles'
@@ -210,7 +209,7 @@ const Search = () => {
                   {searchList.storeName
                     .split('')
                     .map((text, idx) =>
-                      split_inputs.includes(text) ? (
+                      split_inputs?.includes(text) ? (
                         <SearchListStrong key={idx + searchList.storeId}>
                           {text}
                         </SearchListStrong>

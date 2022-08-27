@@ -1,5 +1,7 @@
 import { SetStateAction } from 'react'
+
 import { DimmedWrapper } from './Common'
+
 import {
   DimmedAlertBtn,
   DimmedAlertHeader,
