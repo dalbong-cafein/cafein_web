@@ -12,9 +12,12 @@ import {
   moreAtom
 } from '../../store'
 
-import { DimmedWrapper } from '../common/Common'
+import common from '../common/Common'
+import Ic_left_arrow from '@public/left_arrow_img.svg'
+import Ic_right_arrow from '@public/right_arrow_img.svg'
 
 import { MapBox } from './styles/styles'
+import madeURL from 'utils/blurDataURL'
 
 const Map = ({ isSingle }: { isSingle: boolean }) => {
   const [more, setMore] = useAtom(moreAtom)
@@ -63,7 +66,7 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
       cafeInfo?.storeImageList &&
       cafeInfo?.storeImageList.length > 0 ? (
         <>
-          <DimmedWrapper isAll={false} isSearch={isSingle}>
+          <common.DimmedWrapper isAll={false} isSearch={isSingle}>
             <Escape onClick={handleClick}>
               <Image
                 src={'/images/close.svg'}
@@ -78,16 +81,13 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
                 width={480}
                 height={480}
                 alt={'카페 사진'}
+                placeholder="blur"
+                blurDataURL={madeURL(480, 480)}
               />
             </MainImage>
             <ImageLists>
               <ArrowBtn onClick={handleLeft}>
-                <Image
-                  src={'/images/left_arrow_img.svg'}
-                  width={40}
-                  height={40}
-                  alt={'왼쪽 화살표 이모지'}
-                />
+                <Ic_left_arrow />
               </ArrowBtn>
               <ImagesWrapper ref={slideRef}>
                 <ImageWrapper isActive={false} />
@@ -102,6 +102,8 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
                       width={100}
                       height={100}
                       alt={'카페 이미지'}
+                      placeholder="blur"
+                      blurDataURL={madeURL(100, 100)}
                     />
                   </ImageWrapper>
                 ))}
@@ -109,18 +111,13 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
                 <ImageWrapper isActive={false} />
               </ImagesWrapper>
               <ArrowBtn onClick={handleRight}>
-                <Image
-                  src={'/images/right_arrow_img.svg'}
-                  width={40}
-                  height={40}
-                  alt={'오른쪽 화살표 이모지'}
-                />
+                <Ic_right_arrow />
               </ArrowBtn>
             </ImageLists>
             <NumOfCount>
               {imageId + 1}/{cafeInfo.storeImageList.length}
             </NumOfCount>
-          </DimmedWrapper>
+          </common.DimmedWrapper>
         </>
       ) : (
         ''

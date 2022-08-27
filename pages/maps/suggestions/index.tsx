@@ -33,7 +33,6 @@ const Suggestions: NextPage = ({
   const router = useRouter()
   const { sggNm, type, storeId } = router.query
   const [, setCafes] = useState(cafeDatas)
-  const [inHoverClose, setInHoverClose] = useState(false)
   const [isDimmed, setIsDimmed] = useAtom(isDimmedAtom)
 
   console.log('잘왔다', router)

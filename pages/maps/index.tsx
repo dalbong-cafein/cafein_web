@@ -42,7 +42,6 @@ const Maps: NextPage = ({
   const router = useRouter()
   const { storeId } = router.query
   const [cafes, setCafes] = useState(cafeDatas)
-  const [inHoverClose, setInHoverClose] = useState(false)
   const isSingle = cafeDatas?.length === 1 ? true : false
   const [isDimmed, setIsDimmed] = useAtom(isDimmedAtom)
   const isEmpty = cafeDatas?.length === 0 ? true : false

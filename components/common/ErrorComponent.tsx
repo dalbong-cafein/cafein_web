@@ -1,16 +1,11 @@
-import Image from 'next/image'
-
 import styled from 'styled-components'
+
+import ErrorIcon from '@public/error_img.svg'
 
 const ErrorComponent = ({ storeName }: { storeName?: string }) => {
   return (
     <ErrorWrapper>
-      <Image
-        src={'/images/error_img.svg'}
-        width={52}
-        height={77}
-        alt="고민,물음표 이모지"
-      />
+      <ErrorIcon />
       {storeName ? (
         <ErrorText>
           <ErrorTextStrong>{storeName}</ErrorTextStrong>의 검색 결과가 없습니다.

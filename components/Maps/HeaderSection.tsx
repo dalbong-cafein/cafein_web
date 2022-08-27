@@ -5,8 +5,9 @@ import { useState } from 'react'
 import { useAtom } from 'jotai'
 import { IStore, searchListsAtom } from '../../store'
 
-import { Logo } from '../common/Common'
-import Search from '../Home/Search'
+import common from '@components/common/Common'
+import Search from '@components/Home/Search'
+import Ic_Logo from '@public/logo_black.svg'
 
 import {
   FilterItem,
@@ -75,14 +76,9 @@ const HeaderSection = ({ hasFilter }: { hasFilter: boolean }) => {
   return (
     <Wrapper>
       <Link href="/">
-        <Logo>
-          <Image
-            src="/images/logo_black.svg"
-            width={103}
-            height={22}
-            alt="로고"
-          />
-        </Logo>
+        <common.Logo>
+          <Ic_Logo />
+        </common.Logo>
       </Link>
       <Search />
       {hasFilter ? (

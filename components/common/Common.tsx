@@ -1,16 +1,12 @@
-import Image from 'next/image'
-
 import styled from 'styled-components'
+
+import Ic_like from '@public/ddabong.svg'
 
 export const Title = styled.h1`
   font-weight: 600;
 `
 
-export const Ddabong = (
-  <Image src={'/images/ddabong.svg'} width={16} height={16} alt="엄지척뱃지" />
-)
-
-export const Logo = styled.a`
+const Logo = styled.a`
   display: flex;
   flex: 0;
   margin: 23px 24px 30px;
@@ -18,7 +14,7 @@ export const Logo = styled.a`
   height: 22px;
 `
 
-export const DimmedWrapper = styled.div<{ isSearch: boolean; isAll: boolean }>`
+const DimmedWrapper = styled.div<{ isSearch: boolean; isAll: boolean }>`
   position: absolute;
   left: ${(props) => (props.isAll ? '0' : props.isSearch ? '400px' : '800px')};
   right: 0;
@@ -30,3 +26,7 @@ export const DimmedWrapper = styled.div<{ isSearch: boolean; isAll: boolean }>`
   justify-content: center;
   align-items: center;
 `
+
+const commons = { Ic_like, Logo, DimmedWrapper }
+
+export default commons

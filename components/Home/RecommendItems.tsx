@@ -8,6 +8,8 @@ import {
   RecommendItemsWrapper
 } from './styles/RecommendStyles'
 
+import temp_img from '@public/temp_img.png'
+
 const RecommendItems = () => {
   const router = useRouter()
   const loc = router.query.sggNm ? router.query.sggNm : '서대문구'
@@ -33,10 +35,11 @@ const RecommendItems = () => {
           >
             <a>
               <Image
-                src={'/images/temp_img.png'}
+                src={temp_img}
                 width={364}
                 height={240}
                 alt="기본 이미지"
+                placeholder="blur"
               />
               <RecommendDesc>{recommend.title}</RecommendDesc>
             </a>

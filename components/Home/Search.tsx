@@ -11,6 +11,8 @@ import {
   split_searchInputAtom
 } from '../../store'
 
+import Ic_Location from '@public/location.svg'
+
 import {
   onEnterPress,
   onHandleClearEvent,
@@ -197,12 +199,7 @@ const Search = () => {
                 }
               }}
             >
-              <Image
-                src={'/images/location.svg'}
-                width={24}
-                height={24}
-                alt="location IMG"
-              />
+              <Ic_Location />
               <SearchListDescs>
                 <SearchListTitle>
                   {searchList.storeName

@@ -3,7 +3,7 @@ import { NextRouter } from 'next/router'
 
 import { IStore } from '../../store'
 
-import { Ddabong } from '../common/Common'
+import common from '@components/common/Common'
 
 import getHours from '../../utils/getHours'
 import {
@@ -61,7 +61,7 @@ const ShortCafeItem = ({ cafe, storeId, router }: IShortCafeItem) => {
           </OnAirWrapper>
           {cafe.recommendPercent ? (
             <DdabongWrap>
-              {Ddabong} {Math.floor(cafe.recommendPercent) + '%'}
+              {common.Ic_like} {Math.floor(cafe.recommendPercent) + '%'}
             </DdabongWrap>
           ) : (
             ''
