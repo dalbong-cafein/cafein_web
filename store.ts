@@ -166,9 +166,10 @@ export const cafeReviewPonitAtom = atom<CafeRewviewPointInterface | null>(null)
 
 export const cafeReviewPercentAtom = atom<number>(0)
 
-export const searchInputAtom = atom('')
+export const searchInputAtom = atom<string>('')
 
-export const split_searchInputAtom = atom<string[]>((get) => {
+export const split_searchInputAtom = atom<string[] | undefined>((get) => {
+  if (!get(searchInputAtom)) return
   const split_inputs = get(searchInputAtom).split('')
   return split_inputs
 })

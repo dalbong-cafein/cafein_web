@@ -1,15 +1,20 @@
-import { ReactElement, useEffect, useState } from 'react'
-import { NextPageWithLayout } from '../_app'
+import { useEffect, useState } from 'react'
+
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 
 import { useRouter } from 'next/router'
-import { useAtom, useSetAtom } from 'jotai'
+import { useAtom } from 'jotai'
 
 import axios from 'axios'
 
-import { IStore, mapAtom, mapMarkerList, searchInputAtom } from '../../store'
+import {
+  isDimmedAtom,
+  IStore,
+  mapAtom,
+  mapMarkerList,
+  searchInputAtom
+} from '../../store'
 
-import MapLayout from '../../components/Maps/MapLayout'
 import ErrorComponent from '../../components/common/ErrorComponent'
 import HeaderSection from '../../components/Maps/HeaderSection'
 import ShortCafeItem from '../../components/Maps/ShortCafeItem'
@@ -24,10 +29,10 @@ import initMap from '../../utils/initMap'
 import { getMapItems } from '../../utils/MapUtils'
 import DetailCafe from '../../components/MapsParams/DetailCaffe'
 import Link from 'next/link'
-import { FlexA } from '../../components/common/styles/CommonStyles'
 import CloseButton from '../../components/common/CloseButton'
 import Map from '../../components/Maps/Map'
 import Head from 'next/head'
+import DimmedAlert from '../../components/common/DimmedAlert'
 
 const Maps: NextPage = ({
   search,
@@ -41,6 +46,7 @@ const Maps: NextPage = ({
   const [cafes, setCafes] = useState(cafeDatas)
   const [inHoverClose, setInHoverClose] = useState(false)
   const isSingle = cafeDatas?.length === 1 ? true : false
+  const [isDimmed, setIsDimmed] = useAtom(isDimmedAtom)
 
   const [isEmpty, setIsEmpty] = useState(cafeDatas?.length === 0 ? true : false)
 
@@ -175,11 +181,12 @@ const Maps: NextPage = ({
       <Head>
         <title>카페인 | {search ? search : '지도'}</title>
       </Head>
+      {isDimmed ? <DimmedAlert setIsDimmed={setIsDimmed} /> : ''}
       <MainWrapper>
         <HeaderSection hasFilter={!isSingle} />
         {isSingle ? (
           <DetailCafe isSingle={isSingle} />
-        ) : isEmpty ? (
+        ) : isEmpty || !cafeDatas ? (
           <ErrorComponent storeName={search} />
         ) : (
           <CafeList>
