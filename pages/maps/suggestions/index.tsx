@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useAtom } from 'jotai'
 import styled from 'styled-components'
-import { IStore, mapAtom, mapMarkerList } from '../../../store'
+import { isDimmedAtom, IStore, mapAtom, mapMarkerList } from '../../../store'
 
 import CloseButton from '../../../components/common/CloseButton'
 import Map from '../../../components/Maps/Map'
@@ -23,6 +23,7 @@ import {
   DetailWrapper,
   MainWrapper
 } from '../../../components/Maps/styles/styles'
+import DimmedAlert from '../../../components/common/DimmedAlert'
 
 const Suggestions: NextPage = ({
   cafeDatas
@@ -33,6 +34,8 @@ const Suggestions: NextPage = ({
   const { sggNm, type, storeId } = router.query
   const [, setCafes] = useState(cafeDatas)
   const [inHoverClose, setInHoverClose] = useState(false)
+  const [isDimmed, setIsDimmed] = useAtom(isDimmedAtom)
+
   console.log('잘왔다', router)
 
   useEffect(() => {
@@ -63,6 +66,7 @@ const Suggestions: NextPage = ({
       <Head>
         <title>카페인 | {sggNm} 추천 카페</title>
       </Head>
+      {isDimmed ? <DimmedAlert setIsDimmed={setIsDimmed} /> : ''}
       <MainWrapper>
         <HeaderSectionTemp sggNm={sggNm as string} type={type as ITypes} />
         <CafeList>
