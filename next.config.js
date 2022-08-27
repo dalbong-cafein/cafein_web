@@ -33,6 +33,14 @@ const nextConfig = {
         destination: `${process.env.API_DOMAIN}/web/:path*`
       }
     ]
+  },
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack']
+    })
+
+    return config
   }
 }
 
