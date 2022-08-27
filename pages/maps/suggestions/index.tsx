@@ -1,6 +1,5 @@
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -8,22 +7,23 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useAtom } from 'jotai'
 import styled from 'styled-components'
-import { isDimmedAtom, IStore, mapAtom, mapMarkerList } from '../../../store'
+import { isDimmedAtom, IStore, mapAtom, mapMarkerList } from 'store'
 
-import CloseButton from '../../../components/common/CloseButton'
-import Map from '../../../components/Maps/Map'
-import ShortCafeItem from '../../../components/Maps/ShortCafeItem'
-import DetailCafe from '../../../components/MapsParams/DetailCaffe'
+import CloseButton from '@components/common/CloseButton'
+import Map from '@components/Maps/Map'
+import ShortCafeItem from '@components/Maps/ShortCafeItem'
+import DetailCafe from '@components/MapsParams/DetailCaffe'
+import Ic_Logo from '@public/logo_black.svg'
 
-import initMap from '../../../utils/initMap'
-import { getMapItems } from '../../../utils/MapUtils'
+import initMap from '@utils/initMap'
+import { getMapItems } from '@utils/MapUtils'
 
 import {
   CafeList,
   DetailWrapper,
   MainWrapper
-} from '../../../components/Maps/styles/styles'
-import DimmedAlert from '../../../components/common/DimmedAlert'
+} from '@components/Maps/styles/styles'
+import DimmedAlert from '@components/common/DimmedAlert'
 
 const Suggestions: NextPage = ({
   cafeDatas
@@ -129,12 +129,7 @@ const HeaderSectionTemp = ({
     <TempWrapper>
       <Link href="/">
         <TempLogo>
-          <Image
-            src="/images/logo_black.svg"
-            width={103}
-            height={22}
-            alt="로고"
-          />
+          <Ic_Logo />
         </TempLogo>
       </Link>
       <Link

@@ -1,7 +1,13 @@
 import { useAtomValue } from 'jotai'
-import Image from 'next/image'
 
-import { cafeReviewPonitAtom } from '../../store'
+import { cafeReviewPonitAtom } from 'store'
+
+import Ic_star from '@public/star.svg'
+import Ic_empty_star from '@public/empty_star.svg'
+import Ic_plug from '@public/plug.svg'
+import Ic_restroom from '@public/restroom.svg'
+import Ic_table from '@public/table.svg'
+import Ic_wifi from '@public/wifi.svg'
 
 import {
   CafeInfoItemDesc,
@@ -20,27 +26,11 @@ const CafePOintsSection = () => {
   const getStars = (cnt: string) => {
     return (
       <StartWrapper>
-        {[1, 2, 3, 4].map((num) => {
+        {[1, 2, 3, 4].map((num, idx) => {
           if (num <= +cnt) {
-            return (
-              <Image
-                key={num}
-                src={'/images/star.svg'}
-                width={16}
-                height={16}
-                alt="star icon"
-              />
-            )
+            return <Ic_star key={idx} />
           }
-          return (
-            <Image
-              key={num}
-              src={'/images/empty_star.svg'}
-              width={16}
-              height={16}
-              alt="star icon"
-            />
-          )
+          return <Ic_empty_star key={idx} />
         })}
       </StartWrapper>
     )
@@ -53,12 +43,7 @@ const CafePOintsSection = () => {
             <WrapperTitle>카공 정보</WrapperTitle>
             <CafeInfoList>
               <CafeInfoItemWrapper>
-                <Image
-                  src={'/images/plug.svg'}
-                  width={40}
-                  height={40}
-                  alt="plug badge"
-                />
+                <Ic_plug />
                 <CafeInfoItemDescsWrapper>
                   <CafeInfoItemDescWrapper>
                     <CafeInfoItemTitle>콘센트</CafeInfoItemTitle>
@@ -68,12 +53,7 @@ const CafePOintsSection = () => {
                 </CafeInfoItemDescsWrapper>
               </CafeInfoItemWrapper>
               <CafeInfoItemWrapper>
-                <Image
-                  src={'/images/restroom.svg'}
-                  width={40}
-                  height={40}
-                  alt="restroom badge"
-                />
+                <Ic_restroom />
                 <CafeInfoItemDescsWrapper>
                   <CafeInfoItemDescWrapper>
                     <CafeInfoItemTitle>화장실</CafeInfoItemTitle>
@@ -83,12 +63,7 @@ const CafePOintsSection = () => {
                 </CafeInfoItemDescsWrapper>
               </CafeInfoItemWrapper>
               <CafeInfoItemWrapper>
-                <Image
-                  src={'/images/table.svg'}
-                  width={40}
-                  height={40}
-                  alt="table badge"
-                />
+                <Ic_table />
                 <CafeInfoItemDescsWrapper>
                   <CafeInfoItemDescWrapper>
                     <CafeInfoItemTitle>테이블</CafeInfoItemTitle>
@@ -98,12 +73,7 @@ const CafePOintsSection = () => {
                 </CafeInfoItemDescsWrapper>
               </CafeInfoItemWrapper>
               <CafeInfoItemWrapper>
-                <Image
-                  src={'/images/wifi.svg'}
-                  width={40}
-                  height={40}
-                  alt="wifi badge"
-                />
+                <Ic_wifi />
                 <CafeInfoItemDescsWrapper>
                   <CafeInfoItemDescWrapper>
                     <CafeInfoItemTitle>와이파이</CafeInfoItemTitle>

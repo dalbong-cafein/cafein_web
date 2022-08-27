@@ -1,16 +1,16 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import { useEffect } from 'react'
 import { useSetAtom } from 'jotai'
 
-import { mapAtom } from '../store'
+import { mapAtom } from 'store'
 
-import RecommendSection from '../components/Home/RecommendSection'
-import Search from '../components/Home/Search'
-import Footer from '../components/Home/Footer'
+import RecommendSection from '@components/Home/RecommendSection'
+import Search from '@components/Home/Search'
+import Footer from '@components/Home/Footer'
+import Ic_Logo from '@public/logo_black.svg'
 
 import {
   NavWrapper,
@@ -39,12 +39,7 @@ const Home: NextPage = () => {
       <NavWrapper main={true}>
         <Link href="/">
           <a>
-            <Image
-              src={'/images/logo_black.svg'}
-              alt="카페인 로고"
-              width={103}
-              height={22}
-            />
+            <Ic_Logo />
           </a>
         </Link>
         <Link href="/">

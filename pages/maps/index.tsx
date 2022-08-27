@@ -13,24 +13,24 @@ import {
   mapAtom,
   mapMarkerList,
   searchInputAtom
-} from '../../store'
+} from 'store'
 
-import ErrorComponent from '../../components/common/ErrorComponent'
-import HeaderSection from '../../components/Maps/HeaderSection'
-import ShortCafeItem from '../../components/Maps/ShortCafeItem'
-import DetailCafe from '../../components/MapsParams/DetailCaffe'
-import Map from '../../components/Maps/Map'
-import DimmedAlert from '../../components/common/DimmedAlert'
-import CloseButton from '../../components/common/CloseButton'
+import ErrorComponent from '@components/common/ErrorComponent'
+import HeaderSection from '@components/Maps/HeaderSection'
+import ShortCafeItem from '@components/Maps/ShortCafeItem'
+import DetailCafe from '@components/MapsParams/DetailCaffe'
+import Map from '@components/Maps/Map'
+import DimmedAlert from '@components/common/DimmedAlert'
+import CloseButton from '@components/common/CloseButton'
 
 import {
   CafeList,
   DetailWrapper,
   MainWrapper
-} from '../../components/Maps/styles/styles'
+} from '@components/Maps/styles/styles'
 
-import initMap from '../../utils/initMap'
-import { getMapItems } from '../../utils/MapUtils'
+import initMap from '@utils/initMap'
+import { getMapItems } from '@utils/MapUtils'
 
 const Maps: NextPage = ({
   search,

@@ -61,7 +61,7 @@ const ShortCafeItem = ({ cafe, storeId, router }: IShortCafeItem) => {
           </OnAirWrapper>
           {cafe.recommendPercent ? (
             <DdabongWrap>
-              {common.Ic_like} {Math.floor(cafe.recommendPercent) + '%'}
+              {<common.Ic_like />} {Math.floor(cafe.recommendPercent) + '%'}
             </DdabongWrap>
           ) : (
             ''

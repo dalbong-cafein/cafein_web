@@ -2,9 +2,10 @@ import Image from 'next/image'
 import React, { MouseEvent } from 'react'
 
 import { useAtomValue, useSetAtom } from 'jotai'
-import { cafeInfoAtom, moreAtom } from '../../store'
+import { cafeInfoAtom, moreAtom } from 'store'
 
 import { ImageLink, ImageWrappers, ShowMore } from './styles/styles'
+import madeURL from 'utils/blurDataURL'
 
 const ImageSection = () => {
   const cafeInfo = useAtomValue(cafeInfoAtom)
@@ -29,7 +30,8 @@ const ImageSection = () => {
                         key={cafeInfo.storeId + idx}
                         width={392}
                         height={284}
-                        priority={true}
+                        placeholder="blur"
+                        blurDataURL={madeURL(392, 284)}
                       />
                       <ShowMore>더보기</ShowMore>
                     </ImageLink>
@@ -42,7 +44,8 @@ const ImageSection = () => {
                       key={idx}
                       width={392}
                       height={284}
-                      priority={true}
+                      placeholder="blur"
+                      blurDataURL={madeURL(392, 284)}
                     />
                   </React.Fragment>
                 )

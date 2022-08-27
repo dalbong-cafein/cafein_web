@@ -1,10 +1,16 @@
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 import axios from 'axios'
 import { useAtomValue, useSetAtom } from 'jotai'
-import { cafeInfoAtom, cafeReviewPercentAtom } from '../../store'
+
+import { cafeInfoAtom, cafeReviewPercentAtom } from 'store'
+import Ic_badOn from '@public/bad_on.svg'
+import Ic_bad from '@public/bad.svg'
+import Ic_sosoOn from '@public/soso_on.svg'
+import Ic_soso from '@public/soso.svg'
+import Ic_goodOn from '@public/good_on.svg'
+import Ic_good from '@public/good.svg'
 
 import {
   ButtonDesc,
@@ -119,23 +125,7 @@ const RecommendSection = ({
                     recommendOnClickHandler('BAD', cafeInfo.storeId)
                   }
                 >
-                  {isHovering_1 || isOnButton === 1 ? (
-                    <Image
-                      src={'/images/bad_on.svg'}
-                      width={60}
-                      height={82}
-                      alt="bad_on badge"
-                      priority={true}
-                    />
-                  ) : (
-                    <Image
-                      src={'/images/bad.svg'}
-                      width={60}
-                      height={82}
-                      alt="bad badge"
-                      priority={true}
-                    />
-                  )}
+                  {isHovering_1 || isOnButton === 1 ? <Ic_badOn /> : <Ic_bad />}
                   <ButtonDesc
                     isHovering={isHovering_1}
                     isOnButton={isOnButton === 1}
@@ -151,21 +141,9 @@ const RecommendSection = ({
                   }
                 >
                   {isHovering_2 || isOnButton === 2 ? (
-                    <Image
-                      src={'/images/soso_on.svg'}
-                      width={60}
-                      height={82}
-                      alt="soso_on badge"
-                      priority={true}
-                    />
+                    <Ic_sosoOn />
                   ) : (
-                    <Image
-                      src={'/images/soso.svg'}
-                      width={60}
-                      height={82}
-                      alt="soso badge"
-                      priority={true}
-                    />
+                    <Ic_soso />
                   )}
                   <ButtonDesc
                     isHovering={isHovering_2}
@@ -182,21 +160,9 @@ const RecommendSection = ({
                   }
                 >
                   {isHovering_3 || isOnButton === 3 ? (
-                    <Image
-                      src={'/images/good_on.svg'}
-                      width={60}
-                      height={82}
-                      alt="good_on badge"
-                      priority={true}
-                    />
+                    <Ic_goodOn />
                   ) : (
-                    <Image
-                      src={'/images/good.svg'}
-                      width={60}
-                      height={82}
-                      alt="good badge"
-                      priority={true}
-                    />
+                    <Ic_good />
                   )}
                   <ButtonDesc
                     isHovering={isHovering_3}

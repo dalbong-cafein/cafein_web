@@ -17,23 +17,31 @@ import {
   isDimmedAtom,
   mapAtom,
   searchInputAtom
-} from '../../store'
+} from 'store'
 
-import initMap from '../../utils/initMap'
-import Footer from '../Home/Footer'
+import initMap from '@utils/initMap'
+import Footer from '@components/Home/Footer'
 import CafeInfoSection from './CafeInfoSection'
 import CafePOintsSection from './CafePointsSection'
 import ImageSection from './ImageSection'
 import RecommendSection from './RecommendSection'
+import Ic_down_arrow from '@public/down_arrow.svg'
+import Ic_left_arrow_off from '@public/left_arrow_off.svg'
+import Ic_right_arrow_off from '@public/right_arrow_off.svg'
+import Ic_navigation from '@public/navigation.svg'
+import Ic_like from '@public/ddabong.svg'
+import Ic_heart from '@public/heart.svg'
+import temp_img from '@public/temp_img.png'
 
 import {
   AddButton,
   AddLink,
   AddLinkText,
   AddWrapper
-} from '../Home/styles/AddOnStyles'
-import { OnAirBadge } from '../Maps/styles/ShortCafeStyles'
+} from '@components/Home/styles/AddOnStyles'
+import { OnAirBadge } from '@components/Maps/styles/ShortCafeStyles'
 import { CafeInfoWrapper, WrapperTitle } from './styles/styles'
+import madeURL from '@utils/blurDataURL'
 
 interface DetailCafeProps {
   isSingle: boolean
@@ -204,12 +212,7 @@ const DetailCafe = ({ isSingle }: DetailCafeProps) => {
           <ButtonWrapper>
             <Select isOpened={false} onClick={notYet}>
               월요일
-              <Image
-                src="/images/down_arrow.svg"
-                width={16}
-                height={16}
-                alt={'더보기 이모지'}
-              />
+              <Ic_down_arrow />
             </Select>
             <CongestionBtn onClick={notYet}>혼잡도 알려주기</CongestionBtn>
           </ButtonWrapper>
@@ -242,12 +245,7 @@ const DetailCafe = ({ isSingle }: DetailCafeProps) => {
           <WrapperTitle>근처에 있는 카공 카페를 찾아봤어요</WrapperTitle>
           {curScrollId !== 0 ? (
             <LeftArrowBtn onClick={handleLeft}>
-              <Image
-                src="/images/left_arrow_off.svg"
-                width={36}
-                height={36}
-                alt="왼쪽버튼"
-              />
+              <Ic_left_arrow_off />
             </LeftArrowBtn>
           ) : (
             ''
@@ -255,12 +253,7 @@ const DetailCafe = ({ isSingle }: DetailCafeProps) => {
 
           {curScrollId !== (nearCafes?.length as number) - 1 ? (
             <RightArrowBtn onClick={handleRight}>
-              <Image
-                src="/images/right_arrow_off.svg"
-                width={36}
-                height={36}
-                alt="오른쪽버튼"
-              />
+              <Ic_right_arrow_off />
             </RightArrowBtn>
           ) : (
             ''
@@ -279,26 +272,31 @@ const DetailCafe = ({ isSingle }: DetailCafeProps) => {
                           height={70}
                           alt="카페 섬네일 이미지"
                           key={storeImage.imageId}
+                          placeholder="blur"
+                          blurDataURL={madeURL(70, 70)}
                         />
                       ))
                     ) : (
                       <>
                         <Image
-                          src="/images/temp_img.png"
+                          src={temp_img}
                           width={70}
                           height={70}
+                          placeholder="blur"
                           alt="기본 이미지"
                         />
                         <Image
-                          src="/images/temp_img.png"
+                          src={temp_img}
                           width={70}
                           height={70}
+                          placeholder="blur"
                           alt="기본 이미지"
                         />
                         <Image
-                          src="/images/temp_img.png"
+                          src={temp_img}
                           width={70}
                           height={70}
+                          placeholder="blur"
                           alt="기본 이미지"
                         />
                       </>
@@ -316,23 +314,13 @@ const DetailCafe = ({ isSingle }: DetailCafeProps) => {
                     </CardTextWrapper>
                     <CardTextWrapper>
                       <CardEmojiWrapper>
-                        <Image
-                          src="/images/navigation.svg"
-                          width={16}
-                          height={16}
-                          alt="네비게이션 이모지"
-                        />
+                        <Ic_navigation />
                         <NormalText>
                           {Math.floor(nearCafe.distance)}m
                         </NormalText>
                       </CardEmojiWrapper>
                       <CardEmojiWrapper>
-                        <Image
-                          src="/images/ddabong.svg"
-                          width={16}
-                          height={16}
-                          alt="따봉 이모지"
-                        />
+                        <Ic_like />
                         <NormalText>
                           {nearCafe.recommendPercent
                             ? Math.floor(nearCafe.recommendPercent) + '%'
@@ -340,12 +328,7 @@ const DetailCafe = ({ isSingle }: DetailCafeProps) => {
                         </NormalText>
                       </CardEmojiWrapper>
                       <CardEmojiWrapper>
-                        <Image
-                          src="/images/heart.svg"
-                          width={16}
-                          height={16}
-                          alt="하트 이모지"
-                        />
+                        <Ic_heart />
                         <NormalText>{nearCafe.heartCnt}</NormalText>
                       </CardEmojiWrapper>
                     </CardTextWrapper>
