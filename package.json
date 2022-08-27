@@ -13,9 +13,9 @@
     "@types/navermaps": "^3.0.17",
     "axios": "^0.27.2",
     "jotai": "^1.7.6",
-    "next": "12.2.2",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "next": "^12.2.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "styled-components": "^5.3.5",
     "styled-normalize": "^8.0.7"
   },
