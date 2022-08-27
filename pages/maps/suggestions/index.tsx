@@ -89,11 +89,7 @@ const Suggestions: NextPage = ({
             passHref
             href={{ pathname: router.pathname, query: { sggNm, type } }}
           >
-            <CloseButton
-              inHoverClose={inHoverClose}
-              setInHoverClose={setInHoverClose}
-              isSingle={false}
-            />
+            <CloseButton isSingle={false} />
           </Link>
         </>
       ) : (

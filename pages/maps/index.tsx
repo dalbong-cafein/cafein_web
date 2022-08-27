@@ -205,11 +205,7 @@ const Maps: NextPage = ({
             <DetailCafe isSingle={isSingle} />
           </DetailWrapper>
           <Link passHref href={{ pathname: 'maps', query: { search } }}>
-            <CloseButton
-              inHoverClose={inHoverClose}
-              setInHoverClose={setInHoverClose}
-              isSingle={isSingle}
-            />
+            <CloseButton isSingle={isSingle} />
           </Link>
         </>
       ) : (
