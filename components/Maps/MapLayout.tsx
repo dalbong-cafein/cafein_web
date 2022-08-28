@@ -20,7 +20,6 @@ interface MapLayoutProps {
 const MapLayout = ({ children }: MapLayoutProps) => {
   const router = useRouter()
   const { search, storeId } = router.query
-  const [inHoverClose, setInHoverClose] = useState(false)
   const [isDimmed, setIsDimmed] = useAtom(isDimmedAtom)
   const { cafeDatas } = children.props
 
@@ -53,11 +52,7 @@ const MapLayout = ({ children }: MapLayoutProps) => {
           </DetailWrapper>
           <Link href={{ pathname: 'maps', query: { search } }} shallow>
             <FlexA>
-              <CloseButton
-                inHoverClose={inHoverClose}
-                setInHoverClose={setInHoverClose}
-                isSingle={false}
-              />
+              <CloseButton isSingle={false} />
             </FlexA>
           </Link>
         </>
@@ -65,61 +60,6 @@ const MapLayout = ({ children }: MapLayoutProps) => {
         ''
       )}
       <Map isSingle={cafeDatas?.length === 1 ? true : false} />
-      {/* {cafeDatas ? (
-        <>
-          {cafeDatas.length === 1 ? (
-            <>
-              <MainWrapper>
-                <HeaderSection hasFilter={false} />
-                <DetailCafe isSingle={true} />
-              </MainWrapper>
-              <Link href="/maps">
-                <FlexA>
-                  <CloseButton
-                    inHoverClose={inHoverClose}
-                    setInHoverClose={setInHoverClose}
-                    isSingle={true}
-                  />
-                </FlexA>
-              </Link>
-            </>
-          ) : (
-            <>
-              <MainWrapper>
-                <HeaderSection hasFilter={true} />
-                {children}
-              </MainWrapper>
-              {storeId ? (
-                <>
-                  <DetailWrapper>
-                    <DetailCafe isSingle={false} />
-                  </DetailWrapper>
-                  <Link href={{ pathname: 'maps', query: { search } }} shallow>
-                    <FlexA>
-                      <CloseButton
-                        inHoverClose={inHoverClose}
-                        setInHoverClose={setInHoverClose}
-                        isSingle={false}
-                      />
-                    </FlexA>
-                  </Link>
-                </>
-              ) : (
-                ''
-              )}
-            </>
-          )}
-          <Map isSingle={cafeDatas.length === 1 ? true : false} />
-        </>
-      ) : (
-        <>
-          <MainWrapper>
-            <HeaderSection hasFilter={true} />
-            {children}
-          </MainWrapper>
-          <Map isSingle={true} />
-        </>
-      )} */}
     </>
   )
 }

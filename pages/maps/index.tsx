@@ -83,95 +83,6 @@ const Maps: NextPage = ({
 
   return (
     <>
-      {/* {cafeDatas ? (
-        <>
-          {cafeDatas.length === 1 ? (
-            <>
-              <MainWrapper>
-                <HeaderSection hasFilter={false} />
-                <DetailCafe isSingle={true} />
-              </MainWrapper>
-              <Link href="/maps" passHref>
-                <CloseButton
-                  inHoverClose={inHoverClose}
-                  setInHoverClose={setInHoverClose}
-                  isSingle={true}
-                />
-              </Link>
-            </>
-          ) : (
-            <>
-              <MainWrapper>
-                <HeaderSection hasFilter={true} />
-                <CafeList>
-                  {cafes ? (
-                    cafes.length === 0 ? (
-                      <ErrorComponent storeName={search} />
-                    ) : (
-                      cafes
-                        .slice(0, 15)
-                        .map((cafe: IStore) => (
-                          <ShortCafeItem
-                            cafe={cafe}
-                            storeId={storeId as string}
-                            search={search as string}
-                            key={cafe.storeId}
-                          />
-                        ))
-                    )
-                  ) : (
-                    <ErrorComponent />
-                  )}
-                </CafeList>
-              </MainWrapper>
-              {storeId ? (
-                <>
-                  <DetailWrapper>
-                    <DetailCafe isSingle={false} />
-                  </DetailWrapper>
-                  <Link passHref href={{ pathname: 'maps', query: { search } }}>
-                    <CloseButton
-                      inHoverClose={inHoverClose}
-                      setInHoverClose={setInHoverClose}
-                      isSingle={false}
-                    />
-                  </Link>
-                </>
-              ) : (
-                ''
-              )}
-            </>
-          )}
-          <Map isSingle={cafeDatas.length === 1 ? true : false} />
-        </>
-      ) : (
-        <>
-          <MainWrapper>
-            <HeaderSection hasFilter={true} />
-            <CafeList>
-              {cafes ? (
-                cafes.length === 0 ? (
-                  <ErrorComponent storeName={search} />
-                ) : (
-                  cafes
-                    .slice(0, 15)
-                    .map((cafe: IStore) => (
-                      <ShortCafeItem
-                        cafe={cafe}
-                        storeId={storeId as string}
-                        search={search as string}
-                        key={cafe.storeId}
-                      />
-                    ))
-                )
-              ) : (
-                <ErrorComponent />
-              )}
-            </CafeList>
-          </MainWrapper>
-          <Map isSingle={true} />
-        </>
-      )} */}
       <Head>
         <title>카페인 | {search ? search : '지도'}</title>
       </Head>
@@ -214,10 +125,6 @@ const Maps: NextPage = ({
     </>
   )
 }
-
-// Maps.getLayout = function getLayout(page: ReactElement) {
-//   return <MapLayout>{page}</MapLayout>
-// }
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   if (query.search) {
