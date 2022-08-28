@@ -74,14 +74,13 @@ const Search = () => {
   }, [autoRef])
 
   const handleKeyArrow = (e: KeyboardEvent<HTMLInputElement>) => {
-    console.log(e.key)
     if (e.key === 'Backspace') {
       return
     }
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
       inputRef.current?.blur()
       if (searchIdx !== -1) {
-        onEnterPress(
+        return onEnterPress(
           e,
           searchLists[searchIdx].storeName,
           router,
@@ -91,7 +90,7 @@ const Search = () => {
           searchLists[searchIdx].storeId
         )
       } else {
-        onEnterPress(e, inputs, router, map, markers, setIsClicked)
+        return onEnterPress(e, inputs, router, map, markers, setIsClicked)
       }
     }
     if (searchLists && nodeLists && nodeLists.length > 0) {
