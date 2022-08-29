@@ -77,6 +77,11 @@ export interface CafeRewviewPointInterface {
   tableCnt: number
 }
 
+export interface CafeRecommendInterface {
+  recommendPercentOfStore: null | number
+  recommendation: null | number
+}
+
 type isRunningInterface = [boolean, null | string]
 
 export interface IStore {

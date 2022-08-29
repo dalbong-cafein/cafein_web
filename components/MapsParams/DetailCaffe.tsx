@@ -144,6 +144,7 @@ const DetailCafe = ({ isSingle }: DetailCafeProps) => {
           `/api/web/stores/${storeId}/recommendations`
         )
         const { data } = response.data
+        console.log(data)
         const { recommendPercentOfStore, recommendation } = data
         setCafeReviewPercent(recommendPercentOfStore)
         if (recommendation === 'BAD') {
