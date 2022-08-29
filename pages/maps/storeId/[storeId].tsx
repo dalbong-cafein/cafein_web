@@ -58,6 +58,9 @@ const DetailStorePage = ({
   const setCafePoints = useSetAtom(cafeReviewPonitAtom)
   const setCafeReviewPercent = useSetAtom(cafeReviewPercentAtom)
   const [nearCafes, setNearCafes] = useState<INearCafe[]>()
+  const [isHovering_1, setIsHovering_1] = useState(false)
+  const [isHovering_2, setIsHovering_2] = useState(false)
+  const [isHovering_3, setIsHovering_3] = useState(false)
 
   useEffect(() => {
     setCafeInfo(store)
@@ -84,11 +87,11 @@ const DetailStorePage = ({
         <CafePOintsSection />
         <RecommendSection
           isHovering_1={false}
-          setIsHovering_1={() => {}}
+          setIsHovering_1={setIsHovering_1}
           isHovering_2={false}
-          setIsHovering_2={() => {}}
+          setIsHovering_2={setIsHovering_1}
           isHovering_3={false}
-          setIsHovering_3={() => {}}
+          setIsHovering_3={setIsHovering_1}
         />
         <CafeInfoWrapper>
           <WrapperTitle>혼잡도</WrapperTitle>
