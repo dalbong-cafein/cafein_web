@@ -5,7 +5,13 @@ import { useEffect, useRef, useState } from 'react'
 
 import { useAtom, useAtomValue } from 'jotai'
 import styled from 'styled-components'
-import { cafeInfoAtom, ImageListInterface, mapAtom, moreAtom } from 'store'
+import {
+  cafeInfoAtom,
+  CafeInfoInterface,
+  ImageListInterface,
+  mapAtom,
+  moreAtom
+} from 'store'
 
 import { DimmedWrapper } from '@components/common/Common'
 import Ic_close from '@public/close.svg'
@@ -15,25 +21,21 @@ import Ic_right_arrow from '@public/right_arrow_img.svg'
 import { MapBox } from './styles/styles'
 import madeURL from 'utils/blurDataURL'
 
-const Map = ({ isSingle }: { isSingle: boolean }) => {
+interface MapProps {
+  isSingle: boolean
+  store: CafeInfoInterface
+}
+
+const Map = ({ isSingle, store }: MapProps) => {
   const [more, setMore] = useAtom(moreAtom)
-  const cafeInfo = useAtomValue(cafeInfoAtom)
   const [imageId, setImageId] = useState(0)
   const router = useRouter()
   const mapRef = useRef<HTMLDivElement>(null)
   const slideRef = useRef<HTMLDivElement>(null)
 
-  const map = useAtomValue(mapAtom)
-
   useEffect(() => {
     setMore(false)
   }, [router])
-
-  useEffect(() => {
-    console.log('맵이 있냐??')
-    console.log(mapRef)
-    console.log(map)
-  }, [mapRef])
 
   const handleClick = () => {
     setMore(false)
@@ -41,10 +43,7 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
   }
 
   const handleRight = () => {
-    if (
-      imageId <
-      (cafeInfo?.storeImageList as ImageListInterface[]).length - 1
-    ) {
+    if (imageId < (store?.storeImageList as ImageListInterface[]).length - 1) {
       setImageId((cur) => cur + 1)
       slideRef.current?.scrollBy({ left: 100 })
     }
@@ -55,20 +54,19 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
       slideRef.current?.scrollBy({ left: -100 })
     }
   }
+
   console.log(imageId, slideRef.current?.scrollLeft)
   return (
     <>
-      {more &&
-      cafeInfo?.storeImageList &&
-      cafeInfo?.storeImageList.length > 0 ? (
+      {more && store?.storeImageList && store?.storeImageList.length > 0 ? (
         <>
-          <DimmedWrapper isAll={false} isSearch={isSingle}>
+          <DimmedWrapper isSearch={isSingle}>
             <Escape onClick={handleClick}>
               <Ic_close />
             </Escape>
             <MainImage>
               <Image
-                src={`${cafeInfo?.storeImageList[imageId].imageUrl}`}
+                src={`${store?.storeImageList[imageId].imageUrl}`}
                 width={480}
                 height={480}
                 alt={'카페 사진'}
@@ -83,7 +81,7 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
               <ImagesWrapper ref={slideRef}>
                 <ImageWrapper isActive={false} />
                 <ImageWrapper isActive={false} />
-                {cafeInfo?.storeImageList.map((storeImage, idx) => (
+                {store?.storeImageList.map((storeImage, idx) => (
                   <ImageWrapper
                     isActive={imageId === idx}
                     key={storeImage.imageId}
@@ -106,7 +104,7 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
               </ArrowBtn>
             </ImageLists>
             <NumOfCount>
-              {imageId + 1}/{cafeInfo.storeImageList.length}
+              {imageId + 1}/{store.storeImageList.length}
             </NumOfCount>
           </DimmedWrapper>
         </>

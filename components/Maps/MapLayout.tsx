@@ -109,7 +109,7 @@ const MapLayout = ({
       ) : (
         ''
       )} */}
-        <Map isSingle={false} />
+        <Map isSingle={true} store={store} />
       </MapWrapper>
     </>
   )

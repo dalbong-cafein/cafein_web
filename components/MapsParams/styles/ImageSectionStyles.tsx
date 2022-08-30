@@ -13,6 +13,12 @@ export const ImageWrappers = styled.div`
   }
 `
 
+export const ImageWrappersLess = styled.div`
+  display: flex;
+  max-width: 680px;
+  height: 242px;
+`
+
 export const ImageLink = styled.a`
   display: flex;
   position: relative;
@@ -29,13 +35,21 @@ export const ImageLink = styled.a`
   }
 `
 
-export const ShowMore = styled.p`
+export const ShowMoreWrapper = styled.div`
   position: absolute;
-  color: ${(props) => props.theme.colors.white};
-  font-size: ${(props) => props.theme.fontsizes.font15}rem;
-  font-weight: 400;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 32px;
+  bottom: 42px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   z-index: 2;
+  align-items: center;
+`
+
+export const ShowMore = styled.p`
+  color: ${(props) => props.theme.colors.white};
+  font-size: ${(props) => props.theme.fontsizes.font14}rem;
+  font-weight: 500;
+  white-space: nowrap;
 `

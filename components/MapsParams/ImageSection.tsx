@@ -4,7 +4,15 @@ import React, { MouseEvent } from 'react'
 import { useSetAtom } from 'jotai'
 import { CafeInfoInterface, moreAtom } from 'store'
 
-import { ImageLink, ImageWrappers, ShowMore } from './styles/styles'
+import Ic_camera from '@public//ic_camera.svg'
+
+import {
+  ImageLink,
+  ImageWrappers,
+  ImageWrappersLess,
+  ShowMore,
+  ShowMoreWrapper
+} from './styles/styles'
 import madeURL from 'utils/blurDataURL'
 
 const ImageSection = ({ store }: { store: CafeInfoInterface }) => {
@@ -13,7 +21,7 @@ const ImageSection = ({ store }: { store: CafeInfoInterface }) => {
     e.preventDefault()
     setMore(true)
   }
-  return (
+  return store.storeImageList.length >= 3 ? (
     <ImageWrappers>
       {store.storeImageList.slice(0, 3).map((imgData, idx) =>
         idx === 2 ? (
@@ -28,7 +36,10 @@ const ImageSection = ({ store }: { store: CafeInfoInterface }) => {
                 placeholder="blur"
                 blurDataURL={madeURL(392, 284)}
               />
-              <ShowMore>더보기</ShowMore>
+              <ShowMoreWrapper>
+                <Ic_camera />
+                <ShowMore>{store.storeImageList.length - 3}개 더보기</ShowMore>
+              </ShowMoreWrapper>
             </ImageLink>
           </React.Fragment>
         ) : (
@@ -46,6 +57,22 @@ const ImageSection = ({ store }: { store: CafeInfoInterface }) => {
         )
       )}
     </ImageWrappers>
+  ) : (
+    <ImageWrappersLess>
+      {store.storeImageList.map((imgData, idx) => (
+        <React.Fragment key={imgData.imageId}>
+          <Image
+            src={imgData.imageUrl}
+            alt="카페 사진"
+            key={idx}
+            width={392}
+            height={284}
+            placeholder="blur"
+            blurDataURL={madeURL(392, 284)}
+          />
+        </React.Fragment>
+      ))}
+    </ImageWrappersLess>
   )
 }
 
