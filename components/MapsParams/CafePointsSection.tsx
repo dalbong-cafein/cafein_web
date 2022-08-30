@@ -16,6 +16,12 @@ import {
   WrapperTitle
 } from './styles/styles'
 import { getStars } from '@utils/CafePoint/getStars'
+import {
+  getSocketPhrase,
+  getWifiPhrase,
+  getRestroomPhrase,
+  getTablePhrase
+} from '@utils/CafeInfo/getPhrases'
 
 const CafePointsSection = ({
   reviewStore
@@ -33,7 +39,9 @@ const CafePointsSection = ({
               <CafeInfoItemTitle>콘센트</CafeInfoItemTitle>
               {getStars(reviewStore.socket)}
             </CafeInfoItemDescWrapper>
-            <CafeInfoItemDesc>바닥을 기어봐도 없어요</CafeInfoItemDesc>
+            <CafeInfoItemDesc>
+              {getSocketPhrase(reviewStore.socket as '1' | '2' | '3' | '4')}
+            </CafeInfoItemDesc>
           </CafeInfoItemDescsWrapper>
         </CafeInfoItemWrapper>
         <CafeInfoItemWrapper>
@@ -43,7 +51,9 @@ const CafePointsSection = ({
               <CafeInfoItemTitle>화장실</CafeInfoItemTitle>
               {getStars(reviewStore.restroom)}
             </CafeInfoItemDescWrapper>
-            <CafeInfoItemDesc>다시 가고싶지 않아요</CafeInfoItemDesc>
+            <CafeInfoItemDesc>
+              {getRestroomPhrase(reviewStore.restroom as '1' | '2' | '3' | '4')}
+            </CafeInfoItemDesc>
           </CafeInfoItemDescsWrapper>
         </CafeInfoItemWrapper>
         <CafeInfoItemWrapper>
@@ -53,7 +63,9 @@ const CafePointsSection = ({
               <CafeInfoItemTitle>테이블</CafeInfoItemTitle>
               {getStars(reviewStore.tableSize)}
             </CafeInfoItemDescWrapper>
-            <CafeInfoItemDesc>매우 편하게 사용 가능해요</CafeInfoItemDesc>
+            <CafeInfoItemDesc>
+              {getTablePhrase(reviewStore.tableSize as '1' | '2' | '3' | '4')}
+            </CafeInfoItemDesc>
           </CafeInfoItemDescsWrapper>
         </CafeInfoItemWrapper>
         <CafeInfoItemWrapper>
@@ -63,7 +75,9 @@ const CafePointsSection = ({
               <CafeInfoItemTitle>와이파이</CafeInfoItemTitle>
               {getStars(reviewStore.wifi)}
             </CafeInfoItemDescWrapper>
-            <CafeInfoItemDesc>자주 끊겨서 화나요</CafeInfoItemDesc>
+            <CafeInfoItemDesc>
+              {getWifiPhrase(reviewStore.wifi as '1' | '2' | '3' | '4')}
+            </CafeInfoItemDesc>
           </CafeInfoItemDescsWrapper>
         </CafeInfoItemWrapper>
       </CafeInfoList>
