@@ -18,7 +18,7 @@ export const HomeTitle = styled.h1`
 
 export const SearchFormWrapper = styled.div<{ isMap: boolean }>`
   position: relative;
-  margin-top: ${(props) => (props.isMap ? '' : '30px')};
+  margin-top: ${(props) => (props.isMap ? '30px' : '30px')};
   gap: ${(props) => (props.isMap ? '' : '32px')};
   display: flex;
   flex-direction: column;

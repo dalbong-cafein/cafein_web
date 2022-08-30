@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const Wrapper = styled.header`
   display: flex;
   flex-direction: column;
+  padding: 23px 24px 0;
 `
 
 export const FilterWrapper = styled.ul`

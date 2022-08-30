@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -28,8 +28,10 @@ import {
   AddLinkText,
   AddWrapper
 } from '@components/Home/styles/AddOnStyles'
+import MapLayout from '@components/Maps/MapLayout'
+import { NextPageWithLayout } from 'pages/_app'
 
-const DetailStorePage = ({
+const DetailStorePage: NextPageWithLayout = ({
   store,
   reviewStore,
   nearStores
@@ -75,7 +77,20 @@ const DetailStorePage = ({
   )
 }
 
-export default DetailStorePage
+DetailStorePage.getLayout = function getLayout(
+  page: ReactElement,
+  pageProps: InferGetStaticPropsType<typeof getStaticProps>
+) {
+  return (
+    <MapLayout
+      store={pageProps.store}
+      reviewStore={pageProps.reviewStore}
+      nearStores={pageProps.nearStores}
+    >
+      {page}
+    </MapLayout>
+  )
+}
 
 interface IextendedParams extends ParsedUrlQuery {
   storeId: string
@@ -120,7 +135,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 }
 
 const CafeWrapper = styled.div<{ isSingle: boolean }>`
-  height: ${(props) => (props.isSingle ? `calc(100vh - 88px)` : '100vh')};
+  height: ${(props) => (props.isSingle ? `calc(100vh - 140px)` : '100vh')};
   overflow-y: auto;
   overflow-x: hidden;
   &::-webkit-scrollbar {
@@ -160,3 +175,5 @@ const AddButton2 = styled(AddButton)`
   font-size: ${(props) => props.theme.fontsizes.font14}rem;
   align-self: flex-start;
 `
+
+export default DetailStorePage

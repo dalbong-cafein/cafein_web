@@ -9,7 +9,7 @@ export const FooterWrapper = styled.footer<{ isHome: boolean }>`
   justify-content: center;
   align-items: center;
   gap: 12px;
-  padding: ${(props) => (props.isHome ? '' : '30px 0')};
+  padding: ${(props) => (props.isHome ? '' : '30px 49px')};
 `
 
 export const FooterQLists = styled.ul`
@@ -31,4 +31,6 @@ export const CopyRight = styled.p`
   font-weight: 400;
   font-size: ${(props) => props.theme.fontsizes.font13}rem;
   color: ${(props) => props.theme.colors.grey500};
+  text-align: center;
+  white-space: nowrap;
 `

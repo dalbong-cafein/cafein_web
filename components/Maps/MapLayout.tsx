@@ -1,10 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import initMap from '@utils/initMap'
+import { getMapItems } from '@utils/MapUtils'
 import { useAtom } from 'jotai'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { isDimmedAtom, IStore } from '../../store'
+import styled from 'styled-components'
+import {
+  CafeInfoInterface,
+  CafeRewviewPointInterface,
+  INearCafe,
+  isDimmedAtom,
+  IStore,
+  mapAtom,
+  mapMarkerList,
+  searchInputAtom
+} from 'store'
 import CloseButton from '../common/CloseButton'
 import DimmedAlert from '../common/DimmedAlert'
 import { FlexA } from '../common/styles/CommonStyles'
@@ -15,25 +27,62 @@ import { DetailWrapper, MainWrapper } from './styles/styles'
 
 interface MapLayoutProps {
   children: JSX.Element
+  store: CafeInfoInterface
+  reviewStore: CafeRewviewPointInterface
+  nearStores: INearCafe[]
 }
 
-const MapLayout = ({ children }: MapLayoutProps) => {
+const MapLayout = ({
+  children,
+  store,
+  reviewStore,
+  nearStores
+}: MapLayoutProps) => {
   const router = useRouter()
-  const { search, storeId } = router.query
   const [isDimmed, setIsDimmed] = useAtom(isDimmedAtom)
-  const { cafeDatas } = children.props
+  const [map, setMap] = useAtom(mapAtom)
+  const [markers, setMarkers] = useAtom(mapMarkerList)
+  const { search } = router.query
+  const [inputs, setInputs] = useAtom(searchInputAtom)
+
+  console.log(children.props, 'hello', router.query)
 
   useEffect(() => {
-    if (cafeDatas?.length === 1) {
-      router.push({
-        pathname: `maps`,
-        query: {
-          search,
-          storeId: (cafeDatas[0] as IStore).storeId
-        }
-      })
-    }
+    if (!map && search) setMap(initMap.init(search as string))
+    else if (!map) setMap(initMap.init(''))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (map) {
+      if (store) {
+        setMarkers(
+          getMapItems(map, [store], Number(store.storeId) as number, router)
+        )
+      } else {
+        // setMarkers(
+        //   getMapItems(
+        //     map,
+        //     cafeDatas?.slice(0, 15) as IStore[],
+        //     Number(storeId) as number,
+        //     router
+        //   )
+        // )
+      }
+      // setCafes(cafeDatas)
+    }
+    if ((!inputs && search) || inputs !== search) {
+      if (store) {
+        setInputs(store.storeName)
+      } else {
+        setInputs(search as string)
+      }
+    }
+    return () => {
+      markers.forEach((marker) => marker.setMap(null))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router, map])
 
   return (
     <>
@@ -41,11 +90,12 @@ const MapLayout = ({ children }: MapLayoutProps) => {
         <title>카페인 | 지도</title>
       </Head>
       {isDimmed ? <DimmedAlert setIsDimmed={setIsDimmed} /> : ''}
-      <MainWrapper>
-        <HeaderSection hasFilter={cafeDatas?.length === 1 ? false : true} />
-        {children}
-      </MainWrapper>
-      {storeId ? (
+      <MapWrapper>
+        <MainWrapper>
+          <HeaderSection hasFilter={false} />
+          {children}
+        </MainWrapper>
+        {/* {storeId ? (
         <>
           <DetailWrapper>
             <DetailCafe isSingle={false} />
@@ -58,10 +108,17 @@ const MapLayout = ({ children }: MapLayoutProps) => {
         </>
       ) : (
         ''
-      )}
-      <Map isSingle={cafeDatas?.length === 1 ? true : false} />
+      )} */}
+        <Map isSingle={false} />
+      </MapWrapper>
     </>
   )
 }
+
+const MapWrapper = styled.div`
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+`
 
 export default MapLayout

@@ -61,6 +61,7 @@ export interface CafeInfoInterface {
   latY: number
   reviewImageList: ImageListInterface[]
   storeImageList: ImageListInterface[]
+  marker: naver.maps.Marker | null
 }
 
 export interface CafeRewviewPointInterface {
@@ -81,7 +82,7 @@ export interface CafeRecommendInterface {
   recommendation: null | number
 }
 
-type isRunningInterface = [boolean, null | string]
+// type isRunningInterface = [boolean, null | string]
 
 export interface IStore {
   businessHoursInfoDto: {

@@ -1,5 +1,5 @@
 import { NextRouter } from 'next/router'
-import { IStore } from '../store'
+import { CafeInfoInterface, IStore } from '../store'
 
 const getMapCenterByInputs = (
   map: naver.maps.Map,
@@ -29,7 +29,10 @@ const getMapCenterByInputs = (
   })
 }
 
-const getClickHandler = (cafe: IStore, router: NextRouter) => {
+const getClickHandler = (
+  cafe: IStore | CafeInfoInterface,
+  router: NextRouter
+) => {
   const { search } = router.query
   return () => {
     router.push({
@@ -44,7 +47,7 @@ const getClickHandler = (cafe: IStore, router: NextRouter) => {
 
 const getMapItems = (
   map: naver.maps.Map,
-  cafes: IStore[],
+  cafes: IStore[] | CafeInfoInterface[],
   storeId: number,
   router: NextRouter
 ) => {

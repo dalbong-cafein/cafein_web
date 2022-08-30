@@ -134,12 +134,14 @@ const Search = () => {
     }
   }
 
+  const isMap = pathname.includes('maps')
+
   return (
-    <SearchFormWrapper isMap={pathname === '/maps' ? true : false}>
+    <SearchFormWrapper isMap={isMap}>
       <InputWrapper>
         <SearchInput
           ref={inputRef}
-          isMap={pathname === '/maps' ? true : false}
+          isMap={isMap}
           placeholder="카페 이름이나 지하철역을 검색해보세요"
           value={inputs}
           onChange={(e) =>
@@ -176,7 +178,7 @@ const Search = () => {
         />
       </InputWrapper>
       <HomeSearchLists
-        isMap={pathname === '/maps' ? true : false}
+        isMap={isMap}
         isDisplay={searchLists.length !== 0 && isClicked ? true : false}
         ref={autoRef}
       >
