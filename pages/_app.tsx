@@ -6,8 +6,9 @@ import { ThemeProvider } from 'styled-components'
 import { GlobalStyle } from '../styles/global-style'
 import { theme } from '../styles/theme'
 
-export type NextPageWithLayout<T> = NextPage<T> & {
-  getLayout?: (page: ReactElement) => ReactNode
+// 잘 모르고 사용한 것들. getStaticProps의 Prop들의 타입을 지정해주는 함수인 것 같음
+export type NextPageWithLayout<P = any, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement, pageProps: P) => ReactNode
 }
 
 type AppPropsWithLayout = AppProps & {
@@ -19,7 +20,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      {getLayout(<Component {...pageProps} />)}
+      {getLayout(<Component {...pageProps} />, pageProps)}
     </ThemeProvider>
   )
 }
