@@ -5,14 +5,9 @@ import { useEffect, useRef, useState } from 'react'
 
 import { useAtom, useAtomValue } from 'jotai'
 import styled from 'styled-components'
-import {
-  cafeInfoAtom,
-  ImageListInterface,
-  mapAtom,
-  moreAtom
-} from '../../store'
+import { cafeInfoAtom, ImageListInterface, mapAtom, moreAtom } from 'store'
 
-import common from '../common/Common'
+import { DimmedWrapper } from '@components/common/Common'
 import Ic_close from '@public/close.svg'
 import Ic_left_arrow from '@public/left_arrow_img.svg'
 import Ic_right_arrow from '@public/right_arrow_img.svg'
@@ -67,7 +62,7 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
       cafeInfo?.storeImageList &&
       cafeInfo?.storeImageList.length > 0 ? (
         <>
-          <common.DimmedWrapper isAll={false} isSearch={isSingle}>
+          <DimmedWrapper isAll={false} isSearch={isSingle}>
             <Escape onClick={handleClick}>
               <Ic_close />
             </Escape>
@@ -113,7 +108,7 @@ const Map = ({ isSingle }: { isSingle: boolean }) => {
             <NumOfCount>
               {imageId + 1}/{cafeInfo.storeImageList.length}
             </NumOfCount>
-          </common.DimmedWrapper>
+          </DimmedWrapper>
         </>
       ) : (
         ''

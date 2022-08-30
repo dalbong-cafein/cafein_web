@@ -1,6 +1,6 @@
 import { useAtomValue } from 'jotai'
 
-import { cafeReviewPonitAtom } from 'store'
+import { cafeReviewPonitAtom, CafeRewviewPointInterface } from 'store'
 
 import Ic_star from '@public/star.svg'
 import Ic_empty_star from '@public/empty_star.svg'
@@ -21,8 +21,11 @@ import {
   WrapperTitle
 } from './styles/styles'
 
-const CafePOintsSection = () => {
-  const cafePoints = useAtomValue(cafeReviewPonitAtom)
+const CafePointsSection = ({
+  reviewStore
+}: {
+  reviewStore: CafeRewviewPointInterface
+}) => {
   const getStars = (cnt: string) => {
     return (
       <StartWrapper>
@@ -36,58 +39,52 @@ const CafePOintsSection = () => {
     )
   }
   return (
-    <>
-      {cafePoints && (
-        <>
-          <CafeInfoWrapper>
-            <WrapperTitle>카공 정보</WrapperTitle>
-            <CafeInfoList>
-              <CafeInfoItemWrapper>
-                <Ic_plug />
-                <CafeInfoItemDescsWrapper>
-                  <CafeInfoItemDescWrapper>
-                    <CafeInfoItemTitle>콘센트</CafeInfoItemTitle>
-                    {getStars(cafePoints.socket)}
-                  </CafeInfoItemDescWrapper>
-                  <CafeInfoItemDesc>바닥을 기어봐도 없어요</CafeInfoItemDesc>
-                </CafeInfoItemDescsWrapper>
-              </CafeInfoItemWrapper>
-              <CafeInfoItemWrapper>
-                <Ic_restroom />
-                <CafeInfoItemDescsWrapper>
-                  <CafeInfoItemDescWrapper>
-                    <CafeInfoItemTitle>화장실</CafeInfoItemTitle>
-                    {getStars(cafePoints.restroom)}
-                  </CafeInfoItemDescWrapper>
-                  <CafeInfoItemDesc>다시 가고싶지 않아요</CafeInfoItemDesc>
-                </CafeInfoItemDescsWrapper>
-              </CafeInfoItemWrapper>
-              <CafeInfoItemWrapper>
-                <Ic_table />
-                <CafeInfoItemDescsWrapper>
-                  <CafeInfoItemDescWrapper>
-                    <CafeInfoItemTitle>테이블</CafeInfoItemTitle>
-                    {getStars(cafePoints.tableSize)}
-                  </CafeInfoItemDescWrapper>
-                  <CafeInfoItemDesc>매우 편하게 사용 가능해요</CafeInfoItemDesc>
-                </CafeInfoItemDescsWrapper>
-              </CafeInfoItemWrapper>
-              <CafeInfoItemWrapper>
-                <Ic_wifi />
-                <CafeInfoItemDescsWrapper>
-                  <CafeInfoItemDescWrapper>
-                    <CafeInfoItemTitle>와이파이</CafeInfoItemTitle>
-                    {getStars(cafePoints.wifi)}
-                  </CafeInfoItemDescWrapper>
-                  <CafeInfoItemDesc>자주 끊겨서 화나요</CafeInfoItemDesc>
-                </CafeInfoItemDescsWrapper>
-              </CafeInfoItemWrapper>
-            </CafeInfoList>
-          </CafeInfoWrapper>
-        </>
-      )}
-    </>
+    <CafeInfoWrapper>
+      <WrapperTitle>카공 정보</WrapperTitle>
+      <CafeInfoList>
+        <CafeInfoItemWrapper>
+          <Ic_plug />
+          <CafeInfoItemDescsWrapper>
+            <CafeInfoItemDescWrapper>
+              <CafeInfoItemTitle>콘센트</CafeInfoItemTitle>
+              {getStars(reviewStore.socket)}
+            </CafeInfoItemDescWrapper>
+            <CafeInfoItemDesc>바닥을 기어봐도 없어요</CafeInfoItemDesc>
+          </CafeInfoItemDescsWrapper>
+        </CafeInfoItemWrapper>
+        <CafeInfoItemWrapper>
+          <Ic_restroom />
+          <CafeInfoItemDescsWrapper>
+            <CafeInfoItemDescWrapper>
+              <CafeInfoItemTitle>화장실</CafeInfoItemTitle>
+              {getStars(reviewStore.restroom)}
+            </CafeInfoItemDescWrapper>
+            <CafeInfoItemDesc>다시 가고싶지 않아요</CafeInfoItemDesc>
+          </CafeInfoItemDescsWrapper>
+        </CafeInfoItemWrapper>
+        <CafeInfoItemWrapper>
+          <Ic_table />
+          <CafeInfoItemDescsWrapper>
+            <CafeInfoItemDescWrapper>
+              <CafeInfoItemTitle>테이블</CafeInfoItemTitle>
+              {getStars(reviewStore.tableSize)}
+            </CafeInfoItemDescWrapper>
+            <CafeInfoItemDesc>매우 편하게 사용 가능해요</CafeInfoItemDesc>
+          </CafeInfoItemDescsWrapper>
+        </CafeInfoItemWrapper>
+        <CafeInfoItemWrapper>
+          <Ic_wifi />
+          <CafeInfoItemDescsWrapper>
+            <CafeInfoItemDescWrapper>
+              <CafeInfoItemTitle>와이파이</CafeInfoItemTitle>
+              {getStars(reviewStore.wifi)}
+            </CafeInfoItemDescWrapper>
+            <CafeInfoItemDesc>자주 끊겨서 화나요</CafeInfoItemDesc>
+          </CafeInfoItemDescsWrapper>
+        </CafeInfoItemWrapper>
+      </CafeInfoList>
+    </CafeInfoWrapper>
   )
 }
 
-export default CafePOintsSection
+export default CafePointsSection

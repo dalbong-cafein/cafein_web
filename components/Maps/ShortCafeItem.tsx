@@ -1,15 +1,15 @@
 import Link from 'next/link'
 import { NextRouter } from 'next/router'
 
-import { IStore } from '../../store'
+import { IStore } from 'store'
 
-import common from '@components/common/Common'
+import Ic_like from '@public/ddabong.svg'
 
-import getHours from '../../utils/getHours'
+import getHours from '@utils/getHours'
 import {
   handleMouseOut,
   handleMouseOver
-} from '../../utils/ShortCafeItem/handleMouse'
+} from '@utils/ShortCafeItem/handleMouse'
 import {
   ShortCafeItemList,
   ShortCafeItemLocation,
@@ -61,7 +61,7 @@ const ShortCafeItem = ({ cafe, storeId, router }: IShortCafeItem) => {
           </OnAirWrapper>
           {cafe.recommendPercent ? (
             <DdabongWrap>
-              {<common.Ic_like />} {Math.floor(cafe.recommendPercent) + '%'}
+              <Ic_like /> {Math.floor(cafe.recommendPercent) + '%'}
             </DdabongWrap>
           ) : (
             ''

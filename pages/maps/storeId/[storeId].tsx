@@ -10,8 +10,36 @@ import CafeInfoSection from '@components/MapsParams/CafeInfoSection'
 import CafePOintsSection from '@components/MapsParams/CafePointsSection'
 import ImageSection from '@components/MapsParams/ImageSection'
 import RecommendSection from '@components/MapsParams/RecommendSection'
-import { CafeInfoWrapper } from '@components/MapsParams/styles/CafeInfoSectionStyle'
-import { WrapperTitle } from '@components/MapsParams/styles/CafePointsSectionStyle'
+import {
+  ArrowButton,
+  CafeInfoWrapper,
+  CallDescription,
+  DailyTimeWrapper,
+  Day,
+  DayTimeWrapper,
+  DDabongPoints,
+  DDabongWrapper,
+  Description,
+  DescWrapper,
+  HeaderTitle,
+  OpenInfoWrapper,
+  StrongSpan,
+  SubTitle,
+  SubTitleWrapper,
+  Time,
+  TitleWrapper,
+  URLDescription
+} from '@components/MapsParams/styles/CafeInfoSectionStyle'
+import {
+  CafeInfoItemDesc,
+  CafeInfoItemDescsWrapper,
+  CafeInfoItemDescWrapper,
+  CafeInfoItemTitle,
+  CafeInfoItemWrapper,
+  CafeInfoList,
+  StartWrapper,
+  WrapperTitle
+} from '@components/MapsParams/styles/CafePointsSectionStyle'
 import axios from 'axios'
 import {
   GetStaticPaths,
@@ -25,12 +53,29 @@ import { ParsedUrlQuery } from 'querystring'
 import { CafeRecommendInterface, IStore } from 'store'
 import styled from 'styled-components'
 
+import getIsToday from '@utils/getIsToday'
 import Ic_down_arrow from '@public/down_arrow.svg'
 import Ic_left_arrow_off from '@public/left_arrow_off.svg'
 import Ic_right_arrow_off from '@public/right_arrow_off.svg'
 import Ic_navigation from '@public/navigation.svg'
-import Ic_like from '@public/ddabong.svg'
 import Ic_heart from '@public/heart.svg'
+import Ic_copy from '@public/copy.svg'
+import Ic_clock from '@public/clock.svg'
+import Ic_call from '@public/call.svg'
+import Ic_url from '@public/url.svg'
+import Ic_like from '@public/ddabong.svg'
+import Ic_star from '@public/star.svg'
+import Ic_empty_star from '@public/empty_star.svg'
+import Ic_plug from '@public/plug.svg'
+import Ic_restroom from '@public/restroom.svg'
+import Ic_table from '@public/table.svg'
+import Ic_wifi from '@public/wifi.svg'
+import Ic_badOn from '@public/bad_on.svg'
+import Ic_bad from '@public/bad.svg'
+import Ic_sosoOn from '@public/soso_on.svg'
+import Ic_soso from '@public/soso.svg'
+import Ic_goodOn from '@public/good_on.svg'
+import Ic_good from '@public/good.svg'
 import temp_img from '@public/temp_img.png'
 import { useAtom, useSetAtom } from 'jotai'
 
@@ -43,38 +88,128 @@ import {
   INearCafe,
   isDimmedAtom,
   mapAtom,
-  searchInputAtom
+  searchInputAtom,
+  moreAtom
 } from 'store'
-import { useEffect, useState } from 'react'
+import React, { MouseEvent, useEffect, useState } from 'react'
 import madeURL from '@utils/blurDataURL'
+import {
+  ImageLink,
+  ImageWrappers,
+  ShowMore
+} from '@components/MapsParams/styles/ImageSectionStyles'
+import {
+  ButtonDesc,
+  ButtonInnerWrapper,
+  ButtonOutterWrapper,
+  ButtonWrapper,
+  StrongWrapperTitle,
+  WordsWrapper,
+  WordsWrapperText
+} from '@components/MapsParams/styles/RecommendSectionStyle'
+import CafePointsSection from '@components/MapsParams/CafePointsSection'
 
 const DetailStorePage = ({
   store,
   reviewStore,
-  recommendStore,
   nearStores
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const [cafeInfo, setCafeInfo] = useAtom(cafeInfoAtom)
-  const setCafePoints = useSetAtom(cafeReviewPonitAtom)
-  const setCafeReviewPercent = useSetAtom(cafeReviewPercentAtom)
-  const [nearCafes, setNearCafes] = useState<INearCafe[]>()
+  const [cafeReviewPercent, setCafeReviewPercent] = useState<null | number>(
+    null
+  )
+  const setMore = useSetAtom(moreAtom)
+  const [isOnButton, setIsOnButton] = useState(0)
   const [isHovering_1, setIsHovering_1] = useState(false)
   const [isHovering_2, setIsHovering_2] = useState(false)
   const [isHovering_3, setIsHovering_3] = useState(false)
 
+  const onMoreHandler = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    setMore(true)
+  }
+
+  const getRecommendation = async () => {
+    try {
+      const response = await axios.get(
+        `/api/web/stores/${store.storeId}/recommendations`
+      )
+      const { data } = response.data
+      console.log(data)
+      const { recommendPercentOfStore, recommendation } = data
+      setCafeReviewPercent(recommendPercentOfStore)
+      if (recommendation === 'BAD') {
+        setIsHovering_1(true)
+        setIsHovering_2(false)
+        setIsHovering_3(false)
+      } else if (recommendation === 'NORMAL') {
+        setIsHovering_1(false)
+        setIsHovering_2(true)
+        setIsHovering_3(false)
+      } else if (recommendation === 'GOOD') {
+        setIsHovering_1(false)
+        setIsHovering_2(false)
+        setIsHovering_3(true)
+      } else {
+        setIsHovering_1(false)
+        setIsHovering_2(false)
+        setIsHovering_3(false)
+      }
+    } catch (error) {
+      console.error(`Cafe Recommend data Get error : ${error}`)
+    }
+  }
+
   useEffect(() => {
-    setCafeInfo(store)
-    setCafePoints(reviewStore)
-    setNearCafes(nearStores)
-  })
+    getRecommendation()
+  }, [])
 
   const isSingle = true
-  console.log(store, reviewStore, recommendStore, nearStores)
 
   const setIsDimmed = useSetAtom(isDimmedAtom)
   const notYet = () => {
     setIsDimmed(true)
   }
+
+  const getStars = (cnt: string) => {
+    return (
+      <StartWrapper>
+        {[1, 2, 3, 4].map((num, idx) => {
+          if (num <= +cnt) {
+            return <Ic_star key={idx} />
+          }
+          return <Ic_empty_star key={idx} />
+        })}
+      </StartWrapper>
+    )
+  }
+
+  const recommendOnClickHandler = async (
+    recommendation: string,
+    storeId: number
+  ) => {
+    try {
+      axios
+        .post(`/api/web/recommendations`, {
+          recommendation,
+          storeId
+        })
+        .then(() => getRecommendation())
+
+      if (recommendation === 'BAD') {
+        setIsOnButton(1)
+      } else if (recommendation === 'NORMAL') {
+        setIsOnButton(2)
+      } else if (recommendation === 'GOOD') {
+        setIsOnButton(3)
+      }
+    } catch (error) {
+      console.error(
+        `카페 추천 데이터 등록 에러 : ${error} of "${recommendation}"`
+      )
+    }
+  }
+
+  console.log(cafeReviewPercent, 'not null')
 
   return (
     <>
@@ -82,26 +217,71 @@ const DetailStorePage = ({
         <title>카페인 | {store.storeName}</title>
       </Head>
       <CafeWrapper isSingle={isSingle}>
-        <ImageSection />
-        <CafeInfoSection />
-        <CafePOintsSection />
-        <RecommendSection
-          isHovering_1={false}
-          setIsHovering_1={setIsHovering_1}
-          isHovering_2={false}
-          setIsHovering_2={setIsHovering_1}
-          isHovering_3={false}
-          setIsHovering_3={setIsHovering_1}
-        />
+        {store.storeImageList.length > 0 ? <ImageSection store={store} /> : ''}
+
+        <CafeInfoSection store={store} cafeReviewPercent={cafeReviewPercent} />
+
+        <CafePointsSection reviewStore={reviewStore} />
+
+        <CafeInfoWrapper>
+          <WrapperTitle>리뷰</WrapperTitle>
+          <WordsWrapper>
+            <StrongWrapperTitle>{store.storeName}</StrongWrapperTitle>
+            <WordsWrapperText>카공 카페로 어떤가요?</WordsWrapperText>
+          </WordsWrapper>
+          <ButtonOutterWrapper>
+            <ButtonInnerWrapper>
+              <ButtonWrapper
+                onMouseEnter={() => setIsHovering_1(true)}
+                onMouseLeave={() => setIsHovering_1(false)}
+                onClick={() => recommendOnClickHandler('BAD', store.storeId)}
+              >
+                {isHovering_1 || isOnButton === 1 ? <Ic_badOn /> : <Ic_bad />}
+                <ButtonDesc
+                  isHovering={isHovering_1}
+                  isOnButton={isOnButton === 1}
+                >
+                  별로예요
+                </ButtonDesc>
+              </ButtonWrapper>
+              <ButtonWrapper
+                onMouseEnter={() => setIsHovering_2(true)}
+                onMouseLeave={() => setIsHovering_2(false)}
+                onClick={() => recommendOnClickHandler('NORMAL', store.storeId)}
+              >
+                {isHovering_2 || isOnButton === 2 ? <Ic_sosoOn /> : <Ic_soso />}
+                <ButtonDesc
+                  isHovering={isHovering_2}
+                  isOnButton={isOnButton === 2}
+                >
+                  그저그래요
+                </ButtonDesc>
+              </ButtonWrapper>
+              <ButtonWrapper
+                onMouseEnter={() => setIsHovering_3(true)}
+                onMouseLeave={() => setIsHovering_3(false)}
+                onClick={() => recommendOnClickHandler('GOOD', store.storeId)}
+              >
+                {isHovering_3 || isOnButton === 3 ? <Ic_goodOn /> : <Ic_good />}
+                <ButtonDesc
+                  isHovering={isHovering_3}
+                  isOnButton={isOnButton === 3}
+                >
+                  추천해요
+                </ButtonDesc>
+              </ButtonWrapper>
+            </ButtonInnerWrapper>
+          </ButtonOutterWrapper>
+        </CafeInfoWrapper>
         <CafeInfoWrapper>
           <WrapperTitle>혼잡도</WrapperTitle>
-          <ButtonWrapper>
+          <AlarmButtonWrapper>
             <Select isOpened={false} onClick={notYet}>
               월요일
               <Ic_down_arrow />
             </Select>
             <CongestionBtn onClick={notYet}>혼잡도 알려주기</CongestionBtn>
-          </ButtonWrapper>
+          </AlarmButtonWrapper>
           <CongestionWrapper>
             <CongestionItem>
               <GreenCircle>여유</GreenCircle>
@@ -147,81 +327,80 @@ const DetailStorePage = ({
 
           {
             <ScrollWrapper>
-              {nearCafes &&
-                nearCafes.map((nearCafe) => (
-                  <CardItem key={String(nearCafe.storeId) + store.storeId}>
-                    <CardImgWrapper>
-                      {nearCafe.storeImageDtoList.length ? (
-                        nearCafe.storeImageDtoList.map((storeImage) => (
-                          <Image
-                            src={storeImage.imageUrl}
-                            width={70}
-                            height={70}
-                            alt="카페 섬네일 이미지"
-                            key={storeImage.imageId}
-                            placeholder="blur"
-                            blurDataURL={madeURL(70, 70)}
-                          />
-                        ))
-                      ) : (
-                        <>
-                          <Image
-                            src={temp_img}
-                            width={70}
-                            height={70}
-                            placeholder="blur"
-                            alt="기본 이미지"
-                          />
-                          <Image
-                            src={temp_img}
-                            width={70}
-                            height={70}
-                            placeholder="blur"
-                            alt="기본 이미지"
-                          />
-                          <Image
-                            src={temp_img}
-                            width={70}
-                            height={70}
-                            placeholder="blur"
-                            alt="기본 이미지"
-                          />
-                        </>
-                      )}
-                    </CardImgWrapper>
-                    <CardDescWrapper>
-                      <CardTitle>{nearCafe.storeName}</CardTitle>
-                      <CardTextWrapper>
-                        <OnAirBadge>
-                          {nearCafe.businessHoursInfoDto.isOpen
-                            ? '영업중'
-                            : '영업종료'}
-                        </OnAirBadge>
-                        <GreenLight>여유</GreenLight>
-                      </CardTextWrapper>
-                      <CardTextWrapper>
-                        <CardEmojiWrapper>
-                          <Ic_navigation />
-                          <NormalText>
-                            {Math.floor(nearCafe.distance)}m
-                          </NormalText>
-                        </CardEmojiWrapper>
-                        <CardEmojiWrapper>
-                          <Ic_like />
-                          <NormalText>
-                            {nearCafe.recommendPercent
-                              ? Math.floor(nearCafe.recommendPercent) + '%'
-                              : 0}
-                          </NormalText>
-                        </CardEmojiWrapper>
-                        <CardEmojiWrapper>
-                          <Ic_heart />
-                          <NormalText>{nearCafe.heartCnt}</NormalText>
-                        </CardEmojiWrapper>
-                      </CardTextWrapper>
-                    </CardDescWrapper>
-                  </CardItem>
-                ))}
+              {nearStores.map((nearCafe) => (
+                <CardItem key={String(nearCafe.storeId) + store.storeId}>
+                  <CardImgWrapper>
+                    {nearCafe.storeImageDtoList.length ? (
+                      nearCafe.storeImageDtoList.map((storeImage) => (
+                        <Image
+                          src={storeImage.imageUrl}
+                          width={70}
+                          height={70}
+                          alt="카페 섬네일 이미지"
+                          key={storeImage.imageId}
+                          placeholder="blur"
+                          blurDataURL={madeURL(70, 70)}
+                        />
+                      ))
+                    ) : (
+                      <>
+                        <Image
+                          src={temp_img}
+                          width={70}
+                          height={70}
+                          placeholder="blur"
+                          alt="기본 이미지"
+                        />
+                        <Image
+                          src={temp_img}
+                          width={70}
+                          height={70}
+                          placeholder="blur"
+                          alt="기본 이미지"
+                        />
+                        <Image
+                          src={temp_img}
+                          width={70}
+                          height={70}
+                          placeholder="blur"
+                          alt="기본 이미지"
+                        />
+                      </>
+                    )}
+                  </CardImgWrapper>
+                  <CardDescWrapper>
+                    <CardTitle>{nearCafe.storeName}</CardTitle>
+                    <CardTextWrapper>
+                      <OnAirBadge>
+                        {nearCafe.businessHoursInfoDto.isOpen
+                          ? '영업중'
+                          : '영업종료'}
+                      </OnAirBadge>
+                      <GreenLight>여유</GreenLight>
+                    </CardTextWrapper>
+                    <CardTextWrapper>
+                      <CardEmojiWrapper>
+                        <Ic_navigation />
+                        <NormalText>
+                          {Math.floor(nearCafe.distance)}m
+                        </NormalText>
+                      </CardEmojiWrapper>
+                      <CardEmojiWrapper>
+                        <Ic_like />
+                        <NormalText>
+                          {nearCafe.recommendPercent
+                            ? Math.floor(nearCafe.recommendPercent) + '%'
+                            : 0}
+                        </NormalText>
+                      </CardEmojiWrapper>
+                      <CardEmojiWrapper>
+                        <Ic_heart />
+                        <NormalText>{nearCafe.heartCnt}</NormalText>
+                      </CardEmojiWrapper>
+                    </CardTextWrapper>
+                  </CardDescWrapper>
+                </CardItem>
+              ))}
             </ScrollWrapper>
           }
         </CafeInfoWrapper>
@@ -269,12 +448,6 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   )
 
   const {
-    data: { data: recommendData }
-  } = await axios.get(
-    `${process.env.API_DOMAIN}/web/stores/${storeId}/recommendations`
-  )
-
-  const {
     data: { data: nearData }
   } = await axios.get(
     `${process.env.API_DOMAIN}/web/stores/${storeId}/near-stores`
@@ -282,13 +455,10 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 
   const store: CafeInfoInterface = storeData
   const reviewStore: CafeRewviewPointInterface = storeReviewData
-  const recommendStore: CafeRecommendInterface = recommendData
   const nearStores: INearCafe[] = nearData
 
-  console.log(store, reviewStore, recommendStore, nearStores)
-
   return {
-    props: { store, reviewStore, recommendStore, nearStores }
+    props: { store, reviewStore, nearStores }
   }
 }
 
@@ -305,7 +475,7 @@ const CafeWrapper = styled.div<{ isSingle: boolean }>`
   }
 `
 
-const ButtonWrapper = styled.div`
+const AlarmButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;

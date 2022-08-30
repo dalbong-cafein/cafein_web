@@ -3,9 +3,8 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 import { useAtom } from 'jotai'
-import { IStore, searchListsAtom } from '../../store'
+import { IStore, searchListsAtom } from 'store'
 
-import common from '@components/common/Common'
 import Search from '@components/Home/Search'
 import Ic_Logo from '@public/logo_black.svg'
 
@@ -14,6 +13,7 @@ import {
   FilterWrapper,
   Wrapper
 } from './styles/HeaderSectionStyles'
+import { Logo } from '@components/common/Common'
 
 const HeaderSection = ({ hasFilter }: { hasFilter: boolean }) => {
   const [cafes, setCafes] = useAtom(searchListsAtom)
@@ -76,9 +76,9 @@ const HeaderSection = ({ hasFilter }: { hasFilter: boolean }) => {
   return (
     <Wrapper>
       <Link href="/">
-        <common.Logo>
+        <Logo>
           <Ic_Logo />
-        </common.Logo>
+        </Logo>
       </Link>
       <Search />
       {hasFilter ? (

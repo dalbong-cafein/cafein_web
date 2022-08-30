@@ -23,9 +23,9 @@ export interface CafeInfoInterface {
   }
   wifiPassword: string
   heartCnt: number
-  isHeart: false
+  isHeart: boolean
   businessHoursInfoDto: {
-    isOpen: false
+    isOpen: boolean
     closed: string
     tmrOpen: string
   }
