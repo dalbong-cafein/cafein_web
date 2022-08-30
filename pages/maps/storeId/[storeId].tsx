@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -52,7 +52,10 @@ const DetailStorePage = ({
 
         <CafePointsSection reviewStore={reviewStore} />
 
-        <RecommendSection store={store} />
+        <RecommendSection
+          store={store}
+          setCafeReviewPercent={setCafeReviewPercent}
+        />
 
         <CongestionSection />
 

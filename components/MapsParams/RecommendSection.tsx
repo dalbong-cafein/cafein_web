@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 import axios from 'axios'
 
@@ -22,8 +22,13 @@ import {
   WrapperTitle
 } from './styles/styles'
 
-const RecommendSection = ({ store }: { store: CafeInfoInterface }) => {
-  const [, setCafeReviewPercent] = useState<null | number>(null)
+const RecommendSection = ({
+  store,
+  setCafeReviewPercent
+}: {
+  store: CafeInfoInterface
+  setCafeReviewPercent: Dispatch<SetStateAction<number | null>>
+}) => {
   const [isOnButton, setIsOnButton] = useState(0)
   const [isHovering_1, setIsHovering_1] = useState(false)
   const [isHovering_2, setIsHovering_2] = useState(false)
