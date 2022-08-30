@@ -1,10 +1,8 @@
-import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 import axios from 'axios'
-import { useAtomValue, useSetAtom } from 'jotai'
 
-import { cafeInfoAtom, CafeInfoInterface, cafeReviewPercentAtom } from 'store'
+import { CafeInfoInterface } from 'store'
 import Ic_badOn from '@public/bad_on.svg'
 import Ic_bad from '@public/bad.svg'
 import Ic_sosoOn from '@public/soso_on.svg'
@@ -33,6 +31,7 @@ const RecommendSection = ({ store }: { store: CafeInfoInterface }) => {
 
   useEffect(() => {
     getRecommendation()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const getRecommendation = async () => {

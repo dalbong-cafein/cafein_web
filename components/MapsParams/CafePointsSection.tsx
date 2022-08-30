@@ -1,6 +1,4 @@
-import { useAtomValue } from 'jotai'
-
-import { cafeReviewPonitAtom, CafeRewviewPointInterface } from 'store'
+import { CafeRewviewPointInterface } from 'store'
 
 import Ic_plug from '@public/plug.svg'
 import Ic_restroom from '@public/restroom.svg'

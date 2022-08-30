@@ -1,8 +1,5 @@
-import { MouseEvent, useState } from 'react'
-
 import { CafeInfoInterface } from 'store'
 
-import getIsToday from '@utils/CafeInfo/getIsToday'
 import Ic_copy from '@public/copy.svg'
 import Ic_clock from '@public/clock.svg'
 import Ic_call from '@public/call.svg'
@@ -13,9 +10,6 @@ import {
   ArrowButton,
   CafeInfoWrapper,
   CallDescription,
-  DailyTimeWrapper,
-  Day,
-  DayTimeWrapper,
   DDabongPoints,
   DDabongWrapper,
   Description,
@@ -25,7 +19,6 @@ import {
   StrongSpan,
   SubTitle,
   SubTitleWrapper,
-  Time,
   TitleWrapper,
   URLDescription
 } from './styles/styles'
