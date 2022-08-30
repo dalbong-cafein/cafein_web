@@ -117,81 +117,17 @@ const DetailStorePage = ({
     null
   )
   const setMore = useSetAtom(moreAtom)
-  const [isOnButton, setIsOnButton] = useState(0)
-  const [isHovering_1, setIsHovering_1] = useState(false)
-  const [isHovering_2, setIsHovering_2] = useState(false)
-  const [isHovering_3, setIsHovering_3] = useState(false)
 
   const onMoreHandler = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
     setMore(true)
   }
 
-  const getRecommendation = async () => {
-    try {
-      const response = await axios.get(
-        `/api/web/stores/${store.storeId}/recommendations`
-      )
-      const { data } = response.data
-      const { recommendPercentOfStore, recommendation } = data
-      setCafeReviewPercent(recommendPercentOfStore)
-      if (recommendation === 'BAD') {
-        setIsHovering_1(true)
-        setIsHovering_2(false)
-        setIsHovering_3(false)
-      } else if (recommendation === 'NORMAL') {
-        setIsHovering_1(false)
-        setIsHovering_2(true)
-        setIsHovering_3(false)
-      } else if (recommendation === 'GOOD') {
-        setIsHovering_1(false)
-        setIsHovering_2(false)
-        setIsHovering_3(true)
-      } else {
-        setIsHovering_1(false)
-        setIsHovering_2(false)
-        setIsHovering_3(false)
-      }
-    } catch (error) {
-      console.error(`Cafe Recommend data Get error : ${error}`)
-    }
-  }
-
-  useEffect(() => {
-    getRecommendation()
-  }, [])
-
   const isSingle = true
 
   const setIsDimmed = useSetAtom(isDimmedAtom)
   const notYet = () => {
     setIsDimmed(true)
-  }
-
-  const recommendOnClickHandler = async (
-    recommendation: string,
-    storeId: number
-  ) => {
-    try {
-      axios
-        .post(`/api/web/recommendations`, {
-          recommendation,
-          storeId
-        })
-        .then(() => getRecommendation())
-
-      if (recommendation === 'BAD') {
-        setIsOnButton(1)
-      } else if (recommendation === 'NORMAL') {
-        setIsOnButton(2)
-      } else if (recommendation === 'GOOD') {
-        setIsOnButton(3)
-      }
-    } catch (error) {
-      console.error(
-        `카페 추천 데이터 등록 에러 : ${error} of "${recommendation}"`
-      )
-    }
   }
 
   return (
@@ -206,56 +142,8 @@ const DetailStorePage = ({
 
         <CafePointsSection reviewStore={reviewStore} />
 
-        <CafeInfoWrapper>
-          <WrapperTitle>리뷰</WrapperTitle>
-          <WordsWrapper>
-            <StrongWrapperTitle>{store.storeName}</StrongWrapperTitle>
-            <WordsWrapperText>카공 카페로 어떤가요?</WordsWrapperText>
-          </WordsWrapper>
-          <ButtonOutterWrapper>
-            <ButtonInnerWrapper>
-              <ButtonWrapper
-                onMouseEnter={() => setIsHovering_1(true)}
-                onMouseLeave={() => setIsHovering_1(false)}
-                onClick={() => recommendOnClickHandler('BAD', store.storeId)}
-              >
-                {isHovering_1 || isOnButton === 1 ? <Ic_badOn /> : <Ic_bad />}
-                <ButtonDesc
-                  isHovering={isHovering_1}
-                  isOnButton={isOnButton === 1}
-                >
-                  별로예요
-                </ButtonDesc>
-              </ButtonWrapper>
-              <ButtonWrapper
-                onMouseEnter={() => setIsHovering_2(true)}
-                onMouseLeave={() => setIsHovering_2(false)}
-                onClick={() => recommendOnClickHandler('NORMAL', store.storeId)}
-              >
-                {isHovering_2 || isOnButton === 2 ? <Ic_sosoOn /> : <Ic_soso />}
-                <ButtonDesc
-                  isHovering={isHovering_2}
-                  isOnButton={isOnButton === 2}
-                >
-                  그저그래요
-                </ButtonDesc>
-              </ButtonWrapper>
-              <ButtonWrapper
-                onMouseEnter={() => setIsHovering_3(true)}
-                onMouseLeave={() => setIsHovering_3(false)}
-                onClick={() => recommendOnClickHandler('GOOD', store.storeId)}
-              >
-                {isHovering_3 || isOnButton === 3 ? <Ic_goodOn /> : <Ic_good />}
-                <ButtonDesc
-                  isHovering={isHovering_3}
-                  isOnButton={isOnButton === 3}
-                >
-                  추천해요
-                </ButtonDesc>
-              </ButtonWrapper>
-            </ButtonInnerWrapper>
-          </ButtonOutterWrapper>
-        </CafeInfoWrapper>
+        <RecommendSection store={store} />
+
         <CafeInfoWrapper>
           <WrapperTitle>혼잡도</WrapperTitle>
           <AlarmButtonWrapper>
