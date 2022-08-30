@@ -2,8 +2,6 @@ import { useAtomValue } from 'jotai'
 
 import { cafeReviewPonitAtom, CafeRewviewPointInterface } from 'store'
 
-import Ic_star from '@public/star.svg'
-import Ic_empty_star from '@public/empty_star.svg'
 import Ic_plug from '@public/plug.svg'
 import Ic_restroom from '@public/restroom.svg'
 import Ic_table from '@public/table.svg'
@@ -17,27 +15,15 @@ import {
   CafeInfoItemWrapper,
   CafeInfoList,
   CafeInfoWrapper,
-  StartWrapper,
   WrapperTitle
 } from './styles/styles'
+import { getStars } from '@utils/CafePoint/getStars'
 
 const CafePointsSection = ({
   reviewStore
 }: {
   reviewStore: CafeRewviewPointInterface
 }) => {
-  const getStars = (cnt: string) => {
-    return (
-      <StartWrapper>
-        {[1, 2, 3, 4].map((num, idx) => {
-          if (num <= +cnt) {
-            return <Ic_star key={idx} />
-          }
-          return <Ic_empty_star key={idx} />
-        })}
-      </StartWrapper>
-    )
-  }
   return (
     <CafeInfoWrapper>
       <WrapperTitle>카공 정보</WrapperTitle>

@@ -53,7 +53,6 @@ import { ParsedUrlQuery } from 'querystring'
 import { CafeRecommendInterface, IStore } from 'store'
 import styled from 'styled-components'
 
-import getIsToday from '@utils/getIsToday'
 import Ic_down_arrow from '@public/down_arrow.svg'
 import Ic_left_arrow_off from '@public/left_arrow_off.svg'
 import Ic_right_arrow_off from '@public/right_arrow_off.svg'
@@ -134,7 +133,6 @@ const DetailStorePage = ({
         `/api/web/stores/${store.storeId}/recommendations`
       )
       const { data } = response.data
-      console.log(data)
       const { recommendPercentOfStore, recommendation } = data
       setCafeReviewPercent(recommendPercentOfStore)
       if (recommendation === 'BAD') {
@@ -170,19 +168,6 @@ const DetailStorePage = ({
     setIsDimmed(true)
   }
 
-  const getStars = (cnt: string) => {
-    return (
-      <StartWrapper>
-        {[1, 2, 3, 4].map((num, idx) => {
-          if (num <= +cnt) {
-            return <Ic_star key={idx} />
-          }
-          return <Ic_empty_star key={idx} />
-        })}
-      </StartWrapper>
-    )
-  }
-
   const recommendOnClickHandler = async (
     recommendation: string,
     storeId: number
@@ -208,8 +193,6 @@ const DetailStorePage = ({
       )
     }
   }
-
-  console.log(cafeReviewPercent, 'not null')
 
   return (
     <>

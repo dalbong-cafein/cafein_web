@@ -1,5 +1,4 @@
 import { atom } from 'jotai'
-import getHours from './utils/getHours'
 
 export interface ImageListInterface {
   imageId: number
@@ -115,56 +114,56 @@ export interface INearCafe {
 
 export const cafeInfoAtom = atom<CafeInfoInterface | null>(null)
 
-export const isRunningAtom = atom<isRunningInterface>((get) => {
-  const businessHoursInfoDto = get(cafeInfoAtom)?.businessHoursInfoDto
-  if (businessHoursInfoDto) {
-    const { isOpen, closed, tmrOpen } = businessHoursInfoDto
-    let hour: string | number
-    if (isOpen) {
-      if (closed) {
-        hour = getHours(closed)
-        return [isOpen, hour]
-      }
-    } else {
-      if (tmrOpen) {
-        hour = getHours(tmrOpen)
-        return [isOpen, hour]
-      }
-    }
-  }
-  return [false, null]
-})
+// export const isRunningAtom = atom<isRunningInterface>((get) => {
+//   const businessHoursInfoDto = get(cafeInfoAtom)?.businessHoursInfoDto
+//   if (businessHoursInfoDto) {
+//     const { isOpen, closed, tmrOpen } = businessHoursInfoDto
+//     let hour: string | number
+//     if (isOpen) {
+//       if (closed) {
+//         hour = getHours(closed)
+//         return [isOpen, hour]
+//       }
+//     } else {
+//       if (tmrOpen) {
+//         hour = getHours(tmrOpen)
+//         return [isOpen, hour]
+//       }
+//     }
+//   }
+//   return [false, null]
+// })
 
-export const getRunningTimesAtom = atom((get) => {
-  const totalBusinessHoursResDto = get(cafeInfoAtom)?.totalBusinessHoursResDto
-  if (totalBusinessHoursResDto?.onMon) {
-    const day_keys = Object.keys(totalBusinessHoursResDto as object).slice(
-      0,
-      -1
-    )
-    const days = <string[]>[
-      '월요일',
-      '화요일',
-      '수요일',
-      '목요일',
-      '금요일',
-      '토요일',
-      '일요일'
-    ]
-    const obj = <{ [key: string]: string }>{}
-    day_keys.map((d, idx) => {
-      if (totalBusinessHoursResDto[d]) {
-        const times =
-          getHours(totalBusinessHoursResDto[d].open) +
-          ' ~ ' +
-          getHours(totalBusinessHoursResDto[d].closed)
-        obj[days[idx]] = times
-      }
-    })
-    return obj
-  }
-  return null
-})
+// export const getRunningTimesAtom = atom((get) => {
+//   const totalBusinessHoursResDto = get(cafeInfoAtom)?.totalBusinessHoursResDto
+//   if (totalBusinessHoursResDto?.onMon) {
+//     const day_keys = Object.keys(totalBusinessHoursResDto as object).slice(
+//       0,
+//       -1
+//     )
+//     const days = <string[]>[
+//       '월요일',
+//       '화요일',
+//       '수요일',
+//       '목요일',
+//       '금요일',
+//       '토요일',
+//       '일요일'
+//     ]
+//     const obj = <{ [key: string]: string }>{}
+//     day_keys.map((d, idx) => {
+//       if (totalBusinessHoursResDto[d]) {
+//         const times =
+//           getHours(totalBusinessHoursResDto[d].open) +
+//           ' ~ ' +
+//           getHours(totalBusinessHoursResDto[d].closed)
+//         obj[days[idx]] = times
+//       }
+//     })
+//     return obj
+//   }
+//   return null
+// })
 
 export const cafeReviewPonitAtom = atom<CafeRewviewPointInterface | null>(null)
 

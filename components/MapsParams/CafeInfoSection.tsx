@@ -1,16 +1,8 @@
 import { MouseEvent, useState } from 'react'
 
-import { useAtomValue } from 'jotai'
-import {
-  cafeInfoAtom,
-  CafeInfoInterface,
-  cafeReviewPercentAtom,
-  cafeReviewPonitAtom,
-  getRunningTimesAtom,
-  isRunningAtom
-} from 'store'
+import { CafeInfoInterface } from 'store'
 
-import getIsToday from '@utils/getIsToday'
+import getIsToday from '@utils/CafeInfo/getIsToday'
 import Ic_copy from '@public/copy.svg'
 import Ic_clock from '@public/clock.svg'
 import Ic_call from '@public/call.svg'
@@ -37,7 +29,12 @@ import {
   TitleWrapper,
   URLDescription
 } from './styles/styles'
-import { getIsRunning, getRunningTimes } from '@utils/getCafeRunningInfo'
+import {
+  getIsRunning,
+  getRunningTimes
+} from '@utils/CafeInfo/getCafeRunningInfo'
+import { GetRunningTimes } from '@utils/CafeInfo/GetRunningTimes'
+import useToggle from 'hooks/useToggle'
 
 interface CafeInfoSectionProps {
   store: CafeInfoInterface
@@ -48,33 +45,10 @@ const CafeInfoSection = ({
   store,
   cafeReviewPercent
 }: CafeInfoSectionProps) => {
-  const [isOpened, setIsOpened] = useState(false)
+  const [isOpened, setIsOpened] = useToggle(false)
   const [isRunning, runningTime] = getIsRunning(store)
   const weekRunningTimes = getRunningTimes(store)
-  const GetRunningTimes = weekRunningTimes ? (
-    <DailyTimeWrapper>
-      {Object.entries(weekRunningTimes).map(([day, times], idx) => {
-        const isToday = getIsToday(idx)
-        return (
-          <DayTimeWrapper key={day}>
-            <Day isRunning={isRunning} isToday={isToday}>
-              {day}
-            </Day>
-            <Time isRunning={isRunning} isToday={isToday}>
-              {times}
-            </Time>
-          </DayTimeWrapper>
-        )
-      })}
-    </DailyTimeWrapper>
-  ) : (
-    ''
-  )
 
-  const arrowOnClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    setIsOpened((cur) => !cur)
-  }
   return (
     <CafeInfoWrapper isFirst={true}>
       <TitleWrapper>
@@ -100,10 +74,10 @@ const CafeInfoSection = ({
             {runningTime}
             <span>에 영업 {isRunning ? '종료' : '시작'}</span>
           </Description>
-          <ArrowButton isOpened={isOpened} onClick={arrowOnClickHandler} />
+          <ArrowButton isOpened={isOpened} onClick={setIsOpened} />
         </DescWrapper>
       </OpenInfoWrapper>
-      {isOpened && weekRunningTimes ? GetRunningTimes : ''}
+      {isOpened ? GetRunningTimes(weekRunningTimes, isRunning) : ''}
       <OpenInfoWrapper>
         <Ic_call />
         <CallDescription href={`tel:010`}>
