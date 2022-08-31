@@ -40,17 +40,6 @@ export const onHandleInputs = async ({
         setSearchLists([])
         return
       }
-      // const response = await axios({
-      //   method: 'get',
-      //   url: 'https://dapi.kakao.com/v2/local/search/keyword.json',
-      //   headers: {
-      //     Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_KEY}`
-      //   },
-      //   params: {
-      //     query: `${e.target.value}`,
-      //     category_group_code: 'CE7'
-      //   }
-      // })
       const response = await axios.get(
         `/api/web/stores?keyword=${encodeURI(e.target.value)}`
       )
@@ -59,7 +48,7 @@ export const onHandleInputs = async ({
     } catch (error) {
       console.error(`Debouncing Error while fetching Seach Lists : ${error}`)
     }
-  }, 500)
+  }, 100)
   setTimer(newTimer)
   return
 }

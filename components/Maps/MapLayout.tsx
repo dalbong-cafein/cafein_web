@@ -24,9 +24,9 @@ import { MainWrapper } from './styles/styles'
 
 interface MapLayoutProps {
   children: JSX.Element
-  store: CafeInfoInterface
-  reviewStore: CafeRewviewPointInterface
-  nearStores: INearCafe[]
+  store?: CafeInfoInterface
+  reviewStore?: CafeRewviewPointInterface
+  nearStores?: INearCafe[]
 }
 
 const MapLayout = ({ children, store }: MapLayoutProps) => {
@@ -36,8 +36,7 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
   const [markers, setMarkers] = useAtom(mapMarkerList)
   const { search } = router.query
   const [inputs, setInputs] = useAtom(searchInputAtom)
-
-  console.log(children.props, 'hello', router.query)
+  const isDetail = router.route === '/maps/storeId/[storeId]'
 
   useEffect(() => {
     if (!map && search) setMap(initMap.init(search as string))
@@ -84,7 +83,7 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
       {isDimmed ? <DimmedAlert setIsDimmed={setIsDimmed} /> : ''}
       <MapWrapper>
         <MainWrapper>
-          <HeaderSection hasFilter={false} />
+          <HeaderSection hasFilter={!isDetail} />
           {children}
         </MainWrapper>
         {/* {storeId ? (

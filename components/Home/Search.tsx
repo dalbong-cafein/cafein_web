@@ -2,10 +2,11 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { KeyboardEvent, useEffect, useRef, useState } from 'react'
 
-import { useAtom, useAtomValue } from 'jotai'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import {
   mapAtom,
   mapMarkerList,
+  searchedAtom,
   searchInputAtom,
   searchListsAtom,
   split_searchInputAtom
@@ -48,6 +49,8 @@ const Search = () => {
   const inputRef = useRef<HTMLInputElement>(null)
   const map = useAtomValue(mapAtom)
   const markers = useAtomValue(mapMarkerList)
+
+  const setSearchedCafes = useSetAtom(searchedAtom)
 
   useEffect(() => {
     setNodeLists(autoRef.current?.children as HTMLCollection)

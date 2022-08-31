@@ -23,7 +23,7 @@ import madeURL from 'utils/blurDataURL'
 
 interface MapProps {
   isSingle: boolean
-  store: CafeInfoInterface
+  store?: CafeInfoInterface
 }
 
 const Map = ({ isSingle, store }: MapProps) => {
