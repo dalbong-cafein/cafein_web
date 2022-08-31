@@ -26,7 +26,6 @@ const HeaderSection = ({ hasFilter }: { hasFilter: boolean }) => {
       const f_cafes: IStore[] = cafes?.filter((cafe) =>
         cafe.businessHoursInfoDto.isOpen ? true : false
       )
-      console.log(f_cafes, '얘넨 영업중이래')
     }
   }
   const sortByClosest = () => {
@@ -45,7 +44,6 @@ const HeaderSection = ({ hasFilter }: { hasFilter: boolean }) => {
           b.latY - position.coords.latitude + b.lngX - position.coords.longitude
         return totA - totB
       })
-      console.log(Cafes, '위치순 정렬이다 이것들아!')
       setCafes(Cafes)
     }
 
@@ -53,12 +51,10 @@ const HeaderSection = ({ hasFilter }: { hasFilter: boolean }) => {
       alert('Sorry, no position available.')
     }
     const watchId = navigator.geolocation.watchPosition(success, error, options)
-    console.log(watchId)
   }
   const sortByRecommend = () => {
     setSortMode(3)
     if (cafes) {
-      console.log(cafes)
       const Cafes = cafes
       Cafes?.sort((a, b) => {
         if (a.recommendPercent && b.recommendPercent) {
@@ -70,7 +66,6 @@ const HeaderSection = ({ hasFilter }: { hasFilter: boolean }) => {
         }
         return 0
       })
-      console.log(Cafes, '추천순 정렬이다 이것들아!!')
       setCafes(Cafes)
     }
   }

@@ -46,7 +46,6 @@ const RecommendSection = ({
       )
       const { data } = response.data
       const { recommendPercentOfStore, recommendation } = data
-      console.log(recommendation)
       setCafeReviewPercent(recommendPercentOfStore)
       if (recommendation === 'BAD') {
         setIsOnButton(1)

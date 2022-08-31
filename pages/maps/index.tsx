@@ -9,6 +9,7 @@ import { searchedAtom, searchInputAtom, searchListsAtom } from 'store'
 import ErrorComponent from '@components/common/ErrorComponent'
 import MapLayout from '@components/Maps/MapLayout'
 import { NextPageWithLayout } from 'pages/_app'
+import Loading from '@components/common/Loading'
 
 const Maps: NextPageWithLayout = () => {
   const [inputs, setInputs] = useAtom(searchInputAtom)
@@ -23,24 +24,6 @@ const Maps: NextPageWithLayout = () => {
         <title>카페인 | 지도</title>
       </Head>
       <ErrorComponent />
-      {/* {isSingle ? (
-        <DetailCafe isSingle={isSingle} />
-      ) : isEmpty || !cafeDatas ? (
-      ) : (
-        <CafeList>
-          {cafes &&
-            cafes
-              .slice(0, 15)
-              .map((cafe: IStore) => (
-                <ShortCafeItem
-                  router={router}
-                  cafe={cafe}
-                  storeId={storeId as string}
-                  key={cafe.storeId}
-                />
-              ))}
-        </CafeList>
-      )} */}
     </>
   )
 }

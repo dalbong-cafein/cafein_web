@@ -12,6 +12,7 @@ import { getMapItems } from '@utils/MapUtils'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { NextPageWithLayout } from 'pages/_app'
 import ErrorComponent from '@components/common/ErrorComponent'
+import Loading from '@components/common/Loading'
 
 const SearchMap: NextPageWithLayout = ({
   search
@@ -25,7 +26,6 @@ const SearchMap: NextPageWithLayout = ({
 
   useEffect(() => {
     if (cafes && map) {
-      console.log("여기야!!", cafes)
       setMarkers(
         getMapItems(
           map,
@@ -43,7 +43,7 @@ const SearchMap: NextPageWithLayout = ({
         <title>카페인 | {search}</title>
       </Head>
       {!cafes ? (
-        <h1>Loading... </h1>
+        <Loading />
       ) : cafes.length ? (
         <CafeList>
           {cafes.slice(0, 20).map((cafe: IStore) => (

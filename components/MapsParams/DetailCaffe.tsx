@@ -39,6 +39,7 @@ import madeURL from '@utils/blurDataURL'
 import { fetchCafeInfo, fetchCafeNears, fetchCafeStarPoint } from 'apis/apis'
 import AnnounceSection from './AnnounceSection'
 import { CloseImage } from '@components/common/CloseButton'
+import Loading from '@components/common/Loading'
 
 interface DetailCafeProps {
   storeId: string
@@ -117,7 +118,7 @@ const DetailCafe = ({ storeId }: DetailCafeProps) => {
           {/* </Link> */}
         </>
       ) : (
-        <h1>Loading...</h1>
+        <Loading />
       )}
     </>
   )

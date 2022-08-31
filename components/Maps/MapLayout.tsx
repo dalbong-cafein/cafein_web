@@ -74,7 +74,7 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
           {isSuggestion ? '' : <HeaderSection hasFilter={!isDetail} />}
           {children}
         </MainWrapper>
-        {storeId ? (
+        {storeId && !isDetail ? (
           <MainWrapper>
             <DetailCafe storeId={storeId as string} />
           </MainWrapper>

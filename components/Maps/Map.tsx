@@ -55,7 +55,6 @@ const Map = ({ isSingle }: MapProps) => {
     }
   }
 
-  console.log(imageId, slideRef.current?.scrollLeft)
   return (
     <>
       {more && store?.storeImageList && store?.storeImageList.length > 0 ? (

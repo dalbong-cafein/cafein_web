@@ -1085,6 +1085,13 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@lottiefiles/react-lottie-player@^3.4.7":
+  "integrity" "sha512-KqkwRiCQPDNzimsXnNSgeJjJlZQ6Fr9JE3OtZdOaGrXovZJ+zDeZNxIwxID8Up0eAdm4zJjudOSc5EJSiGw9RA=="
+  "resolved" "https://registry.npmjs.org/@lottiefiles/react-lottie-player/-/react-lottie-player-3.4.7.tgz"
+  "version" "3.4.7"
+  dependencies:
+    "lottie-web" "^5.7.8"
+
 "@next/env@12.2.5":
   "integrity" "sha512-vLPLV3cpPGjUPT3PjgRj7e3nio9t6USkuew3JE/jMeon/9Mvp1WyR18v3iwnCuX7eUAm1HmAbJHHLAbcu/EJcw=="
   "resolved" "https://registry.npmjs.org/@next/env/-/env-12.2.5.tgz"
@@ -2817,6 +2824,11 @@
   "version" "1.4.0"
   dependencies:
     "js-tokens" "^3.0.0 || ^4.0.0"
+
+"lottie-web@^5.7.8":
+  "integrity" "sha512-JFs7KsHwflugH5qIXBpB4905yC1Sub2MZWtl/elvO/QC6qj1ApqbUZJyjzJseJUtVpgiDaXQLjBlIJGS7UUUXA=="
+  "resolved" "https://registry.npmjs.org/lottie-web/-/lottie-web-5.9.6.tgz"
+  "version" "5.9.6"
 
 "lru-cache@^6.0.0":
   "integrity" "sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA=="

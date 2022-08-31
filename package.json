@@ -10,6 +10,7 @@
     "deploy": "gh-pages -d build"
   },
   "dependencies": {
+    "@lottiefiles/react-lottie-player": "^3.4.7",
     "@types/navermaps": "^3.0.17",
     "axios": "^0.27.2",
     "jotai": "^1.7.6",

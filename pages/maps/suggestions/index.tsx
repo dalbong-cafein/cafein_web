@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ReactElement, useEffect } from 'react'
+
 import useSWR from 'swr'
 
 import { useAtom } from 'jotai'
@@ -21,6 +22,7 @@ import MapLayout from '@components/Maps/MapLayout'
 import { NextPageWithLayout } from 'pages/_app'
 import { fetchSggIStores } from 'apis/apis'
 import ErrorComponent from '@components/common/ErrorComponent'
+import Loading from '@components/common/Loading'
 
 const Suggestions: NextPageWithLayout = ({
   sggNm,
@@ -34,8 +36,6 @@ const Suggestions: NextPageWithLayout = ({
   const { data: cafes } = useSWR<IStore[]>({ sggNm, type }, fetchSggIStores)
   const isSingle = false
   const { storeId } = router.query
-
-  console.log(cafes)
 
   useEffect(() => {
     if (!map && sggNm) setMap(initMap.init(sggNm as string))
@@ -64,7 +64,7 @@ const Suggestions: NextPageWithLayout = ({
       <MainWrapper>
         <HeaderSectionTemp sggNm={sggNm as string} type={type as ITypes} />
         {!cafes ? (
-          <h1>Loading... </h1>
+          <Loading isSuggestion={true} />
         ) : cafes.length ? (
           <CafeList isSuggestion={true}>
             {cafes.slice(0, 20).map((cafe: IStore) => (
@@ -80,22 +80,6 @@ const Suggestions: NextPageWithLayout = ({
           <ErrorComponent storeName={sggNm} />
         )}
       </MainWrapper>
-      {/* {storeId ? (
-        <>
-          <DetailWrapper>
-            <DetailCafe isSingle={isSingle} />
-          </DetailWrapper>
-          <Link
-            passHref
-            href={{ pathname: router.pathname, query: { sggNm, type } }}
-          >
-            <CloseButton isSingle={isSingle} />
-          </Link>
-        </>
-      ) : (
-        ''
-      )}
-      <Map isSingle={isSingle} /> */}
     </>
   )
 }

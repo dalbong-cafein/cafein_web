@@ -127,7 +127,6 @@ const Search = () => {
         default:
           autoRef.current?.scrollTo({ top: 0 })
           if (searchIdx !== -1) {
-            console.log(searchIdx, ' hehe')
             nodeLists[searchIdx].classList.remove('active')
           }
           searchIdx = -1
