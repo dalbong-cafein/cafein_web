@@ -10,7 +10,7 @@ import {
 } from 'next'
 import { ParsedUrlQuery } from 'querystring'
 
-import { IStore } from 'store'
+import { IStore, mapMarkerList } from 'store'
 
 import CafeInfoSection from '@components/MapsParams/CafeInfoSection'
 import ImageSection from '@components/MapsParams/ImageSection'
@@ -24,14 +24,12 @@ import Footer from '@components/Home/Footer'
 
 import Ic_clear from '@public/ic_clear.svg'
 
-import {
-  AddButton,
-  AddLink,
-  AddLinkText,
-  AddWrapper
-} from '@components/Home/styles/AddOnStyles'
 import MapLayout from '@components/Maps/MapLayout'
 import { NextPageWithLayout } from 'pages/_app'
+import AnnounceSection from '@components/MapsParams/AnnounceSection'
+import { CafeWrapper } from '@components/MapsParams/styles/styles'
+import { CloseImage } from '@components/common/CloseButton'
+import { useAtomValue } from 'jotai'
 
 const DetailStorePage: NextPageWithLayout = ({
   store,
@@ -42,9 +40,13 @@ const DetailStorePage: NextPageWithLayout = ({
     null
   )
   const WrapperRef = useRef<HTMLDivElement>(null)
+  const markers = useAtomValue(mapMarkerList)
 
   useEffect(() => {
     WrapperRef.current?.scrollTo(0, 0)
+    markers.forEach((marker) => {
+      marker.setMap(null)
+    })
   }, [store])
 
   const isSingle = true
@@ -70,14 +72,8 @@ const DetailStorePage: NextPageWithLayout = ({
 
         <NearCafeSection store={store} nearStores={nearStores} />
 
-        <AddWrapper2>
-          <AddLink2>
-            <AddLinkText2>추천하고 싶은 카페가 있다면 알려주세요</AddLinkText2>
-            <Link href="/">
-              <AddButton2>카페 등록하기</AddButton2>
-            </Link>
-          </AddLink2>
-        </AddWrapper2>
+        <AnnounceSection />
+
         <Footer isHome={false} />
       </CafeWrapper>
       <Link href="/maps">
@@ -145,72 +141,5 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
     props: { store, reviewStore, nearStores }
   }
 }
-
-const CafeWrapper = styled.div<{ isSingle: boolean }>`
-  height: ${(props) => (props.isSingle ? `calc(100vh - 140px)` : '100vh')};
-  overflow-y: auto;
-  overflow-x: hidden;
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.colors.grey300};
-    border-radius: 4px;
-  }
-`
-
-const AddWrapper2 = styled(AddWrapper)`
-  border-radius: 16px;
-  height: 120px;
-  width: 360px;
-  margin: 16px auto 0;
-  background-size: 142px 80px;
-  background-position: right 14px top 22px;
-  padding: 19px 20px;
-`
-
-const AddLink2 = styled(AddLink)`
-  gap: 8px;
-`
-
-const AddLinkText2 = styled(AddLinkText)`
-  font-size: ${(props) => props.theme.fontsizes.font16}rem;
-  width: 133px;
-`
-
-const AddButton2 = styled(AddButton)`
-  border-radius: 8px;
-  padding: 7px 12px;
-  background-color: ${(props) => props.theme.colors.grey500};
-  width: 101px;
-  height: 28px;
-  font-size: ${(props) => props.theme.fontsizes.font14}rem;
-  align-self: flex-start;
-`
-
-const CloseImage = styled.a<{ isSingle: boolean }>`
-  box-sizing: border-box;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 44px;
-  height: 44px;
-  background-color: white;
-  border-radius: 0 8px 8px 0;
-  border: 0.8px solid ${(props) => props.theme.colors.grey200};
-  border-left: none;
-  left: ${(props) => (props.isSingle ? '400px' : '800px')};
-  top: ${(props) => (props.isSingle ? '145px' : '16px')};
-  z-index: 5;
-
-  &:hover {
-    border-color: ${(props) => props.theme.colors.orange300};
-
-    & svg g path {
-      fill: ${(props) => props.theme.colors.orange300};
-    }
-  }
-`
 
 export default DetailStorePage

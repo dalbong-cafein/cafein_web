@@ -10,7 +10,7 @@ interface ICloseButton {
   href?: string
 }
 
-const CloseButton = forwardRef<HTMLAnchorElement, ICloseButton>(
+export const CloseButton = forwardRef<HTMLAnchorElement, ICloseButton>(
   ({ isSingle, href }, ref) => {
     return (
       <Link href={href as string}>
@@ -24,9 +24,7 @@ const CloseButton = forwardRef<HTMLAnchorElement, ICloseButton>(
 
 CloseButton.displayName = 'CloseButton'
 
-export default CloseButton
-
-const CloseImage = styled.a<{ isSingle: boolean }>`
+export const CloseImage = styled.a<{ isSingle: boolean }>`
   box-sizing: border-box;
   position: absolute;
   display: flex;

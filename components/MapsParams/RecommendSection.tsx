@@ -37,7 +37,7 @@ const RecommendSection = ({
   useEffect(() => {
     getRecommendation()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [store])
 
   const getRecommendation = async () => {
     try {
@@ -54,6 +54,8 @@ const RecommendSection = ({
         setIsOnButton(2)
       } else if (recommendation === 'GOOD') {
         setIsOnButton(3)
+      } else {
+        setIsOnButton(0)
       }
     } catch (error) {
       console.error(`Cafe Recommend data Get error : ${error}`)

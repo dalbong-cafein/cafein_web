@@ -3,27 +3,24 @@ import initMap from '@utils/initMap'
 import { getMapItems } from '@utils/MapUtils'
 import { useAtom } from 'jotai'
 import Head from 'next/head'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import {
   CafeInfoInterface,
   CafeRewviewPointInterface,
   INearCafe,
   isDimmedAtom,
-  IStore,
   mapAtom,
   mapMarkerList,
   searchInputAtom
 } from 'store'
-import CloseButton from '../common/CloseButton'
+
 import DimmedAlert from '../common/DimmedAlert'
-import { FlexA } from '../common/styles/CommonStyles'
-import DetailCafe from '../MapsParams/DetailCaffe'
+
 import HeaderSection from './HeaderSection'
 import Map from './Map'
-import { DetailWrapper, MainWrapper } from './styles/styles'
+import { MainWrapper } from './styles/styles'
 
 interface MapLayoutProps {
   children: JSX.Element
