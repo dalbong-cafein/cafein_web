@@ -74,20 +74,9 @@ export const onEnterPress = (
   storeId?: number
 ) => {
   if (storeId) {
-    router.push({
-      pathname: `maps`,
-      query: {
-        search: inputs,
-        storeId: storeId
-      }
-    })
+    router.push(`/maps/storeId/${storeId}`)
   } else {
-    router.push({
-      pathname: `maps`,
-      query: {
-        search: inputs
-      }
-    })
+    router.push(`/maps/search/${inputs}`)
   }
   if (map) {
     getMapCenterByInputs(map, inputs)

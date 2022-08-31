@@ -42,7 +42,7 @@ const Search = () => {
   const [timer, setTimer] = useState<NodeJS.Timeout>()
   const [isClicked, setIsClicked] = useState(false)
   const router = useRouter()
-  const { pathname } = router
+  const { search } = router.query
   const autoRef = useRef<HTMLUListElement>(null)
   const [nodeLists, setNodeLists] = useState<HTMLCollection>()
   let searchIdx = -1
@@ -82,6 +82,7 @@ const Search = () => {
     }
     if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
       inputRef.current?.blur()
+      if (inputs === search) return
       if (searchIdx !== -1) {
         return onEnterPress(
           e,
@@ -137,7 +138,7 @@ const Search = () => {
     }
   }
 
-  const isMap = pathname.includes('maps')
+  const isMap = router.pathname.includes('maps')
 
   return (
     <SearchFormWrapper isMap={isMap}>

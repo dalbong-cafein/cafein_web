@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import initMap from '@utils/initMap'
 import { getMapItems } from '@utils/MapUtils'
 import { useAtom } from 'jotai'
@@ -50,28 +49,18 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
         setMarkers(
           getMapItems(map, [store], Number(store.storeId) as number, router)
         )
-      } else {
-        // setMarkers(
-        //   getMapItems(
-        //     map,
-        //     cafeDatas?.slice(0, 15) as IStore[],
-        //     Number(storeId) as number,
-        //     router
-        //   )
-        // )
       }
-      // setCafes(cafeDatas)
     }
-    if ((!inputs && search) || inputs !== search) {
+    if (search && inputs !== search) {
       if (store) {
         setInputs(store.storeName)
       } else {
         setInputs(search as string)
       }
     }
-    return () => {
-      markers.forEach((marker) => marker.setMap(null))
-    }
+    // return () => {
+    //   markers.forEach((marker) => marker.setMap(null))
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, map])
 

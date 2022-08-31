@@ -179,7 +179,7 @@ export const split_searchInputAtom = atom<string[] | undefined>((get) => {
 })
 
 export const searchListsAtom = atom<IStore[]>([])
-export const searchedAtom = atom<IStore[]>([])
+export const searchedAtom = atom<IStore[] | null>(null)
 
 export const mapAtom = atom<naver.maps.Map | null>(null)
 export const mapMarkerList = atom<naver.maps.Marker[]>([])

@@ -8,8 +8,8 @@ export const Wrapper = styled.header`
 
 export const FilterWrapper = styled.ul`
   display: flex;
+  margin-bottom: 9px;
   gap: 6px;
-  padding: 0 24px 16px;
 `
 
 export const FilterItem = styled.li`

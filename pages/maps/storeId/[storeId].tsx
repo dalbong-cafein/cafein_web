@@ -47,6 +47,11 @@ const DetailStorePage: NextPageWithLayout = ({
     markers.forEach((marker) => {
       marker.setMap(null)
     })
+    return () => {
+      markers.forEach((marker) => {
+        marker.setMap(null)
+      })
+    }
   }, [store])
 
   const isSingle = true
