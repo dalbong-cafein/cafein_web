@@ -50,8 +50,6 @@ const Search = () => {
   const map = useAtomValue(mapAtom)
   const markers = useAtomValue(mapMarkerList)
 
-  const setSearchedCafes = useSetAtom(searchedAtom)
-
   useEffect(() => {
     setNodeLists(autoRef.current?.children as HTMLCollection)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -83,6 +81,7 @@ const Search = () => {
     if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
       inputRef.current?.blur()
       if (inputs === search) return
+      if (!inputs) return router.push('/maps')
       if (searchIdx !== -1) {
         return onEnterPress(
           e,

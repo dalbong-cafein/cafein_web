@@ -36,7 +36,7 @@ export const CloseImage = styled.a<{ isSingle: boolean }>`
   border-radius: 0 8px 8px 0;
   border: 0.8px solid ${(props) => props.theme.colors.grey200};
   border-left: none;
-  left: ${(props) => (props.isSingle ? '400px' : '800px')};
+  left: 400px;
   top: ${(props) => (props.isSingle ? '145px' : '16px')};
   z-index: 5;
 

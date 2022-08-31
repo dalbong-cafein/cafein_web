@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 const MainWrapper = styled.div`
-  position: relative;
   z-index: 2;
   min-height: 100vh;
   max-height: 100vh;

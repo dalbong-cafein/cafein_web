@@ -23,15 +23,15 @@ import madeURL from 'utils/blurDataURL'
 
 interface MapProps {
   isSingle: boolean
-  store?: CafeInfoInterface
 }
 
-const Map = ({ isSingle, store }: MapProps) => {
+const Map = ({ isSingle }: MapProps) => {
   const [more, setMore] = useAtom(moreAtom)
   const [imageId, setImageId] = useState(0)
   const router = useRouter()
   const mapRef = useRef<HTMLDivElement>(null)
   const slideRef = useRef<HTMLDivElement>(null)
+  const store = useAtomValue(cafeInfoAtom)
 
   useEffect(() => {
     setMore(false)
@@ -171,7 +171,7 @@ const ImagesWrapper = styled.div`
 
 const ImageWrapper = styled.div<{ isActive: boolean }>`
   box-sizing: content-box;
-  width: 100px;
+  max-width: 100px;
   height: 100px;
   flex: 0 0 100px;
   border: ${(props) => (props.isActive ? '1.6px solid white' : '')};

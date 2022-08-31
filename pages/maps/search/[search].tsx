@@ -11,6 +11,7 @@ import ShortCafeItem from '@components/Maps/ShortCafeItem'
 import { getMapItems } from '@utils/MapUtils'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { NextPageWithLayout } from 'pages/_app'
+import ErrorComponent from '@components/common/ErrorComponent'
 
 const SearchMap: NextPageWithLayout = ({
   search
@@ -38,11 +39,11 @@ const SearchMap: NextPageWithLayout = ({
   return (
     <>
       <Head>
-        <title>카페인 | 지도</title>
+        <title>카페인 | {search}</title>
       </Head>
       {!cafes ? (
         <h1>Loading... </h1>
-      ) : (
+      ) : cafes.length ? (
         <CafeList>
           {cafes.slice(0, 15).map((cafe: IStore) => (
             <ShortCafeItem
@@ -53,6 +54,8 @@ const SearchMap: NextPageWithLayout = ({
             />
           ))}
         </CafeList>
+      ) : (
+        <ErrorComponent storeName={search} />
       )}
     </>
   )

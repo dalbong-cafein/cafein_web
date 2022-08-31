@@ -20,6 +20,7 @@ import DimmedAlert from '../common/DimmedAlert'
 import HeaderSection from './HeaderSection'
 import Map from './Map'
 import { MainWrapper } from './styles/styles'
+import DetailCafe from '@components/MapsParams/DetailCaffe'
 
 interface MapLayoutProps {
   children: JSX.Element
@@ -33,7 +34,7 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
   const [isDimmed, setIsDimmed] = useAtom(isDimmedAtom)
   const [map, setMap] = useAtom(mapAtom)
   const [markers, setMarkers] = useAtom(mapMarkerList)
-  const { search } = router.query
+  const { search, storeId } = router.query
   const [inputs, setInputs] = useAtom(searchInputAtom)
   const isDetail = router.route === '/maps/storeId/[storeId]'
 
@@ -75,21 +76,14 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
           <HeaderSection hasFilter={!isDetail} />
           {children}
         </MainWrapper>
-        {/* {storeId ? (
-        <>
-          <DetailWrapper>
-            <DetailCafe isSingle={false} />
-          </DetailWrapper>
-          <Link href={{ pathname: 'maps', query: { search } }} shallow>
-            <FlexA>
-              <CloseButton isSingle={false} />
-            </FlexA>
-          </Link>
-        </>
-      ) : (
-        ''
-      )} */}
-        <Map isSingle={true} store={store} />
+        {storeId ? (
+          <MainWrapper>
+            <DetailCafe storeId={storeId as string} />
+          </MainWrapper>
+        ) : (
+          ''
+        )}
+        <Map isSingle={true} />
       </MapWrapper>
     </>
   )

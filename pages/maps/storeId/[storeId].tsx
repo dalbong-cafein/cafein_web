@@ -10,11 +10,12 @@ import {
 } from 'next'
 import { ParsedUrlQuery } from 'querystring'
 
-import { IStore, mapMarkerList } from 'store'
+import { cafeInfoAtom, IStore, mapMarkerList } from 'store'
 
 import CafeInfoSection from '@components/MapsParams/CafeInfoSection'
 import ImageSection from '@components/MapsParams/ImageSection'
 import RecommendSection from '@components/MapsParams/RecommendSection'
+import AnnounceSection from '@components/MapsParams/AnnounceSection'
 
 import { CafeInfoInterface, CafeRewviewPointInterface, INearCafe } from 'store'
 import CafePointsSection from '@components/MapsParams/CafePointsSection'
@@ -26,10 +27,9 @@ import Ic_clear from '@public/ic_clear.svg'
 
 import MapLayout from '@components/Maps/MapLayout'
 import { NextPageWithLayout } from 'pages/_app'
-import AnnounceSection from '@components/MapsParams/AnnounceSection'
 import { CafeWrapper } from '@components/MapsParams/styles/styles'
 import { CloseImage } from '@components/common/CloseButton'
-import { useAtomValue } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
 
 const DetailStorePage: NextPageWithLayout = ({
   store,
@@ -41,12 +41,14 @@ const DetailStorePage: NextPageWithLayout = ({
   )
   const WrapperRef = useRef<HTMLDivElement>(null)
   const markers = useAtomValue(mapMarkerList)
+  const setCafeInfo = useSetAtom(cafeInfoAtom)
 
   useEffect(() => {
     WrapperRef.current?.scrollTo(0, 0)
     markers.forEach((marker) => {
       marker.setMap(null)
     })
+    setCafeInfo(store)
     return () => {
       markers.forEach((marker) => {
         marker.setMap(null)

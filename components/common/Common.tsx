@@ -12,9 +12,10 @@ export const Logo = styled.a`
   height: 22px;
 `
 
-export const DimmedWrapper = styled.div<{ isSearch: boolean }>`
+export const DimmedWrapper = styled.div<{ isAll?: boolean; isSearch: boolean }>`
   position: absolute;
-  left: ${(props) => (props.isAll ? '0' : props.isSearch ? '400px' : '800px')};
+  box-sizing: border-box;
+  left: ${(props) => (props.isAll ? 0 : props.isSearch ? '800px' : '400px')};
   right: 0;
   top: 0;
   bottom: 0;
@@ -23,4 +24,5 @@ export const DimmedWrapper = styled.div<{ isSearch: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 `
