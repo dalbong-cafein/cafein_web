@@ -1,6 +1,6 @@
 import MapLayout from '@components/Maps/MapLayout'
 import { fetchIStores } from 'apis/apis'
-import { useAtom, useAtomValue, useSetAtom } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
 import useSWR from 'swr'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -36,7 +36,7 @@ const SearchMap: NextPageWithLayout = ({
       )
     }
   }, [cafes, map, router])
-  
+
   return (
     <>
       <Head>

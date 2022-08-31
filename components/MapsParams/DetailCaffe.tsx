@@ -1,21 +1,15 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
 import Router, { useRouter } from 'next/router'
 import { MouseEvent, useEffect, useRef, useState } from 'react'
 
 import useSWR from 'swr'
-import axios from 'axios'
-import { useAtom, useSetAtom } from 'jotai'
-import styled from 'styled-components'
+import { useAtom } from 'jotai'
 
 import {
   cafeInfoAtom,
   CafeInfoInterface,
-  CafeRecommendInterface,
   CafeRewviewPointInterface,
-  INearCafe,
-  moreAtom
+  INearCafe
 } from 'store'
 import CafePointsSection from '@components/MapsParams/CafePointsSection'
 import CongestionSection from '@components/MapsParams/CongestionSection'
@@ -27,14 +21,7 @@ import RecommendSection from '@components/MapsParams/RecommendSection'
 
 import Ic_clear from '@public/ic_clear.svg'
 
-import {
-  AddButton,
-  AddLink,
-  AddLinkText,
-  AddWrapper
-} from '@components/Home/styles/AddOnStyles'
-import { OnAirBadge } from '@components/Maps/styles/ShortCafeStyles'
-import { CafeInfoWrapper, CafeWrapper, WrapperTitle } from './styles/styles'
+import { CafeWrapper } from './styles/styles'
 import madeURL from '@utils/blurDataURL'
 import { fetchCafeInfo, fetchCafeNears, fetchCafeStarPoint } from 'apis/apis'
 import AnnounceSection from './AnnounceSection'
@@ -112,9 +99,9 @@ const DetailCafe = ({ storeId }: DetailCafeProps) => {
             <Footer isHome={false} />
           </CafeWrapper>
           {/* <Link href={`/maps/search/${router.query.search}`}> */}
-            <CloseImage isSingle={isSingle} onClick={handleAnchor}>
-              <Ic_clear />
-            </CloseImage>
+          <CloseImage isSingle={isSingle} onClick={handleAnchor}>
+            <Ic_clear />
+          </CloseImage>
           {/* </Link> */}
         </>
       ) : (
