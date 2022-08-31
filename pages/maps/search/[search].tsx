@@ -28,13 +28,13 @@ const SearchMap: NextPageWithLayout = ({
       setMarkers(
         getMapItems(
           map,
-          cafes?.slice(0, 15) as IStore[],
+          cafes?.slice(0, 20) as IStore[],
           Number(storeId) as number,
           router
         )
       )
     }
-  }, [cafes])
+  }, [router])
 
   return (
     <>
@@ -45,7 +45,7 @@ const SearchMap: NextPageWithLayout = ({
         <h1>Loading... </h1>
       ) : cafes.length ? (
         <CafeList>
-          {cafes.slice(0, 15).map((cafe: IStore) => (
+          {cafes.slice(0, 20).map((cafe: IStore) => (
             <ShortCafeItem
               cafe={cafe}
               storeId={storeId as string}

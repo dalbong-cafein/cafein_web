@@ -44,7 +44,6 @@ const ShortCafeItem = ({ cafe, storeId, router }: IShortCafeItem) => {
             storeId: cafe.storeId
           }
         }}
-        // as={`maps?search=${search}&storeId=${cafe.storeId}`}
       >
         <a>
           <ShortCafeItemTitle>{cafe.storeName}</ShortCafeItemTitle>
