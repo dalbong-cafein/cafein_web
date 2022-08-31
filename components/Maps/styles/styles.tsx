@@ -11,11 +11,12 @@ const MainWrapper = styled.div`
   filter: drop-shadow(8px 0px 20px rgba(0, 0, 0, 0.08));
 `
 
-const CafeList = styled.ul`
+const CafeList = styled.ul<{ isSuggestion?: boolean }>`
   border-top: 1px solid ${(props) => props.theme.colors.grey100};
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 185.03px);
+  height: ${(props) =>
+    props.isSuggestion ? 'calc(100vh - 241.53px)' : 'calc(100vh - 185.03px)'};
   overflow-y: auto;
 
   & li:not(:first-child)::after {

@@ -25,6 +25,7 @@ const SearchMap: NextPageWithLayout = ({
 
   useEffect(() => {
     if (cafes && map) {
+      console.log("여기야!!", cafes)
       setMarkers(
         getMapItems(
           map,
@@ -34,8 +35,8 @@ const SearchMap: NextPageWithLayout = ({
         )
       )
     }
-  }, [router])
-
+  }, [cafes, map, router])
+  
   return (
     <>
       <Head>

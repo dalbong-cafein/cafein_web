@@ -37,6 +37,7 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
   const { search, storeId } = router.query
   const [inputs, setInputs] = useAtom(searchInputAtom)
   const isDetail = router.route === '/maps/storeId/[storeId]'
+  const isSuggestion = router.query.sggNm
 
   useEffect(() => {
     if (!map && search) setMap(initMap.init(search as string))
@@ -59,9 +60,6 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
         setInputs(search as string)
       }
     }
-    // return () => {
-    //   markers.forEach((marker) => marker.setMap(null))
-    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, map])
 
@@ -73,7 +71,7 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
       {isDimmed ? <DimmedAlert setIsDimmed={setIsDimmed} /> : ''}
       <MapWrapper>
         <MainWrapper>
-          <HeaderSection hasFilter={!isDetail} />
+          {isSuggestion ? '' : <HeaderSection hasFilter={!isDetail} />}
           {children}
         </MainWrapper>
         {storeId ? (

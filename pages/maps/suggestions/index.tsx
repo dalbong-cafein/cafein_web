@@ -1,42 +1,41 @@
-import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { ReactElement, useEffect } from 'react'
+import useSWR from 'swr'
 
-import axios from 'axios'
 import { useAtom } from 'jotai'
 import styled from 'styled-components'
 import { isDimmedAtom, IStore, mapAtom, mapMarkerList } from 'store'
 
-import CloseButton from '@components/common/CloseButton'
-import Map from '@components/Maps/Map'
 import ShortCafeItem from '@components/Maps/ShortCafeItem'
-import DetailCafe from '@components/MapsParams/DetailCaffe'
 import Ic_Logo from '@public/logo_black.svg'
 
 import initMap from '@utils/initMap'
 import { getMapItems } from '@utils/MapUtils'
 
-import {
-  CafeList,
-  DetailWrapper,
-  MainWrapper
-} from '@components/Maps/styles/styles'
+import { CafeList, MainWrapper } from '@components/Maps/styles/styles'
 import DimmedAlert from '@components/common/DimmedAlert'
+import MapLayout from '@components/Maps/MapLayout'
+import { NextPageWithLayout } from 'pages/_app'
+import { fetchSggIStores } from 'apis/apis'
+import ErrorComponent from '@components/common/ErrorComponent'
 
-const Suggestions: NextPage = ({
-  cafeDatas
+const Suggestions: NextPageWithLayout = ({
+  sggNm,
+  type
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [map, setMap] = useAtom(mapAtom)
   const [markers, setMarkers] = useAtom(mapMarkerList)
   const router = useRouter()
-  const { sggNm, type, storeId } = router.query
-  const [, setCafes] = useState(cafeDatas)
+  // const [, setCafes] = useState(cafeDatas)
   const [isDimmed, setIsDimmed] = useAtom(isDimmedAtom)
-  const isSingle = storeId ? false : true
+  const { data: cafes } = useSWR<IStore[]>({ sggNm, type }, fetchSggIStores)
+  const isSingle = false
+  const { storeId } = router.query
 
-  console.log('잘왔다', router)
+  console.log(cafes)
 
   useEffect(() => {
     if (!map && sggNm) setMap(initMap.init(sggNm as string))
@@ -44,22 +43,17 @@ const Suggestions: NextPage = ({
   }, [])
 
   useEffect(() => {
-    if (map) {
+    if (cafes && map) {
       setMarkers(
         getMapItems(
           map,
-          cafeDatas?.slice(0, 15) as IStore[],
+          cafes?.slice(0, 20) as IStore[],
           Number(storeId) as number,
           router
         )
       )
-      setCafes(cafeDatas)
     }
-    return () => {
-      markers.forEach((marker) => marker.setMap(null))
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router, map])
+  }, [cafes, map, router])
 
   return (
     <>
@@ -69,18 +63,24 @@ const Suggestions: NextPage = ({
       {isDimmed ? <DimmedAlert setIsDimmed={setIsDimmed} /> : ''}
       <MainWrapper>
         <HeaderSectionTemp sggNm={sggNm as string} type={type as ITypes} />
-        <CafeList>
-          {cafeDatas.slice(0, 15).map((cafe: IStore) => (
-            <ShortCafeItem
-              cafe={cafe}
-              storeId={storeId as string}
-              router={router}
-              key={cafe.storeId}
-            />
-          ))}
-        </CafeList>
+        {!cafes ? (
+          <h1>Loading... </h1>
+        ) : cafes.length ? (
+          <CafeList isSuggestion={true}>
+            {cafes.slice(0, 20).map((cafe: IStore) => (
+              <ShortCafeItem
+                cafe={cafe}
+                storeId={storeId as string}
+                router={router}
+                key={cafe.storeId}
+              />
+            ))}
+          </CafeList>
+        ) : (
+          <ErrorComponent storeName={sggNm} />
+        )}
       </MainWrapper>
-      {storeId ? (
+      {/* {storeId ? (
         <>
           <DetailWrapper>
             <DetailCafe isSingle={isSingle} />
@@ -95,7 +95,7 @@ const Suggestions: NextPage = ({
       ) : (
         ''
       )}
-      <Map isSingle={isSingle} />
+      <Map isSingle={isSingle} /> */}
     </>
   )
 }
@@ -188,33 +188,47 @@ const Title = styled.h1`
   word-break: keep-all;
 `
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  console.log(query)
-  if (query.sggNm && query.type) {
-    const { sggNm, type } = query
+Suggestions.getLayout = function getLayout(page: ReactElement) {
+  return <MapLayout>{page}</MapLayout>
+}
 
-    try {
-      const res = await axios(
-        `${process.env.API_DOMAIN}/web/stores/contents?sggNm=${encodeURI(
-          sggNm as string
-        )}&type=${encodeURI(type as string)}`
-      )
-      const data: IStore[] = res.data.data
-      return {
-        props: {
-          cafeDatas: data
-        }
-      }
-    } catch (error) {
-      console.error('또 실패다!', error)
-      return {
-        props: {}
-      }
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const { sggNm, type } = query
+  return {
+    props: {
+      sggNm,
+      type
     }
   }
-  return {
-    props: {}
-  }
 }
+
+// export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+//   console.log(query)
+//   if (query.sggNm && query.type) {
+//     const { sggNm, type } = query
+
+//     try {
+//       const res = await axios(
+//         `${process.env.API_DOMAIN}/web/stores/contents?sggNm=${encodeURI(
+//           sggNm as string
+//         )}&type=${encodeURI(type as string)}`
+//       )
+//       const data: IStore[] = res.data.data
+//       return {
+//         props: {
+//           cafeDatas: data
+//         }
+//       }
+//     } catch (error) {
+//       console.error('또 실패다!', error)
+//       return {
+//         props: {}
+//       }
+//     }
+//   }
+//   return {
+//     props: {}
+//   }
+// }
 
 export default Suggestions

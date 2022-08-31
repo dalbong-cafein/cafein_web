@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useEffect, useRef, useState } from 'react'
+import Router, { useRouter } from 'next/router'
+import { MouseEvent, useEffect, useRef, useState } from 'react'
 
 import useSWR from 'swr'
 import axios from 'axios'
@@ -69,6 +69,11 @@ const DetailCafe = ({ storeId }: DetailCafeProps) => {
     if (store) setCafeInfo(store)
   }, [store])
 
+  const handleAnchor = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    Router.back()
+  }
+
   const isSingle = false
 
   return (
@@ -105,11 +110,11 @@ const DetailCafe = ({ storeId }: DetailCafeProps) => {
 
             <Footer isHome={false} />
           </CafeWrapper>
-          <Link href={`/maps/search/${router.query.search}`}>
-            <CloseImage isSingle={isSingle}>
+          {/* <Link href={`/maps/search/${router.query.search}`}> */}
+            <CloseImage isSingle={isSingle} onClick={handleAnchor}>
               <Ic_clear />
             </CloseImage>
-          </Link>
+          {/* </Link> */}
         </>
       ) : (
         <h1>Loading...</h1>
