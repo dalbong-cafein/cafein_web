@@ -32,12 +32,7 @@ interface MapLayoutProps {
   nearStores: INearCafe[]
 }
 
-const MapLayout = ({
-  children,
-  store,
-  reviewStore,
-  nearStores
-}: MapLayoutProps) => {
+const MapLayout = ({ children, store }: MapLayoutProps) => {
   const router = useRouter()
   const [isDimmed, setIsDimmed] = useAtom(isDimmedAtom)
   const [map, setMap] = useAtom(mapAtom)

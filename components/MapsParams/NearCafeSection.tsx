@@ -10,6 +10,8 @@ import Ic_like from '@public/ddabong.svg'
 import temp_img from '@public/temp_img.png'
 import { CafeInfoInterface, INearCafe } from 'store'
 import madeURL from '@utils/blurDataURL'
+import Link from 'next/link'
+import { useEffect, useRef } from 'react'
 
 const NearCafeSection = ({
   store,
@@ -18,6 +20,12 @@ const NearCafeSection = ({
   store: CafeInfoInterface
   nearStores: INearCafe[]
 }) => {
+  const scrollRef = useRef<HTMLUListElement>(null)
+
+  useEffect(() => {
+    scrollRef.current?.scrollTo(0, 0)
+  }, [store])
+
   return (
     <CafeInfoWrapper>
       <WrapperTitle>근처에 있는 카공 카페를 찾아봤어요</WrapperTitle>
@@ -38,77 +46,83 @@ const NearCafeSection = ({
     )} */}
 
       {
-        <ScrollWrapper>
+        <ScrollWrapper ref={scrollRef}>
           {nearStores.map((nearCafe) => (
             <CardItem key={String(nearCafe.storeId) + store.storeId}>
-              <CardImgWrapper>
-                {nearCafe.storeImageDtoList.length ? (
-                  nearCafe.storeImageDtoList.map((storeImage) => (
-                    <Image
-                      src={storeImage.imageUrl}
-                      width={70}
-                      height={70}
-                      alt="카페 섬네일 이미지"
-                      key={storeImage.imageId}
-                      placeholder="blur"
-                      blurDataURL={madeURL(70, 70)}
-                    />
-                  ))
-                ) : (
-                  <>
-                    <Image
-                      src={temp_img}
-                      width={70}
-                      height={70}
-                      placeholder="blur"
-                      alt="기본 이미지"
-                    />
-                    <Image
-                      src={temp_img}
-                      width={70}
-                      height={70}
-                      placeholder="blur"
-                      alt="기본 이미지"
-                    />
-                    <Image
-                      src={temp_img}
-                      width={70}
-                      height={70}
-                      placeholder="blur"
-                      alt="기본 이미지"
-                    />
-                  </>
-                )}
-              </CardImgWrapper>
-              <CardDescWrapper>
-                <CardTitle>{nearCafe.storeName}</CardTitle>
-                <CardTextWrapper>
-                  <OnAirBadge>
-                    {nearCafe.businessHoursInfoDto.isOpen
-                      ? '영업중'
-                      : '영업종료'}
-                  </OnAirBadge>
-                  <GreenLight>여유</GreenLight>
-                </CardTextWrapper>
-                <CardTextWrapper>
-                  <CardEmojiWrapper>
-                    <Ic_navigation />
-                    <NormalText>{Math.floor(nearCafe.distance)}m</NormalText>
-                  </CardEmojiWrapper>
-                  <CardEmojiWrapper>
-                    <Ic_like />
-                    <NormalText>
-                      {nearCafe.recommendPercent
-                        ? Math.floor(nearCafe.recommendPercent) + '%'
-                        : 0}
-                    </NormalText>
-                  </CardEmojiWrapper>
-                  <CardEmojiWrapper>
-                    <Ic_heart />
-                    <NormalText>{nearCafe.heartCnt}</NormalText>
-                  </CardEmojiWrapper>
-                </CardTextWrapper>
-              </CardDescWrapper>
+              <Link href={`/maps/storeId/${nearCafe.storeId}`}>
+                <CardItemLink>
+                  <CardImgWrapper>
+                    {nearCafe.storeImageDtoList.length ? (
+                      nearCafe.storeImageDtoList.map((storeImage) => (
+                        <Image
+                          src={storeImage.imageUrl}
+                          width={70}
+                          height={70}
+                          alt="카페 섬네일 이미지"
+                          key={storeImage.imageId}
+                          placeholder="blur"
+                          blurDataURL={madeURL(70, 70)}
+                        />
+                      ))
+                    ) : (
+                      <>
+                        <Image
+                          src={temp_img}
+                          width={70}
+                          height={70}
+                          placeholder="blur"
+                          alt="기본 이미지"
+                        />
+                        <Image
+                          src={temp_img}
+                          width={70}
+                          height={70}
+                          placeholder="blur"
+                          alt="기본 이미지"
+                        />
+                        <Image
+                          src={temp_img}
+                          width={70}
+                          height={70}
+                          placeholder="blur"
+                          alt="기본 이미지"
+                        />
+                      </>
+                    )}
+                  </CardImgWrapper>
+                  <CardDescWrapper>
+                    <CardTitle>{nearCafe.storeName}</CardTitle>
+                    <CardTextWrapper>
+                      <OnAirBadge>
+                        {nearCafe.businessHoursInfoDto.isOpen
+                          ? '영업중'
+                          : '영업종료'}
+                      </OnAirBadge>
+                      <GreenLight>여유</GreenLight>
+                    </CardTextWrapper>
+                    <CardTextWrapper>
+                      <CardEmojiWrapper>
+                        <Ic_navigation />
+                        <NormalText>
+                          {Math.floor(nearCafe.distance)}m
+                        </NormalText>
+                      </CardEmojiWrapper>
+                      <CardEmojiWrapper>
+                        <Ic_like />
+                        <NormalText>
+                          {nearCafe.recommendPercent
+                            ? Math.floor(nearCafe.recommendPercent) + '%'
+                            : 0}
+                        </NormalText>
+                      </CardEmojiWrapper>
+                      <CardEmojiWrapper>
+                        <Ic_heart />
+                        <NormalText>{nearCafe.heartCnt}</NormalText>
+                      </CardEmojiWrapper>
+                    </CardTextWrapper>
+                  </CardDescWrapper>
+                </CardItemLink>
+              </Link>
             </CardItem>
           ))}
         </ScrollWrapper>
@@ -161,11 +175,17 @@ const CardItem = styled.li`
   background-color: ${(props) => props.theme.colors.white};
   display: flex;
   flex: 0 0 246px;
-  flex-direction: column;
-  gap: 10px;
-  padding: 12px;
   box-shadow: 2px 2px 16px rgba(0, 0, 0, 0.1);
   scroll-snap-align: center;
+`
+
+const CardItemLink = styled.a`
+  box-sizing: border-box;
+  display: flex;
+  padding: 12px;
+  flex: 0 0 246px;
+  flex-direction: column;
+  gap: 10px;
 `
 
 const CardImgWrapper = styled.div`

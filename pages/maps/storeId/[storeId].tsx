@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -22,6 +22,8 @@ import CongestionSection from '@components/MapsParams/CongestionSection'
 import NearCafeSection from '@components/MapsParams/NearCafeSection'
 import Footer from '@components/Home/Footer'
 
+import Ic_clear from '@public/ic_clear.svg'
+
 import {
   AddButton,
   AddLink,
@@ -39,6 +41,11 @@ const DetailStorePage: NextPageWithLayout = ({
   const [cafeReviewPercent, setCafeReviewPercent] = useState<null | number>(
     null
   )
+  const WrapperRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    WrapperRef.current?.scrollTo(0, 0)
+  }, [store])
 
   const isSingle = true
 
@@ -47,7 +54,7 @@ const DetailStorePage: NextPageWithLayout = ({
       <Head>
         <title>카페인 | {store.storeName}</title>
       </Head>
-      <CafeWrapper isSingle={isSingle}>
+      <CafeWrapper ref={WrapperRef} isSingle={isSingle}>
         {store.storeImageList.length > 0 ? <ImageSection store={store} /> : ''}
 
         <CafeInfoSection store={store} cafeReviewPercent={cafeReviewPercent} />
@@ -73,6 +80,11 @@ const DetailStorePage: NextPageWithLayout = ({
         </AddWrapper2>
         <Footer isHome={false} />
       </CafeWrapper>
+      <Link href="/maps">
+        <CloseImage isSingle={isSingle}>
+          <Ic_clear />
+        </CloseImage>
+      </Link>
     </>
   )
 }
@@ -174,6 +186,31 @@ const AddButton2 = styled(AddButton)`
   height: 28px;
   font-size: ${(props) => props.theme.fontsizes.font14}rem;
   align-self: flex-start;
+`
+
+const CloseImage = styled.a<{ isSingle: boolean }>`
+  box-sizing: border-box;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  background-color: white;
+  border-radius: 0 8px 8px 0;
+  border: 0.8px solid ${(props) => props.theme.colors.grey200};
+  border-left: none;
+  left: ${(props) => (props.isSingle ? '400px' : '800px')};
+  top: ${(props) => (props.isSingle ? '145px' : '16px')};
+  z-index: 5;
+
+  &:hover {
+    border-color: ${(props) => props.theme.colors.orange300};
+
+    & svg g path {
+      fill: ${(props) => props.theme.colors.orange300};
+    }
+  }
 `
 
 export default DetailStorePage

@@ -5,7 +5,6 @@ import { IStore } from 'store'
 
 import Ic_like from '@public/ddabong.svg'
 
-import getHours from '@utils/getHours'
 import {
   handleMouseOut,
   handleMouseOver
@@ -19,6 +18,7 @@ import {
   OnAirWrapper,
   OpeningTime
 } from './styles/ShortCafeStyles'
+import getHours from '@utils/CafeInfo/getHours'
 
 interface IShortCafeItem {
   cafe: IStore
