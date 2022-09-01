@@ -101,13 +101,13 @@ const HeaderSectionTemp = ({
   type: ITypes
 }) => {
   const typeEng = {
-    allDay: '밤늦게까지      공부 가능한 카페',
+    allDay: `밤늦게까지\n공부 가능한 카페`,
     teamPlay: '팀플하기 좋은 카페',
-    noNoonChi: '눈치보지 않고        작업할 수 있는 카페',
-    alone: '혼자 공부하기 좋은 카페',
-    quiet: '조용히                  공부하기 좋은 카페',
-    enfj: '카페인 팀원       ENFJ가 추천하는 카페',
-    morning: '아침부터  작업하기 좋은 카페'
+    noNoonChi: '눈치보지 않고\n작업할 수 있는 카페',
+    alone: '혼자\n공부하기 좋은 카페',
+    quiet: '조용히\n공부하기 좋은 카페',
+    enfj: '카페인 팀원\nENFJ가 추천하는 카페',
+    morning: '아침부터\n작업하기 좋은 카페'
   }
   return (
     <TempWrapper>
@@ -167,7 +167,6 @@ const Title = styled.h1`
   font-weight: 700;
   font-size: ${(props) => props.theme.fontsizes.font21}rem;
   color: ${(props) => props.theme.colors.grey900};
-  width: 195px;
   white-space: pre-wrap;
   word-break: keep-all;
 `
