@@ -67,7 +67,7 @@ const RecommendSection = ({
   ) => {
     try {
       axios
-        .post(`/api/web/recommendations`, {
+        .post(`/api/recommendation`, {
           recommendation,
           storeId
         })
