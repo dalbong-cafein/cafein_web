@@ -4,7 +4,12 @@ import Head from 'next/head'
 
 import { useAtom, useAtomValue } from 'jotai'
 
-import { searchedAtom, searchInputAtom, searchListsAtom } from 'store'
+import {
+  mapMarkerList,
+  searchedAtom,
+  searchInputAtom,
+  searchListsAtom
+} from 'store'
 
 import ErrorComponent from '@components/common/ErrorComponent'
 import MapLayout from '@components/Maps/MapLayout'
@@ -17,6 +22,15 @@ const Maps: NextPageWithLayout = () => {
   const { storeId } = router.query
   const searchedCafes = useAtomValue(searchedAtom)
   const searchLists = useAtomValue(searchListsAtom)
+  const markers = useAtomValue(mapMarkerList)
+
+  console.log(markers)
+
+  useEffect(() => {
+    markers.forEach((marker) => {
+      marker.setMap(null)
+    })
+  })
 
   return (
     <>

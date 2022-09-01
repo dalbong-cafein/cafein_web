@@ -1,6 +1,6 @@
 import MapLayout from '@components/Maps/MapLayout'
 import { fetchIStores } from 'apis/apis'
-import { useAtomValue, useSetAtom } from 'jotai'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import useSWR from 'swr'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -20,7 +20,7 @@ const SearchMap: NextPageWithLayout = ({
   const router = useRouter()
   const map = useAtomValue(mapAtom)
   const { storeId } = router.query
-  const setMarkers = useSetAtom(mapMarkerList)
+  const [markers, setMarkers] = useAtom(mapMarkerList)
 
   const { data: cafes } = useSWR<IStore[]>(search as string, fetchIStores)
 
@@ -34,6 +34,11 @@ const SearchMap: NextPageWithLayout = ({
           router
         )
       )
+    }
+    return () => {
+      markers.forEach((marker) => {
+        marker.setMap(null)
+      })
     }
   }, [cafes, map, router])
 

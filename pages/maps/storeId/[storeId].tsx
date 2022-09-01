@@ -1,5 +1,4 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
-import styled from 'styled-components'
 import Head from 'next/head'
 import Link from 'next/link'
 import axios from 'axios'
@@ -83,7 +82,11 @@ const DetailStorePage: NextPageWithLayout = ({
 
         <Footer isHome={false} />
       </CafeWrapper>
-      <Link href="/maps">
+      <Link
+        href={{
+          pathname: '/maps'
+        }}
+      >
         <CloseImage isSingle={isSingle}>
           <Ic_clear />
         </CloseImage>

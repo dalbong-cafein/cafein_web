@@ -12,6 +12,7 @@ import { CafeInfoInterface, INearCafe } from 'store'
 import madeURL from '@utils/blurDataURL'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
+import { useRouter } from 'next/router'
 
 const NearCafeSection = ({
   store,
@@ -21,6 +22,7 @@ const NearCafeSection = ({
   nearStores: INearCafe[]
 }) => {
   const scrollRef = useRef<HTMLUListElement>(null)
+  const router = useRouter()
 
   useEffect(() => {
     scrollRef.current?.scrollTo(0, 0)
@@ -49,7 +51,15 @@ const NearCafeSection = ({
         <ScrollWrapper ref={scrollRef}>
           {nearStores.map((nearCafe) => (
             <CardItem key={String(nearCafe.storeId) + store.storeId}>
-              <Link href={`/maps/storeId/${nearCafe.storeId}`}>
+              <Link
+                href={{
+                  pathname: router.pathname,
+                  query: {
+                    ...router.query,
+                    storeId: nearCafe.storeId
+                  }
+                }}
+              >
                 <CardItemLink>
                   <CardImgWrapper>
                     {nearCafe.storeImageDtoList.length ? (

@@ -1,6 +1,6 @@
 import Head from 'next/head'
-import Router, { useRouter } from 'next/router'
-import { MouseEvent, useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
+import { useEffect, useRef, useState } from 'react'
 
 import useSWR from 'swr'
 import { useAtom } from 'jotai'
@@ -22,11 +22,11 @@ import RecommendSection from '@components/MapsParams/RecommendSection'
 import Ic_clear from '@public/ic_clear.svg'
 
 import { CafeWrapper } from './styles/styles'
-import madeURL from '@utils/blurDataURL'
 import { fetchCafeInfo, fetchCafeNears, fetchCafeStarPoint } from 'apis/apis'
 import AnnounceSection from './AnnounceSection'
 import { CloseImage } from '@components/common/CloseButton'
 import Loading from '@components/common/Loading'
+import Link from 'next/link'
 
 interface DetailCafeProps {
   storeId: string
@@ -54,13 +54,9 @@ const DetailCafe = ({ storeId }: DetailCafeProps) => {
   )
 
   useEffect(() => {
+    WrapperRef.current?.scrollTo(0, 0)
     if (store) setCafeInfo(store)
   }, [store])
-
-  const handleAnchor = (e: MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault()
-    Router.back()
-  }
 
   const isSingle = false
 
@@ -98,11 +94,19 @@ const DetailCafe = ({ storeId }: DetailCafeProps) => {
 
             <Footer isHome={false} />
           </CafeWrapper>
-          {/* <Link href={`/maps/search/${router.query.search}`}> */}
-          <CloseImage isSingle={isSingle} onClick={handleAnchor}>
-            <Ic_clear />
-          </CloseImage>
-          {/* </Link> */}
+          <Link
+            href={{
+              pathname: router.pathname,
+              query: {
+                ...router.query,
+                storeId: null
+              }
+            }}
+          >
+            <CloseImage isSingle={isSingle}>
+              <Ic_clear />
+            </CloseImage>
+          </Link>
         </>
       ) : (
         <Loading />
