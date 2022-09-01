@@ -12,17 +12,18 @@ import { isDimmedAtom, IStore, mapAtom, mapMarkerList } from 'store'
 
 import ShortCafeItem from '@components/Maps/ShortCafeItem'
 import Ic_Logo from '@public/logo_black.svg'
+import Ic_copy from '@public/copy.svg'
 
 import initMap from '@utils/initMap'
 import { getMapItems } from '@utils/MapUtils'
 
 import { CafeList, MainWrapper } from '@components/Maps/styles/styles'
-import DimmedAlert from '@components/common/DimmedAlert'
 import MapLayout from '@components/Maps/MapLayout'
 import { NextPageWithLayout } from 'pages/_app'
 import { fetchSggIStores } from 'apis/apis'
 import ErrorComponent from '@components/common/ErrorComponent'
 import Loading from '@components/common/Loading'
+import copyUrl from '@utils/copyUrl'
 
 const Suggestions: NextPageWithLayout = ({
   sggNm,
@@ -109,11 +110,16 @@ const HeaderSectionTemp = ({
   }
   return (
     <TempWrapper>
-      <Link href="/">
-        <TempLogo>
-          <Ic_Logo />
-        </TempLogo>
-      </Link>
+      <HeaderWrapper>
+        <Link href="/">
+          <a>
+            <Ic_Logo />
+          </a>
+        </Link>
+        <SendOpinion href="/" target="_blank">
+          의견 보내기
+        </SendOpinion>
+      </HeaderWrapper>
       <Link
         href={{
           pathname: '/',
@@ -124,21 +130,37 @@ const HeaderSectionTemp = ({
       </Link>
       <TitleWrapper>
         <Title>{typeEng[type]}</Title>
+        <StyleCopy>
+          <Ic_copy onClick={() => copyUrl(window.location.href)} />
+        </StyleCopy>
       </TitleWrapper>
     </TempWrapper>
   )
 }
 
+const StyleCopy = styled.div`
+  display: flex;
+  &:hover {
+    cursor: pointer;
+  }
+`
+
+const HeaderWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const SendOpinion = styled.a`
+  font-weight: 500;
+  font-size: ${(props) => props.theme.fontsizes.font14}rem;
+  color: ${(props) => props.theme.colors.grey700};
+`
+
 const TempWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 24px;
-`
-
-const TempLogo = styled.a`
-  display: flex;
-  width: 103px;
-  height: 22px;
 `
 
 const HomeButton = styled.button`

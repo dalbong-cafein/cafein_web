@@ -28,6 +28,8 @@ import {
 } from '@utils/CafeInfo/getCafeRunningInfo'
 import { GetRunningTimes } from '@utils/CafeInfo/GetRunningTimes'
 import useToggle from 'hooks/useToggle'
+import copyUrl from '@utils/copyUrl'
+import styled from 'styled-components'
 
 interface CafeInfoSectionProps {
   store: CafeInfoInterface
@@ -55,7 +57,9 @@ const CafeInfoSection = ({
       </TitleWrapper>
       <SubTitleWrapper>
         <SubTitle>{store.address.fullAddress}</SubTitle>
-        <Ic_copy />
+        <StyleCopy>
+          <Ic_copy onClick={() => copyUrl(window.location.href)} />
+        </StyleCopy>
       </SubTitleWrapper>
       <OpenInfoWrapper>
         <Ic_clock />
@@ -84,5 +88,12 @@ const CafeInfoSection = ({
     </CafeInfoWrapper>
   )
 }
+
+const StyleCopy = styled.div`
+  display: flex;
+  &:hover {
+    cursor: pointer;
+  }
+`
 
 export default CafeInfoSection
