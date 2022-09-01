@@ -15,7 +15,7 @@ export const Logo = styled.a`
 export const DimmedWrapper = styled.div<{ isAll?: boolean; isSearch: boolean }>`
   position: absolute;
   box-sizing: border-box;
-  left: ${(props) => (props.isAll ? 0 : props.isSearch ? '800px' : '400px')};
+  left: ${(props) => (props.isAll ? 0 : props.isSearch ? '400px' : '800px')};
   right: 0;
   top: 0;
   bottom: 0;

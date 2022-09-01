@@ -81,7 +81,7 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
         ) : (
           ''
         )}
-        <Map isSingle={true} />
+        <Map isSingle={isDetail} />
       </MapWrapper>
     </>
   )

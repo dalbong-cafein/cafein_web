@@ -59,7 +59,6 @@ const Suggestions: NextPageWithLayout = ({
       <Head>
         <title>카페인 | {sggNm} 추천 카페</title>
       </Head>
-      {isDimmed ? <DimmedAlert setIsDimmed={setIsDimmed} /> : ''}
       <MainWrapper>
         <HeaderSectionTemp sggNm={sggNm as string} type={type as ITypes} />
         {!cafes ? (
