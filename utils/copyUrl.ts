@@ -1,9 +1,15 @@
-const copyUrl = (url: string) => {
+import { SetStateAction } from 'jotai'
+
+const copyUrl = (
+  url: string,
+  setIsToast: (update: SetStateAction<boolean>) => void
+) => {
   if (navigator.clipboard) {
     navigator.clipboard
       .writeText(url)
       .then(() => {
-        alert('클립보드에 복사되었습니다.')
+        setIsToast(true)
+        setTimeout(() => setIsToast(false), 2000)
       })
       .catch((err) => {
         console.error(err)

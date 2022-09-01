@@ -38,7 +38,6 @@ export const CloseImage = styled.a<{ isSingle: boolean }>`
   border-left: none;
   left: 400px;
   top: ${(props) => (props.isSingle ? '145px' : '16px')};
-  z-index: 5;
 
   &:hover {
     border-color: ${(props) => props.theme.colors.orange300};

@@ -1,6 +1,6 @@
 import initMap from '@utils/initMap'
 import { getMapItems } from '@utils/MapUtils'
-import { useAtom } from 'jotai'
+import { useAtom, useAtomValue } from 'jotai'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
@@ -12,7 +12,8 @@ import {
   isDimmedAtom,
   mapAtom,
   mapMarkerList,
-  searchInputAtom
+  searchInputAtom,
+  toastAtom
 } from 'store'
 
 import DimmedAlert from '../common/DimmedAlert'
@@ -21,6 +22,7 @@ import HeaderSection from './HeaderSection'
 import Map from './Map'
 import { MainWrapper } from './styles/styles'
 import DetailCafe from '@components/MapsParams/DetailCaffe'
+import Toast from '@components/common/Toast'
 
 interface MapLayoutProps {
   children: JSX.Element
@@ -34,8 +36,9 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
   const [isDimmed, setIsDimmed] = useAtom(isDimmedAtom)
   const [map, setMap] = useAtom(mapAtom)
   const [markers, setMarkers] = useAtom(mapMarkerList)
-  const { search, storeId } = router.query
   const [inputs, setInputs] = useAtom(searchInputAtom)
+  const isToasted = useAtomValue(toastAtom)
+  const { search, storeId } = router.query
   const isDetail = router.route === '/maps/storeId/[storeId]'
   const isSuggestion = router.query.sggNm
 
@@ -71,6 +74,7 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
       {isDimmed ? <DimmedAlert setIsDimmed={setIsDimmed} /> : ''}
       <MapWrapper>
         <MainWrapper>
+          {isToasted ? <Toast /> : ''}
           {isSuggestion ? '' : <HeaderSection hasFilter={!isDetail} />}
           {children}
         </MainWrapper>

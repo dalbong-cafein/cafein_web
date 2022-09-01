@@ -1,4 +1,4 @@
-import { CafeInfoInterface } from 'store'
+import { CafeInfoInterface, toastAtom } from 'store'
 
 import Ic_copy from '@public/copy.svg'
 import Ic_clock from '@public/clock.svg'
@@ -30,6 +30,7 @@ import { GetRunningTimes } from '@utils/CafeInfo/GetRunningTimes'
 import useToggle from 'hooks/useToggle'
 import copyUrl from '@utils/copyUrl'
 import styled from 'styled-components'
+import { useSetAtom } from 'jotai'
 
 interface CafeInfoSectionProps {
   store: CafeInfoInterface
@@ -43,6 +44,7 @@ const CafeInfoSection = ({
   const [isOpened, setIsOpened] = useToggle(false)
   const [isRunning, runningTime] = getIsRunning(store)
   const weekRunningTimes = getRunningTimes(store)
+  const setIsToast = useSetAtom(toastAtom)
 
   return (
     <CafeInfoWrapper isFirst={true}>
@@ -58,7 +60,7 @@ const CafeInfoSection = ({
       <SubTitleWrapper>
         <SubTitle>{store.address.fullAddress}</SubTitle>
         <StyleCopy>
-          <Ic_copy onClick={() => copyUrl(window.location.href)} />
+          <Ic_copy onClick={() => copyUrl(window.location.href, setIsToast)} />
         </StyleCopy>
       </SubTitleWrapper>
       <OpenInfoWrapper>

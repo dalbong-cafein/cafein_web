@@ -6,9 +6,9 @@ import { ReactElement, useEffect } from 'react'
 
 import useSWR from 'swr'
 
-import { useAtom } from 'jotai'
+import { useAtom, useSetAtom } from 'jotai'
 import styled from 'styled-components'
-import { isDimmedAtom, IStore, mapAtom, mapMarkerList } from 'store'
+import { IStore, mapAtom, mapMarkerList, toastAtom } from 'store'
 
 import ShortCafeItem from '@components/Maps/ShortCafeItem'
 import Ic_Logo from '@public/logo_black.svg'
@@ -32,8 +32,6 @@ const Suggestions: NextPageWithLayout = ({
   const [map, setMap] = useAtom(mapAtom)
   const [markers, setMarkers] = useAtom(mapMarkerList)
   const router = useRouter()
-  // const [, setCafes] = useState(cafeDatas)
-  const [isDimmed, setIsDimmed] = useAtom(isDimmedAtom)
   const { data: cafes } = useSWR<IStore[]>({ sggNm, type }, fetchSggIStores)
   const { storeId } = router.query
 
@@ -108,6 +106,7 @@ const HeaderSectionTemp = ({
     enfj: '카페인 팀원\nENFJ가 추천하는 카페',
     morning: '아침부터\n작업하기 좋은 카페'
   }
+  const setIsToast = useSetAtom(toastAtom)
   return (
     <TempWrapper>
       <HeaderWrapper>
@@ -131,7 +130,7 @@ const HeaderSectionTemp = ({
       <TitleWrapper>
         <Title>{typeEng[type]}</Title>
         <StyleCopy>
-          <Ic_copy onClick={() => copyUrl(window.location.href)} />
+          <Ic_copy onClick={() => copyUrl(window.location.href, setIsToast)} />
         </StyleCopy>
       </TitleWrapper>
     </TempWrapper>

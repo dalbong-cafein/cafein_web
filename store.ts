@@ -186,3 +186,4 @@ export const mapMarkerList = atom<naver.maps.Marker[]>([])
 
 export const isDimmedAtom = atom<boolean>(false)
 export const moreAtom = atom<boolean>(false)
+export const toastAtom = atom<boolean>(false)
