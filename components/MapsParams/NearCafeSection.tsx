@@ -7,11 +7,13 @@ import { WrapperTitle } from './styles/CafePointsSectionStyle'
 import Ic_navigation from '@public/navigation.svg'
 import Ic_heart from '@public/heart.svg'
 import Ic_like from '@public/ddabong.svg'
+import Ic_left_arrow_off from '@public/left_arrow_off.svg'
+import Ic_right_arrow_off from '@public/right_arrow_off.svg'
 import temp_img from '@public/temp_img.png'
 import { CafeInfoInterface, INearCafe } from 'store'
 import madeURL from '@utils/blurDataURL'
 import Link from 'next/link'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 
 const NearCafeSection = ({
@@ -23,32 +25,63 @@ const NearCafeSection = ({
 }) => {
   const scrollRef = useRef<HTMLUListElement>(null)
   const router = useRouter()
+  const [curScrollId, setCurScrollId] = useState(0)
+  let timer: NodeJS.Timeout | undefined
 
   useEffect(() => {
     scrollRef.current?.scrollTo(0, 0)
   }, [store])
 
+  const onClickRight = () => {
+    handleScroll()
+    scrollRef.current?.scrollBy({ left: 250, behavior: 'smooth' })
+  }
+  const onClickLeft = () => {
+    handleScroll()
+    scrollRef.current?.scrollBy({ left: -250, behavior: 'smooth' })
+  }
+
+  const debounceScroll = () => {
+    if (timer) {
+      clearTimeout(timer)
+    }
+    timer = setTimeout(handleScroll, 100)
+  }
+
+  const handleScroll = () => {
+    if (
+      (scrollRef.current as HTMLUListElement).scrollLeft + 450 >
+      (scrollRef.current as HTMLUListElement).scrollWidth
+    ) {
+      setCurScrollId(nearStores.length - 1)
+    } else if (scrollRef.current?.scrollLeft === 0) {
+      setCurScrollId(0)
+    } else {
+      setCurScrollId(1)
+    }
+  }
+
   return (
     <CafeInfoWrapper>
       <WrapperTitle>근처에 있는 카공 카페를 찾아봤어요</WrapperTitle>
-      {/* {curScrollId !== 0 ? (
-      <LeftArrowBtn onClick={handleLeft}>
-        <Ic_left_arrow_off />
-      </LeftArrowBtn>
-    ) : (
-      ''
-    )}
+      {curScrollId !== 0 ? (
+        <LeftArrowBtn>
+          <Ic_left_arrow_off onClick={onClickLeft} />
+        </LeftArrowBtn>
+      ) : (
+        ''
+      )}
 
-    {curScrollId !== (nearCafes?.length as number) - 1 ? (
-      <RightArrowBtn onClick={handleRight}>
-        <Ic_right_arrow_off />
-      </RightArrowBtn>
-    ) : (
-      ''
-    )} */}
+      {curScrollId !== nearStores.length - 1 ? (
+        <RightArrowBtn onClick={onClickRight}>
+          <Ic_right_arrow_off />
+        </RightArrowBtn>
+      ) : (
+        ''
+      )}
 
       {
-        <ScrollWrapper ref={scrollRef}>
+        <ScrollWrapper ref={scrollRef} onScroll={debounceScroll}>
           {nearStores.map((nearCafe) => (
             <CardItem key={String(nearCafe.storeId) + store.storeId}>
               <Link
@@ -152,6 +185,7 @@ const ScrollWrapper = styled.ul`
   background-color: ${(props) => props.theme.colors.white};
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory;
+  z-index: 0;
 
   &::after,
   &::before {

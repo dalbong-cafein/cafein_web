@@ -34,7 +34,6 @@ const Suggestions: NextPageWithLayout = ({
   // const [, setCafes] = useState(cafeDatas)
   const [isDimmed, setIsDimmed] = useAtom(isDimmedAtom)
   const { data: cafes } = useSWR<IStore[]>({ sggNm, type }, fetchSggIStores)
-  const isSingle = false
   const { storeId } = router.query
 
   useEffect(() => {

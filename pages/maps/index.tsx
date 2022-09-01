@@ -1,30 +1,15 @@
+import { NextPageWithLayout } from 'pages/_app'
 import { ReactElement, useEffect } from 'react'
-import { useRouter } from 'next/router'
 import Head from 'next/head'
+import { useAtomValue } from 'jotai'
 
-import { useAtom, useAtomValue } from 'jotai'
-
-import {
-  mapMarkerList,
-  searchedAtom,
-  searchInputAtom,
-  searchListsAtom
-} from 'store'
+import { mapMarkerList } from 'store'
 
 import ErrorComponent from '@components/common/ErrorComponent'
 import MapLayout from '@components/Maps/MapLayout'
-import { NextPageWithLayout } from 'pages/_app'
-import Loading from '@components/common/Loading'
 
 const Maps: NextPageWithLayout = () => {
-  const [inputs, setInputs] = useAtom(searchInputAtom)
-  const router = useRouter()
-  const { storeId } = router.query
-  const searchedCafes = useAtomValue(searchedAtom)
-  const searchLists = useAtomValue(searchListsAtom)
   const markers = useAtomValue(mapMarkerList)
-
-  console.log(markers)
 
   useEffect(() => {
     markers.forEach((marker) => {
