@@ -27,7 +27,6 @@ interface IShortCafeItem {
 }
 
 const ShortCafeItem = ({ cafe, storeId, router }: IShortCafeItem) => {
-  console.log(router.pathname)
   return (
     <ShortCafeItemList
       key={cafe.storeId}
