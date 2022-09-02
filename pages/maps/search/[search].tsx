@@ -12,13 +12,21 @@ import {
   sortModeAtom,
   userLocationAtom
 } from 'store'
-import { CafeList } from '@components/Maps/styles/styles'
+import {
+  CafeList,
+  CafeListPagination,
+  PageNumber,
+  PaginationUlWrapper
+} from '@components/Maps/styles/styles'
 import { getMapItems } from '@utils/MapUtils'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { NextPageWithLayout } from 'pages/_app'
 import ErrorComponent from '@components/common/ErrorComponent'
 import Loading from '@components/common/Loading'
 import ShortCafeItem from '@components/Maps/ShortCafeItem'
+
+import Left from '@public/pagination_left.svg'
+import Right from '@public/pagination_right.svg'
 
 const SearchMap: NextPageWithLayout = ({
   search
@@ -31,6 +39,13 @@ const SearchMap: NextPageWithLayout = ({
   const userLocation = useAtomValue(userLocationAtom)
 
   const { data: cafes } = useSWR<IStore[]>(search as string, fetchIStores)
+  let maxPage: number[] = []
+  if (cafes) {
+    maxPage = Array.from(
+      { length: Math.ceil(cafes.length / 20) },
+      (v, i) => i + 1
+    )
+  }
 
   const filterCallback = (cafe: IStore) => {
     if (sortMode === 1) {
@@ -92,19 +107,31 @@ const SearchMap: NextPageWithLayout = ({
       {!cafes ? (
         <Loading />
       ) : cafes.length ? (
-        <CafeList>
-          {cafes
-            .filter(filterCallback)
-            .sort(sortCallback)
-            .map((cafe: IStore) => (
-              <ShortCafeItem
-                cafe={cafe}
-                storeId={storeId as string}
-                router={router}
-                key={cafe.storeId}
-              />
-            ))}
-        </CafeList>
+        <>
+          <CafeList>
+            {cafes
+              .slice(0, 20)
+              .filter(filterCallback)
+              .sort(sortCallback)
+              .map((cafe: IStore) => (
+                <ShortCafeItem
+                  cafe={cafe}
+                  storeId={storeId as string}
+                  router={router}
+                  key={cafe.storeId}
+                />
+              ))}
+          </CafeList>
+          <CafeListPagination>
+            <Left />
+            <PaginationUlWrapper>
+              {maxPage.map((num) => (
+                <PageNumber key={num}>{num}</PageNumber>
+              ))}
+            </PaginationUlWrapper>
+            <Right />
+          </CafeListPagination>
+        </>
       ) : (
         <ErrorComponent storeName={search} />
       )}

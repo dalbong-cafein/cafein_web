@@ -18,6 +18,7 @@ const CafeList = styled.ul<{ isSuggestion?: boolean }>`
   height: ${(props) =>
     props.isSuggestion ? 'calc(100vh - 241.53px)' : 'calc(100vh - 185.03px)'};
   overflow-y: auto;
+  padding-bottom: 52px;
 
   & li:not(:first-child)::after {
     content: '';
@@ -37,6 +38,50 @@ const CafeList = styled.ul<{ isSuggestion?: boolean }>`
     background-color: ${(props) => props.theme.colors.grey300};
     border-radius: 4px;
   }
+`
+
+const CafeListPagination = styled.div<{ isDisplay?: boolean }>`
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 52px;
+  padding-top: 10px;
+  border-top: 1px solid ${(props) => props.theme.colors.grey100};
+  background-color: white;
+
+  & *:hover {
+    cursor: pointer;
+  }
+`
+
+const PaginationUlWrapper = styled.ul`
+  display: flex;
+  flex: 0;
+  height: 28px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+`
+
+const PageNumber = styled.li<{ isClicked?: boolean }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 27px;
+  height: 28px;
+  color: ${(props) =>
+    props.isClicked
+      ? `${props.theme.colors.grey800}`
+      : `${props.theme.colors.grey600}`};
+  font-weight: ${(props) => (props.isClicked ? 500 : 400)};
+  font-size: ${(props) => props.theme.fontsizes.font15}rem;
+  background-color: ${(props) =>
+    props.isClicked ? `${props.theme.colors.grey100}` : ''};
 `
 
 const DetailWrapper = styled.div`
@@ -61,7 +106,14 @@ const DetailWrapper = styled.div`
   }
 `
 
-export { MainWrapper, DetailWrapper, CafeList }
+export {
+  MainWrapper,
+  DetailWrapper,
+  CafeList,
+  CafeListPagination,
+  PaginationUlWrapper,
+  PageNumber
+}
 export * from './MapStyle'
 export * from './ShortCafeStyles'
 export * from './RegionListStyles'
