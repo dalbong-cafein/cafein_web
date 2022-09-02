@@ -188,3 +188,7 @@ export const isDimmedAtom = atom<boolean>(false)
 export const moreAtom = atom<boolean>(false)
 export const toastAtom = atom<boolean>(false)
 export const sortModeAtom = atom<0 | 1 | 2 | 3>(0)
+
+export const userLocationAtom = atom<{ latY: number; lngX: number } | null>(
+  null
+)

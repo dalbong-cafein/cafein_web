@@ -40,7 +40,6 @@ const init = (search: string, pos?: number[]) => {
         position.coords.longitude
       )
 
-      console.log(position)
       map.setCenter(location)
       map.setZoom(15)
     }
@@ -56,7 +55,7 @@ const init = (search: string, pos?: number[]) => {
           onErrorGeolocation,
           {
             enableHighAccuracy: true,
-            maximumAge: 0,
+            maximumAge: 5000,
             timeout: Infinity
           }
         )

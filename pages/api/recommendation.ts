@@ -13,7 +13,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       },
       { withCredentials: true }
     )
-    console.log(response)
     return res.status(200).json({ data: response.data })
   } catch (err) {
     return res.status(500).json({ err, message: '뭔가 문제가 있음' })

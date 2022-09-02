@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
-import { useAtom } from 'jotai'
-import { IStore, searchListsAtom, sortModeAtom } from 'store'
+import { useAtom, useSetAtom } from 'jotai'
+import { IStore, searchListsAtom, sortModeAtom, userLocationAtom } from 'store'
 
 import Search from '@components/Home/Search'
 import Ic_Logo from '@public/logo_black.svg'
@@ -15,12 +15,41 @@ import styled from 'styled-components'
 
 const HeaderSection = ({ hasFilter }: { hasFilter: boolean }) => {
   const [sortMode, setSortMode] = useAtom(sortModeAtom)
+  const setUserLocation = useSetAtom(userLocationAtom)
 
   const handleSortMode = (mode: 0 | 1 | 2 | 3) => {
     if (sortMode !== mode) {
+      if (mode === 2) {
+        checkGeolocation()
+      }
       return setSortMode(mode)
     }
     setSortMode(0)
+  }
+
+  const onSuceessGeolocation = (position: GeolocationPosition) => {
+    const { latitude: latY, longitude: lngX } = position.coords
+    setUserLocation({ latY, lngX })
+  }
+
+  const onErrorGeolocation = (err: GeolocationPositionError) => {
+    alert(`Error(${err.code}): 위치 정보 제공에 동의하지 않으셨습니다`)
+  }
+
+  const checkGeolocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        onSuceessGeolocation,
+        onErrorGeolocation,
+        {
+          enableHighAccuracy: true,
+          maximumAge: 5000,
+          timeout: Infinity
+        }
+      )
+    } else {
+      alert('지원하지 않는 브라우저 입니다. 최신 브라우저를 사용하세요')
+    }
   }
 
   return (

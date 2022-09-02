@@ -1,18 +1,24 @@
 import MapLayout from '@components/Maps/MapLayout'
 import { fetchIStores } from 'apis/apis'
-import { useAtom, useAtomValue, useSetAtom } from 'jotai'
+import { useAtom, useAtomValue } from 'jotai'
 import useSWR from 'swr'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { ReactElement, useEffect } from 'react'
-import { IStore, mapAtom, mapMarkerList, sortModeAtom } from 'store'
+import {
+  IStore,
+  mapAtom,
+  mapMarkerList,
+  sortModeAtom,
+  userLocationAtom
+} from 'store'
 import { CafeList } from '@components/Maps/styles/styles'
-import ShortCafeItem from '@components/Maps/ShortCafeItem'
 import { getMapItems } from '@utils/MapUtils'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { NextPageWithLayout } from 'pages/_app'
 import ErrorComponent from '@components/common/ErrorComponent'
 import Loading from '@components/common/Loading'
+import ShortCafeItem from '@components/Maps/ShortCafeItem'
 
 const SearchMap: NextPageWithLayout = ({
   search
@@ -22,21 +28,43 @@ const SearchMap: NextPageWithLayout = ({
   const [markers, setMarkers] = useAtom(mapMarkerList)
   const sortMode = useAtomValue(sortModeAtom)
   const { storeId } = router.query
+  const userLocation = useAtomValue(userLocationAtom)
 
   const { data: cafes } = useSWR<IStore[]>(search as string, fetchIStores)
 
-  const sortedCafes = cafes?.slice().sort((a, b) => {
-    if (a.recommendPercent && b.recommendPercent) {
-      return b.recommendPercent - a.recommendPercent
-    } else if (a.recommendPercent) {
-      return -1
-    } else if (b.recommendPercent) {
-      return 1
+  const filterCallback = (cafe: IStore) => {
+    if (sortMode === 1) {
+      return cafe.businessHoursInfoDto.isOpen
+    }
+    return true
+  }
+
+  const sortCallback = (a: IStore, b: IStore) => {
+    if (sortMode === 3) {
+      if (a.recommendPercent && b.recommendPercent) {
+        return b.recommendPercent - a.recommendPercent
+      } else if (a.recommendPercent) {
+        return -1
+      } else if (b.recommendPercent) {
+        return 1
+      }
+      return 0
+    } else if (sortMode === 2) {
+      if (a.latY && b.latY) {
+        const totalA = a.latY + a.lngX
+        const totalB = b.latY + b.lngX
+        const totalUser =
+          (userLocation?.latY as number) + (userLocation?.lngX as number)
+        return Math.abs(totalA - totalUser) - Math.abs(totalB - totalUser)
+      } else if (a.latY) {
+        return -1
+      } else if (b.latY) {
+        return 1
+      }
+      return 0
     }
     return 0
-  })
-
-  const onAirCafes = cafes?.filter((cafe) => cafe.businessHoursInfoDto?.isOpen)
+  }
 
   useEffect(() => {
     if (cafes && map) {
@@ -65,38 +93,17 @@ const SearchMap: NextPageWithLayout = ({
         <Loading />
       ) : cafes.length ? (
         <CafeList>
-          {sortMode === 0
-            ? cafes
-                .slice(0, 20)
-                .map((cafe: IStore) => (
-                  <ShortCafeItem
-                    cafe={cafe}
-                    storeId={storeId as string}
-                    router={router}
-                    key={cafe.storeId}
-                  />
-                ))
-            : sortMode === 1
-            ? (onAirCafes as IStore[])
-                .slice(0, 20)
-                .map((cafe: IStore) => (
-                  <ShortCafeItem
-                    cafe={cafe}
-                    storeId={storeId as string}
-                    router={router}
-                    key={cafe.storeId}
-                  />
-                ))
-            : (sortedCafes as IStore[])
-                .slice(0, 20)
-                .map((cafe: IStore) => (
-                  <ShortCafeItem
-                    cafe={cafe}
-                    storeId={storeId as string}
-                    router={router}
-                    key={cafe.storeId}
-                  />
-                ))}
+          {cafes
+            .filter(filterCallback)
+            .sort(sortCallback)
+            .map((cafe: IStore) => (
+              <ShortCafeItem
+                cafe={cafe}
+                storeId={storeId as string}
+                router={router}
+                key={cafe.storeId}
+              />
+            ))}
         </CafeList>
       ) : (
         <ErrorComponent storeName={search} />
