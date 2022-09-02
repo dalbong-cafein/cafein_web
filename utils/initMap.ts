@@ -39,7 +39,7 @@ const init = (search: string, pos?: number[]) => {
         position.coords.latitude,
         position.coords.longitude
       )
-
+      console.log('눌렀는데?? 시발아??', position, map)
       map.setCenter(location)
       map.setZoom(15)
     }

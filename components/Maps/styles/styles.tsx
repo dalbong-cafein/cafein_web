@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const MainWrapper = styled.div`
-  z-index: 1;
+  z-index: 2;
   min-height: 100vh;
   max-height: 100vh;
   width: 100%;
@@ -9,6 +9,14 @@ const MainWrapper = styled.div`
   max-width: 400px;
   min-width: 375px;
   filter: drop-shadow(8px 0px 20px rgba(0, 0, 0, 0.08));
+`
+
+const SubWrapper = styled(MainWrapper)<{ isDisplay: boolean }>`
+  z-index: 1;
+  visibility: ${(props) => (props.isDisplay ? 'visible' : 'hidden')};
+  position: absolute;
+  left: ${(props) => (props.isDisplay ? '400px' : '0')};
+  transition: all 0.25s;
 `
 
 const CafeList = styled.ul<{ isSuggestion?: boolean }>`
@@ -109,6 +117,7 @@ const DetailWrapper = styled.div`
 
 export {
   MainWrapper,
+  SubWrapper,
   DetailWrapper,
   CafeList,
   CafeListPagination,

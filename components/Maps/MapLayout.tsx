@@ -20,7 +20,7 @@ import DimmedAlert from '../common/DimmedAlert'
 
 import HeaderSection from './HeaderSection'
 import Map from './Map'
-import { MainWrapper } from './styles/styles'
+import { MainWrapper, SubWrapper } from './styles/styles'
 import DetailCafe from '@components/MapsParams/DetailCaffe'
 import Toast from '@components/common/Toast'
 
@@ -78,13 +78,13 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
           {isSuggestion ? '' : <HeaderSection hasFilter={!isDetail} />}
           {children}
         </MainWrapper>
-        {storeId && !isDetail ? (
-          <MainWrapper>
+        <SubWrapper isDisplay={storeId && !isDetail}>
+          {storeId && !isDetail ? (
             <DetailCafe storeId={storeId as string} />
-          </MainWrapper>
-        ) : (
-          ''
-        )}
+          ) : (
+            ''
+          )}
+        </SubWrapper>
         <Map isSingle={isDetail} />
       </MapWrapper>
     </>
