@@ -27,6 +27,8 @@ import ShortCafeItem from '@components/Maps/ShortCafeItem'
 
 import Left from '@public/pagination_left.svg'
 import Right from '@public/pagination_right.svg'
+import { filterCallback, sortCallback } from '@utils/sortings'
+import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives/url'
 
 const SearchMap: NextPageWithLayout = ({
   search
@@ -37,8 +39,19 @@ const SearchMap: NextPageWithLayout = ({
   const sortMode = useAtomValue(sortModeAtom)
   const { storeId } = router.query
   const userLocation = useAtomValue(userLocationAtom)
-
+  const page = router.query.page ? (router.query.page as string) : 1
   const { data: cafes } = useSWR<IStore[]>(search as string, fetchIStores)
+
+  const handleClick = (page: number) => {
+    router.push({
+      pathname: router.pathname,
+      query: {
+        ...router.query,
+        page
+      }
+    })
+  }
+
   let maxPage: number[] = []
   if (cafes) {
     maxPage = Array.from(
@@ -47,46 +60,12 @@ const SearchMap: NextPageWithLayout = ({
     )
   }
 
-  const filterCallback = (cafe: IStore) => {
-    if (sortMode === 1) {
-      return cafe.businessHoursInfoDto.isOpen
-    }
-    return true
-  }
-
-  const sortCallback = (a: IStore, b: IStore) => {
-    if (sortMode === 3) {
-      if (a.recommendPercent && b.recommendPercent) {
-        return b.recommendPercent - a.recommendPercent
-      } else if (a.recommendPercent) {
-        return -1
-      } else if (b.recommendPercent) {
-        return 1
-      }
-      return 0
-    } else if (sortMode === 2) {
-      if (a.latY && b.latY) {
-        const totalA = a.latY + a.lngX
-        const totalB = b.latY + b.lngX
-        const totalUser =
-          (userLocation?.latY as number) + (userLocation?.lngX as number)
-        return Math.abs(totalA - totalUser) - Math.abs(totalB - totalUser)
-      } else if (a.latY) {
-        return -1
-      } else if (b.latY) {
-        return 1
-      }
-      return 0
-    }
-    return 0
-  }
-
   useEffect(() => {
     if (cafes && map) {
       setMarkers(
         getMapItems(
           map,
-          cafes?.slice(0, 20) as IStore[],
+          cafes?.slice((Number(page) - 1) * 20, Number(page) * 20) as IStore[],
           Number(storeId) as number,
           router
         )
@@ -110,9 +89,11 @@ const SearchMap: NextPageWithLayout = ({
         <>
           <CafeList>
             {cafes
-              .slice(0, 20)
-              .filter(filterCallback)
-              .sort(sortCallback)
+              .slice((Number(page) - 1) * 20, Number(page) * 20)
+              .filter((cafe) => filterCallback(cafe, sortMode))
+              .sort((cafeA, cafeB) =>
+                sortCallback(cafeA, cafeB, sortMode, userLocation)
+              )
               .map((cafe: IStore) => (
                 <ShortCafeItem
                   cafe={cafe}
@@ -126,7 +107,13 @@ const SearchMap: NextPageWithLayout = ({
             <Left />
             <PaginationUlWrapper>
               {maxPage.map((num) => (
-                <PageNumber key={num}>{num}</PageNumber>
+                <PageNumber
+                  isClicked={num == page}
+                  key={num}
+                  onClick={() => handleClick(num)}
+                >
+                  {num}
+                </PageNumber>
               ))}
             </PaginationUlWrapper>
             <Right />

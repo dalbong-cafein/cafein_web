@@ -74,6 +74,7 @@ const PageNumber = styled.li<{ isClicked?: boolean }>`
   align-items: center;
   width: 27px;
   height: 28px;
+  border-radius: 6px;
   color: ${(props) =>
     props.isClicked
       ? `${props.theme.colors.grey800}`
