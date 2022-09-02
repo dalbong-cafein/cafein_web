@@ -7,6 +7,10 @@ import { mapMarkerList } from 'store'
 
 import ErrorComponent from '@components/common/ErrorComponent'
 import MapLayout from '@components/Maps/MapLayout'
+import getIpAddress from '@utils/getIpIddress'
+import getGeolocation from '@utils/geolocation'
+import useSWR from 'swr'
+import axios from 'axios'
 
 const Maps: NextPageWithLayout = () => {
   const markers = useAtomValue(mapMarkerList)
@@ -16,6 +20,20 @@ const Maps: NextPageWithLayout = () => {
       marker.setMap(null)
     })
   })
+  let location
+  const { data: ip } = useSWR('ip', getIpAddress)
+  if (ip) {
+    const fetch = async () => {
+      location = await axios({
+        url: '/api/getGeolocation',
+        method: 'GET',
+        params: { ip }
+      })
+    }
+    fetch()
+  }
+  // getIpAddress().then((ip) => (response = getGeolocation(ip)))
+  // console.log(response, 'hahaha')
 
   return (
     <>
