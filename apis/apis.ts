@@ -26,19 +26,19 @@ export const fetchSggIStores = ({
     })
 }
 
-export const fetchCafeInfo = ({ storeId }: { storeId: string }) => {
-  return axios.get(`/api/stores/${storeId}`).then((res) => {
+export const fetchCafeInfo = (url: string) => {
+  return axios.get(`/api/${url}`).then((res) => {
     return res.data.data
   })
 }
-export const fetchCafeStarPoint = ({ storeId }: { storeId: string }) => {
-  return axios.get(`/api/stores/${storeId}/detail-review-score`).then((res) => {
+export const fetchCafeStarPoint = (url: string) => {
+  return axios.get(`/api/stores/${url}`).then((res) => {
     return res.data.data
   })
 }
 
-export const fetchCafeNears = ({ storeId }: { storeId: string }) => {
-  return axios.get(`/api/web/stores/${storeId}/near-stores`).then((res) => {
+export const fetchCafeNears = (url: string) => {
+  return axios.get(`/api/web/stores/${url}`).then((res) => {
     return res.data.data
   })
 }

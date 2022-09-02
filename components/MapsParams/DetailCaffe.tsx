@@ -41,15 +41,15 @@ const DetailCafe = ({ storeId }: DetailCafeProps) => {
   const [cafeInfo, setCafeInfo] = useAtom(cafeInfoAtom)
 
   const { data: store } = useSWR<CafeInfoInterface>(
-    { key: 'store', storeId: storeId as string },
+    `stores/${storeId}`,
     fetchCafeInfo
   )
   const { data: reviewStore } = useSWR<CafeRewviewPointInterface>(
-    { key: 'reviewStore', storeId: storeId as string },
+    `${storeId}/detail-review-score`,
     fetchCafeStarPoint
   )
   const { data: nearStores } = useSWR<INearCafe[]>(
-    { key: 'nearStores', storeId: storeId as string },
+    `${storeId}/near-stores`,
     fetchCafeNears
   )
 
