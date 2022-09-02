@@ -13,7 +13,8 @@ import {
   mapAtom,
   mapMarkerList,
   searchInputAtom,
-  toastAtom
+  toastAtom,
+  userLocationAtom
 } from 'store'
 
 import DimmedAlert from '../common/DimmedAlert'
@@ -41,10 +42,29 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
   const { search, storeId } = router.query
   const isDetail = router.route === '/maps/storeId/[storeId]'
   const isSuggestion = router.query.sggNm
+  const userLocation = useAtomValue(userLocationAtom)
 
   useEffect(() => {
-    if (!map && search) setMap(initMap.init(search as string))
-    else if (!map) setMap(initMap.init(''))
+    if (!map && search)
+      setMap(
+        initMap.init(
+          userLocation as {
+            latY: number
+            lngX: number
+          },
+          search as string
+        )
+      )
+    else if (!map)
+      setMap(
+        initMap.init(
+          userLocation as {
+            latY: number
+            lngX: number
+          },
+          ''
+        )
+      )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

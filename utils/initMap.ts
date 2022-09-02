@@ -1,6 +1,13 @@
 import { getMapCenterByInputs } from './MapUtils'
 
-const init = (search: string, pos?: number[]) => {
+const init = (
+  userLocation: {
+    latY: number
+    lngX: number
+  },
+  search: string,
+  pos?: number[]
+) => {
   let mapOptions: naver.maps.MapOptions = {
     zoomControl: false,
     zoomControlOptions: {
@@ -63,12 +70,11 @@ const init = (search: string, pos?: number[]) => {
         alert('지원하지 않는 브라우저 입니다. 최신 브라우저를 사용하세요')
       }
     }
-
-    naver.maps.Event.addDOMListener(
-      customControl.getElement(),
-      'click',
-      checkGeolocation
-    )
+    const location = new naver.maps.LatLng(userLocation.latY, userLocation.lngX)
+    naver.maps.Event.addDOMListener(customControl.getElement(), 'click', () => {
+      map.setCenter(location)
+      console.log('뭐지???')
+    })
   })
 
   if (!search) return map

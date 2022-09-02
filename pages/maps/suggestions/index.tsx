@@ -6,9 +6,15 @@ import { ReactElement, useEffect } from 'react'
 
 import useSWR from 'swr'
 
-import { useAtom, useSetAtom } from 'jotai'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import styled from 'styled-components'
-import { IStore, mapAtom, mapMarkerList, toastAtom } from 'store'
+import {
+  IStore,
+  mapAtom,
+  mapMarkerList,
+  toastAtom,
+  userLocationAtom
+} from 'store'
 
 import ShortCafeItem from '@components/Maps/ShortCafeItem'
 import Ic_Logo from '@public/logo_black.svg'
@@ -31,12 +37,22 @@ const Suggestions: NextPageWithLayout = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [map, setMap] = useAtom(mapAtom)
   const [markers, setMarkers] = useAtom(mapMarkerList)
+  const userLocation = useAtomValue(userLocationAtom)
   const router = useRouter()
   const { data: cafes } = useSWR<IStore[]>({ sggNm, type }, fetchSggIStores)
   const { storeId } = router.query
 
   useEffect(() => {
-    if (!map && sggNm) setMap(initMap.init(sggNm as string))
+    if (!map && sggNm)
+      setMap(
+        initMap.init(
+          userLocation as {
+            latY: number
+            lngX: number
+          },
+          sggNm as string
+        )
+      )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
