@@ -8,7 +8,6 @@ import { mapMarkerList, userLocationAtom } from 'store'
 import ErrorComponent from '@components/common/ErrorComponent'
 import MapLayout from '@components/Maps/MapLayout'
 import getIpAddress from '@utils/getIpIddress'
-import getGeolocation from '@utils/geolocation'
 import useSWR from 'swr'
 import axios from 'axios'
 
