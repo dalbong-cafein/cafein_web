@@ -1,9 +1,9 @@
 import { NextPageWithLayout } from 'pages/_app'
 import { ReactElement, useEffect } from 'react'
 import Head from 'next/head'
-import { useAtomValue } from 'jotai'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 
-import { mapMarkerList } from 'store'
+import { mapMarkerList, userLocationAtom } from 'store'
 
 import ErrorComponent from '@components/common/ErrorComponent'
 import MapLayout from '@components/Maps/MapLayout'
@@ -14,26 +14,29 @@ import axios from 'axios'
 
 const Maps: NextPageWithLayout = () => {
   const markers = useAtomValue(mapMarkerList)
+  const [user, setUserLocation] = useAtom(userLocationAtom)
 
   useEffect(() => {
     markers.forEach((marker) => {
       marker.setMap(null)
     })
   })
-  let location
   const { data: ip } = useSWR('ip', getIpAddress)
-  if (ip) {
+
+  useEffect(() => {
+    console.log(user, ip)
     const fetch = async () => {
-      location = await axios({
+      const location = await axios({
         url: '/api/getGeolocation',
         method: 'GET',
         params: { ip }
       })
+      setUserLocation(() => {
+        return { latY: location.data.data.lat, lngX: location.data.data.long }
+      })
     }
     fetch()
-  }
-  // getIpAddress().then((ip) => (response = getGeolocation(ip)))
-  // console.log(response, 'hahaha')
+  }, [ip])
 
   return (
     <>

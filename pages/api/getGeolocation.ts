@@ -31,7 +31,7 @@ const makeSignature = (
   return hash.toString(enc.Base64)
 }
 
-const handler = (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { ip } = req.query
   const sortedSet = { ip, responseFormatType: 'json', ext: 't' }
 
@@ -62,15 +62,12 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
     }
   }
 
-  axios
-    .get(`${hostName}${baseString}`, config)
-    .then((response) => {
-      console.log(response.data)
-      return response
-    })
-    .catch((error) => {
-      console.log(error.response.data)
-    })
+  try {
+    const response = await axios.get(`${hostName}${baseString}`, config)
+    return res.status(200).json({ data: response.data.geoLocation })
+  } catch (err) {
+    return res.status(500).json({ err, message: 'Geolocation 문제 발생' })
+  }
 }
 
 export default handler
