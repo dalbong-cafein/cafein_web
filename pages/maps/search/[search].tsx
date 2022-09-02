@@ -4,7 +4,7 @@ import { useAtom, useAtomValue } from 'jotai'
 import useSWR from 'swr'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { ReactElement, useEffect } from 'react'
+import { ReactElement, useEffect, useMemo } from 'react'
 import {
   IStore,
   mapAtom,
@@ -28,7 +28,6 @@ import ShortCafeItem from '@components/Maps/ShortCafeItem'
 import Left from '@public/pagination_left.svg'
 import Right from '@public/pagination_right.svg'
 import { filterCallback, sortCallback } from '@utils/sortings'
-import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives/url'
 
 const SearchMap: NextPageWithLayout = ({
   search
@@ -52,12 +51,35 @@ const SearchMap: NextPageWithLayout = ({
     })
   }
 
-  let maxPage: number[] = []
-  if (cafes) {
-    maxPage = Array.from(
-      { length: Math.ceil(cafes.length / 20) },
-      (v, i) => i + 1
-    )
+  const getMaxpage = (cafes: IStore[] | undefined) => {
+    if (!cafes) return
+    return Array.from({ length: Math.ceil(cafes.length / 20) }, (v, i) => i + 1)
+  }
+
+  const maxPage = useMemo(() => getMaxpage(cafes), [cafes])
+
+  const handleLeft = () => {
+    const curPage = Math.ceil(Number(page) / 5)
+    if (curPage === 1) return
+    router.push({
+      pathname: router.pathname,
+      query: {
+        ...router.query,
+        page: 5 * (curPage - 1)
+      }
+    })
+  }
+
+  const handleRight = () => {
+    const curPage = Math.ceil(Number(page) / 5)
+    if (curPage === Math.ceil((maxPage as number[]).length / 5)) return
+    router.push({
+      pathname: router.pathname,
+      query: {
+        ...router.query,
+        page: 5 * curPage + 1
+      }
+    })
   }
 
   useEffect(() => {
@@ -104,19 +126,23 @@ const SearchMap: NextPageWithLayout = ({
               ))}
           </CafeList>
           <CafeListPagination>
-            <Left />
+            <Left onClick={handleLeft} />
             <PaginationUlWrapper>
-              {maxPage.map((num) => (
-                <PageNumber
-                  isClicked={num == page}
-                  key={num}
-                  onClick={() => handleClick(num)}
-                >
-                  {num}
-                </PageNumber>
-              ))}
+              {maxPage
+                ?.filter(
+                  (num) => Math.ceil(Number(page) / 5) === Math.ceil(num / 5)
+                )
+                .map((num) => (
+                  <PageNumber
+                    isClicked={num == page}
+                    key={num}
+                    onClick={() => handleClick(num)}
+                  >
+                    {num}
+                  </PageNumber>
+                ))}
             </PaginationUlWrapper>
-            <Right />
+            <Right onClick={handleRight} />
           </CafeListPagination>
         </>
       ) : (
