@@ -33,7 +33,6 @@ const getClickHandler = (
   cafe: IStore | CafeInfoInterface,
   router: NextRouter
 ) => {
-  const { search } = router.query
   return () => {
     router.push({
       pathname: router.pathname,
