@@ -24,6 +24,9 @@ import Map from './Map'
 import { MainWrapper, SubWrapper } from './styles/styles'
 import DetailCafe from '@components/MapsParams/DetailCaffe'
 import Toast from '@components/common/Toast'
+import useSWR from 'swr'
+import getIpAddress from '@utils/getIpIddress'
+import axios from 'axios'
 
 interface MapLayoutProps {
   children: JSX.Element
@@ -42,31 +45,58 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
   const { search, storeId } = router.query
   const isDetail = router.route === '/maps/storeId/[storeId]'
   const isSuggestion = router.query.sggNm
-  const userLocation = useAtomValue(userLocationAtom)
+
+  const [userLocation, setUserLocation] = useAtom(userLocationAtom)
 
   useEffect(() => {
-    if (!map && search)
-      setMap(
-        initMap.init(
-          userLocation as {
-            latY: number
-            lngX: number
-          },
-          search as string
+    markers.forEach((marker) => {
+      marker.setMap(null)
+    })
+  })
+  const { data: ip } = useSWR('ip', getIpAddress)
+
+  useEffect(() => {
+    if (ip && !userLocation) {
+      const fetch = async () => {
+        const location = await axios({
+          url: '/api/getGeolocation',
+          method: 'GET',
+          params: { ip }
+        })
+        setUserLocation(() => {
+          return { latY: location.data.data.lat, lngX: location.data.data.long }
+        })
+      }
+      fetch()
+    }
+  }, [ip])
+
+  useEffect(() => {
+    console.log(userLocation)
+    if (userLocation) {
+      if (!map && search)
+        setMap(
+          initMap.init(
+            userLocation as {
+              latY: number
+              lngX: number
+            },
+            search as string
+          )
         )
-      )
-    else if (!map)
-      setMap(
-        initMap.init(
-          userLocation as {
-            latY: number
-            lngX: number
-          },
-          ''
+      else if (!map)
+        setMap(
+          initMap.init(
+            userLocation as {
+              latY: number
+              lngX: number
+            },
+            ''
+          )
         )
-      )
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [userLocation])
 
   useEffect(() => {
     if (map) {

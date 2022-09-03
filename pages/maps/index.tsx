@@ -13,29 +13,6 @@ import axios from 'axios'
 
 const Maps: NextPageWithLayout = () => {
   const markers = useAtomValue(mapMarkerList)
-  const [user, setUserLocation] = useAtom(userLocationAtom)
-
-  useEffect(() => {
-    markers.forEach((marker) => {
-      marker.setMap(null)
-    })
-  })
-  const { data: ip } = useSWR('ip', getIpAddress)
-
-  useEffect(() => {
-    console.log(user, ip)
-    const fetch = async () => {
-      const location = await axios({
-        url: '/api/getGeolocation',
-        method: 'GET',
-        params: { ip }
-      })
-      setUserLocation(() => {
-        return { latY: location.data.data.lat, lngX: location.data.data.long }
-      })
-    }
-    fetch()
-  }, [ip])
 
   return (
     <>

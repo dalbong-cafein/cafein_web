@@ -31,14 +31,15 @@ const makeSignature = (
   return hash.toString(enc.Base64)
 }
 
+type currType = 'ip' | 'responseFormatType' | 'ext'
+
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { ip } = req.query
+  console.log(ip, 'hello', req.query.ip, req.query)
   const sortedSet = { ip, responseFormatType: 'json', ext: 't' }
 
   let queryString = Object.keys(sortedSet).reduce((prev, curr) => {
-    return (
-      prev + curr + '=' + sortedSet[curr as 'ip' | 'responseFormatType'] + '&'
-    )
+    return prev + curr + '=' + sortedSet[curr as currType] + '&'
   }, '')
 
   queryString = queryString.substr(0, queryString.length - 1)
@@ -66,7 +67,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const response = await axios.get(`${hostName}${baseString}`, config)
     return res.status(200).json({ data: response.data.geoLocation })
   } catch (err) {
-    return res.status(500).json({ err, message: 'Geolocation 문제 발생' })
+    return res.status(500).json({ err })
   }
 }
 
