@@ -52,7 +52,7 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
     markers.forEach((marker) => {
       marker.setMap(null)
     })
-  })
+  }, [])
   const { data: ip } = useSWR('ip', getIpAddress)
 
   useEffect(() => {
