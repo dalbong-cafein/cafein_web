@@ -1,14 +1,5 @@
-import { getMapCenterByInputs } from './MapUtils'
-
-const init = (
-  userLocation: {
-    latY: number
-    lngX: number
-  },
-  search: string,
-  pos?: number[]
-) => {
-  let mapOptions: naver.maps.MapOptions = {
+const init = (userLocation: { latY: number; lngX: number }) => {
+  const mapOptions: naver.maps.MapOptions = {
     zoomControl: false,
     zoomControlOptions: {
       style: naver.maps.ZoomControlStyle.SMALL,
@@ -21,13 +12,8 @@ const init = (
     scaleControlOptions: {
       position: naver.maps.Position.RIGHT_CENTER
     },
-    mapDataControl: false
-  }
-  if (pos) {
-    mapOptions = {
-      ...mapOptions,
-      center: new naver.maps.LatLng(pos[0], pos[1])
-    }
+    mapDataControl: false,
+    center: new naver.maps.LatLng(userLocation.latY, userLocation.lngX)
   }
   const map = new naver.maps.Map('map', mapOptions)
   const locationBtnHtml =
@@ -41,51 +27,41 @@ const init = (
 
     customControl.setMap(map)
 
-    const onSuceessGeolocation = (position: GeolocationPosition) => {
-      const location = new naver.maps.LatLng(
-        position.coords.latitude,
-        position.coords.longitude
-      )
-      console.log('눌렀는데?? 이상하다??', position, map)
-      map.setCenter(location)
-      map.setZoom(15)
-    }
+    // const onSuceessGeolocation = (position: GeolocationPosition) => {
+    //   const location = new naver.maps.LatLng(
+    //     position.coords.latitude,
+    //     position.coords.longitude
+    //   )
+    //   console.log('눌렀는데?? 이상하다??', position, map)
+    //   map.setCenter(location)
+    //   map.setZoom(15)
+    // }
 
-    const onErrorGeolocation = (err: GeolocationPositionError) => {
-      alert(`Error(${err.code}): 위치 정보 제공에 동의하지 않으셨습니다`)
-    }
+    // const onErrorGeolocation = (err: GeolocationPositionError) => {
+    //   alert(`Error(${err.code}): 위치 정보 제공에 동의하지 않으셨습니다`)
+    // }
 
-    const checkGeolocation = () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          onSuceessGeolocation,
-          onErrorGeolocation,
-          {
-            enableHighAccuracy: true,
-            maximumAge: 5000,
-            timeout: Infinity
-          }
-        )
-      } else {
-        alert('지원하지 않는 브라우저 입니다. 최신 브라우저를 사용하세요')
-      }
-    }
+    // const checkGeolocation = () => {
+    //   if (navigator.geolocation) {
+    //     navigator.geolocation.getCurrentPosition(
+    //       onSuceessGeolocation,
+    //       onErrorGeolocation,
+    //       {
+    //         enableHighAccuracy: true,
+    //         maximumAge: 5000,
+    //         timeout: Infinity
+    //       }
+    //     )
+    //   } else {
+    //     alert('지원하지 않는 브라우저 입니다. 최신 브라우저를 사용하세요')
+    //   }
+    // }
     const location = new naver.maps.LatLng(userLocation.latY, userLocation.lngX)
     naver.maps.Event.addDOMListener(customControl.getElement(), 'click', () => {
       map.setCenter(location)
-      console.log('뭐지???')
     })
   })
 
-  if (!search) return map
-
-  getMapCenterByInputs(map, search)
-    .then((result: boolean) => {
-      console.log('wow', result)
-    })
-    .catch((err: boolean) => {
-      console.error('wow', err)
-    })
   return map
 }
 

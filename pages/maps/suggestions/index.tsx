@@ -37,24 +37,9 @@ const Suggestions: NextPageWithLayout = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [map, setMap] = useAtom(mapAtom)
   const [markers, setMarkers] = useAtom(mapMarkerList)
-  const userLocation = useAtomValue(userLocationAtom)
   const router = useRouter()
   const { data: cafes } = useSWR<IStore[]>({ sggNm, type }, fetchSggIStores)
   const { storeId } = router.query
-
-  useEffect(() => {
-    if (!map && sggNm)
-      setMap(
-        initMap.init(
-          userLocation as {
-            latY: number
-            lngX: number
-          },
-          sggNm as string
-        )
-      )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   useEffect(() => {
     if (cafes && map) {

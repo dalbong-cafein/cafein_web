@@ -48,11 +48,6 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
 
   const [userLocation, setUserLocation] = useAtom(userLocationAtom)
 
-  useEffect(() => {
-    markers.forEach((marker) => {
-      marker.setMap(null)
-    })
-  }, [])
   const { data: ip } = useSWR('ip', getIpAddress)
 
   useEffect(() => {
@@ -72,33 +67,23 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
   }, [ip])
 
   useEffect(() => {
-    console.log(userLocation)
-    if (userLocation) {
-      if (!map && search)
-        setMap(
-          initMap.init(
-            userLocation as {
-              latY: number
-              lngX: number
-            },
-            search as string
-          )
+    if (userLocation && !map) {
+      setMap(
+        initMap.init(
+          userLocation as {
+            latY: number
+            lngX: number
+          }
         )
-      else if (!map)
-        setMap(
-          initMap.init(
-            userLocation as {
-              latY: number
-              lngX: number
-            },
-            ''
-          )
-        )
+      )
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userLocation])
 
   useEffect(() => {
+    markers.forEach((marker) => {
+      marker.setMap(null)
+    })
     if (map) {
       if (store) {
         setMarkers(

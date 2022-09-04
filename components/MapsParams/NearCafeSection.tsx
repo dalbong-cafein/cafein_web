@@ -13,7 +13,7 @@ import temp_img from '@public/temp_img.png'
 import { CafeInfoInterface, INearCafe } from 'store'
 import madeURL from '@utils/blurDataURL'
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
+import { MouseEvent, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 
 const NearCafeSection = ({
@@ -61,6 +61,13 @@ const NearCafeSection = ({
     }
   }
 
+  const handleNearCafe = (
+    nearCafe: INearCafe,
+    evt: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>
+  ) => {
+    // const marker = new naver.maps.Marker(nearCafe.latY, nearCafe.lngX)
+  }
+
   return (
     <CafeInfoWrapper>
       <WrapperTitle>근처에 있는 카공 카페를 찾아봤어요</WrapperTitle>
@@ -93,7 +100,7 @@ const NearCafeSection = ({
                   }
                 }}
               >
-                <CardItemLink>
+                <CardItemLink onClick={(evt) => handleNearCafe(nearCafe, evt)}>
                   <CardImgWrapper>
                     {nearCafe.storeImageDtoList.length ? (
                       nearCafe.storeImageDtoList.map((storeImage) => (

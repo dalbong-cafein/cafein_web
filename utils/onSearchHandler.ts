@@ -78,12 +78,13 @@ export const onEnterPress = (
   } else {
     router.push(`/maps/search/${inputs}`)
   }
-  if (map) {
-    getMapCenterByInputs(map, inputs)
-    markers.forEach((marker) => {
-      marker.setMap(null)
-    })
-  }
+  // if (map) {
+  //   console.log('멥이 있다!!')
+  //   getMapCenterByInputs(map, inputs)
+  //   markers.forEach((marker) => {
+  //     marker.setMap(null)
+  //   })
+  // }
   setIsClicked(false)
 
   return

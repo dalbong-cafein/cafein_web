@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 
 import { useEffect } from 'react'
-import { useSetAtom } from 'jotai'
+import { useAtom, useSetAtom } from 'jotai'
 
 import { mapAtom } from 'store'
 
@@ -25,11 +25,13 @@ import {
 } from '../components/Home/styles/styles'
 
 const Home: NextPage = () => {
-  const setMap = useSetAtom(mapAtom)
+  const [map, setMap] = useAtom(mapAtom)
   useEffect(() => {
     setMap(null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  console.log(map)
 
   return (
     <Wrapper>

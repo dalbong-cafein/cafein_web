@@ -9,7 +9,8 @@ import {
   cafeInfoAtom,
   CafeInfoInterface,
   CafeRewviewPointInterface,
-  INearCafe
+  INearCafe,
+  mapMarkerList
 } from 'store'
 import CafePointsSection from '@components/MapsParams/CafePointsSection'
 import CongestionSection from '@components/MapsParams/CongestionSection'
@@ -39,6 +40,7 @@ const DetailCafe = ({ storeId }: DetailCafeProps) => {
   const WrapperRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
   const [cafeInfo, setCafeInfo] = useAtom(cafeInfoAtom)
+  const [markers, setMarkers] = useAtom(mapMarkerList)
 
   const { data: store } = useSWR<CafeInfoInterface>(
     `stores/${storeId}`,
@@ -55,7 +57,7 @@ const DetailCafe = ({ storeId }: DetailCafeProps) => {
 
   useEffect(() => {
     WrapperRef.current?.scrollTo(0, 0)
-    if (store) setCafeInfo(store)
+    console.log(markers)
   }, [store])
 
   const isSingle = false

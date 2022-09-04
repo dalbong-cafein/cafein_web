@@ -48,11 +48,6 @@ const DetailStorePage: NextPageWithLayout = ({
       marker.setMap(null)
     })
     setCafeInfo(store)
-    return () => {
-      markers.forEach((marker) => {
-        marker.setMap(null)
-      })
-    }
   }, [store])
 
   const isSingle = true
