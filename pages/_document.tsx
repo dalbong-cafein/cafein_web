@@ -1,5 +1,6 @@
 import Document, {
   DocumentContext,
+  DocumentInitialProps,
   Head,
   Html,
   Main,
@@ -9,7 +10,9 @@ import Script from 'next/script'
 import { ServerStyleSheet } from 'styled-components'
 
 export default class MyDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext) {
+  static async getInitialProps(
+    ctx: DocumentContext
+  ): Promise<DocumentInitialProps> {
     // 스타일 구성 요소의 ServerStyleSheet 클래스를 인스턴스화 한다
     const sheet = new ServerStyleSheet()
     const originalRenderPage = ctx.renderPage
@@ -52,11 +55,6 @@ export default class MyDocument extends Document {
             href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
             rel="stylesheet"
             type="text/css"
-          />
-
-          <Script
-            strategy="beforeInteractive"
-            src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NAVER_PUBLIC_KEY}&submodules=geocoder`}
           />
         </Head>
         <body>

@@ -21,7 +21,8 @@ import {
   AddButton,
   AddLink,
   AddLinkText,
-  AddWrapper
+  AddWrapper,
+  NavSubWrapper
 } from '../components/Home/styles/styles'
 
 const Home: NextPage = () => {
@@ -30,8 +31,6 @@ const Home: NextPage = () => {
     setMap(null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  console.log(map)
 
   return (
     <Wrapper>
@@ -44,9 +43,10 @@ const Home: NextPage = () => {
             <Ic_Logo />
           </a>
         </Link>
-        <Link href="/">
-          <WhiteLink>의견 보내기</WhiteLink>
-        </Link>
+        <NavSubWrapper>
+          <WhiteLink href="www.naver.com">카페인 스토리</WhiteLink>
+          <WhiteLink href="www.daum.ent">의견 보내기</WhiteLink>
+        </NavSubWrapper>
       </NavWrapper>
       <HomeWrapper>
         <HomeTitle>

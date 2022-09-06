@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   align-items: center;
 `
 
-const NavWrapper = styled.nav<{ main?: boolean }>`
+const NavWrapper = styled.div<{ main?: boolean }>`
   max-width: 1200px;
   /* padding: ${(props) => (props.main ? '' : `0 190px 0 24px`)}; */
   padding: 0 34px;
@@ -15,6 +15,11 @@ const NavWrapper = styled.nav<{ main?: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`
+
+const NavSubWrapper = styled.div`
+  display: flex;
+  gap: 8px;
 `
 
 const WhiteLink = styled.a`
@@ -40,4 +45,11 @@ const OrangeButton = styled.button`
   border-radius: ${(props) => props.theme.borderRadius.border12}px;
 `
 
-export { Wrapper, NavWrapper, WhiteLink, OrangeButtonWrapper, OrangeButton }
+export {
+  Wrapper,
+  NavWrapper,
+  WhiteLink,
+  OrangeButtonWrapper,
+  OrangeButton,
+  NavSubWrapper
+}
