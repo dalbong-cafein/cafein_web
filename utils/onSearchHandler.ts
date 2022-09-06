@@ -65,11 +65,8 @@ export const onHandleClearEvent = ({
 }
 
 export const onEnterPress = (
-  e: KeyboardEvent<HTMLInputElement> | MouseEvent<HTMLLIElement>,
   inputs: string,
   router: NextRouter,
-  map: naver.maps.Map | null,
-  markers: naver.maps.Marker[],
   setIsClicked: Dispatch<SetStateAction<boolean>>,
   storeId?: number
 ) => {
@@ -78,13 +75,7 @@ export const onEnterPress = (
   } else {
     router.push(`/maps/search/${inputs}`)
   }
-  // if (map) {
-  //   console.log('멥이 있다!!')
-  //   getMapCenterByInputs(map, inputs)
-  //   markers.forEach((marker) => {
-  //     marker.setMap(null)
-  //   })
-  // }
+
   setIsClicked(false)
 
   return

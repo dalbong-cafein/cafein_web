@@ -47,8 +47,6 @@ const Search = () => {
   const [nodeLists, setNodeLists] = useState<HTMLCollection>()
   let searchIdx = -1
   const inputRef = useRef<HTMLInputElement>(null)
-  const map = useAtomValue(mapAtom)
-  const markers = useAtomValue(mapMarkerList)
 
   useEffect(() => {
     setNodeLists(autoRef.current?.children as HTMLCollection)
@@ -84,16 +82,13 @@ const Search = () => {
       if (!inputs) return router.push('/maps')
       if (searchIdx !== -1) {
         return onEnterPress(
-          e,
           searchLists[searchIdx].storeName,
           router,
-          map,
-          markers,
           setIsClicked,
           searchLists[searchIdx].storeId
         )
       } else {
-        return onEnterPress(e, inputs, router, map, markers, setIsClicked)
+        return onEnterPress(inputs, router, setIsClicked)
       }
     }
     if (searchLists && nodeLists && nodeLists.length > 0) {
@@ -191,11 +186,8 @@ const Search = () => {
               onClick={(e) => {
                 {
                   onEnterPress(
-                    e,
                     searchList.storeName,
                     router,
-                    map,
-                    markers,
                     setIsClicked,
                     searchList.storeId
                   )
