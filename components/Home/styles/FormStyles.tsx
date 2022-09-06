@@ -83,6 +83,15 @@ export const SearchInput = styled.input<{ isMap: boolean }>`
 
   @media screen and (max-width: 900px) {
     width: min(90vw, 400px);
+    font-size: 15px;
+  }
+  @media screen and (max-width: 700px) {
+    width: min(90vw, 400px);
+    font-size: 14px;
+  }
+  @media screen and (max-width: 500px) {
+    width: min(90vw, 400px);
+    font-size: 13px;
   }
 `
 
@@ -96,6 +105,7 @@ export const ClearButton = styled.button<{ isInput: boolean }>`
   height: 24px;
   background-image: url('/images/clear_circle.svg');
   background-color: transparent;
+  background-repeat: no-repeat;
 `
 
 export const SearchButton = styled.button`

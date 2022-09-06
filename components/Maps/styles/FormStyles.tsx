@@ -52,6 +52,9 @@ export const HomeSearchLists = styled(SearchLists)<HomeSearchListsProps>`
     background-color: ${(props) => props.theme.colors.grey300};
     border-radius: 4px;
   }
+  @media screen and (max-width: 900px) {
+    width: min(90vw, 400px);
+  }
 `
 
 export const SearchListItemWrapper = styled.div`

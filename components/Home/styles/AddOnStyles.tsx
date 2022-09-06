@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const AddWrapper = styled.div`
   display: flex;
   margin-top: 100px;
-  /* height: 240px; */
   padding: 84px 140px;
   background-image: url('/images/Cafein.svg');
   background-repeat: no-repeat;
