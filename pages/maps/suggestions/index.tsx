@@ -38,7 +38,10 @@ const Suggestions: NextPageWithLayout = ({
   const [map, setMap] = useAtom(mapAtom)
   const [markers, setMarkers] = useAtom(mapMarkerList)
   const router = useRouter()
-  const { data: cafes } = useSWR<IStore[]>({ sggNm, type }, fetchSggIStores)
+  const url = `sggNm=${encodeURI(sggNm as string)}&type=${encodeURI(
+    type as string
+  )}`
+  const { data: cafes } = useSWR<IStore[]>(url, fetchSggIStores)
   const { storeId } = router.query
 
   useEffect(() => {

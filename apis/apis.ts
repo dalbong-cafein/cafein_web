@@ -8,22 +8,10 @@ export const fetchIStores = (location: string) => {
     })
 }
 
-export const fetchSggIStores = ({
-  sggNm,
-  type
-}: {
-  sggNm: string
-  type: string
-}) => {
-  return axios
-    .get(
-      `/api/web/stores/contents?sggNm=${encodeURI(
-        sggNm as string
-      )}&type=${encodeURI(type as string)}`
-    )
-    .then((res) => {
-      return res.data.data
-    })
+export const fetchSggIStores = (url: string) => {
+  return axios.get(`/api/web/stores/contents?${url}`).then((res) => {
+    return res.data.data
+  })
 }
 
 export const fetchCafeInfo = (url: string) => {
@@ -41,4 +29,13 @@ export const fetchCafeNears = (url: string) => {
   return axios.get(`/api/web/stores/${url}`).then((res) => {
     return res.data.data
   })
+}
+
+export const fetchIp = (url: string) => {
+  return axios
+    .get('https://api64.ipify.org?format=json')
+    .then((resp) => resp.data)
+    .catch((err) => {
+      return err
+    })
 }

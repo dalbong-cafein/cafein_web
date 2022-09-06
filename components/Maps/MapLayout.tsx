@@ -27,6 +27,7 @@ import Toast from '@components/common/Toast'
 import useSWR from 'swr'
 import getIpAddress from '@utils/getIpIddress'
 import axios from 'axios'
+import { fetchIp } from 'apis/apis'
 
 interface MapLayoutProps {
   children: JSX.Element
@@ -48,15 +49,15 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
 
   const [userLocation, setUserLocation] = useAtom(userLocationAtom)
 
-  const { data: ip } = useSWR('ip', getIpAddress)
+  const { data: ipResponse, error } = useSWR('ip', fetchIp)
 
   useEffect(() => {
-    if (ip && !userLocation) {
+    if (ipResponse && !userLocation) {
       const fetch = async () => {
         const location = await axios({
           url: '/api/getGeolocation',
           method: 'GET',
-          params: { ip }
+          params: { ip: ipResponse.ip }
         })
         setUserLocation(() => {
           return { latY: location.data.data.lat, lngX: location.data.data.long }
@@ -64,7 +65,7 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
       }
       fetch()
     }
-  }, [ip])
+  }, [ipResponse])
 
   useEffect(() => {
     if (userLocation && !map) {
