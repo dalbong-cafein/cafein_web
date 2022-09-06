@@ -2,13 +2,6 @@ import axios from 'axios'
 import { algo, enc } from 'crypto-js'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-const access_key = process.env.ACCESS_KEY as string
-const secret_key = process.env.SECRET_KEY as string
-const requestMethod = 'GET'
-const hostName = 'https://geolocation.apigw.ntruss.com'
-const requestUrl = '/geolocation/v2/geoLocation'
-const timeStamp = Math.floor(+new Date()).toString()
-
 const makeSignature = (
   secretKey: string,
   method: string,
@@ -34,6 +27,12 @@ const makeSignature = (
 type currType = 'ip' | 'responseFormatType' | 'ext'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const access_key = process.env.ACCESS_KEY as string
+  const secret_key = process.env.SECRET_KEY as string
+  const requestMethod = 'GET'
+  const hostName = 'https://geolocation.apigw.ntruss.com'
+  const requestUrl = '/geolocation/v2/geoLocation'
+  const timeStamp = Math.floor(+new Date()).toString()
   const { ip } = req.query
   console.log(ip, 'hello', req.query.ip, req.query)
   const sortedSet = { ip, responseFormatType: 'json', ext: 't' }
@@ -65,6 +64,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const response = await axios.get(`${hostName}${baseString}`, config)
+    console.log('??', timeStamp)
     return res.status(200).json({ data: response.data.geoLocation })
   } catch (err) {
     return res.status(500).json({ err })
