@@ -22,11 +22,17 @@ import {
   AddLink,
   AddLinkText,
   AddWrapper,
-  NavSubWrapper
+  NavSubWrapper,
+  MobileSearchButton
 } from '../components/Home/styles/styles'
+import { useRouter } from 'next/router'
 
 const Home: NextPage = () => {
   const [map, setMap] = useAtom(mapAtom)
+  const router = useRouter()
+  const mapHandler = () => {
+    router.push('/maps')
+  }
   useEffect(() => {
     setMap(null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,6 +61,9 @@ const Home: NextPage = () => {
           카페 추천 서비스 카페인
         </HomeTitle>
         <Search />
+        <MobileSearchButton onClick={mapHandler}>
+          지도에서 카페 찾기
+        </MobileSearchButton>
         <RecommendSection />
         <AddWrapper>
           <AddLink>

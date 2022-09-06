@@ -17,6 +17,9 @@ export const HomeTitle = styled.h1`
   font-weight: 700;
   height: 116px;
   text-align: center;
+  @media screen and (max-width: 400px) {
+    font-size: 25px;
+  }
 `
 
 export const SearchFormWrapper = styled.div<{ isMap: boolean }>`
@@ -77,6 +80,10 @@ export const SearchInput = styled.input<{ isMap: boolean }>`
       border-color: ${(props) => props.theme.colors.orange500};
     }
   }
+
+  @media screen and (max-width: 900px) {
+    width: min(90vw, 400px);
+  }
 `
 
 export const ClearButton = styled.button<{ isInput: boolean }>`
@@ -106,5 +113,13 @@ export const SearchButton = styled.button`
 
   @media screen and (max-width: 900px) {
     display: none;
+  }
+`
+
+export const MobileSearchButton = styled(SearchButton)`
+  display: none;
+  margin: 30px auto 0;
+  @media screen and (max-width: 900px) {
+    display: block;
   }
 `

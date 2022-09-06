@@ -2,6 +2,9 @@ import styled from 'styled-components'
 
 export const RecommendWrapper = styled.div`
   margin-top: 144px;
+  @media screen and (max-width: 900px) {
+    margin-top: 54px;
+  }
 `
 
 export const RecommendSubWrapper = styled.div`
