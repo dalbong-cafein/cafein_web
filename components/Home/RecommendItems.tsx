@@ -36,8 +36,7 @@ const RecommendItems = () => {
             <a>
               <Image
                 src={temp_img}
-                width={364}
-                height={240}
+                layout="fill"
                 alt="기본 이미지"
                 placeholder="blur"
               />

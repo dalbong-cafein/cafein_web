@@ -51,6 +51,9 @@ export const RecommendItemsWrapper = styled.ul`
   row-gap: 20px;
   column-gap: 20px;
   grid-template-columns: repeat(auto-fit, minmax(364px, 1fr));
+  @media screen and (max-width: 900px) {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
 `
 
 export const RecommendItem = styled.li`
@@ -73,6 +76,10 @@ export const RecommendItem = styled.li`
     background-color: rgba(0, 0, 0, 0.4);
     border-radius: 16px;
   }
+
+  @media screen and (max-width: 900px) {
+    height: 105px;
+  }
 `
 
 export const RecommendDesc = styled.p`
@@ -82,4 +89,10 @@ export const RecommendDesc = styled.p`
   font-weight: 500;
   font-size: ${(props) => props.theme.fontsizes.font22}rem;
   color: ${(props) => props.theme.colors.white};
+  @media screen and (max-width: 900px) {
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    font-size: 14px;
+  }
 `
