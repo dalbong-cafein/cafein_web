@@ -24,6 +24,14 @@ export const RecommendTitle = styled.p`
 export const RecommendLists = styled.ul`
   display: flex;
   gap: 8px;
+
+  @media screen and (max-width: 900px) {
+    width: calc(100vw - 1rem);
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    ${(props) => props.theme.mixins.scroll_x}
+  }
 `
 
 export const RecommendList = styled.li<{ isActive: boolean }>`
@@ -33,7 +41,7 @@ export const RecommendList = styled.li<{ isActive: boolean }>`
   font-weight: 600;
   font-size: ${(props) => props.theme.fontsizes.font15}rem;
   color: ${(props) => (!props.isActive ? props.theme.colors.grey500 : '')};
-
+  white-space: nowrap;
   &:hover {
     color: inherit;
     background: rgba(0, 0, 0, 0.04);
@@ -53,6 +61,11 @@ export const RecommendItemsWrapper = styled.ul`
   grid-template-columns: repeat(auto-fit, minmax(364px, 1fr));
   @media screen and (max-width: 900px) {
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    row-gap: 8px;
+    column-gap: 8px;
+  }
+  @media screen and (max-width: 360px) {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
 `
 
@@ -61,6 +74,7 @@ export const RecommendItem = styled.li`
   height: 240px;
   z-index: 1;
   border-radius: 16px;
+  scroll-snap-align: center;
 
   & img {
     z-index: -1;

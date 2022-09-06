@@ -4,6 +4,9 @@ export const HomeWrapper = styled.div`
   max-width: 1200px;
   width: 100%;
   padding: 100px 34px;
+  @media screen and (max-width: 900px) {
+    padding: 80px 16px;
+  }
 `
 
 export const HomeTitle = styled.h1`
@@ -99,5 +102,9 @@ export const SearchButton = styled.button`
   &:hover {
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
       ${(props) => props.theme.colors.orange400};
+  }
+
+  @media screen and (max-width: 900px) {
+    display: none;
   }
 `
