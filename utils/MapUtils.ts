@@ -13,19 +13,15 @@ const getMapCenterByInputs = (
       (status, response) => {
         if (status === naver.maps.Service.Status.ERROR) {
           if (!address) {
-            console.log(address, response)
             return rej(false)
           }
-          console.log(address, response)
           return rej(false)
         }
         if (response.v2.meta.totalCount === 0) {
-          console.log(address, response)
           return rej(false) // ➡️ 검색 결과가 없으니 Not Found 404 페이지로 ㄱㄱ
         }
         const item = response.v2.addresses[0]
         const point = new naver.maps.Point(Number(item.x), Number(item.y))
-        console.log(item, '위경도인가', map)
         map.setCenter(point)
         res(true)
       }

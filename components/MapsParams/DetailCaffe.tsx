@@ -57,7 +57,9 @@ const DetailCafe = ({ storeId }: DetailCafeProps) => {
 
   useEffect(() => {
     WrapperRef.current?.scrollTo(0, 0)
-    console.log(markers)
+    if (store) {
+      setCafeInfo(store)
+    }
   }, [store])
 
   const isSingle = false

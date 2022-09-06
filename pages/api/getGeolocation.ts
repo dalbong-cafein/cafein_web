@@ -34,7 +34,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const requestUrl = '/geolocation/v2/geoLocation'
   const timeStamp = Math.floor(+new Date()).toString()
   const { ip } = req.query
-  console.log(ip, 'hello', req.query.ip, req.query)
   const sortedSet = { ip, responseFormatType: 'json', ext: 't' }
 
   let queryString = Object.keys(sortedSet).reduce((prev, curr) => {
@@ -52,8 +51,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     access_key
   )
 
-  console.log(timeStamp, access_key, signature, '뭐가 문제야 세이 섬띵')
-
   const config = {
     headers: {
       'x-ncp-apigw-timestamp': timeStamp,
@@ -64,7 +61,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const response = await axios.get(`${hostName}${baseString}`, config)
-    console.log('??', timeStamp)
     return res.status(200).json({ data: response.data.geoLocation })
   } catch (err) {
     return res.status(500).json({ err })
