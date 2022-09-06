@@ -36,7 +36,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     setMap(null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [router])
 
   return (
     <Wrapper>

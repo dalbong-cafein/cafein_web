@@ -29,10 +29,20 @@ export const RecommendLists = styled.ul`
   gap: 8px;
 
   @media screen and (max-width: 900px) {
-    width: calc(100vw - 1rem);
+    position: relative;
+    width: calc(100vw - 2.5rem);
     overflow: hidden;
     -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
+    /* &::after {
+      position: fixed;
+      content: '';
+      display: block;
+      right: 0;
+      height: 35px;
+      width: 35px;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff 65%);
+    } */
     ${(props) => props.theme.mixins.scroll_x}
   }
 `
