@@ -4,6 +4,10 @@ export const Wrapper = styled.header`
   display: flex;
   flex-direction: column;
   padding: 23px 24px 0;
+
+  @media screen and (max-width: 900px) {
+    padding: 17px 16px 0;
+  }
 `
 
 export const FilterWrapper = styled.ul`

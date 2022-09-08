@@ -2,13 +2,19 @@ import styled from 'styled-components'
 
 const MainWrapper = styled.div`
   z-index: 2;
-  min-height: 100vh;
-  max-height: 100vh;
+  height: 100vh;
   width: 100%;
   background-color: ${(props) => props.theme.colors.white};
   max-width: 400px;
-  min-width: 375px;
+  min-width: 320px;
   filter: drop-shadow(8px 0px 20px rgba(0, 0, 0, 0.08));
+
+  @media screen and (max-width: 900px) {
+    max-width: 100vw;
+    @supports (-webkit-touch-callout: none) {
+      height: -webkit-fill-available;
+    }
+  }
 `
 
 const SubWrapper = styled(MainWrapper)<{ isDisplay: boolean }>`
@@ -24,9 +30,8 @@ const CafeList = styled.ul<{ isSuggestion?: boolean }>`
   display: flex;
   flex-direction: column;
   height: ${(props) =>
-    props.isSuggestion ? 'calc(100vh - 241.53px)' : 'calc(100vh - 185.03px)'};
+    props.isSuggestion ? 'calc(100vh - 241.53px)' : 'calc(100vh - 232.03px)'};
   overflow-y: auto;
-  padding-bottom: 52px;
 
   & li:not(:first-child)::after {
     content: '';

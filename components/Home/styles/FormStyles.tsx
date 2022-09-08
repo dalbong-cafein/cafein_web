@@ -29,6 +29,10 @@ export const SearchFormWrapper = styled.div<{ isMap: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media screen and (max-width: 900px) {
+    margin-top: 23px;
+  }
 `
 
 export const InputWrapper = styled.div`
