@@ -61,6 +61,11 @@ export default class MyDocument extends Document {
             strategy="beforeInteractive"
             src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NAVER_PUBLIC_KEY}&submodules=geocoder`}
           />
+
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+          />
         </Head>
         <body>
           <Main />
