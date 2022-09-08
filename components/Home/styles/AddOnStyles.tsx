@@ -13,6 +13,7 @@ export const AddWrapper = styled.div`
   @media screen and (max-width: 900px) {
     padding: 24px 28px;
     background-size: 263px 156px;
+    margin-top: 24px;
   }
   @media screen and (max-width: 495px) {
     padding: 24px 28px;

@@ -10,6 +10,9 @@ export const FooterWrapper = styled.footer<{ isHome: boolean }>`
   align-items: center;
   gap: 12px;
   padding: ${(props) => (props.isHome ? '' : '30px 49px')};
+  @media screen and (max-width: 900px) {
+    margin-top: 30px;
+  }
 `
 
 export const FooterQLists = styled.ul`

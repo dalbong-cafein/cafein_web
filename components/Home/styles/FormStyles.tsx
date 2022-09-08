@@ -5,7 +5,7 @@ export const HomeWrapper = styled.div`
   width: 100%;
   padding: 100px 34px;
   @media screen and (max-width: 900px) {
-    padding: 80px 16px;
+    padding: 80px 16px 44px;
   }
 `
 
