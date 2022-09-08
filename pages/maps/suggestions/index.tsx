@@ -64,7 +64,7 @@ const Suggestions: NextPageWithLayout = ({
       </Head>
       <MainWrapper>
         <HeaderSectionTemp sggNm={sggNm as string} type={type as ITypes} />
-        {!cafes ? (
+        {!cafes || !map ? (
           <Loading isSuggestion={true} />
         ) : cafes.length ? (
           <CafeList isSuggestion={true}>

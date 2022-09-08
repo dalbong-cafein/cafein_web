@@ -105,7 +105,7 @@ const SearchMap: NextPageWithLayout = ({
       <Head>
         <title>카페인 | {search}</title>
       </Head>
-      {!cafes ? (
+      {!cafes || !map ? (
         <Loading />
       ) : cafes.length ? (
         <>
