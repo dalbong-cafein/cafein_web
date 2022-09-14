@@ -158,6 +158,10 @@ const SendOpinion = styled.a`
   font-weight: 500;
   font-size: ${(props) => props.theme.fontsizes.font14}rem;
   color: ${(props) => props.theme.colors.grey700};
+
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
 `
 
 const TempWrapper = styled.div`

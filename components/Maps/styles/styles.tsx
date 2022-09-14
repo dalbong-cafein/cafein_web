@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
 const MainWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   z-index: 2;
   height: 100vh;
   width: 100%;
