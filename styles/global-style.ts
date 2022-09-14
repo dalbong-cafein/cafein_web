@@ -18,7 +18,14 @@ export const GlobalStyle = createGlobalStyle`
   h1,h2,h3,h4,h5,p,div {
     margin: 0
   }
-  a { cursor: pointer; text-decoration: none; color: inherit; }
+  a { 
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+   }
+  a:hover {
+    color: ${(props) => props.theme.colors.grey800};
+  }
   ol, ul {
     list-style: none;
     padding: 0;

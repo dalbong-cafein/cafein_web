@@ -16,6 +16,7 @@ export const HomeTitle = styled.h1`
   font-size: ${(props) => props.theme.fontsizes.font40}rem;
   font-weight: 700;
   height: 116px;
+  line-height: 1.4;
   text-align: center;
   @media screen and (max-width: 400px) {
     font-size: 25px;
@@ -44,7 +45,7 @@ export const SearchInput = styled.input<{ isMap: boolean }>`
   margin-bottom: 16px;
   width: ${(props) => (props.isMap ? '352px' : '400px')};
   height: ${(props) => (props.isMap ? '44px' : '64px')};
-  padding: 0 22px;
+  padding: 0 53px;
   background-color: ${(props) => props.theme.colors.white};
   border-radius: ${(props) => (props.isMap ? '12px' : '16px')};
   border: ${(props) => (props.isMap ? '1.2px' : '1px')} solid
@@ -53,7 +54,6 @@ export const SearchInput = styled.input<{ isMap: boolean }>`
   background-image: url('/images/search.svg');
   background-repeat: no-repeat;
   background-position: 22px center;
-  text-indent: 40px;
   font-size: ${(props) =>
     props.isMap
       ? `${props.theme.fontsizes.font15}rem`
@@ -119,6 +119,7 @@ export const SearchButton = styled.button`
   background-color: ${(props) => props.theme.colors.orange400};
   border-radius: 14px;
   color: ${(props) => props.theme.colors.white};
+  line-height: 1;
 
   &:hover {
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),

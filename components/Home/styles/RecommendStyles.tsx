@@ -56,13 +56,17 @@ export const RecommendList = styled.li<{ isActive: boolean }>`
   color: ${(props) => (!props.isActive ? props.theme.colors.grey500 : '')};
   white-space: nowrap;
   &:hover {
-    color: inherit;
-    background: rgba(0, 0, 0, 0.04);
+    background-color: ${(props) =>
+      props.isActive ? '' : 'rgba(0, 0, 0, 0.04)'};
   }
 
   & a {
     display: flex;
     padding: 9px 12px;
+    &:hover {
+      color: ${(props) =>
+        props.isActive ? 'initial' : props.theme.colors.grey500};
+    }
   }
 `
 
