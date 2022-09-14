@@ -17,7 +17,9 @@ import madeURL from 'utils/blurDataURL'
 
 const ImageSection = ({ store }: { store: CafeInfoInterface }) => {
   const setMore = useSetAtom(moreAtom)
-  const onMoreHandler = (e: MouseEvent<HTMLAnchorElement>) => {
+  const onMoreHandler = (
+    e: MouseEvent<HTMLAnchorElement> | MouseEvent<HTMLImageElement>
+  ) => {
     e.preventDefault()
     setMore(true)
   }
@@ -52,6 +54,7 @@ const ImageSection = ({ store }: { store: CafeInfoInterface }) => {
               height={284}
               placeholder="blur"
               blurDataURL={madeURL(392, 284)}
+              onClick={onMoreHandler}
             />
           </React.Fragment>
         )
