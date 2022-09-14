@@ -45,7 +45,7 @@ export const SearchInput = styled.input<{ isMap: boolean }>`
   margin-bottom: 16px;
   width: ${(props) => (props.isMap ? '352px' : '400px')};
   height: ${(props) => (props.isMap ? '44px' : '64px')};
-  padding: 0 42px 0 62px;
+  padding: ${(props) => (props.isMap ? '0 42px 0 44px' : '0 42px 0 62px')};
   background-color: ${(props) => props.theme.colors.white};
   border-radius: ${(props) => (props.isMap ? '12px' : '16px')};
   border: ${(props) => (props.isMap ? '1.2px' : '1px')} solid
@@ -53,7 +53,9 @@ export const SearchInput = styled.input<{ isMap: boolean }>`
   transition: border-color 0.3s, box-shadow 0.3s;
   background-image: url('/images/search.svg');
   background-repeat: no-repeat;
-  background-position: 22px center;
+  background-size: ${(props) => (props.isMap ? '24px 24px' : '')};
+  background-position: ${(props) =>
+    props.isMap ? '15px center' : '22px center'};
   font-size: ${(props) =>
     props.isMap
       ? `${props.theme.fontsizes.font15}rem`

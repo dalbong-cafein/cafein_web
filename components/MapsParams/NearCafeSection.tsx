@@ -148,7 +148,6 @@ const NearCafeSection = ({
                           ? '영업중'
                           : '영업종료'}
                       </OnAirBadge>
-                      <GreenLight>여유</GreenLight>
                     </CardTextWrapper>
                     <CardTextWrapper>
                       <CardEmojiWrapper>
@@ -164,10 +163,6 @@ const NearCafeSection = ({
                             ? Math.floor(nearCafe.recommendPercent) + '%'
                             : 0}
                         </NormalText>
-                      </CardEmojiWrapper>
-                      <CardEmojiWrapper>
-                        <Ic_heart />
-                        <NormalText>{nearCafe.heartCnt}</NormalText>
                       </CardEmojiWrapper>
                     </CardTextWrapper>
                   </CardDescWrapper>

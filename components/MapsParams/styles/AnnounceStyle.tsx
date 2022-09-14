@@ -23,6 +23,7 @@ export const AddLink2 = styled(AddLink)`
 export const AddLinkText2 = styled(AddLinkText)`
   font-size: ${(props) => props.theme.fontsizes.font16}rem;
   width: 133px;
+  line-height: 145%;
 `
 
 export const AddButton2 = styled(AddButton)`
@@ -32,5 +33,6 @@ export const AddButton2 = styled(AddButton)`
   width: 101px;
   height: 28px;
   font-size: ${(props) => props.theme.fontsizes.font14}rem;
+  font-weight: 500;
   align-self: flex-start;
 `

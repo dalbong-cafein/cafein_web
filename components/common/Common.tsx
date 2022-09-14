@@ -20,7 +20,7 @@ export const DimmedWrapper = styled.div<{ isAll?: boolean; isSearch: boolean }>`
   top: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.6);
-  z-index: ${(props) => (props.isSearch ? 4 : 9999)};
+  z-index: ${(props) => (props.isAll ? 102 : 101)};
   display: flex;
   justify-content: center;
   align-items: center;
