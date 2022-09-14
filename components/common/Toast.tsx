@@ -23,7 +23,7 @@ const ToastWrapper = styled.div<{ isToast: boolean }>`
   font-size: ${(props) => props.theme.fontsizes.font15}rem;
   color: white;
   padding: 16px 20px;
-  z-index: 1;
+  z-index: 999;
 
   ${(props) =>
     props.isToast

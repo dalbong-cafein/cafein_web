@@ -4,7 +4,7 @@ import React, { MouseEvent } from 'react'
 import { useSetAtom } from 'jotai'
 import { CafeInfoInterface, moreAtom } from 'store'
 
-import Ic_camera from '@public//ic_camera.svg'
+import Ic_camera from '@public/ic_camera.svg'
 
 import {
   ImageLink,

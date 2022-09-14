@@ -95,6 +95,9 @@ const StyleCopy = styled.div`
   display: flex;
   &:hover {
     cursor: pointer;
+    & svg path {
+      fill: ${(props) => props.theme.colors.grey600};
+    }
   }
 `
 

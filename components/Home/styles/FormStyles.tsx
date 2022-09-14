@@ -45,7 +45,7 @@ export const SearchInput = styled.input<{ isMap: boolean }>`
   margin-bottom: 16px;
   width: ${(props) => (props.isMap ? '352px' : '400px')};
   height: ${(props) => (props.isMap ? '44px' : '64px')};
-  padding: 0 53px;
+  padding: 0 42px 0 62px;
   background-color: ${(props) => props.theme.colors.white};
   border-radius: ${(props) => (props.isMap ? '12px' : '16px')};
   border: ${(props) => (props.isMap ? '1.2px' : '1px')} solid

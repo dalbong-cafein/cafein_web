@@ -143,8 +143,12 @@ const HeaderSectionTemp = ({
 
 const StyleCopy = styled.div`
   display: flex;
+  height: 14px;
   &:hover {
     cursor: pointer;
+    & svg path {
+      fill: ${(props) => props.theme.colors.grey600};
+    }
   }
 `
 
