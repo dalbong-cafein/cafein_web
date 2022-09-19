@@ -50,8 +50,20 @@ const Home: NextPage = () => {
           </a>
         </Link>
         <NavSubWrapper>
-          <WhiteLink href="www.naver.com">카페인 스토리</WhiteLink>
-          <WhiteLink href="www.daum.ent">의견 보내기</WhiteLink>
+          <WhiteLink
+            href="https://www.notion.so/cafeinofficial/f7c711c7a5d344dc94d0e9ab95c2e96a"
+            target="_blank"
+            rel="noreferrer"
+          >
+            카페인 스토리
+          </WhiteLink>
+          <WhiteLink
+            href="https://forms.gle/dCqeYDvt6ys4Yn7n7"
+            target="_blank"
+            rel="noreferrer"
+          >
+            의견 보내기
+          </WhiteLink>
         </NavSubWrapper>
       </NavWrapper>
       <HomeWrapper>
@@ -68,9 +80,13 @@ const Home: NextPage = () => {
         <AddWrapper>
           <AddLink>
             <AddLinkText>추천하고 싶은 카페가 있다면 알려주세요</AddLinkText>
-            <Link href="/">
+            <a
+              href="https://forms.gle/F4JChJGvWne3uDxe9"
+              target="_blank"
+              rel="noreferrer"
+            >
               <AddButton>카페 등록하기</AddButton>
-            </Link>
+            </a>
           </AddLink>
         </AddWrapper>
         <Footer isHome={true} />

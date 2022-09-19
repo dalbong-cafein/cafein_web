@@ -16,13 +16,31 @@ const Footer = ({ isHome }: IFooterProps) => {
     <FooterWrapper isHome={isHome}>
       <FooterQLists>
         <QItem>
-          <Link href="/">공지사항</Link>
+          <a
+            href="https://www.notion.so/cafeinofficial/64732875ac664fd9878b72d5c0b05a42"
+            target="_blank"
+            rel="noreferrer"
+          >
+            공지사항
+          </a>
         </QItem>
         <QItem>
-          <Link href="/">자주 묻는 질문</Link>
+          <a
+            href="https://www.notion.so/cafeinofficial/3947d079e88842f0a5bdb08924fdfccc"
+            target="_blank"
+            rel="noreferrer"
+          >
+            자주 묻는 질문
+          </a>
         </QItem>
         <QItem>
-          <Link href="/">이용약관</Link>
+          <a
+            href="https://www.notion.so/cafeinofficial/84d615bf6c654196853bbc3644968135"
+            target="_blank"
+            rel="noreferrer"
+          >
+            이용약관
+          </a>
         </QItem>
       </FooterQLists>
       <FooterQLists>
@@ -32,7 +50,13 @@ const Footer = ({ isHome }: IFooterProps) => {
           </Link>
         </QItem>
         <QItem>
-          <Link href="/">인스타그램</Link>
+          <a
+            href="https://www.instagram.com/cafein.kr"
+            target="_blank"
+            rel="noreferrer"
+          >
+            인스타그램
+          </a>
         </QItem>
       </FooterQLists>
       <CopyRight>COPYRIGHT © 2022 cafein ALL RIGHTS RESERVED.</CopyRight>
