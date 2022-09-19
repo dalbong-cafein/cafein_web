@@ -44,4 +44,9 @@ export const DimmedAlertBtn = styled.button`
   font-size: ${(props) => props.theme.fontsizes.font15}rem;
   font-weight: 500;
   color: white;
+
+  &:hover {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
+      #fc7521;
+  }
 `

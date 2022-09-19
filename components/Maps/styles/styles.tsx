@@ -9,7 +9,7 @@ const MainWrapper = styled.div`
   background-color: ${(props) => props.theme.colors.white};
   max-width: 400px;
   min-width: 320px;
-  filter: drop-shadow(8px 0px 20px rgba(0, 0, 0, 0.08));
+  /* filter: drop-shadow(8px 0px 20px rgba(0, 0, 0, 0.08)); */
 
   @media screen and (max-width: 900px) {
     max-width: 100vw;
@@ -25,6 +25,7 @@ const SubWrapper = styled(MainWrapper)<{ isDisplay: boolean }>`
   position: absolute;
   left: ${(props) => (props.isDisplay ? '400px' : '0')};
   transition: all 0.25s;
+  ${(props) => (props.isDisplay ? 'border-left: 1px solid #E3E3E3' : '')}
 `
 
 const CafeList = styled.ul<{ isSuggestion?: boolean }>`

@@ -11,6 +11,10 @@ export const ImageWrappers = styled.div`
   span:nth-child(1) {
     grid-row: 1 / 3;
   }
+
+  & img:hover {
+    cursor: pointer;
+  }
 `
 
 export const ImageWrappersLess = styled.div`

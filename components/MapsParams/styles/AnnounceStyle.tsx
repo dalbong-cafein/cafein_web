@@ -35,4 +35,5 @@ export const AddButton2 = styled(AddButton)`
   font-size: ${(props) => props.theme.fontsizes.font14}rem;
   font-weight: 500;
   align-self: flex-start;
+  line-height: 1;
 `
