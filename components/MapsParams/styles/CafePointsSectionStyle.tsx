@@ -10,6 +10,24 @@ export const WrapperTitle = styled(Description)`
   }
 `
 
+export const PointTitleWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+`
+
+export const PercentBadge = styled.p<{
+  backgroundColor: string
+  color: string
+}>`
+  padding: 3px 4px;
+  background-color: ${(props) => props.backgroundColor};
+  color: ${(props) => props.color};
+  font-weight: 500;
+  font-size: ${(props) => props.theme.fontsizes.font12}rem;
+  border-radius: 4px;
+`
+
 export const CafeInfoList = styled.div`
   display: flex;
   flex-direction: column;

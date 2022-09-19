@@ -75,6 +75,7 @@ const OnAirBadge = styled.span`
 const OpeningTime = styled.span`
   margin-left: 8px;
   font-size: ${(props) => props.theme.fontsizes.font13}rem;
+  font-weight: 400;
   color: ${(props) => props.theme.colors.grey800};
 `
 

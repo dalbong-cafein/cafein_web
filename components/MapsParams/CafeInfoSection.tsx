@@ -34,13 +34,9 @@ import { useSetAtom } from 'jotai'
 
 interface CafeInfoSectionProps {
   store: CafeInfoInterface
-  cafeReviewPercent: number | null
 }
 
-const CafeInfoSection = ({
-  store,
-  cafeReviewPercent
-}: CafeInfoSectionProps) => {
+const CafeInfoSection = ({ store }: CafeInfoSectionProps) => {
   const [isOpened, setIsOpened] = useToggle(false)
   const [isRunning, runningTime] = getIsRunning(store)
   const weekRunningTimes = getRunningTimes(store)
@@ -50,12 +46,12 @@ const CafeInfoSection = ({
     <CafeInfoWrapper isFirst={true}>
       <TitleWrapper>
         <HeaderTitle>{store.storeName}</HeaderTitle>
-        {cafeReviewPercent && (
+        {/* {cafeReviewPercent && (
           <DDabongWrapper>
             <Ic_like />
             <DDabongPoints>{Math.floor(cafeReviewPercent)}%</DDabongPoints>
           </DDabongWrapper>
-        )}
+        )} */}
       </TitleWrapper>
       <SubTitleWrapper>
         <SubTitle>{store.address.fullAddress}</SubTitle>

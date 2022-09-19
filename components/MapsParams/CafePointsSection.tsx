@@ -13,6 +13,8 @@ import {
   CafeInfoItemWrapper,
   CafeInfoList,
   CafeInfoWrapper,
+  PercentBadge,
+  PointTitleWrapper,
   WrapperTitle
 } from './styles/styles'
 import { getStars } from '@utils/CafePoint/getStars'
@@ -23,14 +25,37 @@ import {
   getTablePhrase
 } from '@utils/CafeInfo/getPhrases'
 
-const CafePointsSection = ({
-  reviewStore
-}: {
+interface ICafePoninProps {
   reviewStore: CafeRewviewPointInterface
-}) => {
+  cafeReviewPercent: number | null
+}
+
+const CafePointsSection = ({
+  reviewStore,
+  cafeReviewPercent
+}: ICafePoninProps) => {
   return (
     <CafeInfoWrapper>
-      <WrapperTitle>카공 정보</WrapperTitle>
+      <PointTitleWrapper>
+        <WrapperTitle>카공 정보</WrapperTitle>
+        {cafeReviewPercent ? (
+          cafeReviewPercent < 37.5 ? (
+            <PercentBadge color="#515151" backgroundColor="#EFEFEF">
+              아쉬워요
+            </PercentBadge>
+          ) : cafeReviewPercent < 75.1 ? (
+            <PercentBadge color="#FF9800" backgroundColor="#FFF3E0">
+              무난해요
+            </PercentBadge>
+          ) : (
+            <PercentBadge color="#26ba6a" backgroundColor="#dff5e8">
+              추천해요
+            </PercentBadge>
+          )
+        ) : (
+          ''
+        )}
+      </PointTitleWrapper>
       <CafeInfoList>
         <CafeInfoItemWrapper>
           <Ic_plug />

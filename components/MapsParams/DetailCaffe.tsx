@@ -78,12 +78,12 @@ const DetailCafe = ({ storeId }: DetailCafeProps) => {
               ''
             )}
 
-            <CafeInfoSection
-              store={store}
+            <CafeInfoSection store={store} />
+
+            <CafePointsSection
+              reviewStore={reviewStore}
               cafeReviewPercent={cafeReviewPercent}
             />
-
-            <CafePointsSection reviewStore={reviewStore} />
 
             <RecommendSection
               store={store}

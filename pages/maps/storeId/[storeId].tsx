@@ -9,7 +9,7 @@ import {
 } from 'next'
 import { ParsedUrlQuery } from 'querystring'
 
-import { cafeInfoAtom, IStore, mapMarkerList } from 'store'
+import { cafeInfoAtom, IStore, mapMarkerList, searchInputAtom } from 'store'
 
 import CafeInfoSection from '@components/MapsParams/CafeInfoSection'
 import ImageSection from '@components/MapsParams/ImageSection'
@@ -41,6 +41,7 @@ const DetailStorePage: NextPageWithLayout = ({
   const WrapperRef = useRef<HTMLDivElement>(null)
   const markers = useAtomValue(mapMarkerList)
   const setCafeInfo = useSetAtom(cafeInfoAtom)
+  const setSearchInput = useSetAtom(searchInputAtom)
 
   useEffect(() => {
     WrapperRef.current?.scrollTo(0, 0)
@@ -48,6 +49,7 @@ const DetailStorePage: NextPageWithLayout = ({
       marker.setMap(null)
     })
     setCafeInfo(store)
+    setSearchInput(store.storeName)
   }, [store])
 
   const isSingle = true

@@ -45,6 +45,7 @@ export const HomeSearchLists = styled(SearchLists)<HomeSearchListsProps>`
   top: ${(props) => (props.isMap ? '34px' : '64px')};
   margin-top: ${(props) => (props.isMap ? '14px' : '4px')};
   overflow-x: hidden;
+  z-index: 3;
   &::-webkit-scrollbar {
     width: 6px;
   }

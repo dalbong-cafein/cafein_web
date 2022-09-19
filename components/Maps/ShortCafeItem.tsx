@@ -3,8 +3,6 @@ import { NextRouter } from 'next/router'
 
 import { IStore } from 'store'
 
-import Ic_like from '@public/ddabong.svg'
-
 import {
   handleMouseOut,
   handleMouseOver
@@ -19,6 +17,8 @@ import {
   OpeningTime
 } from './styles/ShortCafeStyles'
 import getHours from '@utils/CafeInfo/getHours'
+import styled from 'styled-components'
+import { Ic_Like } from '@components/common/styles/CommonStyles'
 
 interface IShortCafeItem {
   cafe: IStore
@@ -60,7 +60,22 @@ const ShortCafeItem = ({ cafe, storeId, router }: IShortCafeItem) => {
           </OnAirWrapper>
           {cafe.recommendPercent ? (
             <DdabongWrap>
-              <Ic_like /> {Math.floor(cafe.recommendPercent) + '%'}
+              {cafe.recommendPercent < 37.5 ? (
+                <>
+                  <Ic_Like color={'#646464'} />
+                  <p style={{ color: '#646464' }}>아쉬워요</p>
+                </>
+              ) : cafe.recommendPercent < 75 ? (
+                <>
+                  <Ic_Like color={'#ff9800'} />
+                  <p style={{ color: '#ff9800' }}>무난해요</p>
+                </>
+              ) : (
+                <>
+                  <Ic_Like color={'#26ba6a'} />
+                  <p style={{ color: '#26ba6a' }}>추천해요</p>
+                </>
+              )}
             </DdabongWrap>
           ) : (
             ''
