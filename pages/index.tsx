@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import { useAtom, useSetAtom } from 'jotai'
 
-import { mapAtom } from 'store'
+import { mapAtom, searchInputAtom } from 'store'
 
 import RecommendSection from '@components/Home/RecommendSection'
 import Search from '@components/Home/Search'
@@ -29,12 +29,14 @@ import { useRouter } from 'next/router'
 
 const Home: NextPage = () => {
   const [map, setMap] = useAtom(mapAtom)
+  const setInput = useSetAtom(searchInputAtom)
   const router = useRouter()
   const mapHandler = () => {
     router.push('/maps')
   }
   useEffect(() => {
     setMap(null)
+    setInput('')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router])
 
