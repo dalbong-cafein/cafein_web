@@ -3,6 +3,12 @@ import { normalize } from 'styled-normalize'
 
 export const GlobalStyle = createGlobalStyle`
   ${normalize}
+  @font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
   html {
     font-family: 'Pretendard';
     box-sizing: border-box;
@@ -22,6 +28,7 @@ export const GlobalStyle = createGlobalStyle`
     cursor: pointer;
     text-decoration: none;
     color: inherit;
+    transition: 0.3s;
    }
   a:hover {
     color: ${(props) => props.theme.colors.grey800};
@@ -34,6 +41,7 @@ export const GlobalStyle = createGlobalStyle`
   button {
     border: none;
     cursor: pointer;
+    transition: 0.3s;
   }
   input, div, nav, ul, ol, li {
     box-sizing: border-box;

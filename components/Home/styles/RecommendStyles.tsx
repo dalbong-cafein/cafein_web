@@ -21,10 +21,11 @@ export const RecommendHeadWrapper = styled.div`
 
 export const RecommendTitle = styled.p`
   font-size: ${(props) => props.theme.fontsizes.font24}rem;
-  font-weight: 700;
+  font-weight: 600;
 `
 
 export const RecommendLists = styled.ul`
+  font-family: 'GmarketSansMedium';
   display: flex;
   gap: 8px;
 
@@ -51,7 +52,7 @@ export const RecommendList = styled.li<{ isActive: boolean }>`
   background-color: ${(props) =>
     props.isActive ? props.theme.colors.grey200 : ''};
   border-radius: 28px;
-  font-weight: 600;
+  font-weight: ${(props) => (props.isActive ? '600' : '500')};
   font-size: ${(props) => props.theme.fontsizes.font15}rem;
   color: ${(props) => (!props.isActive ? props.theme.colors.grey500 : '')};
   white-space: nowrap;
