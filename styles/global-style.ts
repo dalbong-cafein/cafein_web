@@ -50,13 +50,14 @@ export const GlobalStyle = createGlobalStyle`
     white-space: nowrap;
     position: relative;
     display: flex;
-    padding: 12px 16px;
+    padding: 11px 16px 12px;
     background-color: white;
     border-radius: 99px;
     border: 1.2px solid ${(props) => props.theme.colors.orange400};
     font-weight: 600;
     font-size: 15px;
     height: 40px;
+    transform: translateX(-50%) translateY(-50%);
   }
   .marker::before {
     position: absolute;
