@@ -62,9 +62,12 @@ const DetailStorePage: NextPageWithLayout = ({
       <CafeWrapper ref={WrapperRef} isSingle={isSingle}>
         {store.storeImageList.length > 0 ? <ImageSection store={store} /> : ''}
 
-        <CafeInfoSection store={store} cafeReviewPercent={cafeReviewPercent} />
+        <CafeInfoSection store={store} />
 
-        <CafePointsSection reviewStore={reviewStore} />
+        <CafePointsSection
+          reviewStore={reviewStore}
+          cafeReviewPercent={cafeReviewPercent}
+        />
 
         <RecommendSection
           store={store}

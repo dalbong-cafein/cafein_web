@@ -10,14 +10,21 @@ import {
   RecommendTitle,
   RecommendWrapper
 } from './styles/RecommendStyles'
+import { RefObject, useEffect, useRef } from 'react'
 
 const RecommendSection = () => {
   const router = useRouter()
+  const recoRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (router.query.recommend) {
+      recoRef.current?.scrollIntoView()
+    }
+  }, [router])
   const mapHandler = () => {
     router.push('/maps')
   }
   return (
-    <RecommendWrapper>
+    <RecommendWrapper ref={recoRef}>
       <RecommendSubWrapper>
         <RecommendHeadWrapper>
           <RecommendTitle>지역별 카페 추천</RecommendTitle>

@@ -126,7 +126,7 @@ const HeaderSectionTemp = ({
       <Link
         href={{
           pathname: '/',
-          query: { sggNm }
+          query: { sggNm, recommend: true }
         }}
       >
         <HomeButton>&apos;{sggNm}&apos;추천 카페 모두 보기</HomeButton>
