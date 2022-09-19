@@ -200,6 +200,7 @@ const Title = styled.h1`
   color: ${(props) => props.theme.colors.grey900};
   white-space: pre-wrap;
   word-break: keep-all;
+  line-height: 1.4;
 `
 
 Suggestions.getLayout = function getLayout(page: ReactElement) {
