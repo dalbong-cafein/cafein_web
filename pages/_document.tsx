@@ -56,6 +56,7 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             type="text/css"
           />
+          <link rel="icon" href="/images/favicon.svg"></link>
 
           <Script
             strategy="beforeInteractive"
