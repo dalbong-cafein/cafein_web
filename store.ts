@@ -113,6 +113,13 @@ export interface INearCafe {
   storeName: string
 }
 
+export interface IDimmed {
+  title: string
+  body: string
+  type: 'confirm' | 'alert'
+  callback?: () => void
+}
+
 export const cafeInfoAtom = atom<CafeInfoInterface | null>(null)
 
 // export const isRunningAtom = atom<isRunningInterface>((get) => {
@@ -184,7 +191,7 @@ export const searchedAtom = atom<IStore[] | null>(null)
 export const mapAtom = atom<naver.maps.Map | null>(null)
 export const mapMarkerList = atom<naver.maps.Marker[]>([])
 
-export const isDimmedAtom = atom<boolean>(false)
+export const isDimmedAtom = atom<IDimmed | null>(null)
 export const moreAtom = atom<boolean>(false)
 export const toastAtom = atom<boolean>(false)
 export const sortModeAtom = atom<0 | 1 | 2 | 3>(0)

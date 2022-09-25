@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 import axios from 'axios'
 
-import { CafeInfoInterface } from 'store'
+import { CafeInfoInterface, IDimmed, isDimmedAtom } from 'store'
 import Ic_badOn from '@public/bad_on.svg'
 import Ic_bad from '@public/bad.svg'
 import Ic_sosoOn from '@public/soso_on.svg'
@@ -23,6 +23,7 @@ import {
 } from './styles/styles'
 import { useRouter } from 'next/router'
 import { useSWRConfig } from 'swr'
+import { useSetAtom } from 'jotai'
 
 const RecommendSection = ({
   store,
@@ -35,6 +36,7 @@ const RecommendSection = ({
   const [isHovering_1, setIsHovering_1] = useState(false)
   const [isHovering_2, setIsHovering_2] = useState(false)
   const [isHovering_3, setIsHovering_3] = useState(false)
+  const setIsDimmed = useSetAtom(isDimmedAtom)
   const router = useRouter()
   const { search } = router.query
   const { mutate } = useSWRConfig()
@@ -68,20 +70,36 @@ const RecommendSection = ({
   }
 
   const recommendOnClickHandler = async (
-    recommendation: string,
+    recommendation: 'BAD' | 'NORMAL' | 'GOOD',
     storeId: number
   ) => {
-    try {
-      axios
-        .post(`/api/web/recommendations`, {
-          recommendation,
-          storeId
-        })
-        .then(() => getRecommendation())
-    } catch (error) {
-      console.error(
-        `카페 추천 데이터 등록 에러 : ${error} of "${recommendation}"`
-      )
+    const dimmed_obj: IDimmed = isOnButton
+      ? {
+          title: `이미 리뷰를 등록하셨군요!`,
+          body: `내일 다시 등록해주세요`,
+          type: 'alert'
+        }
+      : {
+          title: `리뷰를 등록하시겠습니까?`,
+          body: `${store.storeName}에 대한 리뷰는\n하루에 한 번만 등록할 수 있습니다.`,
+          type: 'confirm',
+          callback: postRecommend
+        }
+    setIsDimmed(dimmed_obj)
+
+    function postRecommend() {
+      try {
+        axios
+          .post(`/api/web/recommendations`, {
+            recommendation,
+            storeId
+          })
+          .then(() => getRecommendation())
+      } catch (error) {
+        console.error(
+          `카페 추천 데이터 등록 에러 : ${error} of "${recommendation}"`
+        )
+      }
     }
   }
 

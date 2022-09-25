@@ -38,7 +38,7 @@ interface MapLayoutProps {
 
 const MapLayout = ({ children, store }: MapLayoutProps) => {
   const router = useRouter()
-  const [isDimmed, setIsDimmed] = useAtom(isDimmedAtom)
+  const isDimmed = useAtomValue(isDimmedAtom)
   const [map, setMap] = useAtom(mapAtom)
   const [markers, setMarkers] = useAtom(mapMarkerList)
   const [inputs, setInputs] = useAtom(searchInputAtom)
@@ -107,7 +107,7 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
       <Head>
         <title>카페인 | 지도</title>
       </Head>
-      {isDimmed ? <DimmedAlert setIsDimmed={setIsDimmed} /> : ''}
+      {isDimmed ? <DimmedAlert /> : ''}
       <MapWrapper>
         <MainWrapper>
           {isToasted ? <Toast /> : ''}

@@ -3,13 +3,18 @@ import { CafeInfoWrapper } from './styles/CafeInfoSectionStyle'
 import { WrapperTitle } from './styles/CafePointsSectionStyle'
 
 import Ic_down_arrow from '@public/down_arrow.svg'
-import { isDimmedAtom } from 'store'
+import { IDimmed, isDimmedAtom } from 'store'
 import { useSetAtom } from 'jotai'
 
 const CongestionSection = () => {
   const setIsDimmed = useSetAtom(isDimmedAtom)
   const notYet = () => {
-    setIsDimmed(true)
+    const dimmed_obj: IDimmed = {
+      title: '준비중인 기능입니다',
+      body: '빠른 시일 내에 이용하실 수 있도록\n열심히 노력할게요',
+      type: 'alert'
+    }
+    setIsDimmed(dimmed_obj)
   }
   return (
     <CafeInfoWrapper>

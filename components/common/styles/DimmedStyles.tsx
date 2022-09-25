@@ -31,16 +31,24 @@ export const DimmedAlertSubTitle = styled.p`
   font-size: ${(props) => props.theme.fontsizes.font14}rem;
   color: ${(props) => props.theme.colors.grey600};
   text-align: center;
+  white-space: pre-wrap;
 `
 
-export const DimmedAlertBtn = styled.button`
+export const DimmedBtnWrapper = styled.div`
+  display: flex;
+  gap: 8px;
+  width: 100%;
+`
+
+export const DimmedAlertBtn = styled.button<{ isCancel?: boolean }>`
   display: flex;
   width: 100%;
   align-items: center;
   justify-content: center;
   height: 44px;
   border-radius: 12px;
-  background-color: ${(props) => props.theme.colors.orange400};
+  background-color: ${(props) =>
+    props.isCancel ? props.theme.colors.grey400 : props.theme.colors.orange400};
   font-size: ${(props) => props.theme.fontsizes.font15}rem;
   font-weight: 500;
   color: white;

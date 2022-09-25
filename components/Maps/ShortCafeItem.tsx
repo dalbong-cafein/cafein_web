@@ -49,7 +49,9 @@ const ShortCafeItem = ({ cafe, storeId, router }: IShortCafeItem) => {
           <ShortCafeItemTitle>{cafe.storeName}</ShortCafeItemTitle>
           <ShortCafeItemLocation>{cafe.fullAddress}</ShortCafeItemLocation>
           <OnAirWrapper>
-            <OnAirBadge>
+            <OnAirBadge
+              isOpen={cafe.businessHoursInfoDto.isOpen ? true : false}
+            >
               {cafe.businessHoursInfoDto.isOpen ? '영업중' : '영업종료'}
             </OnAirBadge>
             <OpeningTime>

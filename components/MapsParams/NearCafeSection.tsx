@@ -2,14 +2,14 @@ import { OnAirBadge } from '@components/Maps/styles/ShortCafeStyles'
 import Image from 'next/image'
 import styled from 'styled-components'
 import { CafeInfoWrapper } from './styles/CafeInfoSectionStyle'
-import { WrapperTitle } from './styles/CafePointsSectionStyle'
+import { PercentBadge, WrapperTitle } from './styles/CafePointsSectionStyle'
 
 import Ic_navigation from '@public/navigation.svg'
 import Ic_heart from '@public/heart.svg'
 import Ic_like from '@public/ddabong.svg'
 import Ic_left_arrow_off from '@public/left_arrow_off.svg'
 import Ic_right_arrow_off from '@public/right_arrow_off.svg'
-import temp_img from '@public/temp_img.png'
+import temp_img from '@public/no_img.png'
 import { CafeInfoInterface, INearCafe } from 'store'
 import madeURL from '@utils/blurDataURL'
 import Link from 'next/link'
@@ -143,25 +143,49 @@ const NearCafeSection = ({
                   <CardDescWrapper>
                     <CardTitle>{nearCafe.storeName}</CardTitle>
                     <CardTextWrapper>
-                      <OnAirBadge>
+                      <OnAirBadge
+                        isOpen={
+                          nearCafe.businessHoursInfoDto.isOpen ? true : false
+                        }
+                      >
                         {nearCafe.businessHoursInfoDto.isOpen
                           ? '영업중'
                           : '영업종료'}
                       </OnAirBadge>
+                      {nearCafe.recommendPercent ? (
+                        nearCafe.recommendPercent < 37.5 ? (
+                          <PercentBadge
+                            color="#515151"
+                            backgroundColor="#EFEFEF"
+                          >
+                            아쉬움
+                          </PercentBadge>
+                        ) : nearCafe.recommendPercent < 75.1 ? (
+                          <PercentBadge
+                            color="#FF9800"
+                            backgroundColor="#FFF3E0"
+                          >
+                            무난
+                          </PercentBadge>
+                        ) : (
+                          <PercentBadge
+                            color="#26ba6a"
+                            backgroundColor="#dff5e8"
+                          >
+                            추천
+                          </PercentBadge>
+                        )
+                      ) : (
+                        <PercentBadge color="#FF9800" backgroundColor="#FFF3E0">
+                          무난
+                        </PercentBadge>
+                      )}
                     </CardTextWrapper>
                     <CardTextWrapper>
                       <CardEmojiWrapper>
                         <Ic_navigation />
                         <NormalText>
                           {Math.floor(nearCafe.distance)}m
-                        </NormalText>
-                      </CardEmojiWrapper>
-                      <CardEmojiWrapper>
-                        <Ic_like />
-                        <NormalText>
-                          {nearCafe.recommendPercent
-                            ? Math.floor(nearCafe.recommendPercent) + '%'
-                            : 0}
                         </NormalText>
                       </CardEmojiWrapper>
                     </CardTextWrapper>

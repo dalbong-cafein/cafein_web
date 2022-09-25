@@ -63,12 +63,14 @@ const OnAirWrapper = styled.div`
   margin-top: 5px;
 `
 
-const OnAirBadge = styled.span`
+const OnAirBadge = styled.span<{ isOpen: boolean }>`
   font-size: ${(props) => props.theme.fontsizes.font11}rem;
-  color: ${(props) => props.theme.colors.orange500};
+  color: ${(props) =>
+    props.isOpen ? props.theme.colors.orange500 : props.theme.colors.grey500};
   font-weight: 400;
   border-radius: ${(props) => props.theme.borderRadius.border4}px;
-  border: 0.8px solid ${(props) => props.theme.colors.orange500};
+  border: 0.8px solid
+    ${(props) => (props.isOpen ? props.theme.colors.orange500 : '#d1d1d1')};
   padding: 3px 4px;
 `
 

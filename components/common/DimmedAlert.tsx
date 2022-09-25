@@ -1,4 +1,5 @@
-import { SetStateAction } from 'react'
+import { useAtom } from 'jotai'
+import { IDimmed, isDimmedAtom } from 'store'
 import { DimmedWrapper } from './Common'
 
 import {
@@ -6,32 +7,40 @@ import {
   DimmedAlertHeader,
   DimmedAlertSubTitle,
   DimmedAlertTitle,
-  DimmedAlertWrapper
+  DimmedAlertWrapper,
+  DimmedBtnWrapper
 } from './styles/styles'
 
-interface IDimmedAlert {
-  setIsDimmed: (update: SetStateAction<boolean>) => void
-}
-
-const DimmedAlert = ({ setIsDimmed }: IDimmedAlert) => {
+const DimmedAlert = () => {
+  const [isDimmed, setIsDimmed] = useAtom(isDimmedAtom)
+  const { title, body, type, callback } = isDimmed as IDimmed
+  const onClickHandler = () => {
+    setIsDimmed(null)
+    callback && callback()
+  }
   return (
     <DimmedWrapper
       isSearch={false}
       isAll={true}
       onClick={(e) => {
-        if (e.currentTarget === e.target) setIsDimmed(false)
+        if (e.currentTarget === e.target) onClickHandler()
       }}
     >
       <DimmedAlertWrapper>
         <DimmedAlertHeader>
-          <DimmedAlertTitle>준비중인 기능입니다</DimmedAlertTitle>
-          <DimmedAlertSubTitle>
-            빠른 시일 내에 이용하실 수 있도록
-            <br />
-            열심히 노력할게요
-          </DimmedAlertSubTitle>
+          <DimmedAlertTitle>{title}</DimmedAlertTitle>
+          <DimmedAlertSubTitle>{body}</DimmedAlertSubTitle>
         </DimmedAlertHeader>
-        <DimmedAlertBtn onClick={() => setIsDimmed(false)}>확인</DimmedAlertBtn>
+        <DimmedBtnWrapper>
+          <DimmedAlertBtn onClick={onClickHandler}>확인</DimmedAlertBtn>
+          {type === 'confirm' ? (
+            <DimmedAlertBtn isCancel={true} onClick={() => setIsDimmed(null)}>
+              취소
+            </DimmedAlertBtn>
+          ) : (
+            ''
+          )}
+        </DimmedBtnWrapper>
       </DimmedAlertWrapper>
     </DimmedWrapper>
   )
