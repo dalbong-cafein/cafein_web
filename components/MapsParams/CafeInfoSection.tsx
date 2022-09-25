@@ -73,16 +73,27 @@ const CafeInfoSection = ({ store }: CafeInfoSectionProps) => {
         </DescWrapper>
       </OpenInfoWrapper>
       {isOpened ? GetRunningTimes(weekRunningTimes, isRunning) : ''}
-      <OpenInfoWrapper>
-        <Ic_call />
-        <CallDescription href={`tel:010`}>
-          02-123-456 전화번호가 없음
-        </CallDescription>
-      </OpenInfoWrapper>
-      <OpenInfoWrapper>
-        <Ic_url />
-        <URLDescription href={`/`}>http;eiofjoasjfj</URLDescription>
-      </OpenInfoWrapper>
+      {store.phone ? (
+        <OpenInfoWrapper>
+          <Ic_call />
+          <CallDescription href={`tel:${store.phone}`}>
+            {store.phone}
+          </CallDescription>
+        </OpenInfoWrapper>
+      ) : (
+        ''
+      )}
+
+      {store.website ? (
+        <OpenInfoWrapper>
+          <Ic_url />
+          <URLDescription href={store.website} target="_blank">
+            {store.website}
+          </URLDescription>
+        </OpenInfoWrapper>
+      ) : (
+        ''
+      )}
     </CafeInfoWrapper>
   )
 }

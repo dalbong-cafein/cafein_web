@@ -23,7 +23,7 @@ const DimmedAlert = () => {
       isSearch={false}
       isAll={true}
       onClick={(e) => {
-        if (e.currentTarget === e.target) onClickHandler()
+        if (e.currentTarget === e.target) setIsDimmed(null)
       }}
     >
       <DimmedAlertWrapper>

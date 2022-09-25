@@ -75,7 +75,7 @@ const RecommendSection = ({
   ) => {
     const dimmed_obj: IDimmed = isOnButton
       ? {
-          title: `이미 리뷰를 등록하셨군요!`,
+          title: `이런! 이미 리뷰를 등록하셨군요!`,
           body: `내일 다시 등록해주세요`,
           type: 'alert'
         }

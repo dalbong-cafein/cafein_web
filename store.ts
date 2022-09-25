@@ -62,6 +62,8 @@ export interface CafeInfoInterface {
   reviewImageList: ImageListInterface[]
   storeImageList: ImageListInterface[]
   marker: naver.maps.Marker | null
+  website: string
+  phone: string
 }
 
 export interface CafeRewviewPointInterface {
