@@ -25,5 +25,4 @@ export const DimmedWrapper = styled.div<{ isAll?: boolean; isSearch: boolean }>`
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  min-width: 710px;
 `

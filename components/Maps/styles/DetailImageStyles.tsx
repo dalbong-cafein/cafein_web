@@ -29,7 +29,7 @@ export const ImageLists = styled.ul`
   left: 50%;
   transform: translateX(-50%);
   width: 700px;
-  bottom: 78px;
+  top: 646px;
 `
 
 export const ArrowBtn = styled.div`
@@ -64,7 +64,7 @@ export const ImageWrapper = styled.div<{ isActive: boolean }>`
 
 export const NumOfCount = styled.div`
   position: absolute;
-  bottom: 36px;
+  top: 770px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
