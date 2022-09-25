@@ -19,8 +19,7 @@ const RecommendItems = () => {
     { title: '눈치보지 않고 작업할 수 있는 카페', engType: 'noNoonChi' },
     { title: '팀플하기 좋은 카페', engType: 'teamPlay' },
     { title: '혼자 공부하기 좋은 카페', engType: 'alone' },
-    { title: '조용히 공부하기 좋은 카페', engType: 'quiet' },
-    { title: '카페인 팀원 ENFJ가 추천하는 카페', engType: 'enfj' },
+    { title: '카페인 팀원(MBTI)이 추천하는 카페', engType: 'cafein' },
     { title: '아침부터 작업하기 좋은 카페', engType: 'morning' }
   ]
   return (

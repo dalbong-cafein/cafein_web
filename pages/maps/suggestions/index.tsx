@@ -90,8 +90,7 @@ type ITypes =
   | 'teamPlay'
   | 'noNoonChi'
   | 'alone'
-  | 'quiet'
-  | 'enfj'
+  | 'cafein'
   | 'morning'
 
 const HeaderSectionTemp = ({
@@ -106,8 +105,7 @@ const HeaderSectionTemp = ({
     teamPlay: '팀플하기 좋은 카페',
     noNoonChi: '눈치보지 않고\n작업할 수 있는 카페',
     alone: '혼자\n공부하기 좋은 카페',
-    quiet: '조용히\n공부하기 좋은 카페',
-    enfj: '카페인 팀원\nENFJ가 추천하는 카페',
+    cafein: '카페인 팀원(MBTI)이\n추천하는 카페',
     morning: '아침부터\n작업하기 좋은 카페'
   }
   const setIsToast = useSetAtom(toastAtom)
