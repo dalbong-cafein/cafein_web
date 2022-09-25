@@ -60,7 +60,7 @@ const CafeListPagination = styled.div<{ isDisplay?: boolean }>`
   display: flex;
   gap: 10px;
   justify-content: center;
-  position: fixed;
+  /* position: fixed; */
   left: 0;
   right: 0;
   bottom: 0;
