@@ -21,6 +21,8 @@ import {
   WordsWrapperText,
   WrapperTitle
 } from './styles/styles'
+import { useRouter } from 'next/router'
+import { useSWRConfig } from 'swr'
 
 const RecommendSection = ({
   store,
@@ -33,6 +35,9 @@ const RecommendSection = ({
   const [isHovering_1, setIsHovering_1] = useState(false)
   const [isHovering_2, setIsHovering_2] = useState(false)
   const [isHovering_3, setIsHovering_3] = useState(false)
+  const router = useRouter()
+  const { search } = router.query
+  const { mutate } = useSWRConfig()
 
   useEffect(() => {
     getRecommendation()
@@ -47,6 +52,7 @@ const RecommendSection = ({
       const { data } = response.data
       const { recommendPercentOfStore, recommendation } = data
       setCafeReviewPercent(recommendPercentOfStore)
+      mutate(search)
       if (recommendation === 'BAD') {
         setIsOnButton(1)
       } else if (recommendation === 'NORMAL') {

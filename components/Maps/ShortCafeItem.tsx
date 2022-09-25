@@ -65,7 +65,7 @@ const ShortCafeItem = ({ cafe, storeId, router }: IShortCafeItem) => {
                   <Ic_Like color={'#646464'} />
                   <p style={{ color: '#646464' }}>아쉬워요</p>
                 </>
-              ) : cafe.recommendPercent < 75 ? (
+              ) : cafe.recommendPercent < 75.1 ? (
                 <>
                   <Ic_Like color={'#ff9800'} />
                   <p style={{ color: '#ff9800' }}>무난해요</p>
