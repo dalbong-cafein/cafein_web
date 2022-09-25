@@ -30,11 +30,11 @@ export const SearchList = styled.li`
   z-index: 3;
 
   &.active {
-    background-color: #edf5f5;
+    background-color: #fff8ed;
   }
 
   &:hover {
-    background-color: #edf5f5;
+    background-color: #fff8ed;
     cursor: pointer;
   }
 `
