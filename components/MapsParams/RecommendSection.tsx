@@ -86,7 +86,13 @@ const RecommendSection = ({
   }
 
   return (
-    <CafeInfoWrapper>
+    <CafeInfoWrapper
+      onMouseEnter={() => {
+        setIsHovering_1(false)
+        setIsHovering_2(false)
+        setIsHovering_3(false)
+      }}
+    >
       <WrapperTitle>리뷰</WrapperTitle>
       <WordsWrapper>
         <StrongWrapperTitle>{store.storeName}</StrongWrapperTitle>
@@ -100,9 +106,7 @@ const RecommendSection = ({
             onClick={() => recommendOnClickHandler('BAD', store.storeId)}
           >
             {isHovering_1 || isOnButton === 1 ? <Ic_badOn /> : <Ic_bad />}
-            <ButtonDesc isHovering={isHovering_1} isOnButton={isOnButton === 1}>
-              별로예요
-            </ButtonDesc>
+            <ButtonDesc isOnButton={isOnButton === 1}>별로예요</ButtonDesc>
           </ButtonWrapper>
           <ButtonWrapper
             onMouseEnter={() => setIsHovering_2(true)}
@@ -110,9 +114,7 @@ const RecommendSection = ({
             onClick={() => recommendOnClickHandler('NORMAL', store.storeId)}
           >
             {isHovering_2 || isOnButton === 2 ? <Ic_sosoOn /> : <Ic_soso />}
-            <ButtonDesc isHovering={isHovering_2} isOnButton={isOnButton === 2}>
-              그저그래요
-            </ButtonDesc>
+            <ButtonDesc isOnButton={isOnButton === 2}>그저그래요</ButtonDesc>
           </ButtonWrapper>
           <ButtonWrapper
             onMouseEnter={() => setIsHovering_3(true)}
@@ -120,9 +122,7 @@ const RecommendSection = ({
             onClick={() => recommendOnClickHandler('GOOD', store.storeId)}
           >
             {isHovering_3 || isOnButton === 3 ? <Ic_goodOn /> : <Ic_good />}
-            <ButtonDesc isHovering={isHovering_3} isOnButton={isOnButton === 3}>
-              추천해요
-            </ButtonDesc>
+            <ButtonDesc isOnButton={isOnButton === 3}>추천해요</ButtonDesc>
           </ButtonWrapper>
         </ButtonInnerWrapper>
       </ButtonOutterWrapper>

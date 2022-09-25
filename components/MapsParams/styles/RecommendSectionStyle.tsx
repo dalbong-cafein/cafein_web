@@ -32,21 +32,20 @@ export const ButtonWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 12px;
+  color: ${(props) => props.theme.colors.grey400};
   &:hover {
     cursor: pointer;
+    color: ${(props) => props.theme.colors.orange400};
   }
 `
 
 export const ButtonDesc = styled.p<{
-  isHovering: boolean
   isOnButton: boolean
 }>`
   font-size: ${(props) => props.theme.fontsizes.font13}rem;
   font-weight: 500;
   color: ${(props) =>
-    props.isHovering || props.isOnButton
-      ? props.theme.colors.orange400
-      : props.theme.colors.grey400};
+    props.isOnButton ? props.theme.colors.orange400 : 'inherit'};
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 `
 
