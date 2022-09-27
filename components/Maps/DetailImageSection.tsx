@@ -31,6 +31,7 @@ const DetailImageSection = ({ isSingle }: ImageProps) => {
   const store = useAtomValue(cafeInfoAtom)
   useEffect(() => {
     setMore(false)
+    return () => setImageId(0)
   }, [router])
   const handleClick = () => {
     setMore(false)
@@ -40,12 +41,14 @@ const DetailImageSection = ({ isSingle }: ImageProps) => {
   const handleRight = () => {
     if (imageId < (store?.storeImageList as ImageListInterface[]).length - 1) {
       setImageId((cur) => cur + 1)
+      console.log(slideRef.current?.scrollLeft)
       slideRef.current?.scrollBy({ left: 100 })
     }
   }
   const handleLeft = () => {
     if (imageId > 0) {
       setImageId((cur) => cur - 1)
+      console.log(slideRef.current?.scrollLeft)
       slideRef.current?.scrollBy({ left: -100 })
     }
   }
@@ -72,25 +75,33 @@ const DetailImageSection = ({ isSingle }: ImageProps) => {
                 <Ic_left_arrow />
               </ArrowBtn>
               <ImagesWrapper ref={slideRef}>
-                <ImageWrapper isActive={false} />
-                <ImageWrapper isActive={false} />
+                <ImageWrapper isActive={false} isImage={false} />
+                <ImageWrapper isActive={false} isImage={false} />
                 {store?.storeImageList.map((storeImage, idx) => (
                   <ImageWrapper
                     isActive={imageId === idx}
                     key={storeImage.imageId}
+                    isImage={true}
                   >
                     <Image
                       src={storeImage.imageUrl}
                       width={100}
                       height={100}
                       alt={'카페 이미지'}
+                      priority
                       placeholder="blur"
                       blurDataURL={madeURL(100, 100)}
+                      onClick={() => {
+                        setImageId(idx)
+                        slideRef.current?.scrollBy({
+                          left: (idx - imageId) * 100
+                        })
+                      }}
                     />
                   </ImageWrapper>
                 ))}
-                <ImageWrapper isActive={false} />
-                <ImageWrapper isActive={false} />
+                <ImageWrapper isActive={false} isImage={false} />
+                <ImageWrapper isActive={false} isImage={false} />
               </ImagesWrapper>
               <ArrowBtn onClick={handleRight}>
                 <Ic_right_arrow />

@@ -53,13 +53,14 @@ export const ImagesWrapper = styled.div`
   ${(props) => props.theme.mixins.scroll_x}
 `
 
-export const ImageWrapper = styled.div<{ isActive: boolean }>`
+export const ImageWrapper = styled.div<{ isActive: boolean; isImage: boolean }>`
   box-sizing: content-box;
   max-width: 100px;
   height: 100px;
   flex: 0 0 100px;
   border: ${(props) => (props.isActive ? '1.6px solid white' : '')};
   scroll-snap-align: center;
+  ${(props) => (props.isImage ? '&:hover {cursor: pointer;}' : '')}
 `
 
 export const NumOfCount = styled.div`
