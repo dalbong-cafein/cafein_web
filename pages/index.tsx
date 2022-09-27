@@ -43,7 +43,7 @@ const Home: NextPage = () => {
   return (
     <Wrapper>
       <Head>
-        <title>카공인을 위한 카페 추천 서비스 카페인</title>
+        <title>카페인</title>
       </Head>
       <NavWrapper main={true}>
         <Link href="/">

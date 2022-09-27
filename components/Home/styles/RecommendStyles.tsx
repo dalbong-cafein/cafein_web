@@ -25,7 +25,6 @@ export const RecommendTitle = styled.p`
 `
 
 export const RecommendLists = styled.ul`
-  font-family: 'GmarketSansMedium';
   display: flex;
   gap: 8px;
 
@@ -72,6 +71,7 @@ export const RecommendList = styled.li<{ isActive: boolean }>`
 `
 
 export const RecommendItemsWrapper = styled.ul`
+  font-family: 'GmarketSansMedium';
   display: grid;
   margin-top: 30px;
   row-gap: 20px;
@@ -96,6 +96,7 @@ export const RecommendItem = styled.li`
 
   & img {
     z-index: -1;
+    border-radius: 16px;
   }
 
   & a {
