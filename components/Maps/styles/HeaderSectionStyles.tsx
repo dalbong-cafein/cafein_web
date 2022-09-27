@@ -17,13 +17,17 @@ export const FilterWrapper = styled.ul`
 `
 
 export const FilterItem = styled.li<{ isClicked: boolean }>`
-  border: 1px solid ${(props) => props.theme.colors.grey200};
+  border: 1px solid
+    ${(props) =>
+      props.isClicked
+        ? props.theme.colors.orange400
+        : props.theme.colors.grey200};
   border-radius: 20px;
   font-size: ${(props) => props.theme.fontsizes.font14}rem;
   font-weight: 400;
   color: ${(props) => props.theme.colors.grey800};
   background-color: ${(props) =>
-    props.isClicked ? props.theme.colors.orange300 : ''};
+    props.isClicked ? props.theme.colors.orange400 : ''};
   color: ${(props) => (props.isClicked ? 'white' : '')};
   padding: 8px 12px;
   cursor: pointer;

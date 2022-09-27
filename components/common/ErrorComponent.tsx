@@ -1,17 +1,24 @@
 import styled from 'styled-components'
 
 import ErrorIcon from '@public/error_img.svg'
+import EmptyIcon from '@public/running_img.svg'
 
 const ErrorComponent = ({ storeName }: { storeName?: string }) => {
   return (
     <ErrorWrapper>
-      <ErrorIcon />
       {storeName ? (
-        <ErrorText>
-          <ErrorTextStrong>{storeName}</ErrorTextStrong>의 검색 결과가 없습니다.
-        </ErrorText>
+        <>
+          <ErrorIcon />
+          <ErrorText>
+            <ErrorTextStrong>{storeName}</ErrorTextStrong>의 검색 결과가
+            없습니다.
+          </ErrorText>
+        </>
       ) : (
-        <ErrorText>카페를 검색해 보세요!</ErrorText>
+        <>
+          <EmptyIcon />
+          <ErrorText>카페 이름이나 지하철역을 검색해보세요</ErrorText>
+        </>
       )}
     </ErrorWrapper>
   )

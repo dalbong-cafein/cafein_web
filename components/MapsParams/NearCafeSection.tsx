@@ -176,9 +176,7 @@ const NearCafeSection = ({
                           </PercentBadge>
                         )
                       ) : (
-                        <PercentBadge color="#FF9800" backgroundColor="#FFF3E0">
-                          무난
-                        </PercentBadge>
+                        ''
                       )}
                     </CardTextWrapper>
                     <CardTextWrapper>

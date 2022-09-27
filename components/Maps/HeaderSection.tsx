@@ -12,9 +12,16 @@ import {
   Wrapper
 } from './styles/HeaderSectionStyles'
 import styled from 'styled-components'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 const HeaderSection = ({ hasFilter }: { hasFilter: boolean }) => {
   const [sortMode, setSortMode] = useAtom(sortModeAtom)
+  const router = useRouter()
+  const { search } = router.query
+  useEffect(() => {
+    setSortMode(0)
+  }, [search])
 
   const handleSortMode = (mode: 0 | 1 | 2 | 3) => {
     if (sortMode !== mode) {
