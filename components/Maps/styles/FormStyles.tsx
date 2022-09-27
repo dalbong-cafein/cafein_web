@@ -28,13 +28,14 @@ export const SearchList = styled.li`
   align-items: flex-start;
   gap: 10px;
   z-index: 3;
+  border-radius: 10px;
 
   &.active {
-    background-color: #edf5f5;
+    background-color: #ffe3bb;
   }
 
   &:hover {
-    background-color: #edf5f5;
+    background-color: #ffe3bb;
     cursor: pointer;
   }
 `
