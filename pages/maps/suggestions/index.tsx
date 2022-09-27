@@ -117,7 +117,11 @@ const HeaderSectionTemp = ({
             <Ic_Logo />
           </a>
         </Link>
-        <SendOpinion href="/" target="_blank">
+        <SendOpinion
+          href="https://forms.gle/dCqeYDvt6ys4Yn7n7"
+          target="_blank"
+          rel="noreferrer"
+        >
           의견 보내기
         </SendOpinion>
       </HeaderWrapper>

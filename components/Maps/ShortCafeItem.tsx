@@ -48,18 +48,21 @@ const ShortCafeItem = ({ cafe, storeId, router }: IShortCafeItem) => {
         <a>
           <ShortCafeItemTitle>{cafe.storeName}</ShortCafeItemTitle>
           <ShortCafeItemLocation>{cafe.fullAddress}</ShortCafeItemLocation>
-          <OnAirWrapper>
-            <OnAirBadge
-              isOpen={cafe.businessHoursInfoDto.isOpen ? true : false}
-            >
-              {cafe.businessHoursInfoDto.isOpen ? '영업중' : '영업종료'}
-            </OnAirBadge>
-            <OpeningTime>
-              {cafe.businessHoursInfoDto.closed
-                ? getHours(cafe.businessHoursInfoDto.closed) + '에 영업 종료'
-                : '정보 없음'}
-            </OpeningTime>
-          </OnAirWrapper>
+          {cafe.businessHoursInfoDto.closed && (
+            <OnAirWrapper>
+              <OnAirBadge
+                isOpen={cafe.businessHoursInfoDto.isOpen ? true : false}
+              >
+                {cafe.businessHoursInfoDto.isOpen ? '영업중' : '영업종료'}
+              </OnAirBadge>
+              <OpeningTime>
+                {cafe.businessHoursInfoDto.closed
+                  ? getHours(cafe.businessHoursInfoDto.closed) + '에 영업 종료'
+                  : '정보 없음'}
+              </OpeningTime>
+            </OnAirWrapper>
+          )}
+
           {cafe.recommendPercent ? (
             <DdabongWrap>
               {cafe.recommendPercent < 37.5 ? (

@@ -25,7 +25,11 @@ export const getIsRunning = (
 
 export const getRunningTimes = (store: CafeInfoInterface) => {
   const { totalBusinessHoursResDto } = store
-  if (totalBusinessHoursResDto?.onMon) {
+  if (
+    totalBusinessHoursResDto &&
+    Object.values(totalBusinessHoursResDto).filter((idx) => idx === null)
+      .length !== 7
+  ) {
     const day_keys = Object.keys(totalBusinessHoursResDto as object).slice(
       0,
       -1
@@ -47,6 +51,8 @@ export const getRunningTimes = (store: CafeInfoInterface) => {
           ' ~ ' +
           getHours(totalBusinessHoursResDto[d].closed)
         obj[days[idx]] = times
+      } else {
+        obj[days[idx]] = '휴무'
       }
     })
     return obj

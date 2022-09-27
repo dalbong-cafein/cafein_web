@@ -125,10 +125,17 @@ export const CallDescription = styled.a`
   color: ${(props) => props.theme.colors.blue};
   font-size: ${(props) => props.theme.fontsizes.font15}rem;
   font-weight: 400;
+  &:hover {
+    color: ${(props) => props.theme.colors.blue};
+  }
 `
 
-export const URLDescription = styled(CallDescription)`
+export const URLDescription = styled.a`
   color: ${(props) => props.theme.colors.grey800};
+  font-size: ${(props) => props.theme.fontsizes.font15}rem;
+  font-weight: 400;
+  max-width: 300px;
+  ${(props) => props.theme.mixins.ellipse}
 `
 
 export const StrongSpan = styled.span<{ isRunning: boolean }>`

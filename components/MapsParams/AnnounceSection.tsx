@@ -11,9 +11,13 @@ const AnnounceSection = () => {
     <AddWrapper2>
       <AddLink2>
         <AddLinkText2>추천하고 싶은 카페가 있다면 알려주세요</AddLinkText2>
-        <Link href="/">
+        <a
+          href="https://forms.gle/F4JChJGvWne3uDxe9"
+          target="_blank"
+          rel="noreferrer"
+        >
           <AddButton2>카페 등록하기</AddButton2>
-        </Link>
+        </a>
       </AddLink2>
     </AddWrapper2>
   )

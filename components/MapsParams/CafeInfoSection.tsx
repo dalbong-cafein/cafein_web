@@ -59,19 +59,22 @@ const CafeInfoSection = ({ store }: CafeInfoSectionProps) => {
           <Ic_copy onClick={() => copyUrl(window.location.href, setIsToast)} />
         </StyleCopy>
       </SubTitleWrapper>
-      <OpenInfoWrapper>
-        <Ic_clock />
-        <DescWrapper>
-          <StrongSpan isRunning={isRunning}>
-            {isRunning ? '영업 중' : '영업 종료'}
-          </StrongSpan>
-          <Description>
-            {runningTime}
-            <span>에 영업 {isRunning ? '종료' : '시작'}</span>
-          </Description>
-          <ArrowButton isOpened={isOpened} onClick={setIsOpened} />
-        </DescWrapper>
-      </OpenInfoWrapper>
+      {runningTime && (
+        <OpenInfoWrapper>
+          <Ic_clock />
+          <DescWrapper>
+            <StrongSpan isRunning={isRunning}>
+              {isRunning ? '영업 중' : '영업 종료'}
+            </StrongSpan>
+            <Description>
+              {runningTime}
+              <span>에 영업 {isRunning ? '종료' : '시작'}</span>
+            </Description>
+            <ArrowButton isOpened={isOpened} onClick={setIsOpened} />
+          </DescWrapper>
+        </OpenInfoWrapper>
+      )}
+
       {isOpened ? GetRunningTimes(weekRunningTimes, isRunning) : ''}
       {store.phone ? (
         <OpenInfoWrapper>
