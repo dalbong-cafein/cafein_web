@@ -74,13 +74,16 @@ export const GlobalStyle = createGlobalStyle`
   }
   .marker:hover {
     color: ${(props) => props.theme.colors.orange400};
+    z-index: 1;
   }
   .marker.over {
     color: ${(props) => props.theme.colors.orange400};
+    z-index: 1;
   }
   .marker.active {
     background-color: ${(props) => props.theme.colors.orange400};
     color: white;
+    z-index: 1;
   }
   .marker.active::before {
     background-color: ${(props) => props.theme.colors.orange400};
