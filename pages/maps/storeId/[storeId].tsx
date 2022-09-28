@@ -29,6 +29,8 @@ import { NextPageWithLayout } from 'pages/_app'
 import { CafeWrapper } from '@components/MapsParams/styles/styles'
 import { CloseImage } from '@components/common/CloseButton'
 import { useAtomValue, useSetAtom } from 'jotai'
+import useSWR from 'swr'
+import { fetchCafeInfo, fetchCafeNears } from 'apis/apis'
 
 const DetailStorePage: NextPageWithLayout = ({
   store,
@@ -37,6 +39,14 @@ const DetailStorePage: NextPageWithLayout = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [cafeReviewPercent, setCafeReviewPercent] = useState<null | number>(
     null
+  )
+  const { data: n_store } = useSWR<CafeInfoInterface>(
+    `stores/${store.storeId}`,
+    fetchCafeInfo
+  )
+  const { data: n_nearStores } = useSWR<INearCafe[]>(
+    `${store.storeId}/near-stores`,
+    fetchCafeNears
   )
   const WrapperRef = useRef<HTMLDivElement>(null)
   const markers = useAtomValue(mapMarkerList)
@@ -61,8 +71,11 @@ const DetailStorePage: NextPageWithLayout = ({
       </Head>
       <CafeWrapper ref={WrapperRef} isSingle={isSingle}>
         {store.storeImageList.length > 0 ? <ImageSection store={store} /> : ''}
-
-        <CafeInfoSection store={store} />
+        {n_store ? (
+          <CafeInfoSection store={n_store as CafeInfoInterface} />
+        ) : (
+          <CafeInfoSection store={store} />
+        )}
 
         <CafePointsSection
           reviewStore={reviewStore}
@@ -75,8 +88,14 @@ const DetailStorePage: NextPageWithLayout = ({
         />
 
         <CongestionSection />
-
-        <NearCafeSection store={store} nearStores={nearStores} />
+        {n_nearStores && n_store ? (
+          <NearCafeSection
+            store={n_store as CafeInfoInterface}
+            nearStores={n_nearStores as INearCafe[]}
+          />
+        ) : (
+          <NearCafeSection store={store} nearStores={nearStores} />
+        )}
 
         <AnnounceSection />
 

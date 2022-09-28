@@ -69,7 +69,6 @@ const RecommendItems = () => {
                 layout="fill"
                 alt="기본 이미지"
                 placeholder="blur"
-                blurDataURL={madeURL(392, 284)}
               />
               <RecommendDesc>{recommend.title}</RecommendDesc>
             </a>
