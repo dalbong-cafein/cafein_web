@@ -78,9 +78,10 @@ const Search = () => {
     }
     if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
       inputRef.current?.blur()
-      if (inputs === search) return
+      // if (inputs === search) return
       if (!inputs) return router.push('/maps')
-      if (searchIdx !== -1) {
+      if (searchIdx !== -1 && nodeLists) {
+        nodeLists[searchIdx].classList.toggle('active')
         return onEnterPress(
           searchLists[searchIdx].storeName,
           router,
