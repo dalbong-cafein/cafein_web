@@ -2,13 +2,14 @@ import styled from 'styled-components'
 
 const MainWrapper = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
   z-index: 2;
   height: 100vh;
   width: 100%;
   background-color: ${(props) => props.theme.colors.white};
   max-width: 400px;
-  min-width: 320px;
+  min-width: 330px;
   /* filter: drop-shadow(8px 0px 20px rgba(0, 0, 0, 0.08)); */
 
   @media screen and (max-width: 900px) {
@@ -60,7 +61,7 @@ const CafeListPagination = styled.div<{ isDisplay?: boolean }>`
   display: flex;
   gap: 10px;
   justify-content: center;
-  /* position: fixed; */
+  position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
@@ -81,10 +82,10 @@ const PaginationUlWrapper = styled.ul`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 2px;
 `
 
-const PageNumber = styled.li<{ isClicked?: boolean }>`
+const PageNumber = styled.li<{ isClicked?: boolean; isDot?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -99,6 +100,12 @@ const PageNumber = styled.li<{ isClicked?: boolean }>`
   font-size: ${(props) => props.theme.fontsizes.font15}rem;
   background-color: ${(props) =>
     props.isClicked ? `${props.theme.colors.grey100}` : ''};
+
+  &:hover {
+    cursor: ${(props) => (props.isDot ? 'default' : 'pointer')};
+    background-color: ${(props) =>
+      props.isClicked ? '' : `${props.theme.colors.grey50}`};
+  }
 `
 
 const DetailWrapper = styled.div`

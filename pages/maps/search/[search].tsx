@@ -60,12 +60,12 @@ const SearchMap: NextPageWithLayout = ({
 
   const handleLeft = () => {
     const curPage = Math.ceil(Number(page) / 5)
-    if (curPage === 1) return
+    if (page == 1) return
     router.push({
       pathname: router.pathname,
       query: {
         ...router.query,
-        page: 5 * (curPage - 1)
+        page: Number(page) - 1
       }
     })
   }
@@ -77,7 +77,7 @@ const SearchMap: NextPageWithLayout = ({
       pathname: router.pathname,
       query: {
         ...router.query,
-        page: 5 * curPage + 1
+        page: Number(page) + 1
       }
     })
   }
@@ -128,9 +128,31 @@ const SearchMap: NextPageWithLayout = ({
           <CafeListPagination>
             <Left onClick={handleLeft} />
             <PaginationUlWrapper>
+              {Number(page) - 2 > 1 && (
+                <>
+                  <PageNumber
+                    isClicked={1 == page}
+                    key={1}
+                    onClick={() => handleClick(1)}
+                  >
+                    1
+                  </PageNumber>
+                  <PageNumber key={'left'} isDot={true}>
+                    ···
+                  </PageNumber>
+                </>
+              )}
               {maxPage
                 ?.filter(
-                  (num) => Math.ceil(Number(page) / 5) === Math.ceil(num / 5)
+                  // (num) => Math.ceil(Number(page) / 5) === Math.ceil(num / 5)
+                  (num) => {
+                    if (page < 3) {
+                      return 1 <= num && 5 >= num
+                    } else if (page >= maxPage.length - 2) {
+                      return maxPage.length - 5 <= num
+                    }
+                    return Number(page) - 2 <= num && Number(page) + 2 >= num
+                  }
                 )
                 .map((num) => (
                   <PageNumber
@@ -141,6 +163,20 @@ const SearchMap: NextPageWithLayout = ({
                     {num}
                   </PageNumber>
                 ))}
+              {Number(page) + 2 < (maxPage as number[]).length && (
+                <>
+                  <PageNumber key={'right'} isDot={true}>
+                    ···
+                  </PageNumber>
+                  <PageNumber
+                    isClicked={(maxPage as number[]).length == page}
+                    key={(maxPage as number[]).length}
+                    onClick={() => handleClick((maxPage as number[]).length)}
+                  >
+                    {(maxPage as number[]).length}
+                  </PageNumber>
+                </>
+              )}
             </PaginationUlWrapper>
             <Right onClick={handleRight} />
           </CafeListPagination>
