@@ -38,8 +38,11 @@ const RecommendSection = ({
   const [isHovering_3, setIsHovering_3] = useState(false)
   const setIsDimmed = useSetAtom(isDimmedAtom)
   const router = useRouter()
-  const { search } = router.query
+  const { search, sggNm, type } = router.query
   const { mutate } = useSWRConfig()
+  const url = `sggNm=${encodeURI(sggNm as string)}&type=${encodeURI(
+    type as string
+  )}`
 
   useEffect(() => {
     getRecommendation()
@@ -55,6 +58,7 @@ const RecommendSection = ({
       const { recommendPercentOfStore, recommendation } = data
       setCafeReviewPercent(recommendPercentOfStore)
       mutate(search)
+      sggNm ? mutate(url) : ''
       if (recommendation === 'BAD') {
         setIsOnButton(1)
       } else if (recommendation === 'NORMAL') {
