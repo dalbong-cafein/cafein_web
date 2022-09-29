@@ -142,43 +142,52 @@ const NearCafeSection = ({
                   </CardImgWrapper>
                   <CardDescWrapper>
                     <CardTitle>{nearCafe.storeName}</CardTitle>
-                    <CardTextWrapper>
-                      <OnAirBadge
-                        isOpen={
-                          nearCafe.businessHoursInfoDto.isOpen ? true : false
-                        }
-                      >
-                        {nearCafe.businessHoursInfoDto.isOpen
-                          ? '영업중'
-                          : '영업종료'}
-                      </OnAirBadge>
-                      {nearCafe.recommendPercent ? (
-                        nearCafe.recommendPercent < 37.5 ? (
-                          <PercentBadge
-                            color="#515151"
-                            backgroundColor="#EFEFEF"
+                    {(nearCafe.businessHoursInfoDto.closed ||
+                      nearCafe.recommendPercent) && (
+                      <CardTextWrapper>
+                        {nearCafe.businessHoursInfoDto.closed && (
+                          <OnAirBadge
+                            isOpen={
+                              nearCafe.businessHoursInfoDto.isOpen
+                                ? true
+                                : false
+                            }
                           >
-                            아쉬움
-                          </PercentBadge>
-                        ) : nearCafe.recommendPercent < 75.1 ? (
-                          <PercentBadge
-                            color="#FF9800"
-                            backgroundColor="#FFF3E0"
-                          >
-                            무난
-                          </PercentBadge>
+                            {nearCafe.businessHoursInfoDto.isOpen
+                              ? '영업중'
+                              : '영업종료'}
+                          </OnAirBadge>
+                        )}
+
+                        {nearCafe.recommendPercent ? (
+                          nearCafe.recommendPercent < 37.5 ? (
+                            <PercentBadge
+                              color="#515151"
+                              backgroundColor="#EFEFEF"
+                            >
+                              아쉬움
+                            </PercentBadge>
+                          ) : nearCafe.recommendPercent < 75.1 ? (
+                            <PercentBadge
+                              color="#FF9800"
+                              backgroundColor="#FFF3E0"
+                            >
+                              무난
+                            </PercentBadge>
+                          ) : (
+                            <PercentBadge
+                              color="#26ba6a"
+                              backgroundColor="#dff5e8"
+                            >
+                              추천
+                            </PercentBadge>
+                          )
                         ) : (
-                          <PercentBadge
-                            color="#26ba6a"
-                            backgroundColor="#dff5e8"
-                          >
-                            추천
-                          </PercentBadge>
-                        )
-                      ) : (
-                        ''
-                      )}
-                    </CardTextWrapper>
+                          ''
+                        )}
+                      </CardTextWrapper>
+                    )}
+
                     <CardTextWrapper>
                       <CardEmojiWrapper>
                         <Ic_navigation />

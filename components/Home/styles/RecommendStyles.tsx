@@ -122,6 +122,7 @@ export const RecommendDesc = styled.p`
   font-weight: 500;
   font-size: ${(props) => props.theme.fontsizes.font22}rem;
   color: ${(props) => props.theme.colors.white};
+  white-space: pre-wrap;
   @media screen and (max-width: 900px) {
     bottom: 10px;
     left: 10px;

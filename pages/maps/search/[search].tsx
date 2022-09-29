@@ -92,6 +92,7 @@ const SearchMap: NextPageWithLayout = ({
           router
         )
       )
+      map.setZoom(13)
     }
     return () => {
       markers.forEach((marker) => {

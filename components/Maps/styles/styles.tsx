@@ -34,7 +34,7 @@ const CafeList = styled.ul<{ isSuggestion?: boolean }>`
   display: flex;
   flex-direction: column;
   height: ${(props) =>
-    props.isSuggestion ? 'calc(100vh - 241.53px)' : 'calc(100vh - 232.03px)'};
+    props.isSuggestion ? 'calc(100vh - 208.53px)' : 'calc(100vh - 232.03px)'};
   overflow-y: auto;
 
   & li:not(:first-child)::after {

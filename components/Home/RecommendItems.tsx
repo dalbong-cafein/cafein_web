@@ -44,11 +44,11 @@ const RecommendItems = () => {
   }
   const recommendTypes = [
     { title: '밤늦게까지 공부 가능한 카페', engType: 'allDay' },
-    { title: '눈치보지 않고 작업할 수 있는 카페', engType: 'noNoonChi' },
+    { title: '눈치보지 않고\n작업할 수 있는 카페', engType: 'noNoonChi' },
     { title: '팀플하기 좋은 카페', engType: 'teamPlay' },
     { title: '혼자 공부하기 좋은 카페', engType: 'alone' },
     {
-      title: `카페인 팀원 ${mbti[loc as string]}가 추천하는 카페`,
+      title: `카페인 팀원 ${mbti[loc as string]}가\n추천하는 카페`,
       engType: 'cafein'
     },
     { title: '아침부터 작업하기 좋은 카페', engType: 'morning' }

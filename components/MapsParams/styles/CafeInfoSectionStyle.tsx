@@ -13,7 +13,8 @@ export const CafeInfoWrapper = styled.div<{ isFirst?: boolean }>`
     top: 0;
     left: 0;
     right: 0;
-    background-color: ${(props) => props.theme.colors.grey100};
+    /* background-color: ${(props) => props.theme.colors.grey100}; */
+    background-color: #f6f6f6;
   }
 `
 
@@ -109,7 +110,7 @@ export const Day = styled.p<{ isRunning: boolean; isToday: boolean }>`
   color: ${(props) =>
     props.isRunning && props.isToday
       ? props.theme.colors.orange500
-      : props.theme.colors.grey500};
+      : props.theme.colors.grey800};
 `
 
 export const Time = styled.p<{ isRunning: boolean; isToday: boolean }>`

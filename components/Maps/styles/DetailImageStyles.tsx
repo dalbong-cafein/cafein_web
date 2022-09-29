@@ -19,6 +19,11 @@ export const MainImage = styled.div`
   top: 100px;
   width: 480px;
   max-height: 486px;
+  & svg {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+  }
 `
 
 export const ImageLists = styled.ul`

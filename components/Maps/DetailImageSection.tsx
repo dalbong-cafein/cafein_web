@@ -12,6 +12,7 @@ import {
 import Ic_close from '@public/close.svg'
 import Ic_left_arrow from '@public/left_arrow_img.svg'
 import Ic_right_arrow from '@public/right_arrow_img.svg'
+import Ic_water from '@public/water.svg'
 import Image from 'next/image'
 import { useAtom, useAtomValue } from 'jotai'
 import { cafeInfoAtom, ImageListInterface, moreAtom } from 'store'
@@ -69,6 +70,7 @@ const DetailImageSection = ({ isSingle }: ImageProps) => {
                 placeholder="blur"
                 blurDataURL={madeURL(480, 480)}
               />
+              <Ic_water />
             </MainImage>
             <ImageLists>
               <ArrowBtn onClick={handleLeft}>

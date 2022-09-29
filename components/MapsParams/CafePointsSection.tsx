@@ -4,6 +4,7 @@ import Ic_plug from '@public/plug.svg'
 import Ic_restroom from '@public/restroom.svg'
 import Ic_table from '@public/table.svg'
 import Ic_wifi from '@public/wifi.svg'
+import Ic_running from '@public/running_img.svg'
 
 import {
   CafeInfoItemDesc,
@@ -13,6 +14,7 @@ import {
   CafeInfoItemWrapper,
   CafeInfoList,
   CafeInfoWrapper,
+  Dimmed,
   PercentBadge,
   PointTitleWrapper,
   WrapperTitle
@@ -34,6 +36,7 @@ const CafePointsSection = ({
   reviewStore,
   cafeReviewPercent
 }: ICafePoninProps) => {
+  console.log(reviewStore, 'haha')
   return (
     <CafeInfoWrapper>
       <PointTitleWrapper>
@@ -57,6 +60,16 @@ const CafePointsSection = ({
         )}
       </PointTitleWrapper>
       <CafeInfoList>
+        {!reviewStore.restroomCnt && (
+          <Dimmed>
+            <Ic_running width={66} height={60} viewBox={'0 0 88 80'} />
+            <p>
+              카공 정보를 수집하는 중이에요
+              <br />
+              빠른 시일 내에 등록해 둘게요
+            </p>
+          </Dimmed>
+        )}
         <CafeInfoItemWrapper>
           <Ic_plug />
           <CafeInfoItemDescsWrapper>

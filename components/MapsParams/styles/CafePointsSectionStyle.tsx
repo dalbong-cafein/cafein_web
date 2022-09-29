@@ -33,12 +33,36 @@ export const CafeInfoList = styled.div`
   flex-direction: column;
   gap: 16px;
   margin-top: 20px;
+  position: relative;
 `
 
 export const CafeInfoItemWrapper = styled.div`
   display: flex;
   gap: 16px;
   align-items: center;
+`
+
+export const Dimmed = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(5px);
+  gap: 16px;
+  text-align: center;
+
+  & p {
+    font-size: ${(props) => props.theme.fontsizes.font14}rem;
+    color: ${(props) => props.theme.colors.grey700};
+    font-weight: 400;
+    line-height: 20px;
+  }
 `
 
 export const CafeInfoItemDescsWrapper = styled.div`

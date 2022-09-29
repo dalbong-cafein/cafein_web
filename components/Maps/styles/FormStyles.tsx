@@ -31,11 +31,11 @@ export const SearchList = styled.li`
   border-radius: 10px;
 
   &.active {
-    background-color: #ffe3bb;
+    background-color: rgba(0, 0, 0, 0.2);
   }
 
   &:hover {
-    background-color: #ffe3bb;
+    background-color: rgba(0, 0, 0, 0.2);
     cursor: pointer;
   }
 `

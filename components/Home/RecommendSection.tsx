@@ -10,7 +10,7 @@ import {
   RecommendTitle,
   RecommendWrapper
 } from './styles/RecommendStyles'
-import { RefObject, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 const RecommendSection = () => {
   const router = useRouter()
