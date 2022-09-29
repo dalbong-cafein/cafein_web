@@ -1,4 +1,4 @@
-import { DimmedWrapper } from '@components/common/Common'
+import { DimmedDetailImageWrapper } from '@components/common/Common'
 import {
   Escape,
   MainImage,
@@ -19,6 +19,7 @@ import { cafeInfoAtom, ImageListInterface, moreAtom } from 'store'
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import madeURL from '@utils/blurDataURL'
+import useWindowSize from 'hooks/useWindowSize'
 
 interface ImageProps {
   isSingle: boolean
@@ -30,6 +31,7 @@ const DetailImageSection = ({ isSingle }: ImageProps) => {
   const router = useRouter()
   const slideRef = useRef<HTMLDivElement>(null)
   const store = useAtomValue(cafeInfoAtom)
+  const { width, height } = useWindowSize()
   useEffect(() => {
     setMore(false)
     return () => setImageId(0)
@@ -42,14 +44,12 @@ const DetailImageSection = ({ isSingle }: ImageProps) => {
   const handleRight = () => {
     if (imageId < (store?.storeImageList as ImageListInterface[]).length - 1) {
       setImageId((cur) => cur + 1)
-      console.log(slideRef.current?.scrollLeft)
       slideRef.current?.scrollBy({ left: 100 })
     }
   }
   const handleLeft = () => {
     if (imageId > 0) {
       setImageId((cur) => cur - 1)
-      console.log(slideRef.current?.scrollLeft)
       slideRef.current?.scrollBy({ left: -100 })
     }
   }
@@ -57,7 +57,10 @@ const DetailImageSection = ({ isSingle }: ImageProps) => {
     <>
       {more && store?.storeImageList && store?.storeImageList.length > 0 ? (
         <>
-          <DimmedWrapper isSearch={isSingle}>
+          <DimmedDetailImageWrapper
+            isSearch={isSingle}
+            isMobile={(width as number) <= 900}
+          >
             <Escape onClick={handleClick}>
               <Ic_close />
             </Escape>
@@ -112,7 +115,7 @@ const DetailImageSection = ({ isSingle }: ImageProps) => {
             <NumOfCount>
               {imageId + 1}/{store.storeImageList.length}
             </NumOfCount>
-          </DimmedWrapper>
+          </DimmedDetailImageWrapper>
         </>
       ) : (
         ''

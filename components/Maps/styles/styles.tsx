@@ -10,6 +10,7 @@ const MainWrapper = styled.div`
   background-color: ${(props) => props.theme.colors.white};
   max-width: 400px;
   min-width: 330px;
+  overflow: hidden;
   /* filter: drop-shadow(8px 0px 20px rgba(0, 0, 0, 0.08)); */
 
   @media screen and (max-width: 900px) {

@@ -31,6 +31,7 @@ import { CloseImage } from '@components/common/CloseButton'
 import { useAtomValue, useSetAtom } from 'jotai'
 import useSWR from 'swr'
 import { fetchCafeInfo, fetchCafeNears } from 'apis/apis'
+import useWindowSize from 'hooks/useWindowSize'
 
 const DetailStorePage: NextPageWithLayout = ({
   store,
@@ -52,6 +53,7 @@ const DetailStorePage: NextPageWithLayout = ({
   const markers = useAtomValue(mapMarkerList)
   const setCafeInfo = useSetAtom(cafeInfoAtom)
   const setSearchInput = useSetAtom(searchInputAtom)
+  const { width, height } = useWindowSize()
 
   useEffect(() => {
     WrapperRef.current?.scrollTo(0, 0)
@@ -101,15 +103,19 @@ const DetailStorePage: NextPageWithLayout = ({
 
         <Footer isHome={false} />
       </CafeWrapper>
-      <Link
-        href={{
-          pathname: '/maps'
-        }}
-      >
-        <CloseImage isSingle={isSingle}>
-          <Ic_clear />
-        </CloseImage>
-      </Link>
+      {(width as number) <= 900 ? (
+        ''
+      ) : (
+        <Link
+          href={{
+            pathname: '/maps'
+          }}
+        >
+          <CloseImage isSingle={isSingle}>
+            <Ic_clear />
+          </CloseImage>
+        </Link>
+      )}
     </>
   )
 }

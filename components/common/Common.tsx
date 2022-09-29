@@ -25,5 +25,11 @@ export const DimmedWrapper = styled.div<{ isAll?: boolean; isSearch: boolean }>`
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  min-width: 710px;
+`
+
+export const DimmedDetailImageWrapper = styled(DimmedWrapper)<{
+  isMobile: boolean
+}>`
+  min-width: ${(props) => (props.isMobile ? '330px' : '710px')};
+  left: ${(props) => (props.isMobile ? '0' : '')};
 `

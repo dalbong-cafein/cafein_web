@@ -36,7 +36,6 @@ const CafePointsSection = ({
   reviewStore,
   cafeReviewPercent
 }: ICafePoninProps) => {
-  console.log(reviewStore, 'haha')
   return (
     <CafeInfoWrapper>
       <PointTitleWrapper>

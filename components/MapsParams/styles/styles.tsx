@@ -1,7 +1,9 @@
 import styled from 'styled-components'
 
 export const CafeWrapper = styled.div<{ isSingle: boolean }>`
-  height: ${(props) => (props.isSingle ? `calc(100vh - 140px)` : '100vh')};
+  /* height: ${(props) =>
+    props.isSingle ? `calc(100vh - 140px)` : '100vh'}; */
+  height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
   &::-webkit-scrollbar {

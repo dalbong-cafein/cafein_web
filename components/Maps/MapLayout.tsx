@@ -28,6 +28,7 @@ import useSWR from 'swr'
 import getIpAddress from '@utils/getIpIddress'
 import axios from 'axios'
 import { fetchIp } from 'apis/apis'
+import useWindowSize from 'hooks/useWindowSize'
 
 interface MapLayoutProps {
   children: JSX.Element
@@ -50,6 +51,7 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
   const [userLocation, setUserLocation] = useAtom(userLocationAtom)
 
   const { data: ipResponse, error } = useSWR('ip', fetchIp)
+  const { width, height } = useWindowSize()
 
   useEffect(() => {
     if (ipResponse && !userLocation) {
@@ -114,13 +116,15 @@ const MapLayout = ({ children, store }: MapLayoutProps) => {
           {isSuggestion ? '' : <HeaderSection hasFilter={!isDetail} />}
           {children}
         </MainWrapper>
-        <SubWrapper isDisplay={storeId && !isDetail ? true : false}>
-          {storeId && !isDetail ? (
-            <DetailCafe storeId={storeId as string} />
-          ) : (
-            ''
-          )}
-        </SubWrapper>
+        {(width as number) > 900 && (
+          <SubWrapper isDisplay={storeId && !isDetail ? true : false}>
+            {storeId && !isDetail ? (
+              <DetailCafe storeId={storeId as string} />
+            ) : (
+              ''
+            )}
+          </SubWrapper>
+        )}
         <Map isSingle={isDetail} />
       </MapWrapper>
     </>

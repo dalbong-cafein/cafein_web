@@ -28,6 +28,9 @@ import ShortCafeItem from '@components/Maps/ShortCafeItem'
 import Left from '@public/pagination_left.svg'
 import Right from '@public/pagination_right.svg'
 import { filterCallback, sortCallback } from '@utils/sortings'
+import useWindowSize from 'hooks/useWindowSize'
+import { ToggleBtn } from '@components/common/styles/CommonStyles'
+import useToggle from 'hooks/useToggle'
 
 const SearchMap: NextPageWithLayout = ({
   search
@@ -40,6 +43,8 @@ const SearchMap: NextPageWithLayout = ({
   const userLocation = useAtomValue(userLocationAtom)
   const page = router.query.page ? (router.query.page as string) : 1
   const { data: cafes } = useSWR<IStore[]>(search as string, fetchIStores)
+  const { width, height } = useWindowSize()
+  const [isMap, setIsMap] = useToggle(false)
 
   const handleClick = (page: number) => {
     router.push({
@@ -87,7 +92,9 @@ const SearchMap: NextPageWithLayout = ({
       setMarkers(
         getMapItems(
           map,
-          cafes?.slice((Number(page) - 1) * 20, Number(page) * 20) as IStore[],
+          cafes
+            ?.slice((Number(page) - 1) * 20, Number(page) * 20)
+            .filter((cafe) => filterCallback(cafe, sortMode)) as IStore[],
           Number(storeId) as number,
           router
         )
@@ -99,7 +106,7 @@ const SearchMap: NextPageWithLayout = ({
         marker.setMap(null)
       })
     }
-  }, [cafes, map, router])
+  }, [cafes, map, router, sortMode])
 
   return (
     <>
@@ -125,6 +132,9 @@ const SearchMap: NextPageWithLayout = ({
                   key={cafe.storeId}
                 />
               ))}
+            {(width as number) <= 900 && (
+              <ToggleBtn onClick={setIsMap}>지도보기 버튼</ToggleBtn>
+            )}
           </CafeList>
           <CafeListPagination>
             <Left onClick={handleLeft} />

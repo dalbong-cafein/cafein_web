@@ -14,10 +14,8 @@ export const Escape = styled.div`
 export const MainImage = styled.div`
   display: flex;
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
   top: 100px;
-  width: 480px;
+  /* width: 480px; */
   max-height: 486px;
   & svg {
     position: absolute;
@@ -59,8 +57,8 @@ export const ImagesWrapper = styled.div`
 `
 
 export const ImageWrapper = styled.div<{ isActive: boolean; isImage: boolean }>`
-  box-sizing: content-box;
-  max-width: 100px;
+  /* box-sizing: content-box; */
+  /* max-width: 100px; */
   height: 100px;
   flex: 0 0 100px;
   border: ${(props) => (props.isActive ? '1.6px solid white' : '')};

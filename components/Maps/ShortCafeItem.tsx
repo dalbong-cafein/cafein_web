@@ -19,6 +19,7 @@ import {
 import getHours from '@utils/CafeInfo/getHours'
 import styled from 'styled-components'
 import { Ic_Like } from '@components/common/styles/CommonStyles'
+import useWindowSize from 'hooks/useWindowSize'
 
 interface IShortCafeItem {
   cafe: IStore
@@ -27,6 +28,7 @@ interface IShortCafeItem {
 }
 
 const ShortCafeItem = ({ cafe, storeId, router }: IShortCafeItem) => {
+  const { width, height } = useWindowSize()
   return (
     <ShortCafeItemList
       key={cafe.storeId}
@@ -37,13 +39,17 @@ const ShortCafeItem = ({ cafe, storeId, router }: IShortCafeItem) => {
       onMouseOut={() => handleMouseOut(cafe)}
     >
       <Link
-        href={{
-          pathname: router.pathname,
-          query: {
-            ...router.query,
-            storeId: cafe.storeId
-          }
-        }}
+        href={
+          (width as number) <= 900
+            ? { pathname: `/maps/storeId/${cafe.storeId}` }
+            : {
+                pathname: router.pathname,
+                query: {
+                  ...router.query,
+                  storeId: cafe.storeId
+                }
+              }
+        }
       >
         <a>
           <ShortCafeItemTitle>{cafe.storeName}</ShortCafeItemTitle>
