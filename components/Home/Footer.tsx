@@ -14,6 +14,20 @@ interface IFooterProps {
 const Footer = ({ isHome }: IFooterProps) => {
   return (
     <FooterWrapper isHome={isHome}>
+      <FooterQLists isTop={true}>
+        <QItem>
+          <Link href="mailto:dalbong.cafeing@gmail.com">E-mail</Link>
+        </QItem>
+        <QItem>
+          <a
+            href="https://www.instagram.com/cafein.kr"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Instagram
+          </a>
+        </QItem>
+      </FooterQLists>
       <FooterQLists>
         <QItem>
           <a
@@ -42,23 +56,26 @@ const Footer = ({ isHome }: IFooterProps) => {
             이용약관
           </a>
         </QItem>
-      </FooterQLists>
-      <FooterQLists>
-        <QItem>
-          <Link href="mailto:dalbong.cafeing@gmail.com">
-            dalbong.cafeing@gmail.com
-          </Link>
-        </QItem>
         <QItem>
           <a
-            href="https://www.instagram.com/cafein.kr"
+            href="https://www.notion.so/cafeinofficial/84d615bf6c654196853bbc3644968135"
             target="_blank"
             rel="noreferrer"
           >
-            인스타그램
+            개인정보처리방침
+          </a>
+        </QItem>
+        <QItem>
+          <a
+            href="https://www.notion.so/cafeinofficial/84d615bf6c654196853bbc3644968135"
+            target="_blank"
+            rel="noreferrer"
+          >
+            위치기반서비스 이용약관
           </a>
         </QItem>
       </FooterQLists>
+
       <CopyRight>COPYRIGHT © 2022 cafein ALL RIGHTS RESERVED.</CopyRight>
     </FooterWrapper>
   )

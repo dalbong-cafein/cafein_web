@@ -15,15 +15,22 @@ export const FooterWrapper = styled.footer<{ isHome: boolean }>`
   }
 `
 
-export const FooterQLists = styled.ul`
+export const FooterQLists = styled.ul<{ isTop?: boolean }>`
   display: flex;
-  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: ${(props) => (props.isTop ? '17px' : '16px')};
+  color: ${(props) =>
+    props.isTop ? props.theme.colors.grey700 : props.theme.colors.grey600};
+  font-size: ${(props) =>
+    props.isTop
+      ? props.theme.fontsizes.font13
+      : props.theme.fontsizes.font12}rem;
 `
 
 export const QItem = styled.li`
-  font-weight: 500;
-  font-size: ${(props) => props.theme.fontsizes.font13}rem;
-  color: ${(props) => props.theme.colors.grey700};
+  font-weight: 400;
 
   & a:hover {
     color: ${(props) => props.theme.colors.grey800};
@@ -32,8 +39,8 @@ export const QItem = styled.li`
 
 export const CopyRight = styled.p`
   font-weight: 400;
-  font-size: ${(props) => props.theme.fontsizes.font13}rem;
-  color: ${(props) => props.theme.colors.grey500};
+  font-size: ${(props) => props.theme.fontsizes.font12}rem;
+  color: ${(props) => props.theme.colors.grey400};
   text-align: center;
   white-space: nowrap;
 `

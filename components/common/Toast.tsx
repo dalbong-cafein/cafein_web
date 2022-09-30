@@ -14,9 +14,10 @@ const toast = keyframes`
 
 const ToastWrapper = styled.div<{ isToast: boolean }>`
   position: absolute;
+  width: 352px;
   bottom: 8px;
   left: 24px;
-  width: 352px;
+  margin: 0 auto;
   background-color: ${(props) => props.theme.colors.grey700};
   border-radius: 14px;
   font-weight: 400;
@@ -24,6 +25,11 @@ const ToastWrapper = styled.div<{ isToast: boolean }>`
   color: white;
   padding: 16px 20px;
   z-index: 999;
+
+  @media screen and (max-width: 900px) {
+    left: 16px;
+    width: min(calc(100vw - 32px), 400px);
+  }
 
   ${(props) =>
     props.isToast

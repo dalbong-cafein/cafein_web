@@ -94,6 +94,17 @@ export const RecommendItem = styled.li`
   border-radius: 16px;
   scroll-snap-align: center;
 
+  &::before {
+    position: absolute;
+    content: '';
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 66%;
+    border-radius: 16px;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+  }
+
   & img {
     z-index: -1;
     border-radius: 16px;
@@ -118,10 +129,11 @@ export const RecommendItem = styled.li`
 export const RecommendDesc = styled.p`
   position: absolute;
   left: 24px;
-  bottom: 20px;
+  bottom: 16px;
   font-weight: 500;
   font-size: ${(props) => props.theme.fontsizes.font22}rem;
   color: ${(props) => props.theme.colors.white};
+  line-height: 1.4;
   white-space: pre-wrap;
   @media screen and (max-width: 900px) {
     bottom: 10px;
