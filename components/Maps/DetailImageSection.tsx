@@ -20,6 +20,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import madeURL from '@utils/blurDataURL'
 import useWindowSize from 'hooks/useWindowSize'
+import preventDefault from '@utils/preventDefault'
 
 interface ImageProps {
   isSingle: boolean
@@ -60,6 +61,7 @@ const DetailImageSection = ({ isSingle }: ImageProps) => {
           <DimmedDetailImageWrapper
             isSearch={isSingle}
             isMobile={(width as number) <= 900}
+            onContextMenu={preventDefault}
           >
             <Escape onClick={handleClick}>
               <Ic_close />

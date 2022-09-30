@@ -10,6 +10,6 @@ export const MapBox = styled.div<{ width: number }>`
     top: 169px;
     height: calc(100vh - 169px);
     left: 0;
-    z-index: 1;
+    visibility: hidden;
   }
 `

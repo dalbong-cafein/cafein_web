@@ -14,6 +14,7 @@ import {
   ShowMoreWrapper
 } from './styles/styles'
 import madeURL from 'utils/blurDataURL'
+import preventDefault from '@utils/preventDefault'
 
 const ImageSection = ({ store }: { store: CafeInfoInterface }) => {
   const setMore = useSetAtom(moreAtom)
@@ -24,7 +25,7 @@ const ImageSection = ({ store }: { store: CafeInfoInterface }) => {
     setMore(true)
   }
   return store.storeImageList.length >= 3 ? (
-    <ImageWrappers>
+    <ImageWrappers onContextMenu={preventDefault}>
       {store.storeImageList.slice(0, 3).map((imgData, idx) =>
         idx === 2 ? (
           <React.Fragment key={imgData.imageId}>
@@ -61,7 +62,7 @@ const ImageSection = ({ store }: { store: CafeInfoInterface }) => {
       )}
     </ImageWrappers>
   ) : (
-    <ImageWrappersLess>
+    <ImageWrappersLess onContextMenu={preventDefault}>
       {store.storeImageList.map((imgData, idx) => (
         <React.Fragment key={imgData.imageId}>
           <Image
