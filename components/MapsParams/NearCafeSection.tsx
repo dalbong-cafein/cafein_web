@@ -159,7 +159,7 @@ const NearCafeSection = ({
                           </OnAirBadge>
                         )}
 
-                        {nearCafe.recommendPercent ? (
+                        {nearCafe.recommendPercent !== null ? (
                           nearCafe.recommendPercent < 37.5 ? (
                             <PercentBadge
                               color="#515151"

@@ -40,7 +40,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return prev + curr + '=' + sortedSet[curr as currType] + '&'
   }, '')
 
-  queryString = queryString.substr(0, queryString.length - 1)
+  queryString = queryString.slice(0, queryString.length - 1)
 
   const baseString = requestUrl + '?' + queryString
   const signature = makeSignature(
