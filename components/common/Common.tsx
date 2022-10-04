@@ -30,6 +30,7 @@ export const DimmedWrapper = styled.div<{ isAll?: boolean; isSearch: boolean }>`
 export const DimmedDetailImageWrapper = styled(DimmedWrapper)<{
   isMobile: boolean
 }>`
+  position: absolute;
   min-width: ${(props) => (props.isMobile ? '330px' : '710px')};
   left: ${(props) => (props.isMobile ? '0' : '')};
 `

@@ -17,6 +17,7 @@ export const GlobalStyle = createGlobalStyle`
     color: ${(props) => props.theme.colors.grey900};
     min-width: 320px;
     background-color: ${(props) => props.theme.colors.grey50};
+    padding-bottom: env(safe-area-inset-bottom);
     @media screen and (max-width: 900px) {
       font-size: 15px;
     }

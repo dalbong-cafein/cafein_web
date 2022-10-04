@@ -142,8 +142,8 @@ const NearCafeSection = ({
                   </CardImgWrapper>
                   <CardDescWrapper>
                     <CardTitle>{nearCafe.storeName}</CardTitle>
-                    {(nearCafe.businessHoursInfoDto.closed ||
-                      nearCafe.recommendPercent) && (
+                    {nearCafe.businessHoursInfoDto.closed ||
+                    nearCafe.recommendPercent ? (
                       <CardTextWrapper>
                         {nearCafe.businessHoursInfoDto.closed && (
                           <OnAirBadge
@@ -158,8 +158,7 @@ const NearCafeSection = ({
                               : '영업종료'}
                           </OnAirBadge>
                         )}
-
-                        {nearCafe.recommendPercent !== null ? (
+                        {nearCafe.recommendPercent ? (
                           nearCafe.recommendPercent < 37.5 ? (
                             <PercentBadge
                               color="#515151"
@@ -186,8 +185,9 @@ const NearCafeSection = ({
                           ''
                         )}
                       </CardTextWrapper>
+                    ) : (
+                      ''
                     )}
-
                     <CardTextWrapper>
                       <CardEmojiWrapper>
                         <Ic_navigation />

@@ -1,4 +1,3 @@
-import { DimmedDetailImageWrapper } from '@components/common/Common'
 import {
   Escape,
   MainImage,
@@ -6,7 +5,9 @@ import {
   ArrowBtn,
   ImagesWrapper,
   ImageWrapper,
-  NumOfCount
+  NumOfCount,
+  ImageOutterWrapper,
+  ImageInnerWrapper
 } from './styles/styles'
 
 import Ic_close from '@public/close.svg'
@@ -21,6 +22,7 @@ import { useRouter } from 'next/router'
 import madeURL from '@utils/blurDataURL'
 import useWindowSize from 'hooks/useWindowSize'
 import preventDefault from '@utils/preventDefault'
+import { DimmedDetailImageWrapper } from '@components/common/Common'
 
 interface ImageProps {
   isSingle: boolean
@@ -66,57 +68,57 @@ const DetailImageSection = ({ isSingle }: ImageProps) => {
             <Escape onClick={handleClick}>
               <Ic_close />
             </Escape>
-            <MainImage>
-              <Image
-                src={`${store?.storeImageList[imageId].imageUrl}`}
-                width={480}
-                height={480}
-                alt={'카페 사진'}
-                placeholder="blur"
-                blurDataURL={madeURL(480, 480)}
-              />
-              <Ic_water />
-            </MainImage>
-            <ImageLists>
-              <ArrowBtn onClick={handleLeft}>
-                <Ic_left_arrow />
-              </ArrowBtn>
-              <ImagesWrapper ref={slideRef}>
-                <ImageWrapper isActive={false} isImage={false} />
-                <ImageWrapper isActive={false} isImage={false} />
-                {store?.storeImageList.map((storeImage, idx) => (
-                  <ImageWrapper
-                    isActive={imageId === idx}
-                    key={storeImage.imageId}
-                    isImage={true}
-                  >
-                    <Image
-                      src={storeImage.imageUrl}
-                      width={100}
-                      height={100}
-                      alt={'카페 이미지'}
-                      priority
-                      placeholder="blur"
-                      blurDataURL={madeURL(100, 100)}
-                      onClick={() => {
-                        setImageId(idx)
-                        slideRef.current?.scrollBy({
-                          left: (idx - imageId) * 100
-                        })
-                      }}
-                    />
-                  </ImageWrapper>
-                ))}
-                <ImageWrapper isActive={false} isImage={false} />
-                <ImageWrapper isActive={false} isImage={false} />
-              </ImagesWrapper>
-              <ArrowBtn onClick={handleRight}>
-                <Ic_right_arrow />
-              </ArrowBtn>
-            </ImageLists>
-            <NumOfCount>
-              {imageId + 1}/{store.storeImageList.length}
-            </NumOfCount>
+            <ImageOutterWrapper>
+              <MainImage>
+                <Image
+                  src={`${store?.storeImageList[imageId].imageUrl}`}
+                  width={480}
+                  height={480}
+                  // layout={'fill'}
+                  alt={'카페 사진'}
+                  placeholder="blur"
+                  blurDataURL={madeURL(480, 480)}
+                />
+                <Ic_water />
+              </MainImage>
+              <ImageInnerWrapper>
+                <ImageLists>
+                  <ArrowBtn onClick={handleLeft}>
+                    <Ic_left_arrow />
+                  </ArrowBtn>
+                  <ImagesWrapper ref={slideRef}>
+                    {store?.storeImageList.map((storeImage, idx) => (
+                      <ImageWrapper
+                        isActive={imageId === idx}
+                        key={storeImage.imageId}
+                        isImage={true}
+                      >
+                        <Image
+                          src={storeImage.imageUrl}
+                          width={100}
+                          height={100}
+                          // layout={'fill'}
+                          alt={'카페 이미지'}
+                          priority
+                          placeholder="blur"
+                          blurDataURL={madeURL(100, 100)}
+                          onClick={() => {
+                            setImageId(idx)
+                            slideRef.current?.scrollTo(idx * 110, 0)
+                          }}
+                        />
+                      </ImageWrapper>
+                    ))}
+                  </ImagesWrapper>
+                  <ArrowBtn onClick={handleRight}>
+                    <Ic_right_arrow />
+                  </ArrowBtn>
+                </ImageLists>
+                <NumOfCount>
+                  {imageId + 1}/{store.storeImageList.length}
+                </NumOfCount>
+              </ImageInnerWrapper>
+            </ImageOutterWrapper>
           </DimmedDetailImageWrapper>
         </>
       ) : (

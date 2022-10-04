@@ -12,10 +12,11 @@ export const Escape = styled.div`
 `
 
 export const MainImage = styled.div`
-  display: flex;
+  /* display: flex;
   position: absolute;
   top: 100px;
-  /* width: 480px; */
+  width: 480px; */
+  position: relative;
   max-height: 486px;
   & svg {
     position: absolute;
@@ -26,13 +27,16 @@ export const MainImage = styled.div`
 
 export const ImageLists = styled.ul`
   display: flex;
-  position: absolute;
+  /* position: absolute; */
   align-items: center;
   justify-content: center;
-  left: 50%;
-  transform: translateX(-50%);
+  /* left: 50%;
+  transform: translateX(-50%); */
   width: 700px;
   bottom: 80px;
+  @media screen and (max-width: 900px) {
+    width: 100vw;
+  }
 `
 
 export const ArrowBtn = styled.div`
@@ -53,6 +57,12 @@ export const ImagesWrapper = styled.div`
   max-width: 540px;
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory;
+  padding: 0 220px 0;
+  @media screen and (max-width: 900px) {
+    width: 100vw;
+    padding: 0 calc(50% - 40px) 0;
+  }
+  /* overflow-x: scroll; */
   ${(props) => props.theme.mixins.scroll_x}
 `
 
@@ -64,17 +74,38 @@ export const ImageWrapper = styled.div<{ isActive: boolean; isImage: boolean }>`
   border: ${(props) => (props.isActive ? '1.6px solid white' : '')};
   scroll-snap-align: center;
   ${(props) => (props.isImage ? '&:hover {cursor: pointer;}' : '')}
+  @media screen and (max-width: 900px) {
+    /* ${(props) => (!props.isImage ? 'display: none' : '')}; */
+  }
 `
 
 export const NumOfCount = styled.div`
-  position: absolute;
-  bottom: 36px;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: ${(props) => props.theme.fontsizes.font15}rem;
   color: white;
   font-weight: 500;
+`
+
+export const ImageOutterWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  top: 100px;
+  bottom: 36px;
+  gap: 60px;
+  @media screen and (max-width: 900px) {
+    width: 100vw;
+  }
+`
+
+export const ImageInnerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  @media screen and (max-width: 900px) {
+    width: 100vw;
+  }
 `
