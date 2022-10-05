@@ -5,6 +5,7 @@ export const Escape = styled.div`
   position: absolute;
   right: 36.6px;
   top: 36.6px;
+  z-index: 1;
 
   &:hover {
     cursor: pointer;
