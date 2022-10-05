@@ -30,13 +30,11 @@ import { CafeWrapper } from '@components/MapsParams/styles/styles'
 import { CloseImage } from '@components/common/CloseButton'
 import { useAtomValue, useSetAtom } from 'jotai'
 import useSWR from 'swr'
-import { fetchCafeInfo, fetchCafeNears } from 'apis/apis'
+import { fetchCafeInfo, fetchCafeNears, fetchCafeStarPoint } from 'apis/apis'
 import useWindowSize from 'hooks/useWindowSize'
 
 const DetailStorePage: NextPageWithLayout = ({
-  store,
-  reviewStore,
-  nearStores
+  store
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [cafeReviewPercent, setCafeReviewPercent] = useState<null | number>(
     null
@@ -45,7 +43,11 @@ const DetailStorePage: NextPageWithLayout = ({
     `stores/${store.storeId}`,
     fetchCafeInfo
   )
-  const { data: n_nearStores } = useSWR<INearCafe[]>(
+  const { data: reviewStore } = useSWR<CafeRewviewPointInterface>(
+    `${store.storeId}/detail-review-score`,
+    fetchCafeStarPoint
+  )
+  const { data: nearStores } = useSWR<INearCafe[]>(
     `${store.storeId}/near-stores`,
     fetchCafeNears
   )
@@ -79,10 +81,14 @@ const DetailStorePage: NextPageWithLayout = ({
           <CafeInfoSection store={store} />
         )}
 
-        <CafePointsSection
-          reviewStore={reviewStore}
-          cafeReviewPercent={cafeReviewPercent}
-        />
+        {reviewStore ? (
+          <CafePointsSection
+            reviewStore={reviewStore}
+            cafeReviewPercent={cafeReviewPercent}
+          />
+        ) : (
+          ''
+        )}
 
         <RecommendSection
           store={store}
@@ -90,13 +96,13 @@ const DetailStorePage: NextPageWithLayout = ({
         />
 
         <CongestionSection />
-        {n_nearStores && n_store ? (
+        {nearStores && n_store ? (
           <NearCafeSection
             store={n_store as CafeInfoInterface}
-            nearStores={n_nearStores as INearCafe[]}
+            nearStores={nearStores as INearCafe[]}
           />
         ) : (
-          <NearCafeSection store={store} nearStores={nearStores} />
+          ''
         )}
 
         <AnnounceSection />
@@ -127,8 +133,8 @@ DetailStorePage.getLayout = function getLayout(
   return (
     <MapLayout
       store={pageProps.store}
-      reviewStore={pageProps.reviewStore}
-      nearStores={pageProps.nearStores}
+      // reviewStore={pageProps.reviewStore}
+      // nearStores={pageProps.nearStores}
     >
       {page}
     </MapLayout>
@@ -156,24 +162,25 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
     data: { data: storeData }
   } = await axios.get(`${process.env.API_DOMAIN}/stores/${storeId}`)
 
-  const {
-    data: { data: storeReviewData }
-  } = await axios.get(
-    `${process.env.API_DOMAIN}/stores/${storeId}/detail-review-score`
-  )
+  // const {
+  //   data: { data: storeReviewData }
+  // } = await axios.get(
+  //   `${process.env.API_DOMAIN}/stores/${storeId}/detail-review-score`
+  // )
 
-  const {
-    data: { data: nearData }
-  } = await axios.get(
-    `${process.env.API_DOMAIN}/web/stores/${storeId}/near-stores`
-  )
+  // const {
+  //   data: { data: nearData }
+  // } = await axios.get(
+  //   `${process.env.API_DOMAIN}/web/stores/${storeId}/near-stores`
+  // )
 
   const store: CafeInfoInterface = storeData
-  const reviewStore: CafeRewviewPointInterface = storeReviewData
-  const nearStores: INearCafe[] = nearData
+  // const reviewStore: CafeRewviewPointInterface = storeReviewData
+  // const nearStores: INearCafe[] = nearData
 
   return {
-    props: { store, reviewStore, nearStores }
+    // props: { store, reviewStore, nearStores }
+    props: { store }
   }
 }
 
