@@ -32,10 +32,13 @@ const RecommendSection = ({
   store: CafeInfoInterface
   setCafeReviewPercent: Dispatch<SetStateAction<number | null>>
 }) => {
-  const [isOnButton, setIsOnButton] = useState(0)
+  const [isOnButton, setIsOnButton] = useState<
+    'BAD' | 'NORMAL' | 'GOOD' | undefined
+  >()
   const [isHovering_1, setIsHovering_1] = useState(false)
   const [isHovering_2, setIsHovering_2] = useState(false)
   const [isHovering_3, setIsHovering_3] = useState(false)
+  const [countOfTypes, setCountOfTypes] = useState([0, 0, 0])
   const setIsDimmed = useSetAtom(isDimmedAtom)
   const router = useRouter()
   const { search, sggNm, type } = router.query
@@ -55,19 +58,20 @@ const RecommendSection = ({
         `/api/web/stores/${store.storeId}/recommendations`
       )
       const { data } = response.data
-      const { recommendPercentOfStore, recommendation } = data
+      const {
+        countByRecommendTypeResDto,
+        recommendPercentOfStore,
+        regRecommendation
+      } = data
       setCafeReviewPercent(recommendPercentOfStore)
+      setCountOfTypes([
+        countByRecommendTypeResDto['bad'],
+        countByRecommendTypeResDto['normal'],
+        countByRecommendTypeResDto['good']
+      ])
       mutate(search)
       sggNm ? mutate(url) : ''
-      if (recommendation === 'BAD') {
-        setIsOnButton(1)
-      } else if (recommendation === 'NORMAL') {
-        setIsOnButton(2)
-      } else if (recommendation === 'GOOD') {
-        setIsOnButton(3)
-      } else {
-        setIsOnButton(0)
-      }
+      setIsOnButton(regRecommendation)
     } catch (error) {
       console.error(`Cafe Recommend data Get error : ${error}`)
     }
@@ -77,18 +81,27 @@ const RecommendSection = ({
     recommendation: 'BAD' | 'NORMAL' | 'GOOD',
     storeId: number
   ) => {
-    const dimmed_obj: IDimmed = isOnButton
-      ? {
-          title: `이런! 이미 리뷰를 등록하셨군요!`,
-          body: `내일 다시 등록해주세요`,
-          type: 'alert'
-        }
-      : {
-          title: `리뷰를 등록하시겠습니까?`,
-          body: `${store.storeName}에 대한 리뷰는\n하루에 한 번만 등록할 수 있습니다.`,
-          type: 'confirm',
-          callback: postRecommend
-        }
+    const dimmed_obj: IDimmed =
+      isOnButton === recommendation
+        ? {
+            title: `만족도를 삭제하시겠습니까?`,
+            body: `${store.storeName}에 등록한 만족도를\n정말로 취소하시겠습니까?`,
+            type: 'confirm',
+            callback: deleteRecommend
+          }
+        : isOnButton
+        ? {
+            title: `만족도를 수정하시겠습니까?`,
+            body: `${store.storeName}에 등록한 만족도를\n수정합니다.`,
+            type: 'confirm',
+            callback: updateRecommend
+          }
+        : {
+            title: `만족도를 등록하시겠습니까?`,
+            body: `${store.storeName}에 대한 만족도는\n하루에 한 번만 등록할 수 있습니다.`,
+            type: 'confirm',
+            callback: postRecommend
+          }
     setIsDimmed(dimmed_obj)
 
     function postRecommend() {
@@ -105,6 +118,36 @@ const RecommendSection = ({
         )
       }
     }
+
+    function deleteRecommend() {
+      try {
+        axios
+          .delete(`/api/web/stores/${store.storeId}/recommendations`)
+          .then(() => getRecommendation())
+      } catch (error) {
+        console.error(
+          `카페 추천 데이터 취소 실패 : ${error} of ${recommendation} cancel`
+        )
+      }
+    }
+
+    function updateRecommend() {
+      try {
+        axios
+          .delete(`/api/web/stores/${store.storeId}/recommendations`)
+          .then(() =>
+            axios.post(`/api/web/recommendations`, {
+              recommendation,
+              storeId
+            })
+          )
+          .then(() => getRecommendation())
+      } catch (error) {
+        console.error(
+          `카페 추천 데이터 변경 실패: ${error} of ${recommendation} update`
+        )
+      }
+    }
   }
 
   return (
@@ -115,7 +158,7 @@ const RecommendSection = ({
         setIsHovering_3(false)
       }}
     >
-      <WrapperTitle>리뷰</WrapperTitle>
+      <WrapperTitle>카공 만족도</WrapperTitle>
       <WordsWrapper>
         <StrongWrapperTitle>{store.storeName}</StrongWrapperTitle>
         <WordsWrapperText>카공 카페로 어떤가요?</WordsWrapperText>
@@ -127,24 +170,38 @@ const RecommendSection = ({
             onMouseLeave={() => setIsHovering_1(false)}
             onClick={() => recommendOnClickHandler('BAD', store.storeId)}
           >
-            {isHovering_1 || isOnButton === 1 ? <Ic_badOn /> : <Ic_bad />}
-            <ButtonDesc isOnButton={isOnButton === 1}>별로예요</ButtonDesc>
+            {isHovering_1 || isOnButton === 'BAD' ? <Ic_badOn /> : <Ic_bad />}
+            <ButtonDesc isOnButton={isOnButton === 'BAD'}>
+              별로예요{countOfTypes[0] ? <span>{countOfTypes[0]}</span> : ''}
+            </ButtonDesc>
           </ButtonWrapper>
           <ButtonWrapper
             onMouseEnter={() => setIsHovering_2(true)}
             onMouseLeave={() => setIsHovering_2(false)}
             onClick={() => recommendOnClickHandler('NORMAL', store.storeId)}
           >
-            {isHovering_2 || isOnButton === 2 ? <Ic_sosoOn /> : <Ic_soso />}
-            <ButtonDesc isOnButton={isOnButton === 2}>그저그래요</ButtonDesc>
+            {isHovering_2 || isOnButton === 'NORMAL' ? (
+              <Ic_sosoOn />
+            ) : (
+              <Ic_soso />
+            )}
+            <ButtonDesc isOnButton={isOnButton === 'NORMAL'}>
+              그저그래요{countOfTypes[1] ? <span>{countOfTypes[1]}</span> : ''}
+            </ButtonDesc>
           </ButtonWrapper>
           <ButtonWrapper
             onMouseEnter={() => setIsHovering_3(true)}
             onMouseLeave={() => setIsHovering_3(false)}
             onClick={() => recommendOnClickHandler('GOOD', store.storeId)}
           >
-            {isHovering_3 || isOnButton === 3 ? <Ic_goodOn /> : <Ic_good />}
-            <ButtonDesc isOnButton={isOnButton === 3}>추천해요</ButtonDesc>
+            {isHovering_3 || isOnButton === 'GOOD' ? (
+              <Ic_goodOn />
+            ) : (
+              <Ic_good />
+            )}
+            <ButtonDesc isOnButton={isOnButton === 'GOOD'}>
+              추천해요{countOfTypes[2] ? <span>{countOfTypes[2]}</span> : ''}
+            </ButtonDesc>
           </ButtonWrapper>
         </ButtonInnerWrapper>
       </ButtonOutterWrapper>

@@ -25,6 +25,7 @@ export const ButtonOutterWrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 24px;
+  margin-bottom: 30px;
 `
 
 export const ButtonWrapper = styled.div`
@@ -47,6 +48,13 @@ export const ButtonDesc = styled.p<{
   color: ${(props) =>
     props.isOnButton ? props.theme.colors.orange400 : 'inherit'};
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  position: absolute;
+  bottom: 30px;
+
+  & span {
+    opacity: 0.9;
+    margin-left: 2px;
+  }
 `
 
 export const ButtonInnerWrapper = styled.div`
