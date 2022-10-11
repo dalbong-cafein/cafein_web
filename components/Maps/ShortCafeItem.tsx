@@ -20,6 +20,7 @@ import getHours from '@utils/CafeInfo/getHours'
 import styled from 'styled-components'
 import { Ic_Like } from '@components/common/styles/CommonStyles'
 import useWindowSize from 'hooks/useWindowSize'
+import { getIsRunning } from '@utils/CafeInfo/getCafeRunningInfo'
 
 interface IShortCafeItem {
   cafe: IStore
@@ -63,7 +64,11 @@ const ShortCafeItem = ({ cafe, storeId, router }: IShortCafeItem) => {
               </OnAirBadge>
               <OpeningTime>
                 {cafe.businessHoursInfoDto.closed
-                  ? getHours(cafe.businessHoursInfoDto.closed) + '에 영업 종료'
+                  ? cafe.businessHoursInfoDto.closed ===
+                    cafe.businessHoursInfoDto.tmrOpen
+                    ? '24시간 영업'
+                    : getHours(cafe.businessHoursInfoDto.closed) +
+                      '에 영업 종료'
                   : '정보 없음'}
               </OpeningTime>
             </OnAirWrapper>

@@ -64,11 +64,20 @@ const CafeInfoSection = ({ store }: CafeInfoSectionProps) => {
           <Ic_clock />
           <DescWrapper>
             <StrongSpan isRunning={isRunning}>
-              {isRunning ? '영업 중' : '영업 종료'}
+              {isRunning
+                ? runningTime === '24'
+                  ? 'All Day'
+                  : '영업 중'
+                : '영업 종료'}
             </StrongSpan>
             <Description>
-              {runningTime}
-              <span>에 영업 {isRunning ? '종료' : '시작'}</span>
+              {runningTime === '24' ? (
+                <span>24시간 영업</span>
+              ) : (
+                <span>
+                  {runningTime}에 영업 {isRunning ? '종료' : '시작'}
+                </span>
+              )}
             </Description>
             <ArrowButton isOpened={isOpened} onClick={setIsOpened} />
           </DescWrapper>
