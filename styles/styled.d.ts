@@ -16,6 +16,7 @@ declare module 'styled-components' {
       orange500: string
       orange400: string
       orange300: string
+      orange050: string
       white: string
       black: string
       blue: string

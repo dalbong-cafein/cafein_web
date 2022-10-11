@@ -108,21 +108,25 @@ const CongestionItem = styled.li`
 `
 
 const GreenCircle = styled.p`
-  padding: 16px 10px;
-  background-color: ${(props) => props.theme.colors.green050};
-  color: ${(props) => props.theme.colors.green500};
+  /* padding: 16px 10px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  background-color: ${(props) => props.theme.colors.orange050};
+  color: ${(props) => props.theme.colors.orange400};
   font-size: ${(props) => props.theme.fontsizes.font15}rem;
   font-weight: 500;
   border-radius: 50%;
 `
 
-const GreyCircle = styled.p`
-  padding: 13px 8px;
+const GreyCircle = styled(GreenCircle)`
+  width: 40px;
+  height: 40px;
   background-color: ${(props) => props.theme.colors.grey50};
   color: ${(props) => props.theme.colors.grey400};
   font-size: ${(props) => props.theme.fontsizes.font13}rem;
-  font-weight: 500;
-  border-radius: 50%;
   margin-left: 4px;
 `
 
