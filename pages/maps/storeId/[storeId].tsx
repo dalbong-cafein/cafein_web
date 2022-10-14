@@ -81,18 +81,12 @@ const DetailStorePage: NextPageWithLayout = ({
           <CafeInfoSection store={store} />
         )}
 
-        {reviewStore ? (
-          <CafePointsSection
-            reviewStore={reviewStore}
-            cafeReviewPercent={cafeReviewPercent}
-          />
-        ) : (
-          ''
-        )}
+        {reviewStore ? <CafePointsSection reviewStore={reviewStore} /> : ''}
 
         <RecommendSection
           store={store}
           setCafeReviewPercent={setCafeReviewPercent}
+          cafeReviewPercent={cafeReviewPercent}
         />
 
         <CongestionSection />
