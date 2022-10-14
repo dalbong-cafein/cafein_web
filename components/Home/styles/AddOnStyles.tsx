@@ -8,12 +8,14 @@ export const AddWrapper = styled.div`
   padding: 84px 140px;
   background-color: ${(props) => props.theme.colors.grey100};
   border-radius: 20px;
+  height: 240px;
   position: relative;
 
   @media screen and (max-width: 900px) {
     padding: 24px 14px 24px 28px;
     margin-top: 24px;
     justify-content: space-around;
+    height: 140px;
   }
 
   @media screen and (max-width: 320px) {
@@ -29,6 +31,10 @@ export const AddLink = styled.div`
   justify-content: center;
   left: 0;
   top: 50%;
+
+  @media screen and (max-width: 900px) {
+    gap: 10px;
+  }
 `
 
 export const AddLinkText = styled.p`
@@ -45,10 +51,12 @@ export const AddLinkText = styled.p`
 export const AddButton = styled.button`
   border-radius: 14px;
   background-color: ${(props) => props.theme.colors.grey600};
-  padding: 12px 16px;
+  height: 44px;
+  padding: 0 16px;
   font-weight: 500;
   font-size: ${(props) => props.theme.fontsizes.font16}rem;
   color: ${(props) => props.theme.colors.white};
+  line-height: 1;
 
   &:hover,
   &:focus {

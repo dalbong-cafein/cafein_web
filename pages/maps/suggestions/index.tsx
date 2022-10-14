@@ -186,6 +186,10 @@ const TempWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 24px;
+
+  @media screen and (max-width: 900px) {
+    padding: 16px;
+  }
 `
 
 const HomeButton = styled.button`
@@ -200,12 +204,21 @@ const HomeButton = styled.button`
   font-weight: 400;
   color: ${(props) => props.theme.colors.orange500};
   margin-top: 30px;
+
+  @media screen and (max-width: 900px) {
+    height: 44px;
+  }
 `
 
 const TitleWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 32px;
+
+  @media screen and (max-width: 900px) {
+    margin-top: 30px;
+    padding-left: 4px;
+  }
 `
 
 const Title = styled.h1`

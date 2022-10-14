@@ -57,6 +57,12 @@ const CafeList = styled.ul<{ isSuggestion?: boolean }>`
     background-color: ${(props) => props.theme.colors.grey300};
     border-radius: 4px;
   }
+
+  @media screen and (max-width: 900px) {
+    & li {
+      padding: 20px;
+    }
+  }
 `
 
 const CafeListPagination = styled.div<{ isDisplay?: boolean }>`
