@@ -23,10 +23,7 @@ export const FooterQLists = styled.ul<{ isTop?: boolean }>`
   gap: ${(props) => (props.isTop ? '17px' : '16px')};
   color: ${(props) =>
     props.isTop ? props.theme.colors.grey700 : props.theme.colors.grey600};
-  font-size: ${(props) =>
-    props.isTop
-      ? props.theme.fontsizes.font13
-      : props.theme.fontsizes.font12}rem;
+  font-size: ${(props) => (props.isTop ? '13px' : '12px')};
 `
 
 export const QItem = styled.li`

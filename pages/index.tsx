@@ -11,6 +11,7 @@ import RecommendSection from '@components/Home/RecommendSection'
 import Search from '@components/Home/Search'
 import Footer from '@components/Home/Footer'
 import Ic_Logo from '@public/logo_black.svg'
+import Ic_Cafein from '@public/Cafein.svg'
 
 import {
   NavWrapper,
@@ -23,9 +24,11 @@ import {
   AddLinkText,
   AddWrapper,
   NavSubWrapper,
-  MobileSearchButton
+  MobileSearchButton,
+  IcCafeinWrapper
 } from '../components/Home/styles/styles'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 
 const Home: NextPage = () => {
   const [map, setMap] = useAtom(mapAtom)
@@ -90,6 +93,9 @@ const Home: NextPage = () => {
               <AddButton>카페 등록하기</AddButton>
             </a>
           </AddLink>
+          <IcCafeinWrapper>
+            <Image src={'/images/Cafein.svg'} alt="카페로고" layout="fill" />
+          </IcCafeinWrapper>
         </AddWrapper>
         <Footer isHome={true} />
       </HomeWrapper>

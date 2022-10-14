@@ -1,3 +1,6 @@
+import useFirstLine from 'hooks/useFirstLine'
+import useSecondLine from 'hooks/useSecondLine'
+import useWindowSize from 'hooks/useWindowSize'
 import Link from 'next/link'
 
 import {
@@ -12,7 +15,10 @@ interface IFooterProps {
 }
 
 const Footer = ({ isHome }: IFooterProps) => {
-  return (
+  const windowSize = useWindowSize()
+  const firstLine = useFirstLine()
+  const secondLine = useSecondLine()
+  return windowSize.width ? (
     <FooterWrapper isHome={isHome}>
       <FooterQLists isTop={true}>
         <QItem>
@@ -28,56 +34,21 @@ const Footer = ({ isHome }: IFooterProps) => {
           </a>
         </QItem>
       </FooterQLists>
-      <FooterQLists>
-        <QItem>
-          <a
-            href="https://www.notion.so/cafeinofficial/64732875ac664fd9878b72d5c0b05a42"
-            target="_blank"
-            rel="noreferrer"
-          >
-            공지사항
-          </a>
-        </QItem>
-        <QItem>
-          <a
-            href="https://www.notion.so/cafeinofficial/3947d079e88842f0a5bdb08924fdfccc"
-            target="_blank"
-            rel="noreferrer"
-          >
-            자주 묻는 질문
-          </a>
-        </QItem>
-        <QItem>
-          <a
-            href="https://www.notion.so/cafeinofficial/84d615bf6c654196853bbc3644968135"
-            target="_blank"
-            rel="noreferrer"
-          >
-            이용약관
-          </a>
-        </QItem>
-        <QItem>
-          <a
-            href="https://www.notion.so/cafeinofficial/b30868ccdcdd41ed97dde0c0b6f793dc"
-            target="_blank"
-            rel="noreferrer"
-          >
-            개인정보처리방침
-          </a>
-        </QItem>
-        <QItem>
-          <a
-            href="https://www.notion.so/cafeinofficial/1eac09f4c37341b793198f824c97e11e"
-            target="_blank"
-            rel="noreferrer"
-          >
-            위치기반서비스 이용약관
-          </a>
-        </QItem>
-      </FooterQLists>
-
+      {windowSize.width <= 900 ? (
+        <>
+          <FooterQLists>{firstLine}</FooterQLists>
+          <FooterQLists>{secondLine}</FooterQLists>
+        </>
+      ) : (
+        <FooterQLists>
+          {firstLine}
+          {secondLine}
+        </FooterQLists>
+      )}
       <CopyRight>COPYRIGHT © 2022 cafein ALL RIGHTS RESERVED.</CopyRight>
     </FooterWrapper>
+  ) : (
+    <></>
   )
 }
 
