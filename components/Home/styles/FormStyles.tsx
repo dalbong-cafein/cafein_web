@@ -20,6 +20,7 @@ export const HomeTitle = styled.h1`
   text-align: center;
   @media screen and (max-width: 400px) {
     font-size: 25px;
+    height: auto;
   }
 `
 
@@ -90,14 +91,8 @@ export const SearchInput = styled.input<{ isMap: boolean }>`
   @media screen and (max-width: 900px) {
     width: min(90vw, 400px);
     font-size: 15px;
-  }
-  @media screen and (max-width: 700px) {
-    width: min(90vw, 400px);
-    font-size: 14px;
-  }
-  @media screen and (max-width: 500px) {
-    width: min(90vw, 400px);
-    font-size: 13px;
+    height: 52px;
+    margin-bottom: 0;
   }
 `
 
@@ -138,5 +133,6 @@ export const MobileSearchButton = styled(SearchButton)`
   margin: 30px auto 0;
   @media screen and (max-width: 900px) {
     display: block;
+    height: 44px;
   }
 `

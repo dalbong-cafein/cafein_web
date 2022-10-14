@@ -16,6 +16,8 @@ import {
   ButtonOutterWrapper,
   ButtonWrapper,
   CafeInfoWrapper,
+  PercentBadge,
+  PointTitleWrapper,
   StrongWrapperTitle,
   WordsWrapper,
   WordsWrapperText,
@@ -27,10 +29,12 @@ import { useSetAtom } from 'jotai'
 
 const RecommendSection = ({
   store,
-  setCafeReviewPercent
+  setCafeReviewPercent,
+  cafeReviewPercent
 }: {
   store: CafeInfoInterface
   setCafeReviewPercent: Dispatch<SetStateAction<number | null>>
+  cafeReviewPercent: number | null
 }) => {
   const [isOnButton, setIsOnButton] = useState<
     'BAD' | 'NORMAL' | 'GOOD' | undefined
@@ -81,28 +85,33 @@ const RecommendSection = ({
     recommendation: 'BAD' | 'NORMAL' | 'GOOD',
     storeId: number
   ) => {
-    const dimmed_obj: IDimmed =
-      isOnButton === recommendation
-        ? {
-            title: `만족도를 삭제하시겠습니까?`,
-            body: `${store.storeName}에 등록한 만족도를\n정말로 취소하시겠습니까?`,
-            type: 'confirm',
-            callback: deleteRecommend
-          }
-        : isOnButton
-        ? {
-            title: `만족도를 수정하시겠습니까?`,
-            body: `${store.storeName}에 등록한 만족도를\n수정합니다.`,
-            type: 'confirm',
-            callback: updateRecommend
-          }
-        : {
-            title: `만족도를 등록하시겠습니까?`,
-            body: `${store.storeName}에 대한 만족도는\n하루에 한 번만 등록할 수 있습니다.`,
-            type: 'confirm',
-            callback: postRecommend
-          }
-    setIsDimmed(dimmed_obj)
+    isOnButton === recommendation
+      ? deleteRecommend()
+      : isOnButton
+      ? updateRecommend()
+      : postRecommend()
+    // const dimmed_obj: IDimmed =
+    //   isOnButton === recommendation
+    //     ? {
+    //         title: `만족도를 삭제하시겠습니까?`,
+    //         body: `${store.storeName}에 등록한 만족도를\n정말로 취소하시겠습니까?`,
+    //         type: 'confirm',
+    //         callback: deleteRecommend
+    //       }
+    //     : isOnButton
+    //     ? {
+    //         title: `만족도를 수정하시겠습니까?`,
+    //         body: `${store.storeName}에 등록한 만족도를\n수정합니다.`,
+    //         type: 'confirm',
+    //         callback: updateRecommend
+    //       }
+    //     : {
+    //         title: `만족도를 등록하시겠습니까?`,
+    //         body: `${store.storeName}에 대한 만족도는\n하루에 한 번만 등록할 수 있습니다.`,
+    //         type: 'confirm',
+    //         callback: postRecommend
+    //       }
+    // setIsDimmed(dimmed_obj)
 
     function postRecommend() {
       try {
@@ -158,7 +167,26 @@ const RecommendSection = ({
         setIsHovering_3(false)
       }}
     >
-      <WrapperTitle>카공 만족도</WrapperTitle>
+      <PointTitleWrapper>
+        <WrapperTitle>카공 만족도</WrapperTitle>
+        {cafeReviewPercent ? (
+          cafeReviewPercent < 37.5 ? (
+            <PercentBadge color="#515151" backgroundColor="#EFEFEF">
+              아쉬워요
+            </PercentBadge>
+          ) : cafeReviewPercent < 75.1 ? (
+            <PercentBadge color="#FF9800" backgroundColor="#FFF3E0">
+              무난해요
+            </PercentBadge>
+          ) : (
+            <PercentBadge color="#26ba6a" backgroundColor="#dff5e8">
+              추천해요
+            </PercentBadge>
+          )
+        ) : (
+          ''
+        )}
+      </PointTitleWrapper>
       <WordsWrapper>
         <StrongWrapperTitle>{store.storeName}</StrongWrapperTitle>
         <WordsWrapperText>카공 카페로 어떤가요?</WordsWrapperText>

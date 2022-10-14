@@ -17,11 +17,19 @@ export const RecommendHeadWrapper = styled.div`
   display: flex;
   gap: 24px;
   flex-direction: column;
+
+  @media screen and (max-width: 900px) {
+    gap: 20px;
+  }
 `
 
 export const RecommendTitle = styled.p`
   font-size: ${(props) => props.theme.fontsizes.font24}rem;
   font-weight: 600;
+
+  @media screen and (max-width: 900px) {
+    font-size: 17px;
+  }
 `
 
 export const RecommendLists = styled.ul`
@@ -81,6 +89,7 @@ export const RecommendItemsWrapper = styled.ul`
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     row-gap: 8px;
     column-gap: 8px;
+    margin-top: 24px;
   }
   @media screen and (max-width: 360px) {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -89,10 +98,16 @@ export const RecommendItemsWrapper = styled.ul`
 
 export const RecommendItem = styled.li`
   position: relative;
-  height: 240px;
+  width: 100%;
+  padding-bottom: 50%;
+  height: 0;
   z-index: 1;
   border-radius: 16px;
   scroll-snap-align: center;
+
+  @media screen and (max-width: 900px) {
+    border-radius: 10px;
+  }
 
   &::before {
     position: absolute;
@@ -103,11 +118,19 @@ export const RecommendItem = styled.li`
     height: 66%;
     border-radius: 16px;
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+
+    @media screen and (max-width: 900px) {
+      border-radius: 10px;
+    }
   }
 
   & img {
     z-index: -1;
     border-radius: 16px;
+
+    @media screen and (max-width: 900px) {
+      border-radius: 10px;
+    }
   }
 
   & a {
@@ -119,10 +142,10 @@ export const RecommendItem = styled.li`
   &:hover a {
     background-color: rgba(0, 0, 0, 0.4);
     border-radius: 16px;
-  }
 
-  @media screen and (max-width: 900px) {
-    height: 105px;
+    @media screen and (max-width: 900px) {
+      border-radius: 10px;
+    }
   }
 `
 
@@ -140,5 +163,6 @@ export const RecommendDesc = styled.p`
     left: 10px;
     right: 10px;
     font-size: 14px;
+    word-break: keep-all;
   }
 `

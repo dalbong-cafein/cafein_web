@@ -66,13 +66,13 @@ const CafeInfoSection = ({ store }: CafeInfoSectionProps) => {
             <StrongSpan isRunning={isRunning}>
               {isRunning
                 ? runningTime === '24'
-                  ? 'All Day'
+                  ? '24시간 영업'
                   : '영업 중'
                 : '영업 종료'}
             </StrongSpan>
             <Description>
               {runningTime === '24' ? (
-                <span>24시간 영업</span>
+                ''
               ) : (
                 <span>
                   {runningTime}에 영업 {isRunning ? '종료' : '시작'}

@@ -15,6 +15,10 @@ const NavWrapper = styled.div<{ main?: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media screen and (max-width: 900px) {
+    padding: 0 16px;
+  }
 `
 
 const NavSubWrapper = styled.div`
@@ -44,20 +48,8 @@ const WhiteLink = styled.a`
   width: 101px;
   height: 38px;
   @media screen and (max-width: 900px) {
-    width: 91px;
-    font-size: 14px;
-  }
-  @media screen and (max-width: 700px) {
-    width: 81px;
+    width: auto;
     font-size: 13px;
-  }
-  @media screen and (max-width: 500px) {
-    width: 71px;
-    font-size: 12px;
-  }
-  @media screen and (max-width: 400px) {
-    width: 61px;
-    font-size: 11px;
   }
 `
 

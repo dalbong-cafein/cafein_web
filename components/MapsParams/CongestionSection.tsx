@@ -34,19 +34,19 @@ const CongestionSection = () => {
               <CongestionUser>달봉</CongestionUser>님의 제보
             </CongestionTitle>
             <CongestionDescWrapper>
-              <CongestionDesc>30분전</CongestionDesc>
+              <CongestionDesc>30분 전</CongestionDesc>
               <CongestionLates>·</CongestionLates>
               <CongestionLates>가장 최근에 공유했어요</CongestionLates>
             </CongestionDescWrapper>
           </CongestionSubWrapper>
         </CongestionItem>
         <CongestionItem>
-          <GreyCircle>여유</GreyCircle>
+          <GreyCircle>보통</GreyCircle>
           <CongestionSubWrapper>
             <CongestionTitle>
-              <CongestionUser>달봉</CongestionUser>님의 제보
+              <CongestionUser>밍기적</CongestionUser>님의 제보
             </CongestionTitle>
-            <CongestionDesc>30분전</CongestionDesc>
+            <CongestionDesc>3시간 전</CongestionDesc>
           </CongestionSubWrapper>
         </CongestionItem>
       </CongestionWrapper>

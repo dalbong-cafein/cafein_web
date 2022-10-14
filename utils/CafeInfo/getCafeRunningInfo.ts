@@ -48,9 +48,12 @@ export const getRunningTimes = (store: CafeInfoInterface) => {
     day_keys.map((d, idx) => {
       if (totalBusinessHoursResDto[d]) {
         const times =
-          getHours(totalBusinessHoursResDto[d].open) +
-          ' ~ ' +
-          getHours(totalBusinessHoursResDto[d].closed)
+          totalBusinessHoursResDto[d].open ===
+          totalBusinessHoursResDto[d].closed
+            ? '24시간 영업'
+            : getHours(totalBusinessHoursResDto[d].open) +
+              ' ~ ' +
+              getHours(totalBusinessHoursResDto[d].closed)
         obj[days[idx]] = times
       } else {
         obj[days[idx]] = '휴무'
