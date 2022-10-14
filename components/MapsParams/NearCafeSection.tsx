@@ -105,6 +105,7 @@ const NearCafeSection = ({
                     {nearCafe.storeImageDtoList.length ? (
                       nearCafe.storeImageDtoList.map((storeImage) => (
                         <Image
+                          priority={true}
                           src={storeImage.imageUrl}
                           width={70}
                           height={70}
@@ -117,6 +118,7 @@ const NearCafeSection = ({
                     ) : (
                       <>
                         <Image
+                          priority={true}
                           src={temp_img}
                           width={70}
                           height={70}
@@ -124,6 +126,7 @@ const NearCafeSection = ({
                           alt="기본 이미지"
                         />
                         <Image
+                          priority={true}
                           src={temp_img}
                           width={70}
                           height={70}
@@ -131,6 +134,7 @@ const NearCafeSection = ({
                           alt="기본 이미지"
                         />
                         <Image
+                          priority={true}
                           src={temp_img}
                           width={70}
                           height={70}

@@ -92,7 +92,6 @@ export const SearchInput = styled.input<{ isMap: boolean }>`
     width: min(90vw, 400px);
     font-size: 15px;
     height: 52px;
-    margin-bottom: 0;
   }
 `
 

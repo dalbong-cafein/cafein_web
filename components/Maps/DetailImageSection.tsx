@@ -97,7 +97,7 @@ const DetailImageSection = ({ isSingle }: IDetailImageSection) => {
                   alt={'카페 사진'}
                   placeholder="blur"
                   blurDataURL={madeURL(480, 480)}
-                  unoptimized={true}
+                  priority={true}
                 />
                 <Ic_water />
               </MainImage>
@@ -114,15 +114,15 @@ const DetailImageSection = ({ isSingle }: IDetailImageSection) => {
                         isImage={true}
                       >
                         <Image
+                          priority={true}
                           src={storeImage.imageUrl}
                           width={100}
                           height={100}
                           // layout={'responsive'}
                           alt={'카페 이미지'}
-                          priority
                           placeholder="blur"
                           blurDataURL={madeURL(100, 100)}
-                          unoptimized={true}
+                          // unoptimized={true}
                           onClick={() => {
                             setImageId(idx)
                             slideRef.current?.scrollTo(idx * 110, 0)

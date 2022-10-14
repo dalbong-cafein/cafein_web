@@ -38,6 +38,7 @@ const ImageSection = ({ store }: { store: CafeInfoInterface }) => {
                 height={284}
                 placeholder="blur"
                 blurDataURL={madeURL(392, 284)}
+                priority={true}
               />
               <ShowMoreWrapper>
                 <Ic_camera />
@@ -56,6 +57,7 @@ const ImageSection = ({ store }: { store: CafeInfoInterface }) => {
               placeholder="blur"
               blurDataURL={madeURL(392, 284)}
               onClick={onMoreHandler}
+              priority={true}
             />
           </React.Fragment>
         )
