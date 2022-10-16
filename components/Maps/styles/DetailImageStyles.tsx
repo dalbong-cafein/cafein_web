@@ -12,11 +12,12 @@ export const Escape = styled.div`
   }
 `
 
-export const MainImage = styled.div`
+export const MainImage = styled.div<{ isActive: boolean }>`
   /* display: flex;
   position: absolute;
   top: 100px;
   width: 480px; */
+  display: ${(props) => (props.isActive ? 'block' : 'none')};
   position: relative;
   max-height: 486px;
   & svg {

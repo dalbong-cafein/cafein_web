@@ -75,6 +75,7 @@ const DetailImageSection = ({ isSingle }: IDetailImageSection) => {
       slideRef.current?.scrollBy({ left: -100 })
     }
   }
+  console.log(imageId, 'haha')
   return (
     <>
       {more && store?.storeImageList && store?.storeImageList.length > 0 ? (
@@ -88,19 +89,21 @@ const DetailImageSection = ({ isSingle }: IDetailImageSection) => {
               <Ic_close />
             </Escape>
             <ImageOutterWrapper>
-              <MainImage>
-                <Image
-                  src={`${store?.storeImageList[imageId].imageUrl}`}
-                  width={480}
-                  height={480}
-                  // layout={'responsive'}
-                  alt={'카페 사진'}
-                  placeholder="blur"
-                  blurDataURL={madeURL(480, 480)}
-                  priority={true}
-                />
-                <Ic_water />
-              </MainImage>
+              {store.storeImageList.map((img, idx) => (
+                <MainImage key={img.imageId} isActive={idx === imageId}>
+                  <Image
+                    src={`${img.imageUrl}`}
+                    width={480}
+                    height={480}
+                    // layout={'responsive'}
+                    alt={'카페 사진'}
+                    placeholder="blur"
+                    blurDataURL={madeURL(480, 480)}
+                    priority={true}
+                  />
+                  <Ic_water />
+                </MainImage>
+              ))}
               <ImageInnerWrapper>
                 <ImageLists>
                   <ArrowBtn onClick={handleLeft}>
