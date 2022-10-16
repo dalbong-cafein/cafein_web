@@ -8,7 +8,7 @@ export const getIsRunning = (
   if (businessHoursInfoDto) {
     const { isOpen, closed, tmrOpen } = businessHoursInfoDto
     let hour: string | number
-    if (closed === tmrOpen) return [true, '24']
+    if (closed && closed === tmrOpen) return [true, '24']
     if (isOpen) {
       if (closed) {
         hour = getHours(closed)
