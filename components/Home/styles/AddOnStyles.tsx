@@ -75,7 +75,7 @@ export const IcCafeinWrapper = styled.div`
   padding-top: calc(min(100%, 362px) * 0.5635);
   position: relative;
 
-  & img {
+  & object {
     position: absolute;
     left: 0;
     top: 0;

@@ -75,7 +75,6 @@ const DetailImageSection = ({ isSingle }: IDetailImageSection) => {
       slideRef.current?.scrollBy({ left: -100 })
     }
   }
-  console.log(imageId, 'haha')
   return (
     <>
       {more && store?.storeImageList && store?.storeImageList.length > 0 ? (

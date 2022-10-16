@@ -94,7 +94,9 @@ const Home: NextPage = () => {
             </a>
           </AddLink>
           <IcCafeinWrapper>
-            <Image src={'/images/Cafein.svg'} alt="카페로고" layout="fill" />
+            <object type="image/svg+xml" data={'/images/Cafein.svg'}>
+              <Image src={'/images/Cafein.svg'} alt="카페로고" layout="fill" />
+            </object>
           </IcCafeinWrapper>
         </AddWrapper>
         <Footer isHome={true} />
