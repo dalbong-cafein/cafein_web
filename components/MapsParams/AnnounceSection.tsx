@@ -1,3 +1,5 @@
+import { IcCafeinWrapper } from '@components/Home/styles/AddOnStyles'
+import Image from 'next/image'
 import Link from 'next/link'
 import {
   AddButton2,
@@ -19,6 +21,11 @@ const AnnounceSection = () => {
           <AddButton2>카페 등록하기</AddButton2>
         </a>
       </AddLink2>
+      <IcCafeinWrapper>
+        <object type="image/svg+xml" data={'/images/Cafein.svg'}>
+          <Image src={'/images/Cafein.svg'} alt="카페로고" layout="fill" />
+        </object>
+      </IcCafeinWrapper>
     </AddWrapper2>
   )
 }
