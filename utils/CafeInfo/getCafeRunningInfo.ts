@@ -5,9 +5,11 @@ export const getIsRunning = (
   store: CafeInfoInterface
 ): [boolean, string | null] => {
   const { businessHoursInfoDto } = store
+  const curTime = new Date()
+  const cur_hour = curTime.getHours()
+  const cur_min = curTime.getMinutes()
   if (businessHoursInfoDto) {
-    const { isOpen, closed, tmrOpen } = businessHoursInfoDto
-    console.log(isOpen, closed, tmrOpen, 'hgaha')
+    const { isOpen, closed, tmrOpen, open } = businessHoursInfoDto
     let hour: string | number
     if (closed && closed === tmrOpen) return [true, '24']
     if (isOpen) {
@@ -15,7 +17,13 @@ export const getIsRunning = (
         hour = getHours(closed)
         return [isOpen, hour]
       }
-    } else {
+    } else if (isOpen === false) {
+      const [op_hour, op_min] = (open as string)
+        .split(':')
+        .map((t) => Number(t))
+      if (op_hour >= cur_hour && op_min >= cur_min) {
+        return [isOpen, getHours(open as string)]
+      }
       if (tmrOpen) {
         hour = getHours(tmrOpen)
         return [isOpen, hour]

@@ -24,9 +24,10 @@ export interface CafeInfoInterface {
   heartCnt: number
   isHeart: boolean
   businessHoursInfoDto: {
-    isOpen: boolean
-    closed: string
-    tmrOpen: string
+    isOpen: boolean | null
+    closed: string | null
+    tmrOpen: string | null
+    open: string | null
   }
   totalBusinessHoursResDto: {
     onMon: null | {
@@ -88,9 +89,10 @@ export interface CafeRecommendInterface {
 
 export interface IStore {
   businessHoursInfoDto: {
-    isOpen: false | null
+    isOpen: boolean | null
     closed: string | null
     tmrOpen: string | null
+    open: string | null
   }
   fullAddress: string
   latY: number
@@ -103,7 +105,12 @@ export interface IStore {
 }
 
 export interface INearCafe {
-  businessHoursInfoDto: { isOpen: null; closed: null; tmrOpen: null }
+  businessHoursInfoDto: {
+    isOpen: boolean | null
+    closed: string | null
+    tmrOpen: string | null
+    open: string | null
+  }
   congestionScoreAvg: null | number
   distance: number
   heartCnt: number
