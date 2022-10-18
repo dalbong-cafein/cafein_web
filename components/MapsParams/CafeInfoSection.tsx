@@ -46,12 +46,6 @@ const CafeInfoSection = ({ store }: CafeInfoSectionProps) => {
     <CafeInfoWrapper isFirst={true}>
       <TitleWrapper>
         <HeaderTitle>{store.storeName}</HeaderTitle>
-        {/* {cafeReviewPercent && (
-          <DDabongWrapper>
-            <Ic_like />
-            <DDabongPoints>{Math.floor(cafeReviewPercent)}%</DDabongPoints>
-          </DDabongWrapper>
-        )} */}
       </TitleWrapper>
       <SubTitleWrapper>
         <SubTitle>{store.address.fullAddress}</SubTitle>
@@ -64,15 +58,11 @@ const CafeInfoSection = ({ store }: CafeInfoSectionProps) => {
           <Ic_clock />
           <DescWrapper>
             <StrongSpan isRunning={isRunning}>
-              {isRunning
-                ? runningTime === '24'
-                  ? '24시간 영업'
-                  : '영업 중'
-                : '영업 종료'}
+              {isRunning ? '영업 중' : '영업 종료'}
             </StrongSpan>
             <Description>
               {runningTime === '24' ? (
-                ''
+                '24시간 영업'
               ) : (
                 <span>
                   {runningTime}에 영업 {isRunning ? '종료' : '시작'}

@@ -84,7 +84,7 @@ export const IcCafeinWrapper = styled.div`
     background-blend-mode: multiply;
   }
 
-  @media screen and (max-width: 350px) {
+  @media screen and (max-width: 360px) {
     width: 144px;
     height: 81px;
   }

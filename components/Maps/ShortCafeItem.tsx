@@ -60,15 +60,11 @@ const ShortCafeItem = ({ cafe, storeId, router }: IShortCafeItem) => {
               <OnAirBadge
                 isOpen={cafe.businessHoursInfoDto.isOpen ? true : false}
               >
-                {cafe.businessHoursInfoDto.isOpen
-                  ? is24
-                    ? '24시간 영업'
-                    : '영업중'
-                  : '영업종료'}
+                {cafe.businessHoursInfoDto.isOpen ? '영업중' : '영업종료'}
               </OnAirBadge>
               <OpeningTime>
                 {is24
-                  ? ''
+                  ? '24시간 영업'
                   : cafe.businessHoursInfoDto.closed
                   ? getHours(cafe.businessHoursInfoDto.closed) + '에 영업 종료'
                   : '정보 없음'}

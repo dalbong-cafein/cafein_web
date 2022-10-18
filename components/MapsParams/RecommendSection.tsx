@@ -200,7 +200,7 @@ const RecommendSection = ({
           >
             {isHovering_1 || isOnButton === 'BAD' ? <Ic_badOn /> : <Ic_bad />}
             <ButtonDesc isOnButton={isOnButton === 'BAD'}>
-              별로예요{countOfTypes[0] ? <span>{countOfTypes[0]}</span> : ''}
+              아쉬워요{countOfTypes[0] ? <span>{countOfTypes[0]}</span> : ''}
             </ButtonDesc>
           </ButtonWrapper>
           <ButtonWrapper
@@ -214,7 +214,7 @@ const RecommendSection = ({
               <Ic_soso />
             )}
             <ButtonDesc isOnButton={isOnButton === 'NORMAL'}>
-              그저그래요{countOfTypes[1] ? <span>{countOfTypes[1]}</span> : ''}
+              무난해요{countOfTypes[1] ? <span>{countOfTypes[1]}</span> : ''}
             </ButtonDesc>
           </ButtonWrapper>
           <ButtonWrapper

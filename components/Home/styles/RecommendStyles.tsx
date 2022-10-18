@@ -99,7 +99,7 @@ export const RecommendItemsWrapper = styled.ul`
 export const RecommendItem = styled.li`
   position: relative;
   width: 100%;
-  padding-bottom: 75%;
+  padding-bottom: 66.66%;
   height: 0;
   z-index: 1;
   border-radius: 16px;
@@ -135,7 +135,7 @@ export const RecommendItem = styled.li`
 
   & a {
     display: block;
-    padding-bottom: 75%;
+    padding-bottom: 66.66%;
   }
 
   &:hover a {

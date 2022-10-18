@@ -7,6 +7,7 @@ export const getIsRunning = (
   const { businessHoursInfoDto } = store
   if (businessHoursInfoDto) {
     const { isOpen, closed, tmrOpen } = businessHoursInfoDto
+    console.log(isOpen, closed, tmrOpen, 'hgaha')
     let hour: string | number
     if (closed && closed === tmrOpen) return [true, '24']
     if (isOpen) {
