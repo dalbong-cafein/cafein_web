@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 
 import { useEffect } from 'react'
-import { useAtom, useSetAtom } from 'jotai'
+import { useSetAtom } from 'jotai'
 
 import { mapAtom, searchInputAtom } from 'store'
 
@@ -11,7 +11,6 @@ import RecommendSection from '@components/Home/RecommendSection'
 import Search from '@components/Home/Search'
 import Footer from '@components/Home/Footer'
 import Ic_Logo from '@public/logo_black.svg'
-import Ic_Cafein from '@public/Cafein.svg'
 
 import {
   NavWrapper,
@@ -31,7 +30,7 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 
 const Home: NextPage = () => {
-  const [map, setMap] = useAtom(mapAtom)
+  const setMap = useSetAtom(mapAtom)
   const setInput = useSetAtom(searchInputAtom)
   const router = useRouter()
   const mapHandler = () => {

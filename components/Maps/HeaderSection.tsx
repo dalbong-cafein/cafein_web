@@ -1,7 +1,9 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
-import { useAtom, useSetAtom } from 'jotai'
-import { sortModeAtom, userLocationAtom } from 'store'
+import { useAtom } from 'jotai'
+import { sortModeAtom } from 'store'
+import { useEffect } from 'react'
 
 import Search from '@components/Home/Search'
 import Ic_Logo from '@public/logo_black.svg'
@@ -9,11 +11,10 @@ import Ic_Logo from '@public/logo_black.svg'
 import {
   FilterItem,
   FilterWrapper,
-  Wrapper
-} from './styles/HeaderSectionStyles'
-import styled from 'styled-components'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+  Wrapper,
+  HeaderWrapper,
+  SendOpinion
+} from './styles/styles'
 
 const HeaderSection = ({ hasFilter }: { hasFilter: boolean }) => {
   const [sortMode, setSortMode] = useAtom(sortModeAtom)
@@ -73,17 +74,5 @@ const HeaderSection = ({ hasFilter }: { hasFilter: boolean }) => {
     </Wrapper>
   )
 }
-
-const HeaderWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`
-
-const SendOpinion = styled.a`
-  font-weight: 500;
-  font-size: ${(props) => props.theme.fontsizes.font14}rem;
-  color: ${(props) => props.theme.colors.grey700};
-`
 
 export default HeaderSection
