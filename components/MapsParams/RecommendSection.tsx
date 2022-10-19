@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 import axios from 'axios'
 
-import { CafeInfoInterface, IDimmed, isDimmedAtom } from 'store'
+import { CafeInfoInterface, isDimmedAtom } from 'store'
 import Ic_badOn from '@public/bad_on.svg'
 import Ic_bad from '@public/bad.svg'
 import Ic_sosoOn from '@public/soso_on.svg'
