@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 
-import { useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useSetAtom } from 'jotai'
 
 import { mapAtom, searchInputAtom } from 'store'
@@ -33,14 +33,14 @@ const Home: NextPage = () => {
   const setMap = useSetAtom(mapAtom)
   const setInput = useSetAtom(searchInputAtom)
   const router = useRouter()
-  const mapHandler = () => {
+  const mapHandler = useCallback(() => {
     router.push('/maps')
-  }
+  }, [router.pathname])
   useEffect(() => {
     setMap(null)
     setInput('')
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router])
+  }, [router.pathname])
 
   return (
     <Wrapper>
