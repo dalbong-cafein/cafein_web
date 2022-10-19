@@ -47,7 +47,6 @@ const Search = () => {
   const [nodeLists, setNodeLists] = useState<HTMLCollection>()
   let searchIdx = -1
   const inputRef = useRef<HTMLInputElement>(null)
-
   useEffect(() => {
     setNodeLists(autoRef.current?.children as HTMLCollection)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -70,7 +69,7 @@ const Search = () => {
       window.removeEventListener('mousedown', handleClickOutside)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoRef])
+  }, [autoRef, router.pathname])
 
   const handleKeyArrow = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Backspace') {

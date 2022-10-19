@@ -33,9 +33,12 @@ const Home: NextPage = () => {
   const setMap = useSetAtom(mapAtom)
   const setInput = useSetAtom(searchInputAtom)
   const router = useRouter()
+
   const mapHandler = useCallback(() => {
     router.push('/maps')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname])
+
   useEffect(() => {
     setMap(null)
     setInput('')

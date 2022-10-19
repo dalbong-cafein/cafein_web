@@ -7,12 +7,11 @@
       "@config/*": ["config/*"],
       "@assets/*": ["assets/*"],
       "@components/*": ["components/*"],
-      "@public/*": ["public/images/*"],
-      "@types/*": ["types/*"]
+      "@public/*": ["public/images/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "typeRoots": ["./node_modules/@types", "./types"],
+    "typeRoots": ["./node_modules/@types"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -26,6 +25,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "."],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".", "./@types"],
   "exclude": ["node_modules"]
 }
