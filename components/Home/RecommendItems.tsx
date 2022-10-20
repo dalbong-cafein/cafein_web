@@ -16,6 +16,7 @@ import dong from '@public/동대문구'
 import jong from '@public/종로구'
 import gang from '@public/강남구'
 import seong from '@public/성북구'
+import customLoader from '@utils/customLoader'
 
 const RecommendItems = () => {
   const router = useRouter()
@@ -67,6 +68,7 @@ const RecommendItems = () => {
               <Image
                 src={(src_images[loc as string] as StaticImageData[])[idx]}
                 layout="fill"
+                loader={customLoader}
                 alt="기본 이미지"
                 placeholder="blur"
               />

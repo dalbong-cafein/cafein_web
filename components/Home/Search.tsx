@@ -40,7 +40,6 @@ const Search = () => {
   const [searchLists, setSearchLists] = useAtom(searchListsAtom)
   const split_inputs = useAtomValue(split_searchInputAtom)
   const router = useRouter()
-  const { search } = router.query
 
   let searchIdx = -1
   const [timer, setTimer] = useState<NodeJS.Timeout>()

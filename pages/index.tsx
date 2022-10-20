@@ -28,6 +28,7 @@ import {
 } from '../components/Home/styles/styles'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
+import customLoader from '@utils/customLoader'
 
 const Home: NextPage = () => {
   const setMap = useSetAtom(mapAtom)
@@ -97,7 +98,12 @@ const Home: NextPage = () => {
           </AddLink>
           <IcCafeinWrapper>
             <object type="image/svg+xml" data={'/images/Cafein.svg'}>
-              <Image src={'/images/Cafein.svg'} alt="카페로고" layout="fill" />
+              <Image
+                src={'/images/Cafein.svg'}
+                alt="카페로고"
+                layout="fill"
+                loader={customLoader}
+              />
             </object>
           </IcCafeinWrapper>
         </AddWrapper>

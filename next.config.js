@@ -7,7 +7,11 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['nextjs.org', 'cafein-bucket.s3.ap-northeast-2.amazonaws.com']
+    domains: [
+      'nextjs.org',
+      'cafein-bucket.s3.ap-northeast-2.amazonaws.com',
+      'cafeinofficial.com'
+    ]
   },
   async rewrites() {
     return [
