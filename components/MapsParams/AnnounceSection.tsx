@@ -1,5 +1,4 @@
 import { IcCafeinWrapper } from '@components/Home/styles/AddOnStyles'
-import customLoader from '@utils/customLoader'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
@@ -24,12 +23,7 @@ const AnnounceSection = () => {
       </AddLink2>
       <IcCafeinWrapper>
         <object type="image/svg+xml" data={'/images/Cafein.svg'}>
-          <Image
-            src={'/images/Cafein.svg'}
-            alt="카페로고"
-            layout="fill"
-            loader={customLoader}
-          />
+          <Image src={'/images/Cafein.svg'} alt="카페로고" layout="fill" />
         </object>
       </IcCafeinWrapper>
     </AddWrapper2>

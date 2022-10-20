@@ -19,7 +19,6 @@ const useTypeEng = (sggNm: string) => {
     cafein: `카페인 팀원 ${mbti[sggNm]}가\n추천하는 카페`,
     morning: '아침부터\n작업하기 좋은 카페'
   })
-  console.log('실행한다~~', 'haha')
   return [typeEng, setTypeEng]
 }
 

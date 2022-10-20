@@ -2,8 +2,8 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 
-import { useCallback, useEffect, useState } from 'react'
-import { useSetAtom } from 'jotai'
+import { useEffect } from 'react'
+import { useAtom, useSetAtom } from 'jotai'
 
 import { mapAtom, searchInputAtom } from 'store'
 
@@ -11,6 +11,7 @@ import RecommendSection from '@components/Home/RecommendSection'
 import Search from '@components/Home/Search'
 import Footer from '@components/Home/Footer'
 import Ic_Logo from '@public/logo_black.svg'
+import Ic_Cafein from '@public/Cafein.svg'
 
 import {
   NavWrapper,
@@ -28,23 +29,19 @@ import {
 } from '../components/Home/styles/styles'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
-import customLoader from '@utils/customLoader'
 
 const Home: NextPage = () => {
-  const setMap = useSetAtom(mapAtom)
+  const [map, setMap] = useAtom(mapAtom)
   const setInput = useSetAtom(searchInputAtom)
   const router = useRouter()
-
-  const mapHandler = useCallback(() => {
+  const mapHandler = () => {
     router.push('/maps')
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.pathname])
-
+  }
   useEffect(() => {
     setMap(null)
     setInput('')
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.pathname])
+  }, [router])
 
   return (
     <Wrapper>
@@ -98,12 +95,7 @@ const Home: NextPage = () => {
           </AddLink>
           <IcCafeinWrapper>
             <object type="image/svg+xml" data={'/images/Cafein.svg'}>
-              <Image
-                src={'/images/Cafein.svg'}
-                alt="카페로고"
-                layout="fill"
-                loader={customLoader}
-              />
+              <Image src={'/images/Cafein.svg'} alt="카페로고" layout="fill" />
             </object>
           </IcCafeinWrapper>
         </AddWrapper>

@@ -15,7 +15,6 @@ import madeURL from '@utils/blurDataURL'
 import Link from 'next/link'
 import { MouseEvent, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
-import customLoader from '@utils/customLoader'
 
 const NearCafeSection = ({
   store,
@@ -110,7 +109,6 @@ const NearCafeSection = ({
                           src={storeImage.imageUrl}
                           width={70}
                           height={70}
-                          loader={customLoader}
                           alt="카페 섬네일 이미지"
                           key={storeImage.imageId}
                           placeholder="blur"
@@ -124,7 +122,6 @@ const NearCafeSection = ({
                           src={temp_img}
                           width={70}
                           height={70}
-                          loader={customLoader}
                           placeholder="blur"
                           alt="기본 이미지"
                         />
@@ -133,7 +130,6 @@ const NearCafeSection = ({
                           src={temp_img}
                           width={70}
                           height={70}
-                          loader={customLoader}
                           placeholder="blur"
                           alt="기본 이미지"
                         />
@@ -142,7 +138,6 @@ const NearCafeSection = ({
                           src={temp_img}
                           width={70}
                           height={70}
-                          loader={customLoader}
                           placeholder="blur"
                           alt="기본 이미지"
                         />

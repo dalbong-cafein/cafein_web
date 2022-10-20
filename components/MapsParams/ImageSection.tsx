@@ -15,7 +15,6 @@ import {
 } from './styles/styles'
 import madeURL from 'utils/blurDataURL'
 import preventDefault from '@utils/preventDefault'
-import customLoader from '@utils/customLoader'
 
 const ImageSection = ({ store }: { store: CafeInfoInterface }) => {
   const setMore = useSetAtom(moreAtom)
@@ -35,7 +34,6 @@ const ImageSection = ({ store }: { store: CafeInfoInterface }) => {
                 src={imgData.imageUrl}
                 alt="카페 사진"
                 key={store.storeId + idx}
-                loader={customLoader}
                 width={392}
                 height={284}
                 placeholder="blur"
@@ -54,7 +52,6 @@ const ImageSection = ({ store }: { store: CafeInfoInterface }) => {
               src={imgData.imageUrl}
               alt="카페 사진"
               key={idx}
-              loader={customLoader}
               width={392}
               height={284}
               placeholder="blur"
@@ -74,7 +71,6 @@ const ImageSection = ({ store }: { store: CafeInfoInterface }) => {
             src={imgData.imageUrl}
             alt="카페 사진"
             key={idx}
-            loader={customLoader}
             width={392}
             height={284}
             placeholder="blur"

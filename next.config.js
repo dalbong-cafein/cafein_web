@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { withImageLoader } = require('next-image-loader')
+
 const nextConfig = {
   compiler: {
     styledComponents: true
@@ -8,10 +11,10 @@ const nextConfig = {
   swcMinify: true,
   images: {
     domains: [
-      'nextjs.org',
-      'cafein-bucket.s3.ap-northeast-2.amazonaws.com',
-      'cafeinofficial.com'
-    ]
+      // 'cafein-bucket.s3.ap-northeast-2.amazonaws.com',
+    ],
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"
   },
   async rewrites() {
     return [
@@ -51,4 +54,4 @@ const nextConfig = {
   }
 }
 
-module.exports = nextConfig
+module.exports = withImageLoader(nextConfig)

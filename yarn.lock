@@ -1404,6 +1404,11 @@
     "@typescript-eslint/types" "5.30.7"
     "eslint-visitor-keys" "^3.3.0"
 
+"@uploadcare/nextjs-loader@^0.4.0":
+  "integrity" "sha512-Gaig03UBtZmBa0/RGQPyvTu/GW/UFFT0Ah7ZUq9BulFKd4O+Tqu50GDRovVElHmgnzNuv76nt/elmwhNm9haKA=="
+  "resolved" "https://registry.npmjs.org/@uploadcare/nextjs-loader/-/nextjs-loader-0.4.0.tgz"
+  "version" "0.4.0"
+
 "acorn-jsx@^5.3.2":
   "integrity" "sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ=="
   "resolved" "https://registry.npmjs.org/acorn-jsx/-/acorn-jsx-5.3.2.tgz"
@@ -3032,6 +3037,11 @@
   "integrity" "sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw=="
   "resolved" "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz"
   "version" "1.4.0"
+
+"next-image-loader@^2.2.0":
+  "integrity" "sha512-czQ0aYzmxfWoJW7kKW0DKy3qDiYBibxjsbrqIromZda6+bFzh7wN5FmCDqblHe0ZXqF8/AStfGcJI+01wsdrMA=="
+  "resolved" "https://registry.npmjs.org/next-image-loader/-/next-image-loader-2.2.0.tgz"
+  "version" "2.2.0"
 
 "next@^12.2.5":
   "integrity" "sha512-tBdjqX5XC/oFs/6gxrZhjmiq90YWizUYU6qOWAfat7zJwrwapJ+BYgX2PmiacunXMaRpeVT4vz5MSPSLgNkrpA=="

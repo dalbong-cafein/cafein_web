@@ -23,7 +23,6 @@ import madeURL from '@utils/blurDataURL'
 import useWindowSize from 'hooks/useWindowSize'
 import preventDefault from '@utils/preventDefault'
 import { DimmedDetailImageWrapper } from '@components/common/Common'
-import customLoader from '@utils/customLoader'
 
 interface IDetailImageSection {
   isSingle: boolean
@@ -95,7 +94,7 @@ const DetailImageSection = ({ isSingle }: IDetailImageSection) => {
                     src={`${img.imageUrl}`}
                     width={480}
                     height={480}
-                    loader={customLoader}
+                    // layout={'responsive'}
                     alt={'카페 사진'}
                     placeholder="blur"
                     blurDataURL={madeURL(480, 480)}
@@ -121,10 +120,11 @@ const DetailImageSection = ({ isSingle }: IDetailImageSection) => {
                           src={storeImage.imageUrl}
                           width={100}
                           height={100}
-                          loader={customLoader}
+                          // layout={'responsive'}
                           alt={'카페 이미지'}
                           placeholder="blur"
                           blurDataURL={madeURL(100, 100)}
+                          // unoptimized={true}
                           onClick={() => {
                             setImageId(idx)
                             slideRef.current?.scrollTo(idx * 110, 0)
