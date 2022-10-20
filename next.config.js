@@ -12,6 +12,7 @@ const nextConfig = {
   images: {
     domains: [
       // 'cafein-bucket.s3.ap-northeast-2.amazonaws.com',
+      '65a421068abcad9d7994.ucr.io/'
     ],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"
