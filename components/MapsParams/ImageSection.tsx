@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React, { MouseEvent } from 'react'
+import React, { MouseEvent, useCallback } from 'react'
 
 import { useSetAtom } from 'jotai'
 import { CafeInfoInterface, moreAtom } from 'store'
@@ -18,12 +18,13 @@ import preventDefault from '@utils/preventDefault'
 
 const ImageSection = ({ store }: { store: CafeInfoInterface }) => {
   const setMore = useSetAtom(moreAtom)
-  const onMoreHandler = (
-    e: MouseEvent<HTMLAnchorElement> | MouseEvent<HTMLImageElement>
-  ) => {
-    e.preventDefault()
-    setMore(true)
-  }
+  const onMoreHandler = useCallback(
+    (e: MouseEvent<HTMLAnchorElement> | MouseEvent<HTMLImageElement>) => {
+      e.preventDefault()
+      setMore(true)
+    },
+    [store]
+  )
   return store.storeImageList.length >= 3 ? (
     <ImageWrappers onContextMenu={preventDefault}>
       {store.storeImageList.slice(0, 3).map((imgData, idx) =>
