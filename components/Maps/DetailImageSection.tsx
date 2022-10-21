@@ -17,7 +17,7 @@ import Ic_water from '@public/water.svg'
 import Image, { ImageProps } from 'next/image'
 import { useAtom, useAtomValue } from 'jotai'
 import { cafeInfoAtom, ImageListInterface, moreAtom } from 'store'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import madeURL from '@utils/blurDataURL'
 import useWindowSize from 'hooks/useWindowSize'
@@ -34,47 +34,30 @@ const DetailImageSection = ({ isSingle }: IDetailImageSection) => {
   const router = useRouter()
   const slideRef = useRef<HTMLDivElement>(null)
   const store = useAtomValue(cafeInfoAtom)
-  const imageLists = []
   const { width, height } = useWindowSize()
   useEffect(() => {
     setMore(false)
     return () => setImageId(0)
   }, [router])
 
-  // useEffect(() => {
-  //   const config = {
-  //     width: 480,
-  //     height: 480,
-  //     alt: '카페 사진',
-  //     placeholder: 'blur',
-  //     blurDataURL: madeURL(480, 480)
-  //   }
-  //   if (store?.storeImageList) {
-  //     store.storeImageList.forEach((img) => {
-  //       // const img_config = { ...config, src: img.imageUrl }
-  //       const image = new Image()
-  //       image.src = img.imageUrl
-  //     })
-  //   }
-  // }, [store])
-
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     setMore(false)
     setImageId(0)
-  }
+  }, [router])
 
-  const handleRight = () => {
+  const handleRight = useCallback(() => {
     if (imageId < (store?.storeImageList as ImageListInterface[]).length - 1) {
       setImageId((cur) => cur + 1)
       slideRef.current?.scrollBy({ left: 100 })
     }
-  }
-  const handleLeft = () => {
+  }, [router])
+
+  const handleLeft = useCallback(() => {
     if (imageId > 0) {
       setImageId((cur) => cur - 1)
       slideRef.current?.scrollBy({ left: -100 })
     }
-  }
+  }, [router])
   return (
     <>
       {more && store?.storeImageList && store?.storeImageList.length > 0 ? (
