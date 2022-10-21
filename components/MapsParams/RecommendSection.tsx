@@ -1,9 +1,7 @@
 import {
   Dispatch,
   MouseEvent,
-  RefObject,
   SetStateAction,
-  useCallback,
   useEffect,
   useRef,
   useState
@@ -11,7 +9,7 @@ import {
 
 import axios from 'axios'
 
-import { CafeInfoInterface, isDimmedAtom } from 'store'
+import { CafeInfoInterface } from 'store'
 import Ic_badOn from '@public/bad_on.svg'
 import Ic_bad from '@public/bad.svg'
 import Ic_sosoOn from '@public/soso_on.svg'
@@ -34,7 +32,6 @@ import {
 } from './styles/styles'
 import { useRouter } from 'next/router'
 import { useSWRConfig } from 'swr'
-import { useSetAtom } from 'jotai'
 import useSyncState from 'hooks/useSyncState'
 
 const RecommendSection = ({
@@ -68,7 +65,6 @@ const RecommendSection = ({
   }
 
   const mouseEnterHandler = (e: MouseEvent<HTMLDivElement>): void => {
-    console.log('enter')
     setIsHover(Number(e.currentTarget.dataset.hoverid) as 1 | 2 | 3)
   }
 
@@ -85,7 +81,8 @@ const RecommendSection = ({
         el.removeEventListener('mouseleave', mouseLeaveHandler as EventListener)
       }
     }
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wrapper])
 
   const getRecommendation = async () => {
     try {
