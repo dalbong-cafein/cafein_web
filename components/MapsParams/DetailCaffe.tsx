@@ -9,8 +9,7 @@ import {
   cafeInfoAtom,
   CafeInfoInterface,
   CafeRewviewPointInterface,
-  INearCafe,
-  mapMarkerList
+  INearCafe
 } from 'store'
 import CafePointsSection from '@components/MapsParams/CafePointsSection'
 import CongestionSection from '@components/MapsParams/CongestionSection'
@@ -40,7 +39,6 @@ const DetailCafe = ({ storeId }: DetailCafeProps) => {
   const WrapperRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
   const [cafeInfo, setCafeInfo] = useAtom(cafeInfoAtom)
-  const [markers, setMarkers] = useAtom(mapMarkerList)
 
   const { data: store } = useSWR<CafeInfoInterface>(
     `stores/${storeId}`,
