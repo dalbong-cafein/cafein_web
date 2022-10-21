@@ -5,15 +5,13 @@ import { CafeInfoWrapper } from './styles/CafeInfoSectionStyle'
 import { PercentBadge, WrapperTitle } from './styles/CafePointsSectionStyle'
 
 import Ic_navigation from '@public/navigation.svg'
-import Ic_heart from '@public/heart.svg'
-import Ic_like from '@public/ddabong.svg'
 import Ic_left_arrow_off from '@public/left_arrow_off.svg'
 import Ic_right_arrow_off from '@public/right_arrow_off.svg'
 import temp_img from '@public/no_img.png'
 import { CafeInfoInterface, INearCafe } from 'store'
 import madeURL from '@utils/blurDataURL'
 import Link from 'next/link'
-import { MouseEvent, useEffect, useRef, useState } from 'react'
+import { MouseEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 
 const NearCafeSection = ({
@@ -32,23 +30,7 @@ const NearCafeSection = ({
     scrollRef.current?.scrollTo(0, 0)
   }, [store])
 
-  const onClickRight = () => {
-    handleScroll()
-    scrollRef.current?.scrollBy({ left: 250, behavior: 'smooth' })
-  }
-  const onClickLeft = () => {
-    handleScroll()
-    scrollRef.current?.scrollBy({ left: -250, behavior: 'smooth' })
-  }
-
-  const debounceScroll = () => {
-    if (timer) {
-      clearTimeout(timer)
-    }
-    timer = setTimeout(handleScroll, 100)
-  }
-
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     if (
       (scrollRef.current as HTMLUListElement).scrollLeft + 450 >
       (scrollRef.current as HTMLUListElement).scrollWidth
@@ -59,6 +41,22 @@ const NearCafeSection = ({
     } else {
       setCurScrollId(1)
     }
+  }, [scrollRef])
+
+  const onClickRight = useCallback(() => {
+    handleScroll()
+    scrollRef.current?.scrollBy({ left: 250, behavior: 'smooth' })
+  }, [handleScroll])
+  const onClickLeft = useCallback(() => {
+    handleScroll()
+    scrollRef.current?.scrollBy({ left: -250, behavior: 'smooth' })
+  }, [handleScroll])
+
+  const debounceScroll = () => {
+    if (timer) {
+      clearTimeout(timer)
+    }
+    timer = setTimeout(handleScroll, 100)
   }
 
   const handleNearCafe = (
