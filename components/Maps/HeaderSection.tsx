@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 
 import { useAtom } from 'jotai'
 import { sortModeAtom } from 'store'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 
 import Search from '@components/Home/Search'
 import Ic_Logo from '@public/logo_black.svg'
@@ -24,12 +24,15 @@ const HeaderSection = ({ hasFilter }: { hasFilter: boolean }) => {
     setSortMode(0)
   }, [search])
 
-  const handleSortMode = (mode: 0 | 1 | 2 | 3) => {
-    if (sortMode !== mode) {
-      return setSortMode(mode)
-    }
-    setSortMode(0)
-  }
+  const handleSortMode = useCallback(
+    (mode: 0 | 1 | 2 | 3) => {
+      if (sortMode !== mode) {
+        return setSortMode(mode)
+      }
+      setSortMode(0)
+    },
+    [sortMode]
+  )
   return (
     <Wrapper>
       <HeaderWrapper>

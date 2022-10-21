@@ -43,21 +43,21 @@ const DetailImageSection = ({ isSingle }: IDetailImageSection) => {
   const handleClick = useCallback(() => {
     setMore(false)
     setImageId(0)
-  }, [router])
+  }, [more])
 
   const handleRight = useCallback(() => {
     if (imageId < (store?.storeImageList as ImageListInterface[]).length - 1) {
       setImageId((cur) => cur + 1)
       slideRef.current?.scrollBy({ left: 100 })
     }
-  }, [router])
+  }, [imageId])
 
   const handleLeft = useCallback(() => {
     if (imageId > 0) {
       setImageId((cur) => cur - 1)
       slideRef.current?.scrollBy({ left: -100 })
     }
-  }, [router])
+  }, [imageId])
   return (
     <>
       {more && store?.storeImageList && store?.storeImageList.length > 0 ? (
