@@ -21,7 +21,9 @@ export const getIsRunning = (
       const [op_hour, op_min] = (open as string)
         .split(':')
         .map((t) => Number(t))
-      if (op_hour >= cur_hour && op_min >= cur_min) {
+      const op_time = op_hour * 60 + op_min
+      const cur_time = cur_hour * 60 + cur_min
+      if (op_time >= cur_time) {
         return [isOpen, getHours(open as string)]
       }
       if (tmrOpen) {
