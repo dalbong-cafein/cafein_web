@@ -1,6 +1,6 @@
 import { QItem } from '@components/Home/styles/FooterStyles'
 
-const useFirstLine = () => {
+const FirstLine = () => {
   return (
     <>
       <QItem>
@@ -25,4 +25,4 @@ const useFirstLine = () => {
   )
 }
 
-export default useFirstLine
+export default FirstLine

@@ -1,5 +1,5 @@
-import useFirstLine from 'hooks/useFirstLine'
-import useSecondLine from 'hooks/useSecondLine'
+import FirstLine from '@components/MapsParams/FirstLine'
+import SecondLine from '@components/MapsParams/SecondLine'
 import useWindowSize from 'hooks/useWindowSize'
 import Link from 'next/link'
 
@@ -16,8 +16,6 @@ interface IFooterProps {
 
 const Footer = ({ isHome }: IFooterProps) => {
   const windowSize = useWindowSize()
-  const firstLine = useFirstLine()
-  const secondLine = useSecondLine()
   return windowSize.width ? (
     <FooterWrapper isHome={isHome}>
       <FooterQLists isTop={true}>
@@ -36,13 +34,17 @@ const Footer = ({ isHome }: IFooterProps) => {
       </FooterQLists>
       {windowSize.width <= 900 ? (
         <>
-          <FooterQLists>{firstLine}</FooterQLists>
-          <FooterQLists>{secondLine}</FooterQLists>
+          <FooterQLists>
+            <FirstLine />
+          </FooterQLists>
+          <FooterQLists>
+            <SecondLine />
+          </FooterQLists>
         </>
       ) : (
         <FooterQLists>
-          {firstLine}
-          {secondLine}
+          <FirstLine />
+          <SecondLine />
         </FooterQLists>
       )}
       <CopyRight>COPYRIGHT © 2022 cafein ALL RIGHTS RESERVED.</CopyRight>
